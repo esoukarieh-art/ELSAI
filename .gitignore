@@ -1,0 +1,22 @@
+.claude/
+.DS_Store
+Thumbs.db
+*.log
+
+# Dépendances
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build
+.next/
+dist/
+build/
+
+# Env
+.env
+.env.local
+*.sqlite
+*.db

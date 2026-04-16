@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELSAI — Architecture des Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: #1a1a2e; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, #1a3c6e 0%, #2e75b6 100%); color: white; padding: 40px 20px; text-align: center; }
+  .header h1 { font-size: 2.4em; font-weight: 700; letter-spacing: 2px; margin-bottom: 8px; }
+  .header p { font-size: 1.1em; opacity: 0.85; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* === FLOW SECTION === */
+  .flow-section { margin-bottom: 50px; }
+  .flow-section h2 { font-size: 1.5em; color: #1a3c6e; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 3px solid #2e75b6; display: inline-block; }
+
+  /* === ENTRY POINT === */
+  .entry-point {
+    background: linear-gradient(135deg, #1a3c6e, #2e75b6);
+    color: white; border-radius: 16px; padding: 28px 32px;
+    text-align: center; max-width: 500px; margin: 0 auto 12px;
+    box-shadow: 0 6px 24px rgba(26,60,110,0.25);
+  }
+  .entry-point .label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; margin-bottom: 6px; }
+  .entry-point .name { font-size: 1.4em; font-weight: 700; margin-bottom: 4px; }
+  .entry-point .desc { font-size: 0.9em; opacity: 0.85; }
+
+  /* === ARROW === */
+  .arrow { text-align: center; padding: 8px 0; }
+  .arrow svg { width: 40px; height: 40px; }
+  .arrow-split { display: flex; justify-content: center; align-items: flex-start; gap: 0; padding: 8px 0; position: relative; }
+
+  /* === CLASSIFIER === */
+  .classifier-box {
+    background: white; border: 3px solid #f59e0b; border-radius: 16px;
+    padding: 24px 28px; max-width: 600px; margin: 0 auto 12px;
+    box-shadow: 0 4px 16px rgba(245,158,11,0.15);
+  }
+  .classifier-box .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 2px; color: #f59e0b; font-weight: 700; margin-bottom: 4px; }
+  .classifier-box .name { font-size: 1.2em; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+  .classifier-box .outputs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .classifier-box .output-tag {
+    background: #fef3c7; color: #92400e; padding: 4px 12px;
+    border-radius: 20px; font-size: 0.78em; font-weight: 600;
+  }
+
+  /* === EMOTION (parallel) === */
+  .emotion-box {
+    background: white; border: 3px dashed #8b5cf6; border-radius: 16px;
+    padding: 20px 24px; max-width: 280px; margin: 0 auto 12px;
+    box-shadow: 0 4px 16px rgba(139,92,246,0.12);
+    position: relative;
+  }
+  .emotion-box .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 2px; color: #8b5cf6; font-weight: 700; margin-bottom: 4px; }
+  .emotion-box .name { font-size: 1em; font-weight: 700; color: #5b21b6; margin-bottom: 6px; }
+  .emotion-box .desc { font-size: 0.82em; color: #666; }
+  .parallel-badge {
+    position: absolute; top: -10px; right: 12px;
+    background: #8b5cf6; color: white; font-size: 0.65em;
+    padding: 2px 10px; border-radius: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* === DUAL COLUMNS (classifier + emotion side by side) === */
+  .dual-row {
+    display: flex; justify-content: center; align-items: stretch; gap: 24px;
+    flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .dual-row .classifier-box { flex: 1; max-width: 560px; margin: 0; }
+  .dual-row .emotion-box { flex: 0 0 280px; margin: 0; }
+
+  /* === BRANCH GRID === */
+  .branch-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-top: 12px; margin-bottom: 12px;
+  }
+
+  .branch-card {
+    background: white; border-radius: 14px; padding: 22px 20px;
+    border-left: 5px solid #ccc; box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s; cursor: default;
+  }
+  .branch-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+
+  .branch-card .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .branch-card .card-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1em; color: white; flex-shrink: 0; }
+  .branch-card .card-title { font-weight: 700; font-size: 0.95em; }
+  .branch-card .card-trigger { font-size: 0.75em; color: #888; margin-bottom: 8px; font-style: italic; }
+  .branch-card .card-desc { font-size: 0.82em; color: #555; line-height: 1.5; }
+  .branch-card .card-level { display: inline-block; margin-top: 10px; font-size: 0.7em; font-weight: 700; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Card colors */
+  .card-admin { border-left-color: #2e75b6; }
+  .card-admin .card-icon { background: #2e75b6; }
+  .card-admin .card-level { background: #dbeafe; color: #1e40af; }
+
+  .card-doc { border-left-color: #059669; }
+  .card-doc .card-icon { background: #059669; }
+  .card-doc .card-level { background: #d1fae5; color: #065f46; }
+
+  .card-sep { border-left-color: #d97706; }
+  .card-sep .card-icon { background: #d97706; }
+  .card-sep .card-level { background: #fef3c7; color: #92400e; }
+
+  .card-child { border-left-color: #dc2626; }
+  .card-child .card-icon { background: #dc2626; }
+  .card-child .card-level { background: #fee2e2; color: #991b1b; }
+
+  /* === OUTPUT === */
+  .output-section { margin-top: 12px; }
+  .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .output-card {
+    background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+    border: 2px solid #86efac; border-radius: 14px; padding: 20px;
+    text-align: center;
+  }
+  .output-card .out-icon { font-size: 2em; margin-bottom: 8px; }
+  .output-card .out-title { font-weight: 700; font-size: 0.95em; color: #065f46; margin-bottom: 4px; }
+  .output-card .out-desc { font-size: 0.8em; color: #555; }
+
+  /* === DANGER SCALE === */
+  .danger-scale {
+    background: white; border-radius: 14px; padding: 24px; margin: 24px auto;
+    max-width: 700px; box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  }
+  .danger-scale h3 { font-size: 1em; margin-bottom: 14px; color: #1a3c6e; }
+  .scale-bar { display: flex; border-radius: 10px; overflow: hidden; height: 36px; margin-bottom: 10px; }
+  .scale-segment { display: flex; align-items: center; justify-content: center; font-size: 0.72em; font-weight: 700; color: white; }
+  .seg-safe { background: #22c55e; flex: 3; }
+  .seg-attention { background: #f59e0b; flex: 3; }
+  .seg-concern { background: #f97316; flex: 2; }
+  .seg-urgent { background: #dc2626; flex: 2; }
+  .scale-labels { display: flex; font-size: 0.72em; color: #888; }
+  .scale-labels span { flex: 1; text-align: center; }
+
+  /* === LEGEND === */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; padding: 20px; background: white; border-radius: 14px; box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82em; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .dual-row { flex-direction: column; align-items: center; }
+    .dual-row .emotion-box { flex: 1 1 auto; max-width: 100%; }
+    .branch-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ELSAI</h1>
+  <p>Architecture de la cha&icirc;ne de prompts d'analyse de situations</p>
+</div>
+
+<div class="container">
+
+  <!-- PHASE 1 : ENTREE -->
+  <div class="flow-section">
+    <h2>Phase 1 &mdash; Accueil</h2>
+
+    <div class="entry-point">
+      <div class="label">Prompt #1</div>
+      <div class="name">ELSAI_SYSTEM_CORE</div>
+      <div class="desc">D&eacute;finit l'identit&eacute;, la posture et les r&egrave;gles fondamentales de l'IA.<br>Empathie &bull; Franchise bienveillante &bull; Non-jugement &bull; Responsabilisation</div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 40 40"><path d="M20 8 L20 28 M12 22 L20 30 L28 22" stroke="#2e75b6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div style="text-align:center; padding: 12px 0;">
+      <span style="background:#e0e7ff; color:#3730a3; padding:8px 20px; border-radius:24px; font-size:0.9em; font-weight:600;">L'utilisateur envoie un message (texte ou voix)</span>
+    </div>
+  </div>
+
+  <!-- PHASE 2 : ANALYSE -->
+  <div class="flow-section">
+    <h2>Phase 2 &mdash; Analyse en temps r&eacute;el</h2>
+
+    <div class="arrow">
+      <svg viewBox="0 0 40 40"><path d="M20 8 L20 28 M12 22 L20 30 L28 22" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="dual-row">
+      <div class="classifier-box">
+        <div class="label">Prompt #2 &mdash; Chaque message</div>
+        <div class="name">ELSAI_INTENT_CLASSIFIER</div>
+        <p style="font-size:0.85em; color:#666; margin-bottom:10px;">Analyse automatique et invisible. Retourne un JSON de triage.</p>
+        <div class="outputs">
+          <span class="output-tag">cat&eacute;gorie</span>
+          <span class="output-tag">sous_cat&eacute;gorie</span>
+          <span class="output-tag">score_danger</span>
+          <span class="output-tag">&eacute;motion</span>
+          <span class="output-tag">niveau_triage</span>
+          <span class="output-tag">public</span>
+        </div>
+      </div>
+      <div class="emotion-box">
+        <span class="parallel-badge">Parall&egrave;le</span>
+        <div class="label">Prompt #7</div>
+        <div class="name">ELSAI_EMOTION_ADAPTER</div>
+        <div class="desc">Adapte le ton, la longueur et le rythme selon l'&eacute;tat &eacute;motionnel d&eacute;tect&eacute; (d&eacute;couragement, col&egrave;re, peur, d&eacute;tresse).</div>
+      </div>
+    </div>
+
+    <!-- Danger Scale -->
+    <div class="danger-scale">
+      <h3>Score de danger &mdash; Seuils de d&eacute;clenchement</h3>
+      <div class="scale-bar">
+        <div class="scale-segment seg-safe">0.0 &ndash; 0.3</div>
+        <div class="scale-segment seg-attention">0.3 &ndash; 0.6</div>
+        <div class="scale-segment seg-concern">0.6 &ndash; 0.8</div>
+        <div class="scale-segment seg-urgent">0.8 &ndash; 1.0</div>
+      </div>
+      <div class="scale-labels">
+        <span>Conversation s&ucirc;re</span>
+        <span>Attention</span>
+        <span>Pr&eacute;occupant</span>
+        <span>Urgence</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 : ROUTAGE -->
+  <div class="flow-section">
+    <h2>Phase 3 &mdash; Routage vers le prompt sp&eacute;cialis&eacute;</h2>
+
+    <div class="arrow">
+      <svg viewBox="0 0 40 40"><path d="M20 8 L20 28 M12 22 L20 30 L28 22" stroke="#2e75b6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="branch-grid">
+      <!-- Admin -->
+      <div class="branch-card card-admin">
+        <div class="card-header">
+          <div class="card-icon">&#128196;</div>
+          <div class="card-title">ELSAI_ADMIN_ANALYSIS</div>
+        </div>
+        <div class="card-trigger">cat&eacute;gorie = administratif &bull; public = majeur</div>
+        <div class="card-desc">
+          Analyse en 5 &eacute;tapes : valider l'&eacute;motion, identifier le probl&egrave;me, vulgariser, proposer des options, orienter si n&eacute;cessaire.<br><br>
+          <em>Ex : indu CAF, courrier CPAM, facture &eacute;nergie</em>
+        </div>
+        <span class="card-level">Niveau 1-2</span>
+      </div>
+
+      <!-- Doc Scanner -->
+      <div class="branch-card card-doc">
+        <div class="card-header">
+          <div class="card-icon">&#128247;</div>
+          <div class="card-title">ELSAI_DOC_SCANNER</div>
+        </div>
+        <div class="card-trigger">upload de photo / document</div>
+        <div class="card-desc">
+          OCR + interpr&eacute;tation IA : identifie le type de document, r&eacute;sume en langage simple, liste les actions requises, d&eacute;tecte les urgences.<br><br>
+          <em>Ex : facture, contrat, mise en demeure</em>
+        </div>
+        <span class="card-level">Niveau 1</span>
+      </div>
+
+      <!-- S&eacute;paration -->
+      <div class="branch-card card-sep">
+        <div class="card-header">
+          <div class="card-icon">&#128107;</div>
+          <div class="card-title">ELSAI_SEPARATION_ANALYSIS</div>
+        </div>
+        <div class="card-trigger">sous_cat&eacute;gorie = s&eacute;paration / divorce</div>
+        <div class="card-desc">
+          V&eacute;rifie l'urgence, structure en 3 axes (logement, enfants, droits sociaux), reconna&icirc;t ses limites, g&eacute;n&egrave;re une synth&egrave;se PDF.<br><br>
+          <em>Ex : garde, pension, logement, droits</em>
+        </div>
+        <span class="card-level">Niveau 2</span>
+      </div>
+
+      <!-- Protection enfance -->
+      <div class="branch-card card-child">
+        <div class="card-header">
+          <div class="card-icon">&#128721;</div>
+          <div class="card-title">ELSAI_CHILD_PROTECTION</div>
+        </div>
+        <div class="card-trigger">public = mineur ET score_danger &ge; 0.6</div>
+        <div class="card-desc">
+          Protocole de seuil de rupture : valider, nommer, v&eacute;rifier la s&eacute;curit&eacute;, limiter les &eacute;changes, relais 119, aider &agrave; formuler.<br><br>
+          <em>Ex : violences, harc&egrave;lement, maltraitance</em>
+        </div>
+        <span class="card-level">Niveau 3 &mdash; Urgence</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 : SORTIE -->
+  <div class="flow-section">
+    <h2>Phase 4 &mdash; Sorties possibles</h2>
+
+    <div class="arrow">
+      <svg viewBox="0 0 40 40"><path d="M20 8 L20 28 M12 22 L20 30 L28 22" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="output-grid">
+      <div class="output-card">
+        <div class="out-icon">&#128172;</div>
+        <div class="out-title">R&eacute;ponse conversationnelle</div>
+        <div class="out-desc">Conseil imm&eacute;diat en langage simple, adapt&eacute; au ton d&eacute;tect&eacute;</div>
+      </div>
+      <div class="output-card">
+        <div class="out-icon">&#128206;</div>
+        <div class="out-title">Synth&egrave;se PDF</div>
+        <div class="out-desc">Prompt #8 &mdash; SUMMARY_GENERATOR<br>Document anonymis&eacute; pour le professionnel</div>
+      </div>
+      <div class="output-card">
+        <div class="out-icon">&#128205;</div>
+        <div class="out-title">Orientation g&eacute;olocalis&eacute;e</div>
+        <div class="out-desc">CCAS, France Services, CIDFF, Point d'Acc&egrave;s au Droit les plus proches</div>
+      </div>
+      <div class="output-card">
+        <div class="out-icon">&#128680;</div>
+        <div class="out-title">Alerte protection</div>
+        <div class="out-desc">119 en plein &eacute;cran, bouton d'appel direct, MDA la plus proche</div>
+      </div>
+      <div class="output-card">
+        <div class="out-icon">&#128196;</div>
+        <div class="out-title">Courrier type</div>
+        <div class="out-desc">Lettre de contestation, demande de d&eacute;lai, r&eacute;siliation g&eacute;n&eacute;r&eacute;e en PDF</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#1a3c6e;"></div> System Prompt (permanent)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Classifier (chaque message)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6; border: 2px dashed #8b5cf6;"></div> Adaptation &eacute;motionnelle (parall&egrave;le)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2e75b6;"></div> Administratif (Niv. 1-2)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#059669;"></div> Documents / OCR (Niv. 1)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div> S&eacute;paration (Niv. 2)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div> Protection enfance (Niv. 3)</div>
+  </div>
+
+</div>
+
+</body>
+</html>
