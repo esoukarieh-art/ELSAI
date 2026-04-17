@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { ForgetButton } from "@/components/ForgetButton";
 import { analyzeDocument, type DocumentAnalyzeResponse } from "@/lib/api";
 
 export default function ScanPage() {
@@ -36,7 +37,10 @@ export default function ScanPage() {
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
           <span>← ELSAI</span>
         </Link>
-        <span className="text-elsai-ink/70 text-sm">Analyse de document</span>
+        <div className="text-elsai-ink/70 flex items-center gap-4 text-sm">
+          <span>Analyse de document</span>
+          <ForgetButton />
+        </div>
       </header>
 
       <div className="mx-auto max-w-2xl p-6">

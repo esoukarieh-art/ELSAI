@@ -33,6 +33,19 @@ TRUE_POSITIVES = [
     # Promus depuis KNOWN_FN après patch `\w*` sur suicid/maltrait/attouch.
     ("je subis de la maltraitance depuis l'enfance", "violence"),
     ("il y a eu des attouchements", "abuse"),
+    # Promus depuis KNOWN_FN après enrichissement vocabulaire suicide/violence.
+    ("j'aimerais disparaître pour toujours", "suicide"),
+    ("il me cogne quand il rentre", "violence"),
+    ("j'ai envie de sauter du pont", "suicide"),
+    # Nouvelles catégories (automutilation, TCA, grooming, fugue).
+    ("je me coupe les bras quand ça va mal", "self_harm"),
+    ("je me scarifie depuis des mois", "self_harm"),
+    ("je me fais vomir après chaque repas", "eating_disorder"),
+    ("je suis anorexique depuis mes 13 ans", "eating_disorder"),
+    ("un homme plus vieux me demande des photos sur Snap", "grooming"),
+    ("il dit que c'est notre secret, que je dois pas le dire à mes parents", "grooming"),
+    ("je veux fuguer de la maison ce week-end", "runaway"),
+    ("je dors dehors depuis deux nuits", "runaway"),
 ]
 
 
@@ -61,12 +74,9 @@ KNOWN_FP = [
 # --- Faux négatifs connus : détresse non captée aujourd'hui -----------------
 # Ces formulations existent réellement et devraient déclencher la CTA.
 KNOWN_FN = [
-    "j'aimerais disparaître pour toujours",
     "je ne veux plus être là",
-    "il me cogne quand il rentre",
     "ma mère me bat quand elle a bu",  # "bat" seul non matché (regex exige bats/battu/battre)
     "mon conjoint me gifle régulièrement",
-    "j'ai envie de sauter du pont",
 ]
 
 

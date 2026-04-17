@@ -129,7 +129,13 @@ Upload d'une image de document administratif → OCR + explication.
 
 ### `GET /api/dashboard/metrics`
 
-Métriques agrégées et anonymes.
+Métriques agrégées et anonymes. **Accès restreint** : header
+`X-Admin-Token: <token>` obligatoire, valeur comparée à la variable
+d'environnement `ADMIN_TOKEN` côté serveur.
+
+**Réponses d'erreur**
+- `401` — token invalide ou manquant
+- `503` — `ADMIN_TOKEN` non configuré côté serveur (dashboard désactivé)
 
 **Réponse 200**
 ```json

@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import ChatBubble from "@/components/ChatBubble";
 import EmergencyBanner from "@/components/EmergencyBanner";
 import VoiceRecorder from "@/components/VoiceRecorder";
-import { forgetMe, getProfile, sendMessage, synthesizeSpeech } from "@/lib/api";
+import { ForgetButton } from "@/components/ForgetButton";
+import { getProfile, sendMessage, synthesizeSpeech } from "@/lib/api";
 
 interface Msg {
   role: "user" | "assistant";
@@ -82,14 +83,6 @@ export default function ChatPage() {
     sendText(text);
   }
 
-  async function handleForget() {
-    if (!confirm("Supprimer toute la conversation ? Cette action est définitive.")) return;
-    await forgetMe();
-    setMessages([]);
-    setConversationId(undefined);
-    location.href = "/";
-  }
-
   const placeholder =
     profile === "minor" ? "Posez votre question librement…" : "Décrivez votre situation…";
   const intro =
@@ -121,13 +114,7 @@ export default function ChatPage() {
           <Link href="/scan" className="hover:text-elsai-pin transition-colors">
             Scanner un document
           </Link>
-          <button
-            onClick={handleForget}
-            className="hover:text-elsai-urgence transition-colors"
-            aria-label="Droit à l'oubli"
-          >
-            Tout oublier
-          </button>
+          <ForgetButton />
         </div>
       </header>
 

@@ -35,8 +35,12 @@ Le choix du profil (`adult` / `minor`) crée une **session anonyme** via
 
 1. Le texte est scanné par `services/safety.py` (regex de détection)
 2. Claude répond avec le **system prompt approprié au profil**
-3. En mode mineur, la réponse est parsée pour extraire d'éventuels
-   marqueurs `<danger>` / `<cta>` ajoutés par le modèle
+3. En mode mineur, la réponse est parsée comme **JSON strict** si elle
+   commence par `{` — Claude est contraint par son system prompt à
+   répondre uniquement sous la forme
+   `{"danger": true, "message": "...", "emergency_cta": {"label": "...", "phone": "..."}}`
+   lorsqu'il détecte un danger. Toute autre réponse est traitée comme
+   message conversationnel libre.
 4. Si un signal de danger est détecté (heuristique ou LLM), un
    **bandeau d'urgence plein écran** apparaît avec le numéro adapté :
    - Mineur → 119 (Allô Enfance en Danger)
@@ -97,11 +101,15 @@ du produit.
 Le risque de rater un signal de détresse est inacceptable. Donc :
 
 1. **Couche heuristique** (`services/safety.py`) — regex sur mots-clés
-   (suicide, violence, abus, harcèlement). Filet de sécurité qui ne
-   dépend d'aucun appel réseau.
-2. **Couche LLM** (prompt mineur) — Claude reçoit pour consigne d'émettre
-   des tags `<danger>` et `<cta>` s'il perçoit un signal que l'heuristique
-   aurait manqué.
+   (suicide, violence, abus, harcèlement, automutilation, troubles
+   alimentaires, grooming, fugue). Filet de sécurité qui ne dépend
+   d'aucun appel réseau.
+2. **Couche LLM** (prompt mineur) — Claude reçoit pour consigne de
+   répondre **exclusivement en JSON** avec le contrat
+   `{"danger": true, "message": "...", "emergency_cta": {"label": "...", "phone": "..."}}`
+   s'il perçoit un signal que l'heuristique aurait manqué. Le backend
+   détecte ce mode via le premier caractère (`{`) et parse avec
+   `json.loads` — pas de balises XML custom.
 
 Les deux couches sont fusionnées par un **OU logique** : si l'une des
 deux déclenche, le bandeau d'urgence s'affiche.
