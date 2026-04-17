@@ -1,11 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
 
+export const metadata: Metadata = {
+  title: "Partenariats",
+  description:
+    "Collectivités, associations, centres sociaux, établissements scolaires : proposez ELSAI aux publics que vous accompagnez. Formats et conditions.",
+  alternates: { canonical: "/partenariats" },
+};
+
 const PROFILS = [
   {
     t: "CCAS, CIAS, collectivités",
-    d: "Nous déployons ELSAI comme extension numérique de votre permanence sociale : hors-horaires, anonyme, orientant vers vos services.",
+    d: "Nous déployons ELSAI comme extension numérique de votre permanence sociale\u00A0: hors horaires, anonyme, orientant vers vos services.",
   },
   {
     t: "Associations de solidarité",

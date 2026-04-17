@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "ELSAI — Assistant social numérique anonyme",
+  description:
+    "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement. CAF, logement, emploi, MDPH, jeunes 12-18 ans.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "ELSAI — Assistant social numérique anonyme",
+    description:
+      "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement.",
+    url: "/",
+  },
+};
 
 const CAS = [
   {
@@ -10,7 +24,7 @@ const CAS = [
   },
   {
     tag: "RSA refusé",
-    title: "On m'a refusé le RSA, est-ce normal ?",
+    title: "On m'a refusé le RSA, est-ce normal\u00A0?",
     body: "On relit ensemble la lettre, on vérifie tes droits, on prépare un recours.",
   },
   {
@@ -100,6 +114,7 @@ export default function HomePage() {
               width={380}
               height={380}
               priority
+              fetchPriority="high"
               className="drop-shadow-sm"
             />
           </div>
@@ -126,9 +141,9 @@ export default function HomePage() {
 
       {/* CAS D'USAGE */}
       <Section>
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-serif text-3xl tracking-tight text-elsai-pin-dark md:text-4xl">
-            À quoi ça sert concrètement ?
+        <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+          <h2 className="font-serif text-3xl md:text-4xl text-elsai-pin-dark tracking-tight">
+            À quoi ça sert concrètement&nbsp;?
           </h2>
           <Link
             href="/cas-usage"

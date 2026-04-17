@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Éthique & confidentialité",
+  description:
+    "Anonymat par défaut, droit à l'oubli, hébergement en France, protection des mineurs avec orientation 119. Nos engagements éthiques détaillés.",
+  alternates: { canonical: "/ethique" },
+};
 
 const PRINCIPES = [
   {
@@ -8,7 +16,7 @@ const PRINCIPES = [
   },
   {
     t: "Droit à l'oubli instantané",
-    d: "Un bouton, et tout disparaît : l'historique, les documents, les échanges. Sans délai, sans condition, sans justification.",
+    d: "Un bouton, et tout disparaît\u00A0: l'historique, les documents, les échanges. Sans délai, sans condition, sans justification.",
   },
   {
     t: "Hébergement souverain",
@@ -59,9 +67,10 @@ export default function Page() {
             Si ELSAI ne sait pas, il le dit aussi.
           </p>
           <p>
-            Nous refusons la posture du « coach motivationnel » qui voudrait faire croire que tout
-            se résout par la bonne attitude. Les droits sociaux sont un labyrinthe administratif —
-            on peut t'y aider, pas le réécrire.
+            Nous refusons la posture du «&nbsp;coach motivationnel&nbsp;» qui voudrait
+            faire croire que tout se résout par la bonne attitude. Les droits
+            sociaux sont un labyrinthe administratif — on peut t'y aider, pas
+            le réécrire.
           </p>
           <p>
             ELSAI n'est <em>pas</em> un substitut à un travailleur social humain. C'est un sas, une

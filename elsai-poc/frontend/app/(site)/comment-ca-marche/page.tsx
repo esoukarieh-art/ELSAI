@@ -1,12 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Comment ça marche",
+  description:
+    "Le fonctionnement d'ELSAI en 4 étapes : tu poses ta question, ELSAI comprend, te guide étape par étape, tu gardes la main sur tes données.",
+  alternates: { canonical: "/comment-ca-marche" },
+};
 
 const STEPS = [
   {
     n: "01",
     t: "Tu poses ta question",
-    d: "En français courant. Pas besoin de connaître les noms des dispositifs. Tu peux aussi uploader un courrier ou un document.",
+    d: "En français courant. Pas besoin de connaître le nom des dispositifs. Tu peux aussi déposer un courrier ou un document.",
   },
   {
     n: "02",
@@ -16,7 +24,7 @@ const STEPS = [
   {
     n: "03",
     t: "Tu décides",
-    d: "Tu gardes la main. Tu peux poursuivre avec ELSAI, appeler un numéro, ou aller voir un vrai professionnel humain.",
+    d: "Tu gardes la main. Tu peux poursuivre avec ELSAI, appeler un numéro, ou aller rencontrer un travailleur social.",
   },
   {
     n: "04",
@@ -45,8 +53,8 @@ export default function Page() {
       </Section>
 
       <Section tone="soft">
-        <h2 className="mb-8 font-serif text-3xl text-elsai-pin-dark">
-          Ce qu'ELSAI fait — et ne fait pas
+        <h2 className="font-serif text-3xl text-elsai-pin-dark mb-8">
+          Ce qu'ELSAI fait — et ce qu'il ne fait pas
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-organic border border-elsai-pin/20 bg-elsai-creme p-7">
@@ -65,7 +73,7 @@ export default function Page() {
               <li>Remplacer un travailleur social humain</li>
               <li>Effectuer une démarche à ta place</li>
               <li>Garantir l'obtention d'un droit</li>
-              <li>Intervenir en urgence vitale (→ 15, 17, 18, 112)</li>
+              <li>Intervenir en urgence vitale (→\u00A015, 17, 18, 112)</li>
               <li>Conserver ton historique à ton insu</li>
             </ul>
           </div>

@@ -19,11 +19,23 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-elsai-pin/10 bg-elsai-creme/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="ELSAI — accueil">
-          <Image src="/logo-elsai.svg" alt="" width={36} height={36} priority />
-          <span className="text-lg font-semibold tracking-tight text-elsai-pin-dark">ELSAI</span>
+    <header className="sticky top-0 z-40 bg-elsai-creme/90 backdrop-blur border-b border-elsai-pin/10">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 shrink-0"
+          aria-label="ELSAI — accueil"
+        >
+          <Image
+            src="/logo-elsai.svg"
+            alt=""
+            width={36}
+            height={36}
+            loading="eager"
+          />
+          <span className="font-semibold text-elsai-pin-dark tracking-tight text-lg">
+            ELSAI
+          </span>
         </Link>
 
         <nav aria-label="Principale" className="hidden items-center gap-1 lg:flex">
@@ -59,15 +71,16 @@ export default function SiteHeader() {
             Poser ma question
           </Link>
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="rounded-lg p-2 hover:bg-elsai-pin/10 lg:hidden"
-            aria-label="Ouvrir le menu"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            className="lg:hidden p-2 rounded-lg hover:bg-elsai-pin/10"
           >
-            <span className="mb-1 block h-0.5 w-5 bg-elsai-ink" />
-            <span className="mb-1 block h-0.5 w-5 bg-elsai-ink" />
-            <span className="block h-0.5 w-5 bg-elsai-ink" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink" />
           </button>
         </div>
       </div>

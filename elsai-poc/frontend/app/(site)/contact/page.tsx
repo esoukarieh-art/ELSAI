@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Une question sur le projet, un partenariat, une remarque ? Écris-nous. ELSAI est un projet à taille humaine et chaque message est lu.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function Page() {
   return (
@@ -85,12 +93,14 @@ export default function Page() {
           </form>
 
           <aside className="space-y-6">
-            <div className="rounded-organic border border-elsai-rose/20 bg-elsai-rose/10 p-6">
-              <h3 className="font-semibold text-elsai-rose-dark">Vous êtes en difficulté ?</h3>
-              <p className="mt-2 text-sm leading-relaxed text-elsai-ink/80">
-                Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous
-                sur{" "}
-                <a href="/start" className="text-elsai-pin-dark underline">
+            <div className="bg-elsai-rose/10 rounded-organic p-6 border border-elsai-rose/20">
+              <h3 className="font-semibold text-elsai-rose-dark">
+                Vous êtes en difficulté&nbsp;?
+              </h3>
+              <p className="mt-2 text-sm text-elsai-ink/80 leading-relaxed">
+                Cette page n'est pas un service d'assistance. Pour une demande
+                d'aide, rendez-vous sur{" "}
+                <a href="/start" className="underline text-elsai-pin-dark">
                   le service ELSAI
                 </a>{" "}
                 — anonyme et disponible 24/7.
@@ -104,7 +114,7 @@ export default function Page() {
                 <li>18 — Pompiers</li>
                 <li>112 — Urgences UE</li>
                 <li>119 — Enfance en danger</li>
-                <li>3114 — Prévention suicide</li>
+                <li>3114 — Prévention du suicide</li>
               </ul>
             </div>
           </aside>

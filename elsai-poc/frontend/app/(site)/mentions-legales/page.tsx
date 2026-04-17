@@ -1,11 +1,20 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Mentions légales",
+  description:
+    "Mentions légales et informations d'éditeur d'ELSAI : responsabilité éditoriale, hébergement, contact, propriété intellectuelle.",
+  alternates: { canonical: "/mentions-legales" },
+  robots: { index: false, follow: true },
+};
 
 export default function Page() {
   return (
     <>
       <PageHero eyebrow="Mentions légales" title="Transparence, données, accessibilité.">
-        Dernière mise à jour : avril 2026.
+        Dernière mise à jour&nbsp;: avril 2026.
       </PageHero>
 
       <Section>
@@ -22,9 +31,10 @@ export default function Page() {
             <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">
               Données personnelles & RGPD
             </h2>
-            <p>ELSAI a été conçu pour collecter le strict minimum. Concrètement :</p>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              <li>Aucun compte utilisateur n'est requis pour accéder au service.</li>
+            <p>
+              ELSAI a été conçu pour collecter le strict minimum. Concrètement&nbsp;:
+            </p>
+            <ul className="list-disc pl-5 mt-3 space-y-2">
               <li>
                 Une session technique temporaire est créée pour la conversation, et peut être
                 effacée par l'utilisateur à tout moment.
@@ -59,9 +69,9 @@ export default function Page() {
           <section id="accessibilite">
             <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">Accessibilité</h2>
             <p>
-              Ce site vise la conformité <strong>RGAA niveau AA</strong>. Si vous constatez un
-              défaut d'accessibilité, merci de nous le signaler via la page Contact : nous le
-              corrigerons en priorité.
+              Ce site vise la conformité <strong>RGAA niveau AA</strong>. Si
+              vous constatez un défaut d'accessibilité, merci de nous le
+              signaler via la page Contact&nbsp;: nous le corrigerons en priorité.
             </p>
           </section>
 

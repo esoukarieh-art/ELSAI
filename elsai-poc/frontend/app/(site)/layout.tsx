@@ -8,7 +8,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col">
       <UrgenceBar />
       <SiteHeader />
-      <main id="contenu" className="flex-1">
+      <main id="contenu" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
       <SiteFooter />
