@@ -103,6 +103,28 @@ export interface DashboardMetrics {
   profile_breakdown: Record<string, number>;
 }
 
+export async function transcribeAudio(blob: Blob): Promise<string> {
+  await ensureSession(getProfile());
+  const form = new FormData();
+  const ext = blob.type.includes("ogg") ? "ogg" : blob.type.includes("mp4") ? "m4a" : "webm";
+  form.append("file", blob, `audio.${ext}`);
+  const res = await apiFetch("/api/voice/stt", { method: "POST", body: form });
+  if (!res.ok) throw new Error(`Transcription échouée (${res.status})`);
+  const data = await res.json();
+  return data.text as string;
+}
+
+export async function synthesizeSpeech(text: string): Promise<Blob> {
+  await ensureSession(getProfile());
+  const res = await apiFetch("/api/voice/tts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+  if (!res.ok) throw new Error(`Synthèse échouée (${res.status})`);
+  return res.blob();
+}
+
 export async function fetchMetrics(): Promise<DashboardMetrics> {
   const res = await fetch(`${API_URL}/api/dashboard/metrics`);
   if (!res.ok) throw new Error("Métriques indisponibles");

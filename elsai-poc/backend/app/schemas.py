@@ -57,3 +57,11 @@ class DashboardMetrics(BaseModel):
 class ForgetResponse(BaseModel):
     deleted_conversations: int
     deleted_messages: int
+
+
+class TranscribeResponse(BaseModel):
+    text: str
+
+
+class TTSRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=2000)
