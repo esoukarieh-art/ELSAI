@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 
-const ROUTES: { path: string; priority: number; changeFrequency: "daily" | "weekly" | "monthly" | "yearly" }[] = [
+const ROUTES: {
+  path: string;
+  priority: number;
+  changeFrequency: "daily" | "weekly" | "monthly" | "yearly";
+}[] = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
   { path: "/comment-ca-marche", priority: 0.9, changeFrequency: "monthly" },
   { path: "/cas-usage", priority: 0.9, changeFrequency: "monthly" },

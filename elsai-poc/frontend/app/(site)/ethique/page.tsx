@@ -49,28 +49,27 @@ export default function Page() {
           {PRINCIPES.map((p) => (
             <article
               key={p.t}
-              className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7"
+              className="rounded-organic border-elsai-pin/10 bg-elsai-creme border p-7"
             >
-              <h2 className="font-serif text-xl text-elsai-pin-dark">{p.t}</h2>
-              <p className="mt-3 leading-relaxed text-elsai-ink/80">{p.d}</p>
+              <h2 className="text-elsai-pin-dark font-serif text-xl">{p.t}</h2>
+              <p className="text-elsai-ink/80 mt-3 leading-relaxed">{p.d}</p>
             </article>
           ))}
         </div>
       </Section>
 
       <Section tone="soft">
-        <h2 className="font-serif text-3xl text-elsai-pin-dark">Notre posture éditoriale</h2>
-        <div className="prose prose-elsai mt-6 max-w-3xl space-y-4 leading-relaxed text-elsai-ink/85">
+        <h2 className="text-elsai-pin-dark font-serif text-3xl">Notre posture éditoriale</h2>
+        <div className="prose prose-elsai text-elsai-ink/85 mt-6 max-w-3xl space-y-4 leading-relaxed">
           <p>
             ELSAI parle <strong>empathiquement</strong>, mais aussi <strong>franchement</strong>. Si
             un droit n'existe pas, on te le dit. Si une démarche est complexe, on ne le cache pas.
             Si ELSAI ne sait pas, il le dit aussi.
           </p>
           <p>
-            Nous refusons la posture du «&nbsp;coach motivationnel&nbsp;» qui voudrait
-            faire croire que tout se résout par la bonne attitude. Les droits
-            sociaux sont un labyrinthe administratif — on peut t'y aider, pas
-            le réécrire.
+            Nous refusons la posture du «&nbsp;coach motivationnel&nbsp;» qui voudrait faire croire
+            que tout se résout par la bonne attitude. Les droits sociaux sont un labyrinthe
+            administratif — on peut t'y aider, pas le réécrire.
           </p>
           <p>
             ELSAI n'est <em>pas</em> un substitut à un travailleur social humain. C'est un sas, une

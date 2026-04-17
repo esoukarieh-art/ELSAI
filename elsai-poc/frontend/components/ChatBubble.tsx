@@ -9,10 +9,10 @@ export default function ChatBubble({ role, content }: Props) {
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
       <div
         className={
-          "max-w-[85%] whitespace-pre-wrap px-4 py-3 leading-relaxed shadow-sm " +
+          "max-w-[85%] px-4 py-3 leading-relaxed whitespace-pre-wrap shadow-sm " +
           (isUser
-            ? "rounded-organic rounded-br-md bg-elsai-pin text-elsai-creme"
-            : "rounded-organic rounded-bl-md border border-elsai-pin/15 bg-white/90 text-elsai-ink backdrop-blur")
+            ? "rounded-organic bg-elsai-pin text-elsai-creme rounded-br-md"
+            : "rounded-organic border-elsai-pin/15 text-elsai-ink rounded-bl-md border bg-white/90 backdrop-blur")
         }
       >
         {content}

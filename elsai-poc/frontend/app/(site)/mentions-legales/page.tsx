@@ -18,9 +18,9 @@ export default function Page() {
       </PageHero>
 
       <Section>
-        <div className="max-w-3xl space-y-14 leading-relaxed text-elsai-ink/85">
+        <div className="text-elsai-ink/85 max-w-3xl space-y-14 leading-relaxed">
           <section>
-            <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">Éditeur</h2>
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Éditeur</h2>
             <p>
               ELSAI est un projet porté par un collectif d'intérêt général. Les coordonnées précises
               de l'éditeur seront publiées au lancement officiel.
@@ -28,13 +28,11 @@ export default function Page() {
           </section>
 
           <section id="rgpd">
-            <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
               Données personnelles & RGPD
             </h2>
-            <p>
-              ELSAI a été conçu pour collecter le strict minimum. Concrètement&nbsp;:
-            </p>
-            <ul className="list-disc pl-5 mt-3 space-y-2">
+            <p>ELSAI a été conçu pour collecter le strict minimum. Concrètement&nbsp;:</p>
+            <ul className="mt-3 list-disc space-y-2 pl-5">
               <li>
                 Une session technique temporaire est créée pour la conversation, et peut être
                 effacée par l'utilisateur à tout moment.
@@ -56,7 +54,7 @@ export default function Page() {
           </section>
 
           <section>
-            <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
               Cookies & mesure d'audience
             </h2>
             <p>
@@ -67,16 +65,16 @@ export default function Page() {
           </section>
 
           <section id="accessibilite">
-            <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">Accessibilité</h2>
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Accessibilité</h2>
             <p>
-              Ce site vise la conformité <strong>RGAA niveau AA</strong>. Si
-              vous constatez un défaut d'accessibilité, merci de nous le
-              signaler via la page Contact&nbsp;: nous le corrigerons en priorité.
+              Ce site vise la conformité <strong>RGAA niveau AA</strong>. Si vous constatez un
+              défaut d'accessibilité, merci de nous le signaler via la page Contact&nbsp;: nous le
+              corrigerons en priorité.
             </p>
           </section>
 
           <section>
-            <h2 className="mb-3 font-serif text-2xl text-elsai-pin-dark">
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
               Propriété intellectuelle
             </h2>
             <p>

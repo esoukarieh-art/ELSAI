@@ -81,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen font-sans">
         <a
           href="#contenu"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-elsai-pin focus:text-elsai-creme focus:px-4 focus:py-2 focus:rounded-organic focus:shadow-organic focus:font-semibold"
+          className="focus:bg-elsai-pin focus:text-elsai-creme focus:rounded-organic focus:shadow-organic sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:font-semibold"
         >
           Aller au contenu principal
         </a>

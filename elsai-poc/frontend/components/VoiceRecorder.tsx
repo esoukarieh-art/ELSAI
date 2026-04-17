@@ -62,11 +62,7 @@ export default function VoiceRecorder({ onTranscription, disabled }: Props) {
       recorderRef.current = rec;
       setRecording(true);
     } catch (err: any) {
-      setError(
-        err.name === "NotAllowedError"
-          ? "Accès au micro refusé"
-          : "Micro indisponible",
-      );
+      setError(err.name === "NotAllowedError" ? "Accès au micro refusé" : "Micro indisponible");
     }
   }
 
@@ -91,16 +87,25 @@ export default function VoiceRecorder({ onTranscription, disabled }: Props) {
         disabled={busy && !recording}
         aria-label={label}
         title={label}
-        className={`h-12 w-12 flex items-center justify-center rounded-organic shadow-organic transition-colors ${
+        className={`rounded-organic shadow-organic flex h-12 w-12 items-center justify-center transition-colors ${
           recording
-            ? "bg-elsai-urgence text-white animate-pulse"
-            : "bg-white border border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10"
+            ? "bg-elsai-urgence animate-pulse text-white"
+            : "border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border bg-white"
         } disabled:opacity-40`}
       >
         {processing ? (
-          <span className="h-4 w-4 border-2 border-elsai-pin border-t-transparent rounded-full animate-spin" />
+          <span className="border-elsai-pin h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
         ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <rect x="9" y="2" width="6" height="12" rx="3" />
             <path d="M5 10v2a7 7 0 0 0 14 0v-2" />
             <line x1="12" y1="19" x2="12" y2="22" />
@@ -108,7 +113,7 @@ export default function VoiceRecorder({ onTranscription, disabled }: Props) {
         )}
       </button>
       {error && (
-        <div className="absolute bottom-full mb-2 right-0 bg-elsai-urgence text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        <div className="bg-elsai-urgence absolute right-0 bottom-full mb-2 rounded px-2 py-1 text-xs whitespace-nowrap text-white">
           {error}
         </div>
       )}

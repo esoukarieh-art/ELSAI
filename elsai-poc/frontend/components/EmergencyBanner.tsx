@@ -9,7 +9,7 @@ export default function EmergencyBanner({ cta, onClose }: Props) {
   return (
     <div
       role="alert"
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-elsai-urgence/95 p-6 text-center text-elsai-creme backdrop-blur-sm"
+      className="bg-elsai-urgence/95 text-elsai-creme fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm"
     >
       <h2 className="mb-4 font-serif text-3xl md:text-4xl">Tu n'es pas seul·e.</h2>
       <p className="mb-8 max-w-md text-lg leading-relaxed">
@@ -18,14 +18,14 @@ export default function EmergencyBanner({ cta, onClose }: Props) {
       </p>
       <a
         href={`tel:${cta.phone}`}
-        className="rounded-organic bg-elsai-creme px-10 py-5 text-2xl font-bold text-elsai-urgence shadow-xl transition-colors hover:bg-white"
+        className="rounded-organic bg-elsai-creme text-elsai-urgence px-10 py-5 text-2xl font-bold shadow-xl transition-colors hover:bg-white"
       >
         {cta.label}
       </a>
       {onClose && (
         <button
           onClick={onClose}
-          className="mt-6 text-sm text-elsai-creme/80 underline"
+          className="text-elsai-creme/80 mt-6 text-sm underline"
           aria-label="Fermer le bandeau d'urgence"
         >
           Continuer à discuter

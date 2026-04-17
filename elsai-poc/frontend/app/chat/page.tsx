@@ -104,26 +104,26 @@ export default function ChatPage() {
       {/* Bande d'accent selon profil */}
       <div className={`h-1 w-full ${accentBar}`} />
 
-      <header className="flex items-center justify-between border-b border-elsai-pin/10 bg-white/80 px-4 py-3 backdrop-blur">
-        <Link href="/" className="flex items-center gap-2 font-bold text-elsai-pin-dark">
+      <header className="border-elsai-pin/10 flex items-center justify-between border-b bg-white/80 px-4 py-3 backdrop-blur">
+        <Link href="/" className="text-elsai-pin-dark flex items-center gap-2 font-bold">
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
           <span>ELSAI</span>
         </Link>
-        <div className="flex items-center gap-4 text-sm text-elsai-ink/70">
+        <div className="text-elsai-ink/70 flex items-center gap-4 text-sm">
           <button
             onClick={() => setVoiceMode((v) => !v)}
-            className={`transition-colors ${voiceMode ? "font-semibold text-elsai-pin" : "hover:text-elsai-pin"}`}
+            className={`transition-colors ${voiceMode ? "text-elsai-pin font-semibold" : "hover:text-elsai-pin"}`}
             aria-pressed={voiceMode}
             title="Lecture audio automatique des réponses"
           >
             {voiceMode ? "🔊 Voix activée" : "🔈 Voix"}
           </button>
-          <Link href="/scan" className="transition-colors hover:text-elsai-pin">
+          <Link href="/scan" className="hover:text-elsai-pin transition-colors">
             Scanner un document
           </Link>
           <button
             onClick={handleForget}
-            className="transition-colors hover:text-elsai-urgence"
+            className="hover:text-elsai-urgence transition-colors"
             aria-label="Droit à l'oubli"
           >
             Tout oublier
@@ -133,7 +133,7 @@ export default function ChatPage() {
 
       <div ref={scrollRef} className="mx-auto w-full max-w-2xl flex-1 overflow-y-auto px-4 py-6">
         {messages.length === 0 && (
-          <div className="mb-4 rounded-organic border border-elsai-pin/15 bg-white/70 p-5 leading-relaxed text-elsai-ink/80 shadow-organic backdrop-blur">
+          <div className="rounded-organic border-elsai-pin/15 text-elsai-ink/80 shadow-organic mb-4 border bg-white/70 p-5 leading-relaxed backdrop-blur">
             {intro}
           </div>
         )}
@@ -145,7 +145,7 @@ export default function ChatPage() {
 
       <form
         onSubmit={submit}
-        className="sticky bottom-0 border-t border-elsai-pin/15 bg-elsai-creme/95 p-3 backdrop-blur"
+        className="border-elsai-pin/15 bg-elsai-creme/95 sticky bottom-0 border-t p-3 backdrop-blur"
       >
         <div className="mx-auto flex max-w-2xl items-center gap-2">
           <VoiceRecorder onTranscription={handleVoice} disabled={loading} />
@@ -154,12 +154,12 @@ export default function ChatPage() {
             onChange={(e) => setInput(e.target.value)}
             placeholder={placeholder}
             disabled={loading}
-            className="flex-1 rounded-organic border border-elsai-pin/20 bg-white px-4 py-3 placeholder:text-elsai-ink/40 focus:outline-none focus:ring-2 focus:ring-elsai-pin/60"
+            className="rounded-organic border-elsai-pin/20 placeholder:text-elsai-ink/40 focus:ring-elsai-pin/60 flex-1 border bg-white px-4 py-3 focus:ring-2 focus:outline-none"
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="rounded-organic bg-elsai-pin px-6 text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark disabled:opacity-40"
+            className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark px-6 transition-colors disabled:opacity-40"
           >
             Envoyer
           </button>

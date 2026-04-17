@@ -30,63 +30,63 @@ export default function ScanPage() {
 
   return (
     <main className="min-h-screen">
-      <div className="h-1 w-full bg-elsai-pin" />
-      <header className="flex items-center justify-between border-b border-elsai-pin/10 bg-white/80 px-4 py-3 backdrop-blur">
-        <Link href="/chat" className="flex items-center gap-2 font-bold text-elsai-pin-dark">
+      <div className="bg-elsai-pin h-1 w-full" />
+      <header className="border-elsai-pin/10 flex items-center justify-between border-b bg-white/80 px-4 py-3 backdrop-blur">
+        <Link href="/chat" className="text-elsai-pin-dark flex items-center gap-2 font-bold">
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
           <span>← ELSAI</span>
         </Link>
-        <span className="text-sm text-elsai-ink/70">Analyse de document</span>
+        <span className="text-elsai-ink/70 text-sm">Analyse de document</span>
       </header>
 
       <div className="mx-auto max-w-2xl p-6">
-        <h1 className="mb-2 font-serif text-3xl text-elsai-pin-dark">Scanner un document</h1>
-        <p className="mb-8 leading-relaxed text-elsai-ink/75">
+        <h1 className="text-elsai-pin-dark mb-2 font-serif text-3xl">Scanner un document</h1>
+        <p className="text-elsai-ink/75 mb-8 leading-relaxed">
           Prenez en photo un courrier administratif. ELSAI vous l'explique en français simple et
           propose des actions concrètes.
         </p>
 
         <form
           onSubmit={onSubmit}
-          className="space-y-4 rounded-organic border border-elsai-pin/15 bg-white/70 p-5 shadow-organic backdrop-blur"
+          className="rounded-organic border-elsai-pin/15 shadow-organic space-y-4 border bg-white/70 p-5 backdrop-blur"
         >
           <input
             type="file"
             accept="image/png,image/jpeg,image/webp"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            className="block w-full text-sm file:mr-4 file:cursor-pointer file:rounded-organic file:border-0 file:bg-elsai-pin file:px-4 file:py-2 file:text-elsai-creme file:hover:bg-elsai-pin-dark"
+            className="file:rounded-organic file:bg-elsai-pin file:text-elsai-creme file:hover:bg-elsai-pin-dark block w-full text-sm file:mr-4 file:cursor-pointer file:border-0 file:px-4 file:py-2"
           />
           <button
             type="submit"
             disabled={!file || loading}
-            className="rounded-organic bg-elsai-pin px-6 py-3 text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark disabled:opacity-40"
+            className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark px-6 py-3 transition-colors disabled:opacity-40"
           >
             {loading ? "Analyse en cours…" : "Analyser"}
           </button>
         </form>
 
         {error && (
-          <div className="mt-6 rounded-organic border border-elsai-urgence/30 bg-elsai-urgence/10 p-4 text-elsai-urgence">
+          <div className="rounded-organic border-elsai-urgence/30 bg-elsai-urgence/10 text-elsai-urgence mt-6 border p-4">
             {error}
           </div>
         )}
 
         {result && (
           <div className="mt-8 space-y-4">
-            <div className="rounded-organic border border-elsai-pin/15 bg-white/80 p-5 shadow-organic backdrop-blur">
-              <h2 className="mb-2 font-serif text-xl text-elsai-pin-dark">Explication</h2>
-              <p className="whitespace-pre-wrap leading-relaxed text-elsai-ink">
+            <div className="rounded-organic border-elsai-pin/15 shadow-organic border bg-white/80 p-5 backdrop-blur">
+              <h2 className="text-elsai-pin-dark mb-2 font-serif text-xl">Explication</h2>
+              <p className="text-elsai-ink leading-relaxed whitespace-pre-wrap">
                 {result.explanation}
               </p>
             </div>
 
             {result.suggested_actions.length > 0 && (
-              <div className="rounded-organic border border-elsai-rose/30 bg-elsai-rose/10 p-5 shadow-warm backdrop-blur">
-                <h2 className="mb-3 font-serif text-xl text-elsai-rose-dark">Actions suggérées</h2>
+              <div className="rounded-organic border-elsai-rose/30 bg-elsai-rose/10 shadow-warm border p-5 backdrop-blur">
+                <h2 className="text-elsai-rose-dark mb-3 font-serif text-xl">Actions suggérées</h2>
                 <ul className="space-y-2">
                   {result.suggested_actions.map((action, i) => (
-                    <li key={i} className="flex gap-3 text-elsai-ink">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-elsai-rose" />
+                    <li key={i} className="text-elsai-ink flex gap-3">
+                      <span className="bg-elsai-rose mt-2 h-1.5 w-1.5 shrink-0 rounded-full" />
                       <span>{action}</span>
                     </li>
                   ))}
@@ -94,11 +94,11 @@ export default function ScanPage() {
               </div>
             )}
 
-            <details className="rounded-organic border border-elsai-pin/10 bg-elsai-creme-dark/50 p-4 text-sm">
-              <summary className="cursor-pointer font-medium text-elsai-ink/70">
+            <details className="rounded-organic border-elsai-pin/10 bg-elsai-creme-dark/50 border p-4 text-sm">
+              <summary className="text-elsai-ink/70 cursor-pointer font-medium">
                 Texte brut détecté (OCR)
               </summary>
-              <pre className="mt-2 whitespace-pre-wrap font-mono text-xs text-elsai-ink/80">
+              <pre className="text-elsai-ink/80 mt-2 font-mono text-xs whitespace-pre-wrap">
                 {result.ocr_text}
               </pre>
             </details>

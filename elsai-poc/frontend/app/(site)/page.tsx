@@ -62,18 +62,18 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-symbiose">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-20 pt-16 md:grid-cols-2 md:pb-28 md:pt-24">
+      <section className="bg-symbiose relative overflow-hidden">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-16 pb-20 md:grid-cols-2 md:pt-24 md:pb-28">
           <div>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-elsai-pin">
+            <p className="text-elsai-pin mb-5 text-xs font-semibold tracking-[0.2em] uppercase">
               Assistance sociale numérique
             </p>
-            <h1 className="font-serif text-4xl leading-[1.05] tracking-tight text-elsai-pin-dark md:text-6xl">
+            <h1 className="text-elsai-pin-dark font-serif text-4xl leading-[1.05] tracking-tight md:text-6xl">
               Comprends et active
               <br />
               tes droits sociaux.
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-elsai-ink/80 md:text-xl">
+            <p className="text-elsai-ink/80 mt-6 max-w-lg text-lg leading-relaxed md:text-xl">
               <strong>Anonymement.</strong> Sans rendez-vous.
               <br />
               Sans jugement.
@@ -81,18 +81,18 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/start"
-                className="inline-flex items-center gap-2 rounded-organic bg-elsai-pin px-6 py-4 text-base font-semibold text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark"
+                className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark inline-flex items-center gap-2 px-6 py-4 text-base font-semibold transition-colors"
               >
                 Poser ma question →
               </Link>
               <Link
                 href="/comment-ca-marche"
-                className="inline-flex items-center rounded-organic border border-elsai-pin/30 px-6 py-4 text-base font-semibold text-elsai-pin-dark hover:bg-elsai-pin/5"
+                className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/5 inline-flex items-center border px-6 py-4 text-base font-semibold"
               >
                 Comment ça marche
               </Link>
             </div>
-            <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-elsai-ink/60">
+            <p className="text-elsai-ink/60 mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
               <span>✓ Sans inscription</span>
               <span>✓ Hébergé en France</span>
               <span>✓ Sans cookies</span>
@@ -123,17 +123,17 @@ export default function HomePage() {
 
       {/* DIFFERENTIATEURS */}
       <Section tone="soft">
-        <h2 className="max-w-2xl font-serif text-3xl tracking-tight text-elsai-pin-dark md:text-4xl">
+        <h2 className="text-elsai-pin-dark max-w-2xl font-serif text-3xl tracking-tight md:text-4xl">
           Un service pensé pour les personnes qu'on n'écoute pas toujours.
         </h2>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {DIFF.map((d) => (
             <div
               key={d.title}
-              className="shadow-organic/50 rounded-organic border border-elsai-pin/10 bg-elsai-creme p-6"
+              className="shadow-organic/50 rounded-organic border-elsai-pin/10 bg-elsai-creme border p-6"
             >
-              <h3 className="mb-2 text-lg font-semibold text-elsai-pin-dark">{d.title}</h3>
-              <p className="text-sm leading-relaxed text-elsai-ink/80">{d.body}</p>
+              <h3 className="text-elsai-pin-dark mb-2 text-lg font-semibold">{d.title}</h3>
+              <p className="text-elsai-ink/80 text-sm leading-relaxed">{d.body}</p>
             </div>
           ))}
         </div>
@@ -141,13 +141,13 @@ export default function HomePage() {
 
       {/* CAS D'USAGE */}
       <Section>
-        <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
-          <h2 className="font-serif text-3xl md:text-4xl text-elsai-pin-dark tracking-tight">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <h2 className="text-elsai-pin-dark font-serif text-3xl tracking-tight md:text-4xl">
             À quoi ça sert concrètement&nbsp;?
           </h2>
           <Link
             href="/cas-usage"
-            className="text-sm font-semibold text-elsai-pin-dark hover:underline"
+            className="text-elsai-pin-dark text-sm font-semibold hover:underline"
           >
             Voir tous les cas d'usage →
           </Link>
@@ -156,13 +156,13 @@ export default function HomePage() {
           {CAS.map((c) => (
             <article
               key={c.title}
-              className="group rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7 transition-colors hover:border-elsai-pin/30"
+              className="group rounded-organic border-elsai-pin/10 bg-elsai-creme hover:border-elsai-pin/30 border p-7 transition-colors"
             >
-              <span className="inline-block rounded-full bg-elsai-rose/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-elsai-rose-dark">
+              <span className="bg-elsai-rose/10 text-elsai-rose-dark inline-block rounded-full px-2.5 py-1 text-xs font-semibold tracking-widest uppercase">
                 {c.tag}
               </span>
-              <h3 className="mt-4 font-serif text-2xl leading-snug text-elsai-ink">{c.title}</h3>
-              <p className="mt-3 leading-relaxed text-elsai-ink/75">{c.body}</p>
+              <h3 className="text-elsai-ink mt-4 font-serif text-2xl leading-snug">{c.title}</h3>
+              <p className="text-elsai-ink/75 mt-3 leading-relaxed">{c.body}</p>
             </article>
           ))}
         </div>
@@ -171,28 +171,28 @@ export default function HomePage() {
       {/* POUR QUI */}
       <Section tone="warm">
         <div className="grid gap-8 md:grid-cols-2">
-          <div className="rounded-organic border border-elsai-pin/15 bg-elsai-creme p-8">
-            <h3 className="font-serif text-2xl text-elsai-pin-dark">Pour les adultes</h3>
-            <p className="mt-3 leading-relaxed text-elsai-ink/80">
+          <div className="rounded-organic border-elsai-pin/15 bg-elsai-creme border p-8">
+            <h3 className="text-elsai-pin-dark font-serif text-2xl">Pour les adultes</h3>
+            <p className="text-elsai-ink/80 mt-3 leading-relaxed">
               CAF, impôts, logement, emploi, surendettement, MDPH… On vous parle clairement, sans
               jargon, et on vous guide étape par étape.
             </p>
             <Link
               href="/pour-qui#adultes"
-              className="mt-5 inline-block font-semibold text-elsai-pin-dark hover:underline"
+              className="text-elsai-pin-dark mt-5 inline-block font-semibold hover:underline"
             >
               Votre parcours →
             </Link>
           </div>
-          <div className="rounded-organic border border-elsai-rose/30 bg-elsai-creme p-8">
-            <h3 className="font-serif text-2xl text-elsai-rose-dark">Pour les 12-18 ans</h3>
-            <p className="mt-3 leading-relaxed text-elsai-ink/80">
+          <div className="rounded-organic border-elsai-rose/30 bg-elsai-creme border p-8">
+            <h3 className="text-elsai-rose-dark font-serif text-2xl">Pour les 12-18 ans</h3>
+            <p className="text-elsai-ink/80 mt-3 leading-relaxed">
               Tes droits, l'école, la famille, ce qui va pas. On te tutoie, on t'écoute, et si c'est
               grave on t'oriente vers le 119 ou une Maison des Ados.
             </p>
             <Link
               href="/pour-qui#mineurs"
-              className="mt-5 inline-block font-semibold text-elsai-rose-dark hover:underline"
+              className="text-elsai-rose-dark mt-5 inline-block font-semibold hover:underline"
             >
               Ton espace →
             </Link>
@@ -202,16 +202,16 @@ export default function HomePage() {
 
       {/* CTA FINAL */}
       <Section>
-        <div className="rounded-organic bg-elsai-pin p-10 text-center text-elsai-creme shadow-organic md:p-14">
+        <div className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic p-10 text-center md:p-14">
           <h2 className="font-serif text-3xl tracking-tight md:text-4xl">
             Tu peux essayer tout de suite.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-elsai-creme/90">
+          <p className="text-elsai-creme/90 mx-auto mt-4 max-w-xl text-lg">
             Aucune inscription. Ce que tu écris s'efface en un clic.
           </p>
           <Link
             href="/start"
-            className="mt-8 inline-block rounded-organic bg-elsai-creme px-8 py-4 font-semibold text-elsai-pin-dark transition-colors hover:bg-white"
+            className="rounded-organic bg-elsai-creme text-elsai-pin-dark mt-8 inline-block px-8 py-4 font-semibold transition-colors hover:bg-white"
           >
             Poser ma question
           </Link>

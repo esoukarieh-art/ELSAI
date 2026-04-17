@@ -16,9 +16,9 @@ export default function UrgenceBar() {
       </h2>
       <ul
         role="list"
-        className="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1"
+        className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-1 px-4 py-2"
       >
-        <li className="font-semibold text-elsai-creme" aria-hidden="true">
+        <li className="text-elsai-creme font-semibold" aria-hidden="true">
           En danger, tout de suite ?
         </li>
         {NUMBERS.map((n) => (
@@ -26,11 +26,11 @@ export default function UrgenceBar() {
             <a
               href={`tel:${n.tel}`}
               aria-label={`Appeler le ${n.tel} — ${n.label}, numéro gratuit`}
-              className="inline-flex items-center gap-1.5 hover:text-white focus-visible:text-white rounded-sm"
+              className="inline-flex items-center gap-1.5 rounded-sm hover:text-white focus-visible:text-white"
             >
               <span
                 aria-hidden="true"
-                className={`inline-block w-1.5 h-1.5 rounded-full ${
+                className={`inline-block h-1.5 w-1.5 rounded-full ${
                   n.tone === "rose" ? "bg-elsai-rose-light" : "bg-elsai-pin-light"
                 }`}
               />

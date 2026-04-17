@@ -19,23 +19,11 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 bg-elsai-creme/90 backdrop-blur border-b border-elsai-pin/10">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 shrink-0"
-          aria-label="ELSAI — accueil"
-        >
-          <Image
-            src="/logo-elsai.svg"
-            alt=""
-            width={36}
-            height={36}
-            loading="eager"
-          />
-          <span className="font-semibold text-elsai-pin-dark tracking-tight text-lg">
-            ELSAI
-          </span>
+    <header className="bg-elsai-creme/90 border-elsai-pin/10 sticky top-0 z-40 border-b backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="ELSAI — accueil">
+          <Image src="/logo-elsai.svg" alt="" width={36} height={36} loading="eager" />
+          <span className="text-elsai-pin-dark text-lg font-semibold tracking-tight">ELSAI</span>
         </Link>
 
         <nav aria-label="Principale" className="hidden items-center gap-1 lg:flex">
@@ -60,13 +48,13 @@ export default function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/contact"
-            className="hidden px-3 py-2 text-sm text-elsai-ink/80 hover:text-elsai-pin-dark md:inline"
+            className="text-elsai-ink/80 hover:text-elsai-pin-dark hidden px-3 py-2 text-sm md:inline"
           >
             Contact
           </Link>
           <Link
             href="/start"
-            className="inline-flex items-center gap-2 rounded-organic bg-elsai-pin px-4 py-2.5 text-sm font-semibold text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark"
+            className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-colors"
           >
             Poser ma question
           </Link>
@@ -76,11 +64,11 @@ export default function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className="lg:hidden p-2 rounded-lg hover:bg-elsai-pin/10"
+            className="hover:bg-elsai-pin/10 rounded-lg p-2 lg:hidden"
           >
-            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink" />
+            <span aria-hidden="true" className="bg-elsai-ink mb-1 block h-0.5 w-5" />
+            <span aria-hidden="true" className="bg-elsai-ink mb-1 block h-0.5 w-5" />
+            <span aria-hidden="true" className="bg-elsai-ink block h-0.5 w-5" />
           </button>
         </div>
       </div>
@@ -89,7 +77,7 @@ export default function SiteHeader() {
         <nav
           id="mobile-menu"
           aria-label="Menu mobile"
-          className="border-t border-elsai-pin/10 bg-elsai-creme lg:hidden"
+          className="border-elsai-pin/10 bg-elsai-creme border-t lg:hidden"
         >
           <ul className="space-y-1 px-4 py-3">
             {NAV.concat({ href: "/contact", label: "Contact" }).map((item) => (
@@ -97,7 +85,7 @@ export default function SiteHeader() {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-elsai-ink hover:bg-elsai-pin/10"
+                  className="text-elsai-ink hover:bg-elsai-pin/10 block rounded-lg px-3 py-2.5"
                 >
                   {item.label}
                 </Link>

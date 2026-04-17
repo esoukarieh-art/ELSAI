@@ -48,7 +48,11 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="FAQ" title="Les questions qu'on nous pose.">
-        Pas la réponse que tu cherches&nbsp;? <a href="/contact" className="underline text-elsai-pin-dark">Écris-nous</a>.
+        Pas la réponse que tu cherches&nbsp;?{" "}
+        <a href="/contact" className="text-elsai-pin-dark underline">
+          Écris-nous
+        </a>
+        .
       </PageHero>
 
       <Section>
@@ -56,18 +60,18 @@ export default function Page() {
           {FAQ.map((f, i) => (
             <details
               key={i}
-              className="group rounded-organic border border-elsai-pin/10 bg-elsai-creme px-6 py-4 open:shadow-organic"
+              className="group rounded-organic border-elsai-pin/10 bg-elsai-creme open:shadow-organic border px-6 py-4"
             >
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold text-elsai-pin-dark">
+              <summary className="text-elsai-pin-dark flex cursor-pointer list-none items-start justify-between gap-4 font-semibold">
                 <span>{f.q}</span>
                 <span
                   aria-hidden
-                  className="text-xl text-elsai-pin transition-transform group-open:rotate-45"
+                  className="text-elsai-pin text-xl transition-transform group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
-              <p className="mt-3 leading-relaxed text-elsai-ink/80">{f.a}</p>
+              <p className="text-elsai-ink/80 mt-3 leading-relaxed">{f.a}</p>
             </details>
           ))}
         </div>

@@ -43,23 +43,23 @@ export default function Page() {
       <Section>
         <ol className="grid gap-6 md:grid-cols-2">
           {STEPS.map((s) => (
-            <li key={s.n} className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7">
-              <div className="font-serif text-4xl text-elsai-rose">{s.n}</div>
-              <h3 className="mt-3 text-xl font-semibold text-elsai-pin-dark">{s.t}</h3>
-              <p className="mt-2 leading-relaxed text-elsai-ink/80">{s.d}</p>
+            <li key={s.n} className="rounded-organic border-elsai-pin/10 bg-elsai-creme border p-7">
+              <div className="text-elsai-rose font-serif text-4xl">{s.n}</div>
+              <h3 className="text-elsai-pin-dark mt-3 text-xl font-semibold">{s.t}</h3>
+              <p className="text-elsai-ink/80 mt-2 leading-relaxed">{s.d}</p>
             </li>
           ))}
         </ol>
       </Section>
 
       <Section tone="soft">
-        <h2 className="font-serif text-3xl text-elsai-pin-dark mb-8">
+        <h2 className="text-elsai-pin-dark mb-8 font-serif text-3xl">
           Ce qu'ELSAI fait — et ce qu'il ne fait pas
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-organic border border-elsai-pin/20 bg-elsai-creme p-7">
-            <h3 className="mb-3 font-semibold text-elsai-pin-dark">✓ ELSAI peut</h3>
-            <ul className="space-y-2 text-elsai-ink/85">
+          <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme border p-7">
+            <h3 className="text-elsai-pin-dark mb-3 font-semibold">✓ ELSAI peut</h3>
+            <ul className="text-elsai-ink/85 space-y-2">
               <li>Expliquer un courrier de la CAF ou des impôts</li>
               <li>Vérifier quels droits correspondent à ta situation</li>
               <li>Rédiger un modèle de courrier ou de recours</li>
@@ -67,9 +67,9 @@ export default function Page() {
               <li>T'orienter vers un numéro ou un lieu d'urgence</li>
             </ul>
           </div>
-          <div className="rounded-organic border border-elsai-rose/30 bg-elsai-creme p-7">
-            <h3 className="mb-3 font-semibold text-elsai-rose-dark">✗ ELSAI ne peut pas</h3>
-            <ul className="space-y-2 text-elsai-ink/85">
+          <div className="rounded-organic border-elsai-rose/30 bg-elsai-creme border p-7">
+            <h3 className="text-elsai-rose-dark mb-3 font-semibold">✗ ELSAI ne peut pas</h3>
+            <ul className="text-elsai-ink/85 space-y-2">
               <li>Remplacer un travailleur social humain</li>
               <li>Effectuer une démarche à ta place</li>
               <li>Garantir l'obtention d'un droit</li>
@@ -84,7 +84,7 @@ export default function Page() {
         <div className="text-center">
           <Link
             href="/start"
-            className="inline-flex items-center gap-2 rounded-organic bg-elsai-pin px-6 py-4 font-semibold text-elsai-creme shadow-organic hover:bg-elsai-pin-dark"
+            className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark inline-flex items-center gap-2 px-6 py-4 font-semibold"
           >
             Essayer maintenant →
           </Link>

@@ -23,8 +23,7 @@ const CASES = [
   {
     tag: "Mineur",
     title: "Je suis ado et ça ne va pas",
-    body:
-      "Famille, école, relations\u00A0: un espace anonyme pour poser des mots. Si c'est grave (violences, danger), ELSAI t'oriente vers le 119 ou une Maison des Ados.",
+    body: "Famille, école, relations\u00A0: un espace anonyme pour poser des mots. Si c'est grave (violences, danger), ELSAI t'oriente vers le 119 ou une Maison des Ados.",
   },
   {
     tag: "Majeur",
@@ -34,20 +33,17 @@ const CASES = [
   {
     tag: "Majeur",
     title: "Je suis en surendettement",
-    body:
-      "Constituer un dossier Banque de France, comprendre les étapes, mettre en pause les créanciers\u00A0: on te guide sans te juger.",
+    body: "Constituer un dossier Banque de France, comprendre les étapes, mettre en pause les créanciers\u00A0: on te guide sans te juger.",
   },
   {
     tag: "Majeur / Mineur",
     title: "Je subis des violences",
-    body:
-      "3919 (femmes), 119 (mineurs), Ligne Azur (LGBT+). ELSAI t'explique tes recours (dépôt de plainte, main courante, hébergement) et respecte ton rythme.",
+    body: "3919 (femmes), 119 (mineurs), Ligne Azur (LGBT+). ELSAI t'explique tes recours (dépôt de plainte, main courante, hébergement) et respecte ton rythme.",
   },
   {
     tag: "Majeur",
     title: "Handicap\u00A0: MDPH, AAH, RQTH",
-    body:
-      "Monter un dossier MDPH, comprendre les délais, faire un recours\u00A0: ELSAI traduit le jargon administratif en étapes concrètes.",
+    body: "Monter un dossier MDPH, comprendre les délais, faire un recours\u00A0: ELSAI traduit le jargon administratif en étapes concrètes.",
   },
 ];
 
@@ -63,13 +59,13 @@ export default function Page() {
           {CASES.map((c) => (
             <li
               key={c.title}
-              className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7"
+              className="rounded-organic border-elsai-pin/10 bg-elsai-creme border p-7"
             >
-              <span className="inline-block rounded-full bg-elsai-pin/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-elsai-pin-dark">
+              <span className="bg-elsai-pin/10 text-elsai-pin-dark inline-block rounded-full px-2.5 py-1 text-xs font-semibold tracking-widest uppercase">
                 {c.tag}
               </span>
               <h2 className="mt-4 font-serif text-xl leading-snug">{c.title}</h2>
-              <p className="mt-3 leading-relaxed text-elsai-ink/80">{c.body}</p>
+              <p className="text-elsai-ink/80 mt-3 leading-relaxed">{c.body}</p>
             </li>
           ))}
         </ul>
