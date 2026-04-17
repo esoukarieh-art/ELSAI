@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     claude_model: str = "claude-sonnet-4-6"
 
+    # OpenAI (Whisper STT + TTS)
+    openai_api_key: str = ""
+
     # Database
     database_url: str = "sqlite:///./elsai_poc.db"
 
