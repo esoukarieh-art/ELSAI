@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Plan = { key: "essentiel" | "premium"; nom: string; prix: number; couleur: string };
@@ -110,6 +111,16 @@ export default function PriceCalculator() {
               {r.affichage.toLocaleString("fr-FR")} €
             </p>
             <p className="text-elsai-ink/60 mt-1 text-xs">{r.unite}</p>
+            <Link
+              href={`/offre/souscrire?plan=${r.key}`}
+              className={`rounded-organic mt-4 inline-flex items-center justify-center px-4 py-2 text-sm font-semibold transition-colors ${
+                r.couleur === "rose"
+                  ? "bg-elsai-rose-dark text-elsai-creme hover:bg-elsai-rose-dark/90"
+                  : "bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark"
+              }`}
+            >
+              Souscrire ce plan →
+            </Link>
           </div>
         ))}
       </div>

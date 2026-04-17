@@ -143,6 +143,100 @@ export function clearAdminToken() {
   sessionStorage.removeItem(ADMIN_TOKEN_KEY);
 }
 
+// =================== Billing ===================
+
+export type BillingPlan = "essentiel" | "premium";
+export type BillingCycle = "monthly" | "yearly";
+
+export interface CheckoutPayload {
+  plan: BillingPlan;
+  billing_cycle: BillingCycle;
+  seats: number;
+  company_name: string;
+  admin_email: string;
+  siret?: string;
+}
+
+export async function createCheckout(
+  payload: CheckoutPayload,
+): Promise<{ checkout_url: string; organization_id: string }> {
+  const res = await fetch(`${API_URL}/api/billing/checkout`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+  return res.json();
+}
+
+export interface OrganizationView {
+  id: string;
+  company_name: string;
+  plan: string;
+  billing_cycle: string;
+  seats: number;
+  status: string;
+  admin_email: string;
+  codes: Array<{
+    id: string;
+    code: string;
+    assigned_at: string | null;
+    revoked_at: string | null;
+  }>;
+}
+
+export async function fetchOrganization(token: string): Promise<OrganizationView> {
+  const res = await fetch(
+    `${API_URL}/api/billing/organization?token=${encodeURIComponent(token)}`,
+  );
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+  return res.json();
+}
+
+export async function revokeCode(token: string, codeId: string): Promise<void> {
+  const res = await fetch(
+    `${API_URL}/api/billing/organization/codes/${codeId}/revoke?token=${encodeURIComponent(token)}`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+}
+
+export async function regenerateCode(
+  token: string,
+  codeId: string,
+): Promise<{ new_code_id: string; new_code: string }> {
+  const res = await fetch(
+    `${API_URL}/api/billing/organization/codes/regenerate?code_id=${encodeURIComponent(
+      codeId,
+    )}&token=${encodeURIComponent(token)}`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+  return res.json();
+}
+
+export async function resendActivationEmail(token: string): Promise<{ sent: boolean }> {
+  const res = await fetch(
+    `${API_URL}/api/billing/organization/resend-email?token=${encodeURIComponent(token)}`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+  return res.json();
+}
+
+export async function openBillingPortal(organizationId: string): Promise<string> {
+  const res = await fetch(`${API_URL}/api/billing/portal`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ organization_id: organizationId }),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+  const data = await res.json();
+  return data.portal_url as string;
+}
+
+// =================== Dashboard (admin global) ===================
+
 export async function fetchMetrics(): Promise<DashboardMetrics> {
   const token = getAdminToken();
   const headers: Record<string, string> = {};
