@@ -71,15 +71,16 @@ export default function SiteHeader() {
             Poser ma question
           </Link>
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             className="lg:hidden p-2 rounded-lg hover:bg-elsai-pin/10"
-            aria-label="Ouvrir le menu"
           >
-            <span className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span className="block w-5 h-0.5 bg-elsai-ink" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink mb-1" />
+            <span aria-hidden="true" className="block w-5 h-0.5 bg-elsai-ink" />
           </button>
         </div>
       </div>

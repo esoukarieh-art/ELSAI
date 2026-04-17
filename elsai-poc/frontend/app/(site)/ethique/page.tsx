@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Éthique & confidentialité",
+  description:
+    "Anonymat par défaut, droit à l'oubli, hébergement en France, protection des mineurs avec orientation 119. Nos engagements éthiques détaillés.",
+  alternates: { canonical: "/ethique" },
+};
 
 const PRINCIPES = [
   {

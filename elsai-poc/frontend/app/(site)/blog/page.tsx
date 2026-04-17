@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Journal",
+  description:
+    "Le journal d'ELSAI : réflexions, décisions de conception, avancées du projet. Un espace pour parler en transparence de ce qu'on construit.",
+  alternates: { canonical: "/blog" },
+};
 
 export default function Page() {
   return (

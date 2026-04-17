@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Une question sur le projet, un partenariat, une remarque ? Écris-nous. ELSAI est un projet à taille humaine et chaque message est lu.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function Page() {
   return (

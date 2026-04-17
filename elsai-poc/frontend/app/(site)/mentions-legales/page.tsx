@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Mentions légales",
+  description:
+    "Mentions légales et informations d'éditeur d'ELSAI : responsabilité éditoriale, hébergement, contact, propriété intellectuelle.",
+  alternates: { canonical: "/mentions-legales" },
+  robots: { index: false, follow: true },
+};
 
 export default function Page() {
   return (

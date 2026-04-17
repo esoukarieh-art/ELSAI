@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Questions fréquentes",
+  description:
+    "Réponses aux questions fréquentes sur ELSAI : anonymat, fiabilité des réponses, données personnelles, situations d'urgence, accompagnement humain.",
+  alternates: { canonical: "/faq" },
+};
 
 const FAQ = [
   {

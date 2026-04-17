@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "ELSAI — Assistant social numérique anonyme",
+  description:
+    "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement. CAF, logement, emploi, MDPH, jeunes 12-18 ans.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "ELSAI — Assistant social numérique anonyme",
+    description:
+      "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement.",
+    url: "/",
+  },
+};
 
 const CAS = [
   {

@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Partenariats",
+  description:
+    "Collectivités, associations, centres sociaux, établissements scolaires : proposez ELSAI aux publics que vous accompagnez. Formats et conditions.",
+  alternates: { canonical: "/partenariats" },
+};
 
 const PROFILS = [
   {

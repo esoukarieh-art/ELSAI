@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Cas d'usage",
+  description:
+    "À quoi sert ELSAI concrètement ? RSA refusé, entrée dans la majorité, logement d'urgence, difficultés à l'école : des exemples réels.",
+  alternates: { canonical: "/cas-usage" },
+};
 
 const CASES = [
   {

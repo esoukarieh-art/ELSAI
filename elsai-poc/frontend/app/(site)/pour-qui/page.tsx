@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Pour qui ? Adultes & 12-18 ans",
+  description:
+    "ELSAI accompagne deux publics : les adultes (CAF, impôts, logement, MDPH…) et les mineurs de 12 à 18 ans, avec un protocole de sécurité spécifique.",
+  alternates: { canonical: "/pour-qui" },
+};
 
 export default function Page() {
   return (

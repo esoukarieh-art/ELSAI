@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+
+export const metadata: Metadata = {
+  title: "Comment ça marche",
+  description:
+    "Le fonctionnement d'ELSAI en 4 étapes : tu poses ta question, ELSAI comprend, te guide étape par étape, tu gardes la main sur tes données.",
+  alternates: { canonical: "/comment-ca-marche" },
+};
 
 const STEPS = [
   {
