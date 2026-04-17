@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     # CORS
     cors_origins: str = "http://localhost:3000"
 
+    # Dashboard admin (POC : token partagé simple, à remplacer par un vrai IAM en prod)
+    admin_token: str = ""
+
     # OCR
     tesseract_cmd: str = ""
 

@@ -7,14 +7,14 @@ on veut pouvoir loguer l'événement et afficher une CTA d'urgence.
 
 import re
 
-# Mots-clés sensibles (liste minimale non exhaustive — à enrichir en prod)
+# Mots-clés sensibles (heuristique — complémentaire à la détection LLM)
 _PATTERNS = {
     "suicide": re.compile(
-        r"\b(me tuer|suicid\w*|en finir|plus envie de vivre|mourir)\b",
+        r"\b(me tuer|suicid\w*|en finir|plus envie de vivre|mourir|disparaître|me pendre|sauter du)\b",
         re.IGNORECASE,
     ),
     "violence": re.compile(
-        r"\b(tape|frappe|viol(é|ée|er)?|bat(s|tu|tre)|maltrait\w*)\b",
+        r"\b(tape|frappe|viol(é|ée|er)?|bat(s|tu|tre)|maltrait\w*|cogne|brutalis\w*)\b",
         re.IGNORECASE,
     ),
     "abuse": re.compile(
@@ -23,6 +23,22 @@ _PATTERNS = {
     ),
     "harassment": re.compile(
         r"\b(harcèl|harass|menace|intimid)\w*",
+        re.IGNORECASE,
+    ),
+    "self_harm": re.compile(
+        r"\b(me (coupe\w*|scarifi\w*|mutil\w*|brûle\w*|blesse\w*|fais du mal|faire du mal)|scarif\w*|automutil\w*)\b",
+        re.IGNORECASE,
+    ),
+    "eating_disorder": re.compile(
+        r"\b(anorex\w*|boulim\w*|vomir|me faire vomir|purg\w*|jeûn\w*|ne plus manger|trop gross\w*|trop maigre)\b",
+        re.IGNORECASE,
+    ),
+    "grooming": re.compile(
+        r"\b(un adulte|un homme plus (vieux|âgé)|une femme plus (vieille|âgée)|il m('|e )a demandé (des|une) photo|envoie(-| )moi (une|des) photo|notre secret|ne (le )?dis (à|a) personne|si tu m'aimes|cadeau contre)\b",
+        re.IGNORECASE,
+    ),
+    "runaway": re.compile(
+        r"\b(fugu\w*|partir de (la )?maison|m'enfuir|quitter la maison|plus rentrer (chez|à la maison)|(dormir|dors|dormi) dehors|à la rue)\b",
         re.IGNORECASE,
     ),
 }
