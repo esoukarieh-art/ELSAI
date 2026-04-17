@@ -14,7 +14,9 @@
   --color-elsai-rose: #9b7f7f;
   --color-elsai-rose-dark: #6f5757;
   --color-elsai-creme: #f5f5ed;
+  --color-elsai-creme-dark: #e8e8dc;
   --color-elsai-ink: #2c3b33;
+  --color-elsai-urgence: #c0392b;
 
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: var(--font-serif-loaded), "Source Serif Pro", Georgia, "Times New Roman", serif;
