@@ -30,6 +30,9 @@ TRUE_POSITIVES = [
     ("je suis victime d'inceste", "abuse"),
     ("mon chef me harcèle au travail", "harassment"),
     ("il me menace de me virer", "harassment"),
+    # Promus depuis KNOWN_FN après patch `\w*` sur suicid/maltrait/attouch.
+    ("je subis de la maltraitance depuis l'enfance", "violence"),
+    ("il y a eu des attouchements", "abuse"),
 ]
 
 
@@ -62,8 +65,6 @@ KNOWN_FN = [
     "je ne veux plus être là",
     "il me cogne quand il rentre",
     "ma mère me bat quand elle a bu",  # "bat" seul non matché (regex exige bats/battu/battre)
-    "je subis de la maltraitance depuis l'enfance",  # \bmaltrait\b bloque le suffixe -ance
-    "il y a eu des attouchements",  # \battouch\b bloque le suffixe -ements
     "mon conjoint me gifle régulièrement",
     "j'ai envie de sauter du pont",
 ]
