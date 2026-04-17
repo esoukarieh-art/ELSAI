@@ -24,8 +24,9 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
     links: [
       { href: "/ethique", label: "Notre éthique" },
       { href: "/mentions-legales", label: "Mentions légales" },
-      { href: "/mentions-legales#rgpd", label: "Données & RGPD" },
-      { href: "/mentions-legales#accessibilite", label: "Accessibilité" },
+      { href: "/confidentialite", label: "Confidentialité & RGPD" },
+      { href: "/cgu", label: "CGU (particuliers)" },
+      { href: "/cgv", label: "CGV (entreprises)" },
     ],
   },
 ];

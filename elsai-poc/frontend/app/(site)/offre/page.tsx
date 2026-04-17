@@ -89,7 +89,7 @@ const OFFRES: Offre[] = [
       "Kit de communication interne fourni",
     ],
     engagement: "Engagement 12 mois",
-    cta: { label: "Demander un devis", href: "/contact?sujet=offre-essentiel" },
+    cta: { label: "Souscrire", href: "/offre/souscrire?plan=essentiel" },
   },
   {
     nom: "Premium",
@@ -105,7 +105,7 @@ const OFFRES: Offre[] = [
       "2 ateliers collectifs / an (droits, budget, parentalité…)",
     ],
     engagement: "Engagement 12 mois",
-    cta: { label: "Demander un devis", href: "/contact?sujet=offre-premium" },
+    cta: { label: "Souscrire", href: "/offre/souscrire?plan=premium" },
   },
   {
     nom: "Sur mesure",

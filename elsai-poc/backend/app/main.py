@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
 from .database import init_db
-from .routers import auth, chat, dashboard, documents, voice
+from .routers import auth, billing, chat, dashboard, documents, voice
 
 
 @asynccontextmanager
@@ -36,6 +36,7 @@ app.include_router(chat.router)
 app.include_router(documents.router)
 app.include_router(dashboard.router)
 app.include_router(voice.router)
+app.include_router(billing.router)
 
 
 @app.get("/api/health", tags=["health"])

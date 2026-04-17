@@ -28,6 +28,24 @@ class Settings(BaseSettings):
     # OCR
     tesseract_cmd: str = ""
 
+    # Stripe (facturation B2B)
+    stripe_secret_key: str = ""
+    stripe_webhook_secret: str = ""
+    stripe_price_essentiel_monthly: str = ""
+    stripe_price_essentiel_yearly: str = ""
+    stripe_price_premium_monthly: str = ""
+    stripe_price_premium_yearly: str = ""
+    billing_success_url: str = "http://localhost:3000/offre/merci"
+    billing_cancel_url: str = "http://localhost:3000/offre"
+    billing_portal_return_url: str = "http://localhost:3000/offre"
+
+    # Brevo (ex-Sendinblue) — email transactionnel
+    brevo_api_key: str = ""
+    brevo_sender_email: str = "no-reply@elsai.fr"
+    brevo_sender_name: str = "ELSAI"
+    # URL de base du frontend pour construire les liens dans les emails
+    frontend_base_url: str = "http://localhost:3000"
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]

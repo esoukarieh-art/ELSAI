@@ -67,6 +67,68 @@ export default function Page() {
           </section>
 
           <section>
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
+              Sous-traitants techniques
+            </h2>
+            <p>
+              Pour fournir le service, nous recourons à des sous-traitants dûment encadrés
+              (art. 28 RGPD). Aucun contenu conversationnel n'est jamais transmis à ces
+              sous-traitants.
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-[520px] border-collapse text-sm">
+                <thead>
+                  <tr className="text-elsai-ink/60 text-left text-xs tracking-wider uppercase">
+                    <th className="py-2 pr-4">Sous-traitant</th>
+                    <th className="py-2 pr-4">Finalité</th>
+                    <th className="py-2 pr-4">Données</th>
+                    <th className="py-2 pr-4">Hébergement</th>
+                  </tr>
+                </thead>
+                <tbody className="align-top">
+                  <tr className="border-elsai-pin/10 border-t">
+                    <td className="py-3 pr-4 font-semibold">Stripe Payments Europe Ltd.</td>
+                    <td className="py-3 pr-4">Facturation B2B (offre entreprises)</td>
+                    <td className="py-3 pr-4">
+                      Raison sociale, email admin, SIRET, données de paiement
+                    </td>
+                    <td className="py-3 pr-4">Irlande (UE) / États-Unis</td>
+                  </tr>
+                  <tr className="border-elsai-pin/10 border-t">
+                    <td className="py-3 pr-4 font-semibold">Brevo (Sendinblue SAS)</td>
+                    <td className="py-3 pr-4">
+                      Envoi d'emails transactionnels (codes d'accès, factures)
+                    </td>
+                    <td className="py-3 pr-4">Email admin, contenu de l'email</td>
+                    <td className="py-3 pr-4">France (UE)</td>
+                  </tr>
+                  <tr className="border-elsai-pin/10 border-t">
+                    <td className="py-3 pr-4 font-semibold">Anthropic / OpenAI</td>
+                    <td className="py-3 pr-4">
+                      Traitement du langage (chatbot, transcription vocale)
+                    </td>
+                    <td className="py-3 pr-4">
+                      Contenu des messages (anonymes — aucun identifiant transmis)
+                    </td>
+                    <td className="py-3 pr-4">États-Unis (encadré par CCT)</td>
+                  </tr>
+                  <tr className="border-elsai-pin/10 border-t">
+                    <td className="py-3 pr-4 font-semibold">Hébergeur applicatif</td>
+                    <td className="py-3 pr-4">Stockage applicatif & base de données</td>
+                    <td className="py-3 pr-4">Sessions anonymes, conversations</td>
+                    <td className="py-3 pr-4">France (UE)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-elsai-ink/70 mt-4 text-sm">
+              Les données traitées par Stripe et Brevo concernent uniquement la relation
+              commerciale avec les entreprises clientes (B2B) — jamais les salariés utilisateurs
+              du service, qui restent strictement anonymes.
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Cookies</h2>
             <p>
               ELSAI n'utilise aucun cookie de tracking publicitaire. Seul un cookie technique
