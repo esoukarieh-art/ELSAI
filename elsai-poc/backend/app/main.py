@@ -1,4 +1,5 @@
 """Point d'entrée FastAPI — monolithe ELSAI POC."""
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI

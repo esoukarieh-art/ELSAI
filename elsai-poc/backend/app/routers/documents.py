@@ -1,4 +1,5 @@
 """OCR + explication de documents administratifs."""
+
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session as DBSession
 
@@ -28,7 +29,9 @@ async def analyze_document(
 
     data = await file.read()
     if len(data) > _MAX_BYTES:
-        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Image trop volumineuse (max 10 MB)")
+        raise HTTPException(
+            status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Image trop volumineuse (max 10 MB)"
+        )
 
     # 1. OCR (le binaire n'est PAS stocké — droit à l'oubli)
     try:
@@ -39,7 +42,9 @@ async def analyze_document(
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, str(exc)) from exc
 
     if not text:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Aucun texte détecté dans l'image")
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY, "Aucun texte détecté dans l'image"
+        )
 
     # 2. Explication via Claude
     try:

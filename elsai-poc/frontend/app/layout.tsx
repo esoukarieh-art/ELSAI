@@ -3,8 +3,7 @@ import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: "ELSAI — Assistant social numérique",
-  description:
-    "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24.",
+  description: "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24.",
   manifest: "/manifest.json",
   icons: {
     icon: "/logo-elsai.svg",

@@ -32,44 +32,40 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Notre éthique" title="Tu comptes plus que ta donnée.">
-        ELSAI a été conçu pour des publics vulnérables. Chaque décision
-        technique et éditoriale est guidée par ce principe.
+        ELSAI a été conçu pour des publics vulnérables. Chaque décision technique et éditoriale est
+        guidée par ce principe.
       </PageHero>
 
       <Section>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           {PRINCIPES.map((p) => (
             <article
               key={p.t}
-              className="bg-elsai-creme rounded-organic p-7 border border-elsai-pin/10"
+              className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7"
             >
               <h2 className="font-serif text-xl text-elsai-pin-dark">{p.t}</h2>
-              <p className="mt-3 text-elsai-ink/80 leading-relaxed">{p.d}</p>
+              <p className="mt-3 leading-relaxed text-elsai-ink/80">{p.d}</p>
             </article>
           ))}
         </div>
       </Section>
 
       <Section tone="soft">
-        <h2 className="font-serif text-3xl text-elsai-pin-dark">
-          Notre posture éditoriale
-        </h2>
-        <div className="mt-6 prose prose-elsai max-w-3xl text-elsai-ink/85 leading-relaxed space-y-4">
+        <h2 className="font-serif text-3xl text-elsai-pin-dark">Notre posture éditoriale</h2>
+        <div className="prose prose-elsai mt-6 max-w-3xl space-y-4 leading-relaxed text-elsai-ink/85">
           <p>
-            ELSAI parle <strong>empathiquement</strong>, mais aussi <strong>franchement</strong>.
-            Si un droit n'existe pas, on te le dit. Si une démarche est
-            complexe, on ne le cache pas. Si ELSAI ne sait pas, il le dit aussi.
+            ELSAI parle <strong>empathiquement</strong>, mais aussi <strong>franchement</strong>. Si
+            un droit n'existe pas, on te le dit. Si une démarche est complexe, on ne le cache pas.
+            Si ELSAI ne sait pas, il le dit aussi.
           </p>
           <p>
-            Nous refusons la posture du « coach motivationnel » qui voudrait
-            faire croire que tout se résout par la bonne attitude. Les droits
-            sociaux sont un labyrinthe administratif — on peut t'y aider, pas
-            le réécrire.
+            Nous refusons la posture du « coach motivationnel » qui voudrait faire croire que tout
+            se résout par la bonne attitude. Les droits sociaux sont un labyrinthe administratif —
+            on peut t'y aider, pas le réécrire.
           </p>
           <p>
-            ELSAI n'est <em>pas</em> un substitut à un travailleur social humain.
-            C'est un sas, une première porte, un repère quand les permanences
-            sont fermées.
+            ELSAI n'est <em>pas</em> un substitut à un travailleur social humain. C'est un sas, une
+            première porte, un repère quand les permanences sont fermées.
           </p>
         </div>
       </Section>

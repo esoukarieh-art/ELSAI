@@ -1,4 +1,5 @@
 """Service OCR basé sur Tesseract."""
+
 from io import BytesIO
 
 import pytesseract

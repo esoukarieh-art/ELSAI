@@ -1,0 +1,25 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["elsai_poc.db"]
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "B",   # flake8-bugbear
+  "UP",  # pyupgrade
+  "C4",  # flake8-comprehensions
+]
+ignore = [
+  "E501",  # line-length — géré par le formatter
+  "B008",  # function-call-in-default — pattern FastAPI (Depends, File)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]  # imports après setenv dans conftest
+
+[tool.ruff.format]
+quote-style = "double"

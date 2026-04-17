@@ -38,14 +38,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: [
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
-        ],
+        sans: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
         serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
       },
       borderRadius: {
@@ -57,7 +50,7 @@ const config: Config = {
         warm: "0 10px 40px -15px rgba(155, 127, 127, 0.25)",
       },
       backgroundImage: {
-        "symbiose":
+        symbiose:
           "radial-gradient(ellipse at top left, rgba(125, 158, 141, 0.18), transparent 55%), radial-gradient(ellipse at bottom right, rgba(184, 159, 159, 0.22), transparent 55%)",
       },
     },

@@ -33,22 +33,19 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
 export default function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-elsai-pin/10 bg-elsai-creme-dark/40">
-      <div className="max-w-6xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4">
         <div>
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/logo-elsai.svg" alt="" width={40} height={40} />
-            <span className="font-semibold text-elsai-pin-dark text-lg">
-              ELSAI
-            </span>
+            <span className="text-lg font-semibold text-elsai-pin-dark">ELSAI</span>
           </Link>
-          <p className="mt-3 text-sm text-elsai-ink/75 leading-relaxed max-w-xs">
-            Assistance sociale numérique. Anonyme, disponible 24/7,
-            hébergée en France.
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-elsai-ink/75">
+            Assistance sociale numérique. Anonyme, disponible 24/7, hébergée en France.
           </p>
         </div>
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h3 className="text-sm font-semibold text-elsai-pin-dark tracking-wide uppercase mb-3">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-elsai-pin-dark">
               {col.title}
             </h3>
             <ul className="space-y-2">
@@ -67,7 +64,7 @@ export default function SiteFooter() {
         ))}
       </div>
       <div className="border-t border-elsai-pin/10">
-        <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col md:flex-row gap-2 justify-between text-xs text-elsai-ink/60">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-2 px-4 py-5 text-xs text-elsai-ink/60 md:flex-row">
           <p>© {new Date().getFullYear()} ELSAI — Projet d'intérêt général</p>
           <p>Hébergé en France · Sans cookies · RGAA AA visé</p>
         </div>

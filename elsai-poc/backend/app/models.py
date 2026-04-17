@@ -1,7 +1,7 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, ForeignKey, String, Text, Boolean, Integer
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .database import Base
@@ -12,11 +12,12 @@ def _uuid() -> str:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class Session(Base):
     """Session anonyme. Aucun nom, aucun email. Purgeable à la demande."""
+
     __tablename__ = "sessions"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
@@ -39,7 +40,8 @@ class Conversation(Base):
 
     session: Mapped["Session"] = relationship(back_populates="conversations")
     messages: Mapped[list["Message"]] = relationship(
-        back_populates="conversation", cascade="all, delete-orphan",
+        back_populates="conversation",
+        cascade="all, delete-orphan",
         order_by="Message.created_at",
     )
 
@@ -59,6 +61,7 @@ class Message(Base):
 
 class MetricEvent(Base):
     """Événements anonymes pour le dashboard POC (aucun contenu utilisateur)."""
+
     __tablename__ = "metric_events"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)

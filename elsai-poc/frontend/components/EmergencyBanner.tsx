@@ -9,25 +9,23 @@ export default function EmergencyBanner({ cta, onClose }: Props) {
   return (
     <div
       role="alert"
-      className="fixed inset-0 z-50 bg-elsai-urgence/95 text-elsai-creme flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-elsai-urgence/95 p-6 text-center text-elsai-creme backdrop-blur-sm"
     >
-      <h2 className="text-3xl md:text-4xl font-serif mb-4">
-        Tu n'es pas seul·e.
-      </h2>
-      <p className="text-lg mb-8 max-w-md leading-relaxed">
-        Ce que tu vis est important. Un professionnel peut t'aider tout de suite,
-        gratuitement et en toute confidentialité.
+      <h2 className="mb-4 font-serif text-3xl md:text-4xl">Tu n'es pas seul·e.</h2>
+      <p className="mb-8 max-w-md text-lg leading-relaxed">
+        Ce que tu vis est important. Un professionnel peut t'aider tout de suite, gratuitement et en
+        toute confidentialité.
       </p>
       <a
         href={`tel:${cta.phone}`}
-        className="bg-elsai-creme text-elsai-urgence text-2xl font-bold py-5 px-10 rounded-organic shadow-xl hover:bg-white transition-colors"
+        className="rounded-organic bg-elsai-creme px-10 py-5 text-2xl font-bold text-elsai-urgence shadow-xl transition-colors hover:bg-white"
       >
         {cta.label}
       </a>
       {onClose && (
         <button
           onClick={onClose}
-          className="mt-6 text-elsai-creme/80 underline text-sm"
+          className="mt-6 text-sm text-elsai-creme/80 underline"
           aria-label="Fermer le bandeau d'urgence"
         >
           Continuer à discuter

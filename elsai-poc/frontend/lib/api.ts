@@ -85,7 +85,10 @@ export async function analyzeDocument(file: File): Promise<DocumentAnalyzeRespon
   return res.json();
 }
 
-export async function forgetMe(): Promise<{ deleted_conversations: number; deleted_messages: number }> {
+export async function forgetMe(): Promise<{
+  deleted_conversations: number;
+  deleted_messages: number;
+}> {
   const res = await apiFetch("/api/auth/forget", { method: "DELETE" });
   if (!res.ok) throw new Error(`Erreur ${res.status}`);
   const data = await res.json();

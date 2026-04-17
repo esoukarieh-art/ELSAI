@@ -12,12 +12,10 @@ export default function UrgenceBar() {
     <aside
       role="complementary"
       aria-label="Numéros d'urgence gratuits"
-      className="bg-elsai-ink text-elsai-creme/90 text-xs md:text-sm"
+      className="bg-elsai-ink text-xs text-elsai-creme/90 md:text-sm"
     >
-      <div className="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-        <span className="font-semibold text-elsai-creme">
-          En danger, tout de suite ?
-        </span>
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-1 px-4 py-2">
+        <span className="font-semibold text-elsai-creme">En danger, tout de suite ?</span>
         {NUMBERS.map((n) => (
           <a
             key={n.tel}
@@ -26,7 +24,7 @@ export default function UrgenceBar() {
           >
             <span
               aria-hidden
-              className={`inline-block w-1.5 h-1.5 rounded-full ${
+              className={`inline-block h-1.5 w-1.5 rounded-full ${
                 n.tone === "rose" ? "bg-elsai-rose-light" : "bg-elsai-pin-light"
               }`}
             />

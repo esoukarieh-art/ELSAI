@@ -5,7 +5,7 @@ import UrgenceBar from "@/components/site/UrgenceBar";
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <UrgenceBar />
       <SiteHeader />
       <main id="contenu" className="flex-1">

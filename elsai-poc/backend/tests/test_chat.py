@@ -1,4 +1,5 @@
 """Tests /api/chat — fusion heuristique + LLM, persistance, CTA."""
+
 from __future__ import annotations
 
 import json
@@ -18,6 +19,7 @@ def fake_llm(monkeypatch):
         def _fake(profile, history):
             calls.append({"profile": profile, "history": list(history)})
             return reply
+
         monkeypatch.setattr(llm_module, "chat_completion", _fake)
         return calls
 
@@ -128,6 +130,7 @@ def test_chat_emits_danger_metric(client, auth_headers, fake_llm, db_session):
 def test_chat_llm_failure_returns_503(client, auth_headers, monkeypatch):
     def _boom(profile, history):
         raise RuntimeError("ANTHROPIC_API_KEY non définie dans .env")
+
     monkeypatch.setattr(llm_module, "chat_completion", _boom)
     headers = auth_headers("adult")
 

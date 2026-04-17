@@ -12,12 +12,12 @@ Les 4 catégories :
   - KNOWN_FP       : ambigu, actuellement détecté à tort (xfail).
   - KNOWN_FN       : détresse manquée aujourd'hui (xfail).
 """
+
 from __future__ import annotations
 
 import pytest
 
 from app.services.safety import scan
-
 
 # --- Vrais positifs : l'intention est nette ---------------------------------
 TRUE_POSITIVES = [

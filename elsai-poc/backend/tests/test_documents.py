@@ -1,28 +1,31 @@
 """Tests /api/documents/analyze — validation type, taille, OCR, LLM."""
-from __future__ import annotations
 
-import io
+from __future__ import annotations
 
 import pytest
 
 from app.models import MetricEvent
-from app.services import llm as llm_module, ocr as ocr_module
+from app.services import llm as llm_module
+from app.services import ocr as ocr_module
 
 
 @pytest.fixture
 def stub_pipeline(monkeypatch):
     """Remplace OCR + LLM par des stubs pilotables."""
+
     def _apply(ocr_text: str = "Texte OCR factice", explanation: dict | None = None):
         monkeypatch.setattr(ocr_module, "extract_text", lambda _data: ocr_text)
         monkeypatch.setattr(
             llm_module,
             "explain_document",
-            lambda _t: explanation or {
+            lambda _t: explanation
+            or {
                 "document_type": "Courrier CAF",
                 "explanation": "Ce document est une notification.",
                 "suggested_actions": ["Répondre sous 15 jours"],
             },
         )
+
     return _apply
 
 
@@ -84,6 +87,7 @@ def test_analyze_requires_auth(client):
 def test_analyze_ocr_runtime_error_returns_503(client, auth_headers, monkeypatch):
     def _boom(_data):
         raise RuntimeError("tesseract introuvable")
+
     monkeypatch.setattr(ocr_module, "extract_text", _boom)
     headers = auth_headers("adult")
     files = {"file": ("doc.png", _png_bytes(), "image/png")}

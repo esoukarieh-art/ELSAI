@@ -1,6 +1,7 @@
 """Wrapper autour de l'API Anthropic Claude."""
+
 import json
-from typing import Iterable
+from collections.abc import Iterable
 
 from anthropic import Anthropic
 from anthropic.types import MessageParam
@@ -21,9 +22,7 @@ def _system_for(profile: str) -> str:
 
 def chat_completion(profile: str, history: Iterable[dict]) -> str:
     """Appelle Claude avec l'historique complet. `history` = [{role, content}, ...]."""
-    messages: list[MessageParam] = [
-        {"role": m["role"], "content": m["content"]} for m in history
-    ]
+    messages: list[MessageParam] = [{"role": m["role"], "content": m["content"]} for m in history]
     response = _client().messages.create(
         model=settings.claude_model,
         max_tokens=1024,
