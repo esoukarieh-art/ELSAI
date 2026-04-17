@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const PROFILS = [
   {
     t: "CCAS, CIAS, collectivités",
-    d: "Nous déployons ELSAI comme extension numérique de votre permanence sociale : hors-horaires, anonyme, orientant vers vos services.",
+    d: "Nous déployons ELSAI comme extension numérique de votre permanence sociale\u00A0: hors horaires, anonyme, orientant vers vos services.",
   },
   {
     t: "Associations de solidarité",

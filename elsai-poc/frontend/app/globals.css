@@ -49,3 +49,15 @@ body::before {
 .elsai-breathe:hover {
   animation: breathe 2.4s ease-in-out infinite;
 }
+
+/* Respect des préférences système : pas d'animation pour les personnes sensibles */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

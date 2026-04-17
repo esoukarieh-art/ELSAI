@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Mentions légales" title="Transparence, données, accessibilité.">
-        Dernière mise à jour : avril 2026.
+        Dernière mise à jour&nbsp;: avril 2026.
       </PageHero>
 
       <Section>
@@ -35,7 +35,7 @@ export default function Page() {
               Données personnelles & RGPD
             </h2>
             <p>
-              ELSAI a été conçu pour collecter le strict minimum. Concrètement :
+              ELSAI a été conçu pour collecter le strict minimum. Concrètement&nbsp;:
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-2">
               <li>
@@ -82,7 +82,7 @@ export default function Page() {
             <p>
               Ce site vise la conformité <strong>RGAA niveau AA</strong>. Si
               vous constatez un défaut d'accessibilité, merci de nous le
-              signaler via la page Contact : nous le corrigerons en priorité.
+              signaler via la page Contact&nbsp;: nous le corrigerons en priorité.
             </p>
           </section>
 

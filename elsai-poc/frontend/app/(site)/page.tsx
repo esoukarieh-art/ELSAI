@@ -25,7 +25,7 @@ const CAS = [
   },
   {
     tag: "RSA refusé",
-    title: "On m'a refusé le RSA, est-ce normal ?",
+    title: "On m'a refusé le RSA, est-ce normal\u00A0?",
     body: "On relit ensemble la lettre, on vérifie tes droits, on prépare un recours.",
   },
   {
@@ -119,6 +119,7 @@ export default function HomePage() {
               width={380}
               height={380}
               priority
+              fetchPriority="high"
               className="drop-shadow-sm"
             />
           </div>
@@ -149,7 +150,7 @@ export default function HomePage() {
       <Section>
         <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
           <h2 className="font-serif text-3xl md:text-4xl text-elsai-pin-dark tracking-tight">
-            À quoi ça sert concrètement ?
+            À quoi ça sert concrètement&nbsp;?
           </h2>
           <Link
             href="/cas-usage"

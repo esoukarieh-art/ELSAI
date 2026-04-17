@@ -4,7 +4,7 @@ import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
 
 export const metadata: Metadata = {
-  title: "Pour qui ? Adultes & 12-18 ans",
+  title: "Pour qui\u00A0? Adultes & 12-18 ans",
   description:
     "ELSAI accompagne deux publics : les adultes (CAF, impôts, logement, MDPH…) et les mineurs de 12 à 18 ans, avec un protocole de sécurité spécifique.",
   alternates: { canonical: "/pour-qui" },
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="Pour qui ?" title="Deux parcours, une même promesse : personne ne reste seul.">
-        ELSAI parle différemment aux adultes et aux jeunes. Mais tous les deux
-        sont écoutés pareillement — sans jugement, sans dossier.
+      <PageHero eyebrow="Pour qui&nbsp;?" title="Deux parcours, une même promesse&nbsp;: personne ne reste seul.">
+        ELSAI parle différemment aux adultes et aux jeunes. Les deux
+        sont écoutés avec la même attention — sans jugement, sans dossier.
       </PageHero>
 
       <Section id="adultes">
@@ -74,7 +74,7 @@ export default function Page() {
             </p>
             <h2 className="font-serif text-3xl mt-1">12 → 18 ans</h2>
             <p className="mt-3 opacity-90 leading-relaxed">
-              Tutoiement, ton rassurant, espace safe. On ne te dit rien à tes
+              Tutoiement, ton rassurant, espace bienveillant. On ne dit rien à tes
               parents — sauf si tu es en danger.
             </p>
             <Link
@@ -94,7 +94,7 @@ export default function Page() {
                 "L'école, le harcèlement, les notes",
                 "Les amitiés, l'amour, les réseaux",
                 "Ton corps, la santé, la contraception",
-                "Tes droits (tu en as plein !)",
+                "Tes droits (tu en as plein\u00A0!)",
                 "Quand ça va pas dans ta tête",
                 "Les violences que tu subis ou vois",
                 "Comment trouver de l'aide humaine",
@@ -109,7 +109,7 @@ export default function Page() {
             </ul>
             <div className="bg-elsai-urgence/10 border border-elsai-urgence/30 rounded-organic p-5 text-sm text-elsai-ink">
               <p className="font-semibold text-elsai-urgence mb-1">
-                Si tu es en danger maintenant :
+                Si tu es en danger maintenant&nbsp;:
               </p>
               <p>
                 Appelle le <strong>119</strong> (Enfance en danger, 24h/24,

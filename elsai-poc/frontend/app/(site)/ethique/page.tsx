@@ -16,7 +16,7 @@ const PRINCIPES = [
   },
   {
     t: "Droit à l'oubli instantané",
-    d: "Un bouton, et tout disparaît : l'historique, les documents, les échanges. Sans délai, sans condition, sans justification.",
+    d: "Un bouton, et tout disparaît\u00A0: l'historique, les documents, les échanges. Sans délai, sans condition, sans justification.",
   },
   {
     t: "Hébergement souverain",
@@ -69,7 +69,7 @@ export default function Page() {
             complexe, on ne le cache pas. Si ELSAI ne sait pas, il le dit aussi.
           </p>
           <p>
-            Nous refusons la posture du « coach motivationnel » qui voudrait
+            Nous refusons la posture du «&nbsp;coach motivationnel&nbsp;» qui voudrait
             faire croire que tout se résout par la bonne attitude. Les droits
             sociaux sont un labyrinthe administratif — on peut t'y aider, pas
             le réécrire.

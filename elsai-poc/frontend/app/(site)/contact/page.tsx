@@ -107,7 +107,7 @@ export default function Page() {
           <aside className="space-y-6">
             <div className="bg-elsai-rose/10 rounded-organic p-6 border border-elsai-rose/20">
               <h3 className="font-semibold text-elsai-rose-dark">
-                Vous êtes en difficulté ?
+                Vous êtes en difficulté&nbsp;?
               </h3>
               <p className="mt-2 text-sm text-elsai-ink/80 leading-relaxed">
                 Cette page n'est pas un service d'assistance. Pour une demande
@@ -128,7 +128,7 @@ export default function Page() {
                 <li>18 — Pompiers</li>
                 <li>112 — Urgences UE</li>
                 <li>119 — Enfance en danger</li>
-                <li>3114 — Prévention suicide</li>
+                <li>3114 — Prévention du suicide</li>
               </ul>
             </div>
           </aside>

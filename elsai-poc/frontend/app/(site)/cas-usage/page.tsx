@@ -24,9 +24,9 @@ const CASES = [
   },
   {
     tag: "Mineur",
-    title: "Je suis ado et ça va mal",
+    title: "Je suis ado et ça ne va pas",
     body:
-      "Famille, école, relations : un espace anonyme pour poser des mots. Si c'est grave (violences, danger), ELSAI t'oriente vers le 119 ou une Maison des Ados.",
+      "Famille, école, relations\u00A0: un espace anonyme pour poser des mots. Si c'est grave (violences, danger), ELSAI t'oriente vers le 119 ou une Maison des Ados.",
   },
   {
     tag: "Majeur",
@@ -38,19 +38,19 @@ const CASES = [
     tag: "Majeur",
     title: "Je suis en surendettement",
     body:
-      "Constituer un dossier Banque de France, comprendre les étapes, mettre en pause les créanciers : on te guide sans te juger.",
+      "Constituer un dossier Banque de France, comprendre les étapes, mettre en pause les créanciers\u00A0: on te guide sans te juger.",
   },
   {
     tag: "Majeur / Mineur",
     title: "Je subis des violences",
     body:
-      "3919 (femmes), 119 (mineurs), 08 842 846 37 (LGBT+). ELSAI t'explique tes recours (dépôt de plainte, main courante, hébergement) et respecte ton rythme.",
+      "3919 (femmes), 119 (mineurs), Ligne Azur (LGBT+). ELSAI t'explique tes recours (dépôt de plainte, main courante, hébergement) et respecte ton rythme.",
   },
   {
     tag: "Majeur",
-    title: "Handicap : MDPH, AAH, RQTH",
+    title: "Handicap\u00A0: MDPH, AAH, RQTH",
     body:
-      "Monter un dossier MDPH, comprendre le délai, faire un recours : ELSAI traduit le jargon administratif en étapes concrètes.",
+      "Monter un dossier MDPH, comprendre les délais, faire un recours\u00A0: ELSAI traduit le jargon administratif en étapes concrètes.",
   },
 ];
 

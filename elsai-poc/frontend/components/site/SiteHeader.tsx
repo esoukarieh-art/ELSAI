@@ -31,7 +31,7 @@ export default function SiteHeader() {
             alt=""
             width={36}
             height={36}
-            priority
+            loading="eager"
           />
           <span className="font-semibold text-elsai-pin-dark tracking-tight text-lg">
             ELSAI
