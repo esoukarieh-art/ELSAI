@@ -6,10 +6,12 @@ from sqlalchemy.orm import Session as DBSession
 from ..auth import SessionDep
 from ..database import get_db
 from ..models import Conversation, Message, MetricEvent
+from ..observability import get_logger
 from ..schemas import ChatRequest, ChatResponse
 from ..services import llm, safety
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
+logger = get_logger("elsai.chat")
 
 
 @router.post("", response_model=ChatResponse)
@@ -59,6 +61,12 @@ def chat(
     try:
         raw_reply = llm.chat_completion(session.profile, history)
     except RuntimeError as exc:
+        logger.error(
+            "llm_unavailable",
+            profile=session.profile,
+            conversation_id=str(conv.id),
+            error=str(exc),
+        )
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, str(exc)) from exc
 
     # 6. Post-traitement : détection danger côté LLM (mineur uniquement)
@@ -83,6 +91,15 @@ def chat(
     db.add(MetricEvent(event_type="chat", profile=session.profile))
     if danger:
         db.add(MetricEvent(event_type="danger", profile=session.profile))
+        # Event safety loggé SANS contenu utilisateur (anonymat + audit légal)
+        logger.warning(
+            "safety.danger_detected",
+            profile=session.profile,
+            conversation_id=str(conv.id),
+            heuristic_signals=heuristic["signals"],
+            llm_flag=danger_llm,
+            cta_phone=(emergency_cta or {}).get("phone"),
+        )
     db.commit()
 
     return ChatResponse(

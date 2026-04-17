@@ -55,23 +55,30 @@ docker compose up --build
 elsai-poc/
 ├── backend/
 │   ├── app/
-│   │   ├── routers/       # Endpoints HTTP (auth, chat, documents, dashboard)
-│   │   ├── services/      # Logique métier (llm, ocr, safety)
-│   │   ├── prompts/       # Templates system prompts Claude
-│   │   ├── main.py        # App FastAPI + CORS
-│   │   ├── models.py      # SQLAlchemy ORM
-│   │   ├── schemas.py     # DTOs Pydantic
-│   │   ├── auth.py        # JWT + dépendance SessionDep
-│   │   ├── database.py    # Engine + init_db
-│   │   └── config.py      # Settings (env vars)
+│   │   ├── routers/            # Endpoints HTTP (auth, chat, documents, dashboard, voice)
+│   │   ├── services/           # Métier : llm, ocr, safety, privacy, voice
+│   │   ├── prompts/            # Templates system prompts Claude
+│   │   ├── main.py             # App FastAPI + CORS + observability
+│   │   ├── observability.py    # structlog JSON + correlation ID + Sentry
+│   │   ├── models.py           # SQLAlchemy ORM
+│   │   ├── schemas.py          # DTOs Pydantic
+│   │   ├── auth.py             # JWT + SessionDep
+│   │   ├── database.py         # Engine + init_db
+│   │   └── config.py           # Settings (env vars)
+│   ├── tests/                  # pytest : auth, chat, documents, safety,
+│   │                           # safety_adversarial, observability, privacy
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── frontend/
-│   ├── app/               # Routes Next.js App Router
-│   ├── components/        # Composants réutilisables
-│   ├── lib/               # Client API, helpers
-│   └── public/            # Assets statiques, manifest PWA
-├── docs/                  # Cette documentation
+│   ├── app/                    # Routes Next.js App Router
+│   ├── components/             # Composants réutilisables + ObservabilityBoot
+│   ├── lib/                    # Client API, observability (Sentry wrapper)
+│   ├── tests/e2e/              # Playwright + axe-core RGAA
+│   ├── docs/rgaa.md            # Conformité accessibilité
+│   ├── lighthouserc.json       # Lighthouse CI
+│   ├── playwright.config.ts
+│   └── public/                 # Assets statiques, manifest PWA
+├── docs/                       # README, architecture, api, contributing, rgpd
 └── docker-compose.yml
 ```
 
@@ -126,18 +133,62 @@ Tout contributeur doit lire `docs/fonctionnel.md` §Éthique. En résumé :
 
 ## Tests
 
-Non inclus dans le POC (validation fonctionnelle d'abord). À ajouter avant
-industrialisation :
+Bloc qualité obligatoire en CI (`.github/workflows/ci.yml`) : tout PR doit
+passer les étapes backend + frontend + e2e + lighthouse.
 
-- Backend : `pytest` + `httpx.AsyncClient` pour tester les routers
-- Frontend : `playwright` pour les parcours E2E critiques (chat, scan)
-- Safety : corpus de messages tagués (danger vs. non-danger) avec KPI recall
+### Backend (pytest)
+
+```bash
+cd elsai-poc/backend
+pytest                              # suite complète
+pytest tests/test_safety.py -v      # corpus calibré de détection
+pytest tests/test_safety_adversarial.py  # jailbreak / evasion / injection
+pytest tests/test_privacy.py        # RGPD : oubli SQL, TTL, droit d'accès
+pytest tests/test_observability.py  # correlation ID + logs sans PII
+```
+
+Conventions pytest :
+- Les gaps connus sont marqués `@pytest.mark.xfail(strict=True)` avec une
+  raison explicite. Si un xfail passe en vert (XPASS), c'est que le code a
+  été durci → basculer le cas en test normal.
+- Markers personnalisés : `fp` / `fn` / `adversarial` (voir `pytest.ini`).
+
+### Frontend (Playwright + axe + Lighthouse)
+
+```bash
+cd elsai-poc/frontend
+npm install
+npx playwright install chromium firefox
+
+npm run lint          # ESLint + jsx-a11y bloquant
+npm run test:e2e      # parcours critiques + axe-core RGAA
+npm run test:e2e:ui   # mode interactif (debug local)
+npm run build && npm run lhci  # Lighthouse CI (a11y ≥ 95)
+```
+
+Scénarios E2E critiques couverts : danger mineur → 119, danger adulte → 3114,
+chat anonyme sans cookie identifiant, droit à l'oubli purge sessionStorage,
+audit a11y sur 11 pages vitrine + /chat (avec et sans bannière urgence),
+navigation clavier (skip link, input chat).
+
+### Ajouter des cas de détection safety
+
+1. Message clairement à risque → ajouter dans `TRUE_POSITIVES` de
+   `test_safety.py` avec le signal attendu
+2. Message sain qui pourrait leurrer → `TRUE_NEGATIVES`
+3. Gap connu (regex actuellement insuffisante) → `KNOWN_FN` / `KNOWN_FP` en xfail
+4. Tentative de contournement (jailbreak, argot, euphémisme) → `test_safety_adversarial.py`
 
 ## Checklist avant PR
 
 - [ ] Backend démarre sans erreur (`uvicorn app.main:app --reload`)
-- [ ] Frontend build OK (`npm run build`)
+- [ ] Backend : `pytest` vert (91 pass + 24 xfail attendus)
+- [ ] Frontend : `npm run lint` OK (jsx-a11y inclus)
+- [ ] Frontend : `npm run build` OK
+- [ ] Frontend : `npm run test:e2e` vert (Playwright + axe)
 - [ ] Nouveaux endpoints documentés dans `docs/api.md`
+- [ ] Nouveau log structuré ? Tester qu'il ne fuit **aucun contenu utilisateur**
 - [ ] Pas de secret commité (clés, tokens, fichiers `.env`)
 - [ ] Pas de PII introduit dans les modèles
-- [ ] Si nouvelle table : cascade delete depuis `Session` vérifiée
+- [ ] Si nouvelle table : cascade delete depuis `Session` vérifiée (test obligatoire)
+- [ ] Si modif detection safety : exécuter `test_safety_adversarial.py` et mettre à jour les corpus

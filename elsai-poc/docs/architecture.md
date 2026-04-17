@@ -50,19 +50,21 @@ PWA : service worker installé, **aucun cache des endpoints API**
 
 | Module | Rôle |
 |--------|------|
-| `main.py` | Point d'entrée FastAPI, CORS, lifespan, `/api/health` |
-| `config.py` | Settings Pydantic (env vars) |
+| `main.py` | Point d'entrée FastAPI, CORS, lifespan, observabilité, `/api/health` |
+| `config.py` | Settings Pydantic (env vars) — inclut `SENTRY_DSN`, `LOG_LEVEL`, `SESSION_RETENTION_HOURS` |
 | `database.py` | Engine SQLAlchemy + `init_db()` |
 | `models.py` | `Session`, `Conversation`, `Message`, `MetricEvent` |
 | `schemas.py` | DTOs Pydantic (request/response) |
 | `auth.py` | Dépendance `SessionDep`, génération/validation JWT |
-| `routers/auth.py` | Création session anonyme + droit à l'oubli |
-| `routers/chat.py` | Orchestration message → safety → LLM → stockage |
+| `observability.py` | structlog JSON + `CorrelationIdMiddleware` + init Sentry |
+| `routers/auth.py` | Session anonyme + droit à l'oubli + droit d'accès (`/privacy`) |
+| `routers/chat.py` | Orchestration message → safety → LLM → stockage + log audit |
 | `routers/documents.py` | Upload image → OCR → explication Claude |
 | `routers/dashboard.py` | Métriques anonymisées agrégées |
 | `services/llm.py` | Appels Claude (chat + explication documents) |
 | `services/ocr.py` | Wrapper Tesseract (fra + eng) |
 | `services/safety.py` | Détection heuristique de signaux de danger |
+| `services/privacy.py` | Purge TTL + introspection RGPD (footprint session) |
 | `prompts/` | System prompts mineur/majeur, prompt document |
 
 ### Données (SQLite)
@@ -134,10 +136,56 @@ Tous les autres endpoints : header Authorization: Bearer <token>
 
 DELETE /api/auth/forget
   → purge conversations + messages (cascade)
-  → log MetricEvent(forget)
+  → log MetricEvent(forget) + log JSON audit privacy.forget_executed
+  → testé canary : aucun contenu ne subsiste au niveau SQL brut
+
+GET /api/auth/privacy
+  → renvoie compteurs (conversations, messages) + catégories de données stockées
+  → jamais de contenu dans la réponse
+
+purge_expired_sessions(ttl_hours)   # service, à brancher sur un cron
+  → supprime sessions avec last_activity < now - ttl (cascade conv+msg)
 ```
 
-## 4. Dépendances externes
+## 4. Observabilité
+
+Toutes les requêtes HTTP portent un `X-Correlation-Id` (généré si absent, lu si
+fourni, propagé en header de réponse et dans chaque log).
+
+| Event JSON | Champs | Déclenché par |
+|---|---|---|
+| `safety.danger_detected` | profile, conversation_id, heuristic_signals, llm_flag, cta_phone | `/api/chat` si danger |
+| `privacy.forget_executed` | session_id, profile, deleted_counts | `DELETE /api/auth/forget` |
+| `llm_unavailable` | profile, conversation_id, error | Échec appel Claude |
+
+**Aucun contenu utilisateur ne figure dans les logs** (testé par canary dans
+`test_observability.py` et `test_privacy.py`).
+
+Sentry optionnel : activé si `SENTRY_DSN` présent, avec `send_default_pii=False`
+et session replay désactivé. Fallback silencieux en dev local.
+
+## 5. Tests
+
+```
+backend/tests/
+├── conftest.py                      # DB SQLite mémoire + TestClient
+├── test_auth.py                     # session + forget cascade
+├── test_chat.py                     # routing chat + CTA + danger fusion
+├── test_documents.py                # OCR + explain
+├── test_safety.py                   # corpus calibré (TP/TN/FP/FN)
+├── test_safety_adversarial.py       # jailbreak, evasion 119, injection
+├── test_observability.py            # correlation ID + logs sans PII
+└── test_privacy.py                  # RGPD : oubli SQL, TTL, droit d'accès
+```
+
+Suite actuelle : **91 passed + 24 xfailed** (xfail documentant les gaps connus
+à durcir : normalisation regex safety, vocabulaire mineur, whitelist numéros
+d'urgence).
+
+Côté frontend : Playwright (E2E parcours critiques + axe-core RGAA) + Lighthouse
+CI (accessibility ≥ 95). Voir [tests E2E](../frontend/tests/e2e/README.md).
+
+## 6. Dépendances externes
 
 | Service | Usage | Alternative cible |
 |---------|-------|-------------------|
@@ -146,7 +194,7 @@ DELETE /api/auth/forget
 | SQLite (fichier local) | Stockage POC | PostgreSQL + chiffrement TDE |
 | Auth JWT maison (jose) | Sessions opaques | Keycloak OAuth2/OIDC |
 
-## 5. Roadmap vers l'architecture cible
+## 7. Roadmap vers l'architecture cible
 
 1. SQLite → PostgreSQL chiffré
 2. Tesseract → Google Document AI
