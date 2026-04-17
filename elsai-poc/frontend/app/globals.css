@@ -9,7 +9,20 @@
   --color-elsai-danger: #c0392b;
   --color-elsai-soft: #f4f7fb;
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-elsai-pin: #5a7e6b;
+  --color-elsai-pin-dark: #3f5c4d;
+  --color-elsai-rose: #9b7f7f;
+  --color-elsai-rose-dark: #6f5757;
+  --color-elsai-creme: #f5f5ed;
+  --color-elsai-ink: #2c3b33;
+
+  --font-sans: var(--font-sans-loaded), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif-loaded), "Source Serif Pro", Georgia, "Times New Roman", serif;
+
+  --radius-organic: 1.25rem;
+
+  --shadow-organic: 0 10px 30px -12px rgba(44, 59, 51, 0.18);
+  --shadow-warm: 0 10px 30px -12px rgba(155, 127, 127, 0.28);
 }
 
 :root {
@@ -36,6 +49,14 @@ body::before {
   pointer-events: none;
   background: radial-gradient(ellipse at 15% 10%, rgba(90, 126, 107, 0.1), transparent 45%),
     radial-gradient(ellipse at 85% 90%, rgba(155, 127, 127, 0.1), transparent 45%);
+}
+
+/* Fond "Symbiose Organique" pour hero et zones premium */
+.bg-symbiose {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(90, 126, 107, 0.12), transparent 55%),
+    radial-gradient(ellipse at 95% 100%, rgba(155, 127, 127, 0.12), transparent 55%),
+    var(--color-elsai-creme, #f5f5ed);
 }
 
 /* Focus visible cohérent (accessibilité RGAA) */

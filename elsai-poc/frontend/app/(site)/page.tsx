@@ -63,7 +63,7 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="bg-symbiose relative overflow-hidden">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-16 pb-20 md:grid-cols-2 md:pt-24 md:pb-28">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-12 pb-16 md:grid-cols-2 md:pt-16 md:pb-20">
           <div>
             <p className="text-elsai-pin mb-5 text-xs font-semibold tracking-[0.2em] uppercase">
               Service social numérique de premier accueil
@@ -111,11 +111,11 @@ export default function HomePage() {
             <Image
               src="/logo-elsai.svg"
               alt=""
-              width={380}
-              height={380}
+              width={280}
+              height={280}
               priority
               fetchPriority="high"
-              className="drop-shadow-sm"
+              className="h-auto w-[220px] drop-shadow-sm md:w-[280px]"
             />
           </div>
         </div>
