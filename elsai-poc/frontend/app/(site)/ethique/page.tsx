@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
 
@@ -63,6 +64,40 @@ export default function Page() {
       </Section>
 
       <Section tone="soft">
+        <div className="max-w-3xl">
+          <p className="text-elsai-pin text-xs font-semibold tracking-[0.2em] uppercase">
+            Modèle économique
+          </p>
+          <h2 className="text-elsai-pin-dark mt-3 font-serif text-3xl">
+            Gratuit pour vous. Financé par les entreprises.
+          </h2>
+          <div className="text-elsai-ink/85 mt-5 space-y-4 leading-relaxed">
+            <p>
+              Le service est <strong>entièrement gratuit pour les particuliers</strong>, sans
+              palier payant, sans abonnement, sans publicité. C'est un principe fondateur&nbsp;:
+              le coût ne doit jamais être un obstacle pour une personne en difficulté sociale.
+            </p>
+            <p>
+              Le fonctionnement de la plateforme est financé par des <strong>entreprises
+              clientes</strong> qui souscrivent un abonnement pour offrir ELSAI à leurs
+              salariés, ainsi que par des <strong>subventions et fonds dédiés à l'économie
+              sociale et solidaire</strong> (BPI, fonds ESS, appels à projets publics).
+            </p>
+            <p>
+              ELSAI est porté par une SAS en cours d'<strong>agrément ESUS</strong> (Entreprise
+              Solidaire d'Utilité Sociale), un statut reconnu par l'État qui engage l'entreprise
+              sur un objectif d'intérêt général.
+            </p>
+            <p className="text-sm">
+              <Link href="/offre" className="text-elsai-pin-dark underline">
+                Voir l'offre entreprises
+              </Link>
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
         <h2 className="text-elsai-pin-dark font-serif text-3xl">Notre posture éditoriale</h2>
         <div className="prose prose-elsai text-elsai-ink/85 mt-6 max-w-3xl space-y-4 leading-relaxed">
           <p>
