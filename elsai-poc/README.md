@@ -93,6 +93,13 @@ docker compose up --build
 - **Pas de cache API dans le service worker** : contenu utilisateur jamais mis en cache.
 - **Documents non persistés** : les images OCRisées ne sont pas stockées côté serveur.
 
+## Documentation
+
+- [Architecture technique](docs/architecture.md) — couches, flux, dépendances
+- [Documentation API](docs/api.md) — endpoints, schémas, exemples curl
+- [Guide contributeur](docs/contributing.md) — setup, conventions, checklist PR
+- [Documentation fonctionnelle](docs/fonctionnel.md) — parcours, règles éthiques, cas d'usage
+
 ## Roadmap post-POC
 
 1. Remplacer SQLite par PostgreSQL + chiffrement TDE
