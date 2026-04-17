@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -26,16 +27,22 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="bg-elsai-primary text-white px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold">← ELSAI</Link>
-        <span className="text-sm">Tableau de bord POC</span>
+      <div className="h-1 w-full bg-gradient-to-r from-elsai-pin via-elsai-rose to-elsai-pin" />
+      <header className="bg-white/80 backdrop-blur border-b border-elsai-pin/10 px-4 py-3 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 text-elsai-pin-dark font-bold">
+          <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
+          <span>← ELSAI</span>
+        </Link>
+        <span className="text-sm text-elsai-ink/70">Tableau de bord POC</span>
       </header>
 
       <div className="max-w-4xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Métriques (anonymes)</h1>
+        <h1 className="text-3xl font-serif text-elsai-pin-dark mb-6">
+          Métriques <span className="text-elsai-rose">(anonymes)</span>
+        </h1>
 
         {error && (
-          <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-xl">
+          <div className="bg-elsai-urgence/10 border border-elsai-urgence/30 text-elsai-urgence p-4 rounded-organic mb-4">
             {error}
           </div>
         )}
@@ -43,35 +50,57 @@ export default function DashboardPage() {
         {metrics && (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <MetricCard label="Sessions totales" value={metrics.total_sessions} />
-            <MetricCard label="Actives (1h)" value={metrics.active_last_hour} highlight />
+            <MetricCard
+              label="Actives (1h)"
+              value={metrics.active_last_hour}
+              accent="rose"
+            />
             <MetricCard label="Conversations" value={metrics.chats_total} />
             <MetricCard label="Documents analysés" value={metrics.ocr_total} />
             <MetricCard
-              label="Signaux danger"
+              label="Signaux de danger"
               value={metrics.danger_detections_total}
-              danger
+              accent="urgence"
             />
-            <MetricCard label="Droits à l'oubli" value={metrics.forget_requests_total} />
+            <MetricCard
+              label="Droits à l'oubli"
+              value={metrics.forget_requests_total}
+              accent="rose"
+            />
           </div>
         )}
 
         {metrics && Object.keys(metrics.profile_breakdown).length > 0 && (
-          <div className="mt-8 bg-white border border-gray-200 rounded-2xl p-5">
-            <h2 className="font-bold mb-3">Répartition des profils</h2>
-            <ul className="space-y-1">
+          <div className="mt-8 bg-white/70 backdrop-blur border border-elsai-pin/15 rounded-organic p-5 shadow-organic">
+            <h2 className="font-serif text-xl text-elsai-pin-dark mb-3">
+              Répartition des profils
+            </h2>
+            <ul className="space-y-2">
               {Object.entries(metrics.profile_breakdown).map(([k, v]) => (
-                <li key={k} className="flex justify-between">
-                  <span className="capitalize">{k === "adult" ? "Majeurs" : "Mineurs 12-18"}</span>
-                  <span className="font-mono">{v}</span>
+                <li
+                  key={k}
+                  className="flex justify-between items-center py-1 border-b border-elsai-pin/10 last:border-0"
+                >
+                  <span className="flex items-center gap-2 text-elsai-ink">
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        k === "minor" ? "bg-elsai-rose" : "bg-elsai-pin"
+                      }`}
+                    />
+                    {k === "adult" ? "Majeurs" : "Mineurs 12-18"}
+                  </span>
+                  <span className="font-mono text-elsai-pin-dark font-bold">
+                    {v}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
         )}
 
-        <p className="text-sm text-gray-500 mt-6">
-          Rafraîchissement automatique toutes les 5 secondes. Aucune donnée utilisateur
-          identifiable n'est exposée ici.
+        <p className="text-sm text-elsai-ink/60 mt-6 leading-relaxed">
+          Rafraîchissement automatique toutes les 5 secondes. Aucune donnée
+          utilisateur identifiable n'est exposée ici.
         </p>
       </div>
     </main>
@@ -81,23 +110,28 @@ export default function DashboardPage() {
 function MetricCard({
   label,
   value,
-  highlight,
-  danger,
+  accent,
 }: {
   label: string;
   value: number;
-  highlight?: boolean;
-  danger?: boolean;
+  accent?: "rose" | "urgence";
 }) {
-  const color = danger
-    ? "border-elsai-danger bg-red-50"
-    : highlight
-    ? "border-elsai-accent bg-amber-50"
-    : "border-gray-200 bg-white";
+  let style =
+    "border-elsai-pin/15 bg-white/80 shadow-organic";
+  let valueColor = "text-elsai-pin-dark";
+
+  if (accent === "rose") {
+    style = "border-elsai-rose/30 bg-elsai-rose/10 shadow-warm";
+    valueColor = "text-elsai-rose-dark";
+  } else if (accent === "urgence") {
+    style = "border-elsai-urgence/30 bg-elsai-urgence/5";
+    valueColor = "text-elsai-urgence";
+  }
+
   return (
-    <div className={`border rounded-2xl p-4 ${color}`}>
-      <div className="text-3xl font-bold">{value}</div>
-      <div className="text-sm text-gray-600 mt-1">{label}</div>
+    <div className={`border rounded-organic p-5 backdrop-blur ${style}`}>
+      <div className={`text-4xl font-serif font-bold ${valueColor}`}>{value}</div>
+      <div className="text-sm text-elsai-ink/70 mt-1">{label}</div>
     </div>
   );
 }

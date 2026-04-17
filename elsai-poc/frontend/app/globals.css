@@ -4,10 +4,48 @@
 
 :root {
   color-scheme: light;
+  --elsai-pin: #5a7e6b;
+  --elsai-rose: #9b7f7f;
+  --elsai-creme: #f5f5ed;
+  --elsai-ink: #2c3b33;
 }
 
-html, body {
-  background-color: #f4f7fb;
-  color: #1f2937;
+html,
+body {
+  background-color: var(--elsai-creme);
+  color: var(--elsai-ink);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Subtile texture "Symbiose Organique" en arrière-plan */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(90, 126, 107, 0.10), transparent 45%),
+    radial-gradient(ellipse at 85% 90%, rgba(155, 127, 127, 0.10), transparent 45%);
+}
+
+/* Focus visible cohérent (accessibilité RGAA) */
+*:focus-visible {
+  outline: 2px solid var(--elsai-pin);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* Animation douce sur les boutons principaux */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.elsai-breathe:hover {
+  animation: breathe 2.4s ease-in-out infinite;
 }

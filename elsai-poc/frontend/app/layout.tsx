@@ -6,10 +6,13 @@ export const metadata: Metadata = {
   description:
     "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24.",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/logo-elsai.svg",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1a5490",
+  themeColor: "#5A7E6B",
   width: "device-width",
   initialScale: 1,
 };
@@ -17,7 +20,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body className="min-h-screen">
+      <body className="min-h-screen font-sans">
         {children}
         <script
           dangerouslySetInnerHTML={{
