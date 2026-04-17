@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: "ELSAI, c'est gratuit\u00A0?",
-    a: "Oui, totalement. ELSAI est un projet d'intérêt général, sans publicité, sans abonnement, sans vente de données.",
+    a: "Oui, totalement pour les particuliers. Sans palier payant, sans abonnement, sans publicité, sans vente de données. Le service est financé par des entreprises qui l'offrent à leurs salariés et par des subventions dédiées à l'économie sociale et solidaire. Ce modèle nous permet de garantir un accès libre et gratuit à toutes et tous.",
+  },
+  {
+    q: "Je suis employeur, est-ce qu'il y a une offre pour mon entreprise\u00A0?",
+    a: "Oui. Nous proposons trois formules (Essentiel à 3 €/salarié/mois, Premium à 5 €, Sur mesure) pour équiper vos équipes d'un accueil social confidentiel. Les détails sont sur la page Offre entreprises.",
   },
   {
     q: "Est-ce que vous gardez ce que j'écris\u00A0?",

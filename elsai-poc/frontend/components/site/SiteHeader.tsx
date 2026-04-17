@@ -10,6 +10,7 @@ const NAV = [
   { href: "/exemples-concrets", label: "Exemples concrets" },
   { href: "/ethique", label: "Notre éthique" },
   { href: "/partenariats", label: "Partenariats" },
+  { href: "/offre", label: "Entreprises" },
 ];
 
 export default function SiteHeader() {

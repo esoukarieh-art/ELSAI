@@ -201,6 +201,32 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* EMPLOYEURS */}
+      <Section>
+        <div className="rounded-organic border-elsai-pin/15 bg-elsai-creme border p-8 md:p-10">
+          <div className="grid items-center gap-6 md:grid-cols-[1fr,auto]">
+            <div>
+              <p className="text-elsai-pin text-xs font-semibold tracking-[0.2em] uppercase">
+                Vous êtes employeur&nbsp;?
+              </p>
+              <h2 className="text-elsai-pin-dark mt-2 font-serif text-2xl md:text-3xl">
+                Offrez ELSAI à vos salariés, à partir de 3&nbsp;€ par mois.
+              </h2>
+              <p className="text-elsai-ink/80 mt-3 leading-relaxed">
+                Un avantage social concret, 100% confidentiel, qui soulage vos équipes sur leurs
+                démarches personnelles — sans créer de service RH dédié.
+              </p>
+            </div>
+            <Link
+              href="/offre"
+              className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark inline-flex items-center gap-2 px-6 py-3.5 font-semibold whitespace-nowrap"
+            >
+              Voir l'offre →
+            </Link>
+          </div>
+        </div>
+      </Section>
+
       {/* CTA FINAL */}
       <Section>
         <div className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic p-10 text-center md:p-14">
