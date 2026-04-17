@@ -1,14 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const EMERGENCY = [
+  { label: "Enfance en danger", tel: "119" },
+  { label: "Violences faites aux femmes", tel: "3919" },
+  { label: "Sans-abri", tel: "115" },
+  { label: "Prévention du suicide", tel: "3114" },
+  { label: "Violences numériques", tel: "3018" },
+  { label: "Urgences vitales", tel: "112" },
+];
+
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Le service",
     links: [
       { href: "/comment-ca-marche", label: "Comment ça marche" },
-      { href: "/cas-usage", label: "Cas d'usage" },
-      { href: "/pour-qui", label: "Pour qui ?" },
-      { href: "/faq", label: "FAQ" },
+      { href: "/exemples-concrets", label: "Exemples concrets" },
     ],
   },
   {
@@ -18,14 +25,6 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: "/mentions-legales", label: "Mentions légales" },
       { href: "/mentions-legales#rgpd", label: "Données & RGPD" },
       { href: "/mentions-legales#accessibilite", label: "Accessibilité" },
-    ],
-  },
-  {
-    title: "Professionnels",
-    links: [
-      { href: "/partenariats", label: "Partenariats" },
-      { href: "/contact", label: "Nous écrire" },
-      { href: "/blog", label: "Blog & ressources" },
     ],
   },
 ];
@@ -40,7 +39,7 @@ export default function SiteFooter() {
             <span className="text-elsai-pin-dark text-lg font-semibold">ELSAI</span>
           </Link>
           <p className="text-elsai-ink/75 mt-3 max-w-xs text-sm leading-relaxed">
-            Assistance sociale numérique. Anonyme, disponible 24/7, hébergée en France.
+            Service social numérique de premier accueil. Anonyme, disponible 24h/24, hébergé en France.
           </p>
         </div>
         {COLUMNS.map((col) => (
@@ -62,6 +61,26 @@ export default function SiteFooter() {
             </ul>
           </div>
         ))}
+        <div>
+          <h3 className="text-elsai-pin-dark mb-3 text-sm font-semibold tracking-wide uppercase">
+            Numéros d'accès direct
+          </h3>
+          <p className="text-elsai-ink/60 mb-3 text-xs">Gratuits, 24h/24, selon votre situation</p>
+          <ul className="space-y-2 text-sm">
+            {EMERGENCY.map((n) => (
+              <li key={n.tel}>
+                <a
+                  href={`tel:${n.tel}`}
+                  className="text-elsai-ink/80 hover:text-elsai-pin-dark flex items-baseline gap-2"
+                  aria-label={`Appeler le ${n.tel} — ${n.label}`}
+                >
+                  <span className="text-elsai-pin-dark font-bold">{n.tel}</span>
+                  <span>{n.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="border-elsai-pin/10 border-t">
         <div className="text-elsai-ink/60 mx-auto flex max-w-6xl flex-col justify-between gap-2 px-4 py-5 text-xs md:flex-row">

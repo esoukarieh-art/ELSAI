@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 const NUMBERS = [
   { label: "Enfance en danger", tel: "119", tone: "rose" },
   { label: "Violences faites aux femmes", tel: "3919", tone: "rose" },
@@ -6,6 +10,8 @@ const NUMBERS = [
 ];
 
 export default function UrgenceBar() {
+  const pathname = usePathname();
+  if (pathname === "/") return null;
   return (
     <aside
       aria-labelledby="urgence-heading"

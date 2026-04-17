@@ -57,6 +57,18 @@ export default function HomePage() {
             onClick={() => start("adult")}
             className="elsai-breathe rounded-organic bg-elsai-pin text-elsai-creme shadow-organic hover:bg-elsai-pin-dark w-full py-5 text-xl font-semibold transition-colors"
           >
+            J'ai une question
+          </button>
+          <button
+            onClick={() => start("adult")}
+            className="rounded-organic bg-elsai-pin/90 text-elsai-creme shadow-organic hover:bg-elsai-pin-dark w-full py-5 text-xl font-semibold transition-colors"
+          >
+            J'ai besoin d'un conseil
+          </button>
+          <button
+            onClick={() => start("adult")}
+            className="rounded-organic bg-elsai-pin/80 text-elsai-creme shadow-organic hover:bg-elsai-pin-dark w-full py-5 text-xl font-semibold transition-colors"
+          >
             J'ai besoin d'aide
           </button>
           <button

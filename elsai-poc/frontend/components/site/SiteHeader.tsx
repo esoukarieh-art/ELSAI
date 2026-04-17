@@ -7,10 +7,8 @@ import { useState } from "react";
 
 const NAV = [
   { href: "/comment-ca-marche", label: "Comment ça marche" },
-  { href: "/cas-usage", label: "Cas d'usage" },
-  { href: "/pour-qui", label: "Pour qui ?" },
-  { href: "/ethique", label: "Éthique" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/exemples-concrets", label: "Exemples concrets" },
+  { href: "/ethique", label: "Notre éthique" },
   { href: "/partenariats", label: "Partenariats" },
 ];
 

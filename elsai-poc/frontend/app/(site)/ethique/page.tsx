@@ -11,8 +11,12 @@ export const metadata: Metadata = {
 
 const PRINCIPES = [
   {
+    t: "Accessible sans se déplacer, sans rendez-vous",
+    d: "Pour une question simple ou un conseil, pas besoin de prendre rendez-vous ni de vous déplacer dans une permanence. Et sans avoir à formuler votre situation en face de quelqu'un — on sait que c'est parfois le plus dur.",
+  },
+  {
     t: "Anonymat par défaut",
-    d: "Aucun nom, aucun email, aucune adresse. Tu peux utiliser ELSAI sans créer de compte. Ton seul identifiant est une session temporaire.",
+    d: "Aucun nom, aucun email, aucune adresse. Vous pouvez utiliser ELSAI sans créer de compte. Votre seul identifiant est une session temporaire.",
   },
   {
     t: "Droit à l'oubli instantané",
@@ -27,8 +31,8 @@ const PRINCIPES = [
     d: "ELSAI dit ce qu'il ne sait pas. Il n'invente pas de droits, ne promet rien, n'imite pas un professionnel humain.",
   },
   {
-    t: "Protection des mineurs",
-    d: "Un protocole dédié détecte les situations de danger (violences, idéations suicidaires, abus) et oriente systématiquement vers le 119 ou une Maison des Ados.",
+    t: "Conçu par une assistante sociale diplômée",
+    d: "ELSAI a été pensé et co-conçu par une assistante sociale diplômée d'État, pour garantir la justesse de la posture, du vocabulaire et des orientations.",
   },
   {
     t: "Pas de profilage, pas de pub",
@@ -39,9 +43,9 @@ const PRINCIPES = [
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="Notre éthique" title="Tu comptes plus que ta donnée.">
-        ELSAI a été conçu pour des publics vulnérables. Chaque décision technique et éditoriale est
-        guidée par ce principe.
+      <PageHero eyebrow="Notre éthique" title="Vous comptez plus que vos données.">
+        ELSAI a été conçu pour des publics vulnérables. Chaque décision technique a été guidée par
+        ce principe.
       </PageHero>
 
       <Section>
@@ -63,13 +67,13 @@ export default function Page() {
         <div className="prose prose-elsai text-elsai-ink/85 mt-6 max-w-3xl space-y-4 leading-relaxed">
           <p>
             ELSAI parle <strong>empathiquement</strong>, mais aussi <strong>franchement</strong>. Si
-            un droit n'existe pas, on te le dit. Si une démarche est complexe, on ne le cache pas.
+            un droit n'existe pas, on vous le dit. Si une démarche est complexe, on ne le cache pas.
             Si ELSAI ne sait pas, il le dit aussi.
           </p>
           <p>
             Nous refusons la posture du «&nbsp;coach motivationnel&nbsp;» qui voudrait faire croire
             que tout se résout par la bonne attitude. Les droits sociaux sont un labyrinthe
-            administratif — on peut t'y aider, pas le réécrire.
+            administratif — on peut vous y aider, pas le réécrire.
           </p>
           <p>
             ELSAI n'est <em>pas</em> un substitut à un travailleur social humain. C'est un sas, une
