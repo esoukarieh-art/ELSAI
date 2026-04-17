@@ -68,15 +68,14 @@ export default function HomePage() {
             <p className="text-elsai-pin mb-5 text-xs font-semibold tracking-[0.2em] uppercase">
               Assistance sociale numérique
             </p>
-            <h1 className="text-elsai-pin-dark font-serif text-4xl leading-[1.05] tracking-tight md:text-6xl">
-              Comprends et active
+            <h1 className="text-elsai-pin-dark font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
+              Assistante sociale
               <br />
-              tes droits sociaux.
+              numérique
             </h1>
-            <p className="text-elsai-ink/80 mt-6 max-w-lg text-lg leading-relaxed md:text-xl">
-              <strong>Anonymement.</strong> Sans rendez-vous.
-              <br />
-              Sans jugement.
+            <p className="text-elsai-ink/80 mt-6 max-w-lg text-base leading-relaxed md:text-lg">
+              Répond à toutes vos questions administratives, sociales, familiales… et vous
+              réoriente si besoin vers le bon interlocuteur.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
