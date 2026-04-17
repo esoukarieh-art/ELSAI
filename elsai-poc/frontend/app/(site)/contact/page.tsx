@@ -37,7 +37,7 @@ export default function Page() {
                 id="nom"
                 name="nom"
                 required
-                className="rounded-organic border-elsai-pin/20 bg-elsai-creme focus:border-elsai-pin w-full border px-4 py-3 outline-none"
+                className="rounded-organic border-elsai-pin/20 bg-white focus:border-elsai-pin focus:ring-2 focus:ring-elsai-pin/30 w-full border px-4 py-3 outline-none transition-colors"
               />
             </div>
             <div>
@@ -49,7 +49,7 @@ export default function Page() {
                 name="email"
                 type="email"
                 required
-                className="rounded-organic border-elsai-pin/20 bg-elsai-creme focus:border-elsai-pin w-full border px-4 py-3 outline-none"
+                className="rounded-organic border-elsai-pin/20 bg-white focus:border-elsai-pin focus:ring-2 focus:ring-elsai-pin/30 w-full border px-4 py-3 outline-none transition-colors"
               />
             </div>
             <div>
@@ -59,7 +59,7 @@ export default function Page() {
               <select
                 id="sujet"
                 name="sujet"
-                className="rounded-organic border-elsai-pin/20 bg-elsai-creme focus:border-elsai-pin w-full border px-4 py-3 outline-none"
+                className="rounded-organic border-elsai-pin/20 bg-white focus:border-elsai-pin focus:ring-2 focus:ring-elsai-pin/30 w-full border px-4 py-3 outline-none transition-colors"
               >
                 <option>Partenariat</option>
                 <option>Presse</option>
