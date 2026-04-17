@@ -46,6 +46,16 @@ class Settings(BaseSettings):
     # URL de base du frontend pour construire les liens dans les emails
     frontend_base_url: str = "http://localhost:3000"
 
+    # RGPD — durée de rétention session inactive (heures)
+    session_retention_hours: int = 24
+
+    # Observabilité
+    log_level: str = "INFO"
+    sentry_dsn: str = ""
+    sentry_environment: str = "dev"
+    sentry_release: str = ""
+    sentry_traces_sample_rate: float = 0.1
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]

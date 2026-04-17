@@ -78,27 +78,45 @@ docker compose up --build
 | Méthode | URL                            | Rôle                                   |
 |---------|--------------------------------|----------------------------------------|
 | POST    | `/api/auth/session`            | Crée une session anonyme (profile)     |
+| GET     | `/api/auth/privacy`            | Droit d'accès RGPD (compteurs, 0 PII)  |
 | DELETE  | `/api/auth/forget`             | Droit à l'oubli : purge la session     |
 | POST    | `/api/chat`                    | Conversation IA (Claude)               |
 | POST    | `/api/documents/analyze`       | OCR + explication d'un document        |
 | GET     | `/api/dashboard/metrics`       | Métriques agrégées anonymes            |
 | GET     | `/api/health`                  | Santé + statut config LLM              |
 
+Tous les endpoints émettent un header `X-Correlation-Id` pour l'audit.
+
 ## Contraintes éthiques implémentées
 
 - **Anonymat** : sessions sans nom/email, JWT opaque.
-- **Droit à l'oubli** : `DELETE /api/auth/forget` purge conversations + messages.
-- **Détection danger** : double couche (heuristique regex + prompt Claude en mode mineur).
-- **CTA d'urgence** : bandeau plein écran avec 119 si signal détecté.
+- **Droit à l'oubli** : `DELETE /api/auth/forget` purge conversations + messages (testé au niveau SQL brut).
+- **Rétention bornée** : purge automatique des sessions inactives (`SESSION_RETENTION_HOURS`, défaut 24h).
+- **Détection danger** : double couche (heuristique regex + prompt Claude en mode mineur) + couverture red-team (jailbreak, evasion, injection).
+- **CTA d'urgence** : bandeau plein écran avec 119 si signal détecté — testé E2E.
 - **Pas de cache API dans le service worker** : contenu utilisateur jamais mis en cache.
 - **Documents non persistés** : les images OCRisées ne sont pas stockées côté serveur.
+- **Logs d'audit** : events `safety.danger_detected` et `privacy.forget_executed` loggés en JSON structuré avec correlation ID — **sans contenu utilisateur**.
+
+## Qualité & observabilité
+
+| Chantier | Outillage | Seuil bloquant |
+|---|---|---|
+| Tests backend | `pytest` (91 pass + 24 xfail documentant les gaps) | Obligatoire en CI |
+| Red-team safety | `test_safety_adversarial.py` (jailbreak, evasion 119, injection) | Obligatoire en CI |
+| E2E frontend | Playwright (Chromium + Firefox + mobile) | Obligatoire en CI |
+| RGAA AA | `eslint-plugin-jsx-a11y` + `@axe-core/playwright` + Lighthouse CI | Accessibility ≥ 95 |
+| Observabilité | `structlog` JSON + Sentry (optionnel) + correlation ID | Logs anonymes |
+| RGPD | `test_privacy.py` — oubli SQL, TTL, canary, droit d'accès | Suite verte obligatoire |
 
 ## Documentation
 
-- [Architecture technique](docs/architecture.md) — couches, flux, dépendances
+- [Architecture technique](docs/architecture.md) — couches, flux, dépendances, observabilité
 - [Documentation API](docs/api.md) — endpoints, schémas, exemples curl
-- [Guide contributeur](docs/contributing.md) — setup, conventions, checklist PR
+- [Guide contributeur](docs/contributing.md) — setup, conventions, tests, checklist PR
 - [Documentation fonctionnelle](docs/fonctionnel.md) — parcours, règles éthiques, cas d'usage
+- [Conformité RGPD](docs/rgpd.md) — registre traitements, droits, DPIA, checklist prod
+- [Conformité RGAA](../frontend/docs/rgaa.md) — niveau AA, outillage, limites
 
 ## Roadmap post-POC
 

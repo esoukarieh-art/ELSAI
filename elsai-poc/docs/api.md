@@ -16,6 +16,13 @@ Authorization: Bearer <token>
 Le token est un JWT opaque délivré par `POST /api/auth/session`.
 Il n'encode **aucun PII** : uniquement l'ID de session (UUID) et l'exp.
 
+## Corrélation / audit
+
+Toutes les requêtes émettent un header `X-Correlation-Id` (généré si absent,
+echo si fourni par le client). Il est propagé dans les logs JSON côté serveur
+pour faciliter le debug et l'audit RGPD. Aucun contenu utilisateur n'apparaît
+dans les logs — uniquement profil, flags, compteurs et IDs.
+
 ## Endpoints
 
 ### `GET /api/health`
@@ -52,13 +59,40 @@ Crée une session anonyme.
 
 ### `DELETE /api/auth/forget`
 
-Droit à l'oubli : supprime toutes les conversations et messages liés à
-la session courante. La session elle-même reste valide jusqu'à expiration
-du token.
+Droit à l'oubli (RGPD art. 17) : supprime toutes les conversations et messages
+liés à la session courante. La session elle-même reste valide jusqu'à expiration
+du token, mais ne contient plus aucune donnée utilisateur. Un event d'audit
+anonyme `privacy.forget_executed` est loggé en JSON.
 
 **Réponse 200**
 ```json
 { "deleted_conversations": 3, "deleted_messages": 42 }
+```
+
+---
+
+### `GET /api/auth/privacy`
+
+Droit d'accès (RGPD art. 15) : renvoie les **compteurs** et catégories de
+données stockées sur la session courante. **Jamais le contenu** des messages.
+
+**Réponse 200**
+```json
+{
+  "exists": true,
+  "session_id": "a1b2c3...",
+  "profile": "adult",
+  "created_at": "2026-04-17T10:15:00+00:00",
+  "last_activity": "2026-04-17T10:42:00+00:00",
+  "conversation_count": 2,
+  "message_count": 8,
+  "data_categories_stored": [
+    "profil (adult/minor)",
+    "messages échangés (contenu + horodatage)",
+    "indicateurs danger détectés"
+  ],
+  "retention_policy": "Purge automatique après inactivité ; oubli immédiat sur demande"
+}
 ```
 
 ---

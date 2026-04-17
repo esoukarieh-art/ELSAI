@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Source_Serif_4, Inter } from "next/font/google";
+import ObservabilityBoot from "@/components/ObservabilityBoot";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const sans = Inter({
@@ -99,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Aller au contenu principal
         </a>
+        <ObservabilityBoot />
         {children}
         <Script id="sw-register" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) {

@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
 from .database import init_db
+from .observability import setup_observability
 from .routers import auth, billing, chat, dashboard, documents, voice
 
 
@@ -22,6 +23,8 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+setup_observability(app)
 
 app.add_middleware(
     CORSMiddleware,

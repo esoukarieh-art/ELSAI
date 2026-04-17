@@ -9,6 +9,7 @@ import EmergencyBanner from "@/components/EmergencyBanner";
 import VoiceRecorder from "@/components/VoiceRecorder";
 import { ForgetButton } from "@/components/ForgetButton";
 import { getProfile, sendMessage, synthesizeSpeech } from "@/lib/api";
+import { captureError } from "@/lib/observability";
 
 interface Msg {
   role: "user" | "assistant";
@@ -36,8 +37,8 @@ export default function ChatPage() {
       if (!audioRef.current) audioRef.current = new Audio();
       audioRef.current.src = url;
       await audioRef.current.play();
-    } catch {
-      // synthèse optionnelle : on ignore silencieusement
+    } catch (err) {
+      captureError(err, { where: "playReply.tts" });
     }
   }
 
@@ -56,8 +57,10 @@ export default function ChatPage() {
         setEmergency(res.emergency_cta);
       }
       if (voiceMode) playReply(res.reply);
-    } catch (err: any) {
-      setMessages((m) => [...m, { role: "assistant", content: `⚠️ Erreur : ${err.message}` }]);
+    } catch (err) {
+      captureError(err, { where: "sendMessage", profile });
+      const msg = err instanceof Error ? err.message : "Erreur inconnue";
+      setMessages((m) => [...m, { role: "assistant", content: `⚠️ Erreur : ${msg}` }]);
     } finally {
       setLoading(false);
     }

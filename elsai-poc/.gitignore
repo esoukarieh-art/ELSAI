@@ -14,6 +14,11 @@ out/
 .env
 .env.local
 
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
+
 # IDE
 .vscode/
 .idea/

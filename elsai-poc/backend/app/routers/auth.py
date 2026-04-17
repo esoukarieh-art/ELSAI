@@ -1,4 +1,4 @@
-"""Création de session anonyme + droit à l'oubli."""
+"""Création de session anonyme + droit à l'oubli + introspection RGPD."""
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session as DBSession
@@ -8,9 +8,12 @@ from ..config import settings
 from ..database import get_db
 from ..models import MetricEvent
 from ..models import Session as UserSession
+from ..observability import get_logger
 from ..schemas import ForgetResponse, SessionCreateRequest, SessionResponse
+from ..services.privacy import session_footprint
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+logger = get_logger("elsai.auth")
 
 
 @router.post("/session", response_model=SessionResponse)
@@ -48,7 +51,26 @@ def forget_me(
     db.add(MetricEvent(event_type="forget", profile=session.profile))
     db.commit()
 
+    # Audit RGPD : trace anonyme de l'exercice du droit à l'oubli
+    logger.info(
+        "privacy.forget_executed",
+        session_id=session.id,
+        profile=session.profile,
+        deleted_conversations=conv_count,
+        deleted_messages=msg_count,
+    )
+
     return ForgetResponse(
         deleted_conversations=conv_count,
         deleted_messages=msg_count,
     )
+
+
+@router.get("/privacy")
+def privacy(
+    session: SessionDep,
+    db: DBSession = Depends(get_db),
+) -> dict:
+    """Droit d'accès RGPD (art. 15) : renvoie la liste des données stockées
+    sur la session courante (compteurs uniquement — jamais le contenu brut)."""
+    return session_footprint(db, session.id)
