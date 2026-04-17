@@ -224,6 +224,13 @@ export default function Page() {
           >
             Voir les tarifs
           </Link>
+          <a
+            href="/api/plaquette"
+            download="ELSAI-offre-entreprises.pdf"
+            className="text-elsai-pin-dark hover:bg-elsai-pin/5 rounded-organic border-elsai-pin/30 inline-flex items-center gap-2 border px-5 py-3 text-sm font-semibold"
+          >
+            Télécharger la plaquette (PDF)
+          </a>
           <span className="bg-elsai-pin/10 text-elsai-pin-dark rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide">
             SAS en cours d'agrément ESUS
           </span>
