@@ -9,15 +9,15 @@ import re
 # Mots-clés sensibles (liste minimale non exhaustive — à enrichir en prod)
 _PATTERNS = {
     "suicide": re.compile(
-        r"\b(me tuer|suicid|en finir|plus envie de vivre|mourir)\b",
+        r"\b(me tuer|suicid\w*|en finir|plus envie de vivre|mourir)\b",
         re.IGNORECASE,
     ),
     "violence": re.compile(
-        r"\b(tape|frappe|viol(é|ée|er)?|bat(s|tu|tre)|maltrait)\b",
+        r"\b(tape|frappe|viol(é|ée|er)?|bat(s|tu|tre)|maltrait\w*)\b",
         re.IGNORECASE,
     ),
     "abuse": re.compile(
-        r"\b(touche|attouch|inceste|forc(é|ée)? \w* (à|a) faire)\b",
+        r"\b(touche|attouch\w*|inceste|forc(é|ée)? \w* (à|a) faire)\b",
         re.IGNORECASE,
     ),
     "harassment": re.compile(
