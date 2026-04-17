@@ -73,8 +73,8 @@ export default function Page() {
             <p className="text-xs tracking-[0.2em] uppercase opacity-80">Parcours</p>
             <h2 className="mt-1 font-serif text-3xl">12 → 18 ans</h2>
             <p className="mt-3 leading-relaxed opacity-90">
-              Tutoiement, ton rassurant, espace bienveillant. On ne dit rien à tes parents — sauf si
-              tu es en danger.
+              Vouvoiement par défaut, tutoiement si vous préférez. Espace bienveillant. On ne dit
+              rien à vos parents — sauf si vous êtes en danger.
             </p>
             <Link
               href="/start"
@@ -84,16 +84,16 @@ export default function Page() {
             </Link>
           </div>
           <div className="space-y-6">
-            <h3 className="text-elsai-rose-dark font-serif text-2xl">Tu peux nous parler de…</h3>
+            <h3 className="text-elsai-rose-dark font-serif text-2xl">Vous pouvez nous parler de…</h3>
             <ul className="text-elsai-ink/85 grid gap-3 sm:grid-cols-2">
               {[
                 "Ce qui se passe à la maison",
                 "L'école, le harcèlement, les notes",
                 "Les amitiés, l'amour, les réseaux",
-                "Ton corps, la santé, la contraception",
-                "Tes droits (tu en as plein\u00A0!)",
-                "Quand ça va pas dans ta tête",
-                "Les violences que tu subis ou vois",
+                "Votre corps, la santé, la contraception",
+                "Vos droits (vous en avez plein\u00A0!)",
+                "Quand ça ne va pas dans votre tête",
+                "Les violences que vous subissez ou voyez",
                 "Comment trouver de l'aide humaine",
               ].map((x) => (
                 <li
@@ -106,11 +106,11 @@ export default function Page() {
             </ul>
             <div className="bg-elsai-urgence/10 border-elsai-urgence/30 rounded-organic text-elsai-ink border p-5 text-sm">
               <p className="text-elsai-urgence mb-1 font-semibold">
-                Si tu es en danger maintenant&nbsp;:
+                Si vous êtes en danger maintenant&nbsp;:
               </p>
               <p>
-                Appelle le <strong>119</strong> (Enfance en danger, 24h/24, gratuit, anonyme). ELSAI
-                te le rappellera aussi si besoin.
+                Appelez le <strong>119</strong> (Enfance en danger, 24h/24, gratuit, anonyme). ELSAI
+                vous le rappellera aussi si besoin.
               </p>
             </div>
           </div>

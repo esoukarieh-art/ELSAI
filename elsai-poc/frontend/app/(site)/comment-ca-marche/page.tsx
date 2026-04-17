@@ -6,38 +6,38 @@ import Section from "@/components/site/Section";
 export const metadata: Metadata = {
   title: "Comment ça marche",
   description:
-    "Le fonctionnement d'ELSAI en 4 étapes : tu poses ta question, ELSAI comprend, te guide étape par étape, tu gardes la main sur tes données.",
+    "Le fonctionnement d'ELSAI en 4 étapes : vous posez votre question, ELSAI comprend, vous guide étape par étape, vous gardez la main sur vos données.",
   alternates: { canonical: "/comment-ca-marche" },
 };
 
 const STEPS = [
   {
     n: "01",
-    t: "Tu poses ta question",
-    d: "En français courant. Pas besoin de connaître le nom des dispositifs. Tu peux aussi déposer un courrier ou un document.",
+    t: "Vous posez votre question",
+    d: "En français courant. Pas besoin de connaître le nom des dispositifs. Vous pouvez aussi déposer un courrier ou un document.",
   },
   {
     n: "02",
-    t: "ELSAI reformule et t'oriente",
-    d: "On te répond clairement, avec des étapes concrètes et des liens utiles. On te dit aussi ce qu'ELSAI ne peut pas faire.",
+    t: "ELSAI reformule et vous oriente",
+    d: "On vous répond clairement, avec des étapes concrètes et des liens utiles. On vous dit aussi ce qu'ELSAI ne peut pas faire.",
   },
   {
     n: "03",
-    t: "Tu décides",
-    d: "Tu gardes la main. Tu peux poursuivre avec ELSAI, appeler un numéro, ou aller rencontrer un travailleur social.",
+    t: "Vous décidez, vous gardez la main",
+    d: "Vous pouvez poursuivre avec ELSAI, appeler un numéro, ou aller rencontrer un travailleur social.",
   },
   {
     n: "04",
-    t: "Tu effaces si tu veux",
-    d: "Un clic, tout disparaît. On ne conserve ni ton historique, ni tes documents, ni ton profil.",
+    t: "Vous effacez si vous voulez",
+    d: "Un clic, tout disparaît. On ne conserve ni votre historique, ni vos documents, ni votre profil.",
   },
 ];
 
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="Comment ça marche" title="Simple. Anonyme. Réversible.">
-        Un échange en 4 étapes, 24h/24. Tu gardes la main à chaque instant.
+      <PageHero eyebrow="Comment ça marche" title="Simple et anonyme.">
+        Un échange en 4 étapes, 24h/24. Vous gardez la main à chaque instant.
       </PageHero>
 
       <Section>
@@ -60,21 +60,21 @@ export default function Page() {
           <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme border p-7">
             <h3 className="text-elsai-pin-dark mb-3 font-semibold">✓ ELSAI peut</h3>
             <ul className="text-elsai-ink/85 space-y-2">
-              <li>Expliquer un courrier de la CAF ou des impôts</li>
-              <li>Vérifier quels droits correspondent à ta situation</li>
+              <li>Expliquer un courrier administratif (CAF, CPAM, impôts, banque…)</li>
+              <li>Vous indiquer quels droits vous pouvez ouvrir</li>
               <li>Rédiger un modèle de courrier ou de recours</li>
-              <li>Trouver le CCAS ou France Services le plus proche</li>
-              <li>T'orienter vers un numéro ou un lieu d'urgence</li>
+              <li>Trouver le service social ou la Maison France Services la plus proche de chez vous</li>
+              <li>Vous orienter vers des numéros ou des lieux d'urgence</li>
             </ul>
           </div>
           <div className="rounded-organic border-elsai-rose/30 bg-elsai-creme border p-7">
             <h3 className="text-elsai-rose-dark mb-3 font-semibold">✗ ELSAI ne peut pas</h3>
             <ul className="text-elsai-ink/85 space-y-2">
               <li>Remplacer un travailleur social humain</li>
-              <li>Effectuer une démarche à ta place</li>
-              <li>Garantir l'obtention d'un droit</li>
-              <li>Intervenir en urgence vitale (→\u00A015, 17, 18, 112)</li>
-              <li>Conserver ton historique à ton insu</li>
+              <li>Effectuer une démarche à votre place</li>
+              <li>Vous garantir l'obtention d'un droit</li>
+              <li>Intervenir en urgence vitale (→ 15, 17, 18, 112)</li>
+              <li>Conserver votre historique à votre insu</li>
             </ul>
           </div>
         </div>

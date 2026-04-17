@@ -16,23 +16,23 @@ const FAQ = [
   },
   {
     q: "Est-ce que vous gardez ce que j'écris\u00A0?",
-    a: "Par défaut, ta session est conservée temporairement pour que la conversation reste cohérente. Tu peux tout effacer instantanément, à n'importe quel moment. Nous ne revendons rien, jamais.",
+    a: "Par défaut, votre session est conservée temporairement pour que la conversation reste cohérente. Vous pouvez tout effacer instantanément, à n'importe quel moment. Nous ne revendons rien, jamais.",
   },
   {
     q: "Est-ce qu'ELSAI remplace un travailleur social\u00A0?",
-    a: "Non. ELSAI est un premier point de contact\u00A0: il t'aide à y voir clair, à comprendre tes droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
+    a: "Non. ELSAI est un premier point de contact\u00A0: il vous aide à y voir clair, à comprendre vos droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
   },
   {
     q: "Est-ce fiable\u00A0? Comment savoir si l'info est juste\u00A0?",
-    a: "ELSAI s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il te dit «\u00A0je ne suis pas sûr\u00A0» et t'oriente vers la source humaine adaptée.",
+    a: "ELSAI s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il vous dit «\u00A0je ne suis pas sûr\u00A0» et vous oriente vers la source humaine adaptée.",
   },
   {
     q: "J'ai moins de 18 ans, est-ce que mes parents peuvent savoir\u00A0?",
-    a: "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00A0: si tu es en danger grave, nous t'orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
+    a: "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00A0: si vous êtes en danger grave, nous vous orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
   },
   {
     q: "Et si je veux parler à un humain\u00A0?",
-    a: "ELSAI te donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez toi. Il peut aussi t'aider à appeler un numéro d'urgence si tu le souhaites.",
+    a: "ELSAI vous donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez vous. Il peut aussi vous aider à appeler un numéro d'urgence si vous le souhaitez.",
   },
   {
     q: "Qui est derrière ELSAI\u00A0?",
@@ -48,9 +48,9 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="FAQ" title="Les questions qu'on nous pose.">
-        Pas la réponse que tu cherches&nbsp;?{" "}
+        Pas la réponse que vous cherchez&nbsp;?{" "}
         <a href="/contact" className="text-elsai-pin-dark underline">
-          Écris-nous
+          Écrivez-nous
         </a>
         .
       </PageHero>

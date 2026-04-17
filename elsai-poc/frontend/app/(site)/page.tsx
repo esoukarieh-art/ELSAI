@@ -4,14 +4,14 @@ import Link from "next/link";
 import Section from "@/components/site/Section";
 
 export const metadata: Metadata = {
-  title: "ELSAI — Assistant social numérique anonyme",
+  title: "ELSAI — Service social numérique de premier accueil",
   description:
-    "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement. CAF, logement, emploi, MDPH, jeunes 12-18 ans.",
+    "Assistant social numérique qui répond à vos questions administratives, sociales, familiales ou juridiques. Anonymement, sans rendez-vous, sans jugement. CAF, logement, emploi, MDPH, jeunes 12-18 ans.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "ELSAI — Assistant social numérique anonyme",
+    title: "ELSAI — Service social numérique de premier accueil",
     description:
-      "Comprends et active tes droits sociaux en France. Anonymement, sans rendez-vous, sans jugement.",
+      "Assistant social numérique qui répond à vos questions administratives, sociales, familiales ou juridiques. Anonymement, sans rendez-vous, sans jugement.",
     url: "/",
   },
 };
@@ -42,19 +42,19 @@ const CAS = [
 const DIFF = [
   {
     title: "Anonyme par défaut",
-    body: "Aucun nom, aucun email requis. Tu peux tout effacer en un clic, sans laisser de trace.",
+    body: "Aucun nom, aucun email requis. Vous pouvez tout effacer en un clic, sans laisser de trace.",
   },
   {
-    title: "Disponible 24/7, gratuit",
-    body: "Pas de rendez-vous, pas de salle d'attente. Tu poses ta question quand tu peux.",
+    title: "Sans rendez-vous, sans déplacement",
+    body: "Pour une question simple ou un conseil, pas besoin de prendre rendez-vous ni de vous déplacer. Vous posez votre question quand vous pouvez, d'où vous voulez.",
+  },
+  {
+    title: "Sans le regard de l'autre",
+    body: "Certaines situations sont difficiles à formuler en face d'un professionnel. Ici, vous pouvez prendre le temps, sans être jugé·e, sans avoir à justifier.",
   },
   {
     title: "Empathique et franc",
     body: "On vous écoute vraiment. Et si un droit n'existe pas, on vous le dit clairement — pas de faux espoirs.",
-  },
-  {
-    title: "Droits sociaux FR + protection",
-    body: "Spécialisé sur les dispositifs français. Pour les 12-18 ans, un protocole de sécurité avec le 119.",
   },
 ];
 
@@ -65,14 +65,18 @@ export default function HomePage() {
       <section className="bg-symbiose relative overflow-hidden">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-16 pb-20 md:grid-cols-2 md:pt-24 md:pb-28">
           <div>
+            <p className="text-elsai-pin mb-5 text-xs font-semibold tracking-[0.2em] uppercase">
+              Service social numérique de premier accueil
+            </p>
             <h1 className="text-elsai-pin-dark font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
-              Assistance sociale
-              <br />
-              numérique.
+              Assistant social numérique
             </h1>
-            <p className="text-elsai-ink/80 mt-6 max-w-xl text-lg leading-relaxed md:text-xl">
-              Répond à toutes vos questions administratives, familiales, sociales et juridiques,
-              et vous réoriente vers le bon interlocuteur si besoin.
+            <p className="text-elsai-ink mt-6 max-w-xl text-xl leading-relaxed md:text-2xl">
+              Répond à toutes vos questions administratives, sociales, familiales ou juridiques et
+              vous oriente vers le bon interlocuteur si besoin.
+            </p>
+            <p className="text-elsai-ink/80 mt-5 max-w-lg text-lg leading-relaxed">
+              <strong>Anonymement.</strong> Sans rendez-vous. Sans jugement.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -119,7 +123,7 @@ export default function HomePage() {
 
       {/* DIFFERENTIATEURS */}
       <Section tone="soft">
-        <h2 className="text-elsai-pin-dark max-w-2xl font-serif text-3xl tracking-tight md:text-4xl">
+        <h2 className="text-elsai-pin-dark max-w-3xl font-serif text-3xl tracking-tight md:text-4xl">
           Un service accessible 24h/24, créé par une assistante sociale diplômée.
         </h2>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -142,10 +146,10 @@ export default function HomePage() {
             À quoi ça sert concrètement&nbsp;?
           </h2>
           <Link
-            href="/cas-usage"
+            href="/exemples-concrets"
             className="text-elsai-pin-dark text-sm font-semibold hover:underline"
           >
-            Voir tous les cas d'usage →
+            Voir tous les exemples →
           </Link>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
@@ -183,8 +187,9 @@ export default function HomePage() {
           <div className="rounded-organic border-elsai-rose/30 bg-elsai-creme border p-8">
             <h3 className="text-elsai-rose-dark font-serif text-2xl">Pour les 12-18 ans</h3>
             <p className="text-elsai-ink/80 mt-3 leading-relaxed">
-              Vos droits, l'école, la famille, ce qui va pas. On vous écoute, on peut vous tutoyer
-              si vous préférez, et si c'est grave on vous oriente vers le 119 ou une Maison des Ados.
+              Vos droits, l'école, la famille, ce qui ne va pas. On vous écoute, et si vous
+              préférez qu'on vous tutoie, il suffit de le dire. Si c'est grave, on vous oriente
+              vers le 119 ou une Maison des Ados.
             </p>
             <Link
               href="/pour-qui#mineurs"
@@ -200,10 +205,10 @@ export default function HomePage() {
       <Section>
         <div className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic p-10 text-center md:p-14">
           <h2 className="font-serif text-3xl tracking-tight md:text-4xl">
-            Vous pouvez essayer tout de suite.
+            Vous pouvez tester ce service gratuitement.
           </h2>
           <p className="text-elsai-creme/90 mx-auto mt-4 max-w-xl text-lg">
-            Aucune inscription. Ce que vous écrivez s'efface en un clic.
+            Sans aucune inscription. Ce que vous écrivez peut s'effacer en un clic.
           </p>
           <Link
             href="/start"

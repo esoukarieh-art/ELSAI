@@ -9,6 +9,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/cas-usage",
+        destination: "/exemples-concrets",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

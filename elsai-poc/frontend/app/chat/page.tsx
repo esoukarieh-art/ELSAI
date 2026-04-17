@@ -91,10 +91,10 @@ export default function ChatPage() {
   }
 
   const placeholder =
-    profile === "minor" ? "Pose ta question librement…" : "Décrivez votre situation…";
+    profile === "minor" ? "Posez votre question librement…" : "Décrivez votre situation…";
   const intro =
     profile === "minor"
-      ? "Bonjour, je suis ELSAI. Tu peux me poser n'importe quelle question. C'est confidentiel."
+      ? "Bonjour, je suis ELSAI. Vous pouvez me poser n'importe quelle question, c'est confidentiel. Si vous préférez qu'on se tutoie, dites-le moi."
       : "Bonjour, je suis ELSAI. Décrivez votre situation, je vais essayer de vous aider.";
 
   const accentBar = profile === "minor" ? "bg-elsai-rose" : "bg-elsai-pin";

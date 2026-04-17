@@ -43,7 +43,7 @@ def parse_minor_response(text: str) -> tuple[str, bool, dict | None]:
             payload = json.loads(text)
             if payload.get("danger"):
                 return (
-                    payload.get("message", "Tu n'es pas seul·e. Appelle le 119."),
+                    payload.get("message", "Vous n'êtes pas seul·e. Appelez le 119."),
                     True,
                     payload.get("emergency_cta", {"label": "Appeler le 119", "phone": "119"}),
                 )
