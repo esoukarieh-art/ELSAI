@@ -25,7 +25,7 @@ const CAS = [
   {
     tag: "RSA refusé",
     title: "On m'a refusé le RSA, est-ce normal\u00A0?",
-    body: "On relit ensemble la lettre, on vérifie tes droits, on prépare un recours.",
+    body: "On relit ensemble la lettre, on vérifie vos droits, on prépare un recours.",
   },
   {
     tag: "Ado en difficulté",
@@ -35,7 +35,7 @@ const CAS = [
   {
     tag: "Logement d'urgence",
     title: "Je n'ai pas où dormir ce soir",
-    body: "Les numéros utiles, les démarches immédiates, les lieux près de chez toi.",
+    body: "Les numéros utiles, les démarches immédiates, les lieux près de chez vous.",
   },
 ];
 
@@ -50,7 +50,7 @@ const DIFF = [
   },
   {
     title: "Empathique et franc",
-    body: "On t'écoute vraiment. Et si un droit n'existe pas, on te le dit clairement — pas de faux espoirs.",
+    body: "On vous écoute vraiment. Et si un droit n'existe pas, on vous le dit clairement — pas de faux espoirs.",
   },
   {
     title: "Droits sociaux FR + protection",
@@ -65,17 +65,14 @@ export default function HomePage() {
       <section className="bg-symbiose relative overflow-hidden">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-16 pb-20 md:grid-cols-2 md:pt-24 md:pb-28">
           <div>
-            <p className="text-elsai-pin mb-5 text-xs font-semibold tracking-[0.2em] uppercase">
-              Assistance sociale numérique
-            </p>
             <h1 className="text-elsai-pin-dark font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
-              Assistante sociale
+              Assistance sociale
               <br />
-              numérique
+              numérique.
             </h1>
-            <p className="text-elsai-ink/80 mt-6 max-w-lg text-base leading-relaxed md:text-lg">
-              Répond à toutes vos questions administratives, sociales, familiales… et vous
-              réoriente si besoin vers le bon interlocuteur.
+            <p className="text-elsai-ink/80 mt-6 max-w-xl text-lg leading-relaxed md:text-xl">
+              Répond à toutes vos questions administratives, familiales, sociales et juridiques,
+              et vous réoriente vers le bon interlocuteur si besoin.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -123,7 +120,7 @@ export default function HomePage() {
       {/* DIFFERENTIATEURS */}
       <Section tone="soft">
         <h2 className="text-elsai-pin-dark max-w-2xl font-serif text-3xl tracking-tight md:text-4xl">
-          Un service pensé pour les personnes qu'on n'écoute pas toujours.
+          Un service accessible 24h/24, créé par une assistante sociale diplômée.
         </h2>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {DIFF.map((d) => (
@@ -186,14 +183,14 @@ export default function HomePage() {
           <div className="rounded-organic border-elsai-rose/30 bg-elsai-creme border p-8">
             <h3 className="text-elsai-rose-dark font-serif text-2xl">Pour les 12-18 ans</h3>
             <p className="text-elsai-ink/80 mt-3 leading-relaxed">
-              Tes droits, l'école, la famille, ce qui va pas. On te tutoie, on t'écoute, et si c'est
-              grave on t'oriente vers le 119 ou une Maison des Ados.
+              Vos droits, l'école, la famille, ce qui va pas. On vous écoute, on peut vous tutoyer
+              si vous préférez, et si c'est grave on vous oriente vers le 119 ou une Maison des Ados.
             </p>
             <Link
               href="/pour-qui#mineurs"
               className="text-elsai-rose-dark mt-5 inline-block font-semibold hover:underline"
             >
-              Ton espace →
+              Votre espace →
             </Link>
           </div>
         </div>
@@ -203,10 +200,10 @@ export default function HomePage() {
       <Section>
         <div className="rounded-organic bg-elsai-pin text-elsai-creme shadow-organic p-10 text-center md:p-14">
           <h2 className="font-serif text-3xl tracking-tight md:text-4xl">
-            Tu peux essayer tout de suite.
+            Vous pouvez essayer tout de suite.
           </h2>
           <p className="text-elsai-creme/90 mx-auto mt-4 max-w-xl text-lg">
-            Aucune inscription. Ce que tu écris s'efface en un clic.
+            Aucune inscription. Ce que vous écrivez s'efface en un clic.
           </p>
           <Link
             href="/start"
