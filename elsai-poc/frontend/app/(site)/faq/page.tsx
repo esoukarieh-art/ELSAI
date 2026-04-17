@@ -40,26 +40,30 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="FAQ" title="Les questions qu'on nous pose.">
-        Pas la réponse que tu cherches ? <a href="/contact" className="underline text-elsai-pin-dark">Écris-nous</a>.
+        Pas la réponse que tu cherches ?{" "}
+        <a href="/contact" className="text-elsai-pin-dark underline">
+          Écris-nous
+        </a>
+        .
       </PageHero>
 
       <Section>
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="mx-auto max-w-3xl space-y-3">
           {FAQ.map((f, i) => (
             <details
               key={i}
-              className="group bg-elsai-creme rounded-organic border border-elsai-pin/10 px-6 py-4 open:shadow-organic"
+              className="group rounded-organic border border-elsai-pin/10 bg-elsai-creme px-6 py-4 open:shadow-organic"
             >
-              <summary className="cursor-pointer font-semibold text-elsai-pin-dark list-none flex items-start justify-between gap-4">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold text-elsai-pin-dark">
                 <span>{f.q}</span>
                 <span
                   aria-hidden
-                  className="text-elsai-pin text-xl transition-transform group-open:rotate-45"
+                  className="text-xl text-elsai-pin transition-transform group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
-              <p className="mt-3 text-elsai-ink/80 leading-relaxed">{f.a}</p>
+              <p className="mt-3 leading-relaxed text-elsai-ink/80">{f.a}</p>
             </details>
           ))}
         </div>

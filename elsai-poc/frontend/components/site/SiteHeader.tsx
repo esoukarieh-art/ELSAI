@@ -19,36 +19,24 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 bg-elsai-creme/90 backdrop-blur border-b border-elsai-pin/10">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 shrink-0"
-          aria-label="ELSAI — accueil"
-        >
-          <Image
-            src="/logo-elsai.svg"
-            alt=""
-            width={36}
-            height={36}
-            priority
-          />
-          <span className="font-semibold text-elsai-pin-dark tracking-tight text-lg">
-            ELSAI
-          </span>
+    <header className="sticky top-0 z-40 border-b border-elsai-pin/10 bg-elsai-creme/90 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="ELSAI — accueil">
+          <Image src="/logo-elsai.svg" alt="" width={36} height={36} priority />
+          <span className="text-lg font-semibold tracking-tight text-elsai-pin-dark">ELSAI</span>
         </Link>
 
-        <nav aria-label="Principale" className="hidden lg:flex items-center gap-1">
+        <nav aria-label="Principale" className="hidden items-center gap-1 lg:flex">
           {NAV.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 rounded-lg text-sm transition-colors ${
+                className={`rounded-lg px-3 py-2 text-sm transition-colors ${
                   active
-                    ? "text-elsai-pin-dark bg-elsai-pin/10"
-                    : "text-elsai-ink/80 hover:text-elsai-pin-dark hover:bg-elsai-pin/5"
+                    ? "bg-elsai-pin/10 text-elsai-pin-dark"
+                    : "text-elsai-ink/80 hover:bg-elsai-pin/5 hover:text-elsai-pin-dark"
                 }`}
               >
                 {item.label}
@@ -60,13 +48,13 @@ export default function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/contact"
-            className="hidden md:inline text-sm text-elsai-ink/80 hover:text-elsai-pin-dark px-3 py-2"
+            className="hidden px-3 py-2 text-sm text-elsai-ink/80 hover:text-elsai-pin-dark md:inline"
           >
             Contact
           </Link>
           <Link
             href="/start"
-            className="inline-flex items-center gap-2 bg-elsai-pin text-elsai-creme px-4 py-2.5 rounded-organic text-sm font-semibold shadow-organic hover:bg-elsai-pin-dark transition-colors"
+            className="inline-flex items-center gap-2 rounded-organic bg-elsai-pin px-4 py-2.5 text-sm font-semibold text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark"
           >
             Poser ma question
           </Link>
@@ -74,12 +62,12 @@ export default function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="lg:hidden p-2 rounded-lg hover:bg-elsai-pin/10"
+            className="rounded-lg p-2 hover:bg-elsai-pin/10 lg:hidden"
             aria-label="Ouvrir le menu"
           >
-            <span className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span className="block w-5 h-0.5 bg-elsai-ink mb-1" />
-            <span className="block w-5 h-0.5 bg-elsai-ink" />
+            <span className="mb-1 block h-0.5 w-5 bg-elsai-ink" />
+            <span className="mb-1 block h-0.5 w-5 bg-elsai-ink" />
+            <span className="block h-0.5 w-5 bg-elsai-ink" />
           </button>
         </div>
       </div>
@@ -88,15 +76,15 @@ export default function SiteHeader() {
         <nav
           id="mobile-menu"
           aria-label="Menu mobile"
-          className="lg:hidden border-t border-elsai-pin/10 bg-elsai-creme"
+          className="border-t border-elsai-pin/10 bg-elsai-creme lg:hidden"
         >
-          <ul className="px-4 py-3 space-y-1">
+          <ul className="space-y-1 px-4 py-3">
             {NAV.concat({ href: "/contact", label: "Contact" }).map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block px-3 py-2.5 rounded-lg text-elsai-ink hover:bg-elsai-pin/10"
+                  className="block rounded-lg px-3 py-2.5 text-elsai-ink hover:bg-elsai-pin/10"
                 >
                   {item.label}
                 </Link>

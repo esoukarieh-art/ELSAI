@@ -28,68 +28,57 @@ export default function Page() {
         eyebrow="Partenariats"
         title="Nous construisons ELSAI avec celles et ceux qui sont sur le terrain."
       >
-        ELSAI est un projet d'intérêt général. Il se déploie en complément —
-        jamais en remplacement — des services humains existants.
+        ELSAI est un projet d'intérêt général. Il se déploie en complément — jamais en remplacement
+        — des services humains existants.
       </PageHero>
 
       <Section>
-        <h2 className="font-serif text-3xl text-elsai-pin-dark mb-8">
+        <h2 className="mb-8 font-serif text-3xl text-elsai-pin-dark">
           Nos interlocuteurs privilégiés
         </h2>
-        <ul className="grid md:grid-cols-2 gap-5">
+        <ul className="grid gap-5 md:grid-cols-2">
           {PROFILS.map((p) => (
-            <li
-              key={p.t}
-              className="bg-elsai-creme rounded-organic p-7 border border-elsai-pin/10"
-            >
-              <h3 className="font-semibold text-elsai-pin-dark text-lg">
-                {p.t}
-              </h3>
-              <p className="mt-3 text-elsai-ink/80 leading-relaxed">{p.d}</p>
+            <li key={p.t} className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7">
+              <h3 className="text-lg font-semibold text-elsai-pin-dark">{p.t}</h3>
+              <p className="mt-3 leading-relaxed text-elsai-ink/80">{p.d}</p>
             </li>
           ))}
         </ul>
       </Section>
 
       <Section tone="soft">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="grid items-center gap-10 md:grid-cols-2">
           <div>
-            <h2 className="font-serif text-3xl text-elsai-pin-dark">
-              Travaillons ensemble
-            </h2>
-            <p className="mt-4 text-elsai-ink/80 leading-relaxed">
-              Nous recherchons des partenaires terrain pour co-construire
-              les parcours, tester les V1, et remonter les angles morts. Les
-              échanges se font en visio ou sur site.
+            <h2 className="font-serif text-3xl text-elsai-pin-dark">Travaillons ensemble</h2>
+            <p className="mt-4 leading-relaxed text-elsai-ink/80">
+              Nous recherchons des partenaires terrain pour co-construire les parcours, tester les
+              V1, et remonter les angles morts. Les échanges se font en visio ou sur site.
             </p>
             <Link
               href="/contact?sujet=partenariat"
-              className="inline-flex items-center gap-2 mt-6 bg-elsai-pin text-elsai-creme px-6 py-3.5 rounded-organic font-semibold shadow-organic hover:bg-elsai-pin-dark"
+              className="mt-6 inline-flex items-center gap-2 rounded-organic bg-elsai-pin px-6 py-3.5 font-semibold text-elsai-creme shadow-organic hover:bg-elsai-pin-dark"
             >
               Prendre contact →
             </Link>
           </div>
-          <dl className="bg-elsai-creme rounded-organic p-7 border border-elsai-pin/10 space-y-4">
+          <dl className="space-y-4 rounded-organic border border-elsai-pin/10 bg-elsai-creme p-7">
             <div>
-              <dt className="text-xs uppercase tracking-widest text-elsai-pin font-semibold">
+              <dt className="text-xs font-semibold uppercase tracking-widest text-elsai-pin">
                 Format
               </dt>
               <dd>Expérimentations locales, conventions cadre, open data</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-widest text-elsai-pin font-semibold">
+              <dt className="text-xs font-semibold uppercase tracking-widest text-elsai-pin">
                 Coût
               </dt>
               <dd>Gratuit pour les acteurs publics et associatifs</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-widest text-elsai-pin font-semibold">
+              <dt className="text-xs font-semibold uppercase tracking-widest text-elsai-pin">
                 Engagement
               </dt>
-              <dd>
-                Co-construction, respect de vos protocoles, reporting
-                anonyme sur les usages
-              </dd>
+              <dd>Co-construction, respect de vos protocoles, reporting anonyme sur les usages</dd>
             </div>
           </dl>
         </div>

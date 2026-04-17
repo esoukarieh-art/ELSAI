@@ -24,9 +24,8 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 15% 10%, rgba(90, 126, 107, 0.10), transparent 45%),
-    radial-gradient(ellipse at 85% 90%, rgba(155, 127, 127, 0.10), transparent 45%);
+  background: radial-gradient(ellipse at 15% 10%, rgba(90, 126, 107, 0.1), transparent 45%),
+    radial-gradient(ellipse at 85% 90%, rgba(155, 127, 127, 0.1), transparent 45%);
 }
 
 /* Focus visible cohérent (accessibilité RGAA) */
@@ -38,7 +37,8 @@ body::before {
 
 /* Animation douce sur les boutons principaux */
 @keyframes breathe {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {

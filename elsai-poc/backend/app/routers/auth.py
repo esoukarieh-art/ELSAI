@@ -1,11 +1,13 @@
 """Création de session anonyme + droit à l'oubli."""
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session as DBSession
 
 from ..auth import SessionDep, create_token
 from ..config import settings
 from ..database import get_db
-from ..models import MetricEvent, Session as UserSession
+from ..models import MetricEvent
+from ..models import Session as UserSession
 from ..schemas import ForgetResponse, SessionCreateRequest, SessionResponse
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])

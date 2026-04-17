@@ -1,4 +1,5 @@
 """Fixtures partagées : DB SQLite en mémoire + TestClient isolé par test."""
+
 from __future__ import annotations
 
 import os
@@ -55,8 +56,10 @@ def client(db_session):
 @pytest.fixture
 def auth_headers(client):
     """Crée une session adulte et renvoie les headers Authorization."""
+
     def _make(profile: str = "adult") -> dict:
         r = client.post("/api/auth/session", json={"profile": profile})
         assert r.status_code == 200, r.text
         return {"Authorization": f"Bearer {r.json()['token']}"}
+
     return _make

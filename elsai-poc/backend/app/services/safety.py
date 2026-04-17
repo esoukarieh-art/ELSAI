@@ -4,6 +4,7 @@ Complémentaire à la détection par prompt mineur. Sert de filet de sécurité
 même pour un parcours adulte : si des signaux de détresse extrême arrivent,
 on veut pouvoir loguer l'événement et afficher une CTA d'urgence.
 """
+
 import re
 
 # Mots-clés sensibles (liste minimale non exhaustive — à enrichir en prod)

@@ -1,7 +1,9 @@
 """Tests /api/auth/session et /api/auth/forget (cascade delete)."""
+
 from __future__ import annotations
 
-from app.models import Conversation, Message, MetricEvent, Session as UserSession
+from app.models import Conversation, Message, MetricEvent
+from app.models import Session as UserSession
 
 
 def test_create_session_adult(client):

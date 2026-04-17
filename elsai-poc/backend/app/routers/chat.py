@@ -1,4 +1,5 @@
 """Endpoint conversationnel principal."""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session as DBSession
 
@@ -35,18 +36,23 @@ def chat(
     heuristic = safety.scan(payload.message, profile=session.profile)
 
     # 3. Stocker le message utilisateur
-    db.add(Message(
-        conversation_id=conv.id,
-        role="user",
-        content=payload.message,
-        danger_flag=heuristic["danger"],
-    ))
+    db.add(
+        Message(
+            conversation_id=conv.id,
+            role="user",
+            content=payload.message,
+            danger_flag=heuristic["danger"],
+        )
+    )
     db.flush()
 
     # 4. Construire l'historique pour Claude
     history = [
         {"role": m.role, "content": m.content}
-        for m in db.query(Message).filter_by(conversation_id=conv.id).order_by(Message.created_at).all()
+        for m in db.query(Message)
+        .filter_by(conversation_id=conv.id)
+        .order_by(Message.created_at)
+        .all()
     ]
 
     # 5. Appel LLM
@@ -66,12 +72,14 @@ def chat(
     emergency_cta = cta or heuristic["cta"]
 
     # 8. Stocker la réponse assistant
-    db.add(Message(
-        conversation_id=conv.id,
-        role="assistant",
-        content=reply_text,
-        danger_flag=danger,
-    ))
+    db.add(
+        Message(
+            conversation_id=conv.id,
+            role="assistant",
+            content=reply_text,
+            danger_flag=danger,
+        )
+    )
     db.add(MetricEvent(event_type="chat", profile=session.profile))
     if danger:
         db.add(MetricEvent(event_type="danger", profile=session.profile))

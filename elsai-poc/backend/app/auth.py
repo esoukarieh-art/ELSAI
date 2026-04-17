@@ -1,5 +1,6 @@
 """Session anonyme par JWT. Aucun nom/email stocké."""
-from datetime import datetime, timedelta, timezone
+
+from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
@@ -15,7 +16,7 @@ _bearer = HTTPBearer(auto_error=True)
 
 
 def create_token(session_id: str) -> str:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     payload = {
         "sub": session_id,
         "iat": int(now.timestamp()),
@@ -43,7 +44,7 @@ def get_session(
     session = db.get(UserSession, session_id)
     if session is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Session inexistante ou oubliée")
-    session.last_activity = datetime.now(timezone.utc)
+    session.last_activity = datetime.now(UTC)
     db.commit()
     return session
 

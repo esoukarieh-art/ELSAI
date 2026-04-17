@@ -17,7 +17,7 @@ export default function HomePage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ profile }),
-        }
+        },
       );
       if (!res.ok) throw new Error("Session refusée");
       const data = await res.json();
@@ -29,10 +29,10 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-symbiose">
-      <div className="max-w-xl w-full">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-symbiose p-6 text-center">
+      <div className="w-full max-w-xl">
         {/* Logo */}
-        <div className="flex justify-center mb-8">
+        <div className="mb-8 flex justify-center">
           <Image
             src="/logo-elsai.svg"
             alt="ELSAI"
@@ -43,10 +43,10 @@ export default function HomePage() {
           />
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-serif text-elsai-pin-dark mb-3 tracking-tight">
+        <h1 className="mb-3 font-serif text-4xl tracking-tight text-elsai-pin-dark md:text-5xl">
           ELSAI
         </h1>
-        <p className="text-lg text-elsai-ink/80 mb-12 leading-relaxed">
+        <p className="mb-12 text-lg leading-relaxed text-elsai-ink/80">
           Une permanence d'accueil numérique,
           <br />
           anonyme et disponible&nbsp;24h/24.
@@ -55,28 +55,28 @@ export default function HomePage() {
         <div className="space-y-4">
           <button
             onClick={() => start("adult")}
-            className="elsai-breathe w-full py-5 bg-elsai-pin text-elsai-creme rounded-organic text-xl font-semibold shadow-organic hover:bg-elsai-pin-dark transition-colors"
+            className="elsai-breathe w-full rounded-organic bg-elsai-pin py-5 text-xl font-semibold text-elsai-creme shadow-organic transition-colors hover:bg-elsai-pin-dark"
           >
             J'ai besoin d'aide
           </button>
           <button
             onClick={() => start("minor")}
-            className="elsai-breathe w-full py-5 bg-elsai-rose text-elsai-creme rounded-organic text-xl font-semibold shadow-warm hover:bg-elsai-rose-dark transition-colors"
+            className="elsai-breathe w-full rounded-organic bg-elsai-rose py-5 text-xl font-semibold text-elsai-creme shadow-warm transition-colors hover:bg-elsai-rose-dark"
           >
             J'ai entre 12 et 18 ans
           </button>
         </div>
 
-        <div className="mt-12 text-sm text-elsai-ink/60 space-y-2">
+        <div className="mt-12 space-y-2 text-sm text-elsai-ink/60">
           <p className="flex items-center justify-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-elsai-pin" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-elsai-pin" />
             Aucun nom demandé
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-elsai-rose" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-elsai-rose" />
             Aucun fichier conservé
           </p>
           <Link
             href="/dashboard"
-            className="underline hover:text-elsai-pin transition-colors inline-block pt-2"
+            className="inline-block pt-2 underline transition-colors hover:text-elsai-pin"
           >
             Tableau de bord du POC →
           </Link>

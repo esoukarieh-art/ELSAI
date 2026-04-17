@@ -5,16 +5,16 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Contact" title="Nous écrire.">
-        Cette page est réservée aux professionnels, partenaires, journalistes,
-        et contributeurs. Pour une demande d'aide personnelle,{" "}
-        <a href="/start" className="underline text-elsai-pin-dark">
+        Cette page est réservée aux professionnels, partenaires, journalistes, et contributeurs.
+        Pour une demande d'aide personnelle,{" "}
+        <a href="/start" className="text-elsai-pin-dark underline">
           rendez-vous sur le service
         </a>
         .
       </PageHero>
 
       <Section>
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid gap-10 md:grid-cols-2">
           <form
             className="space-y-4"
             action="mailto:contact@elsai.fr"
@@ -22,24 +22,18 @@ export default function Page() {
             encType="text/plain"
           >
             <div>
-              <label
-                htmlFor="nom"
-                className="block text-sm font-semibold text-elsai-ink mb-1"
-              >
+              <label htmlFor="nom" className="mb-1 block text-sm font-semibold text-elsai-ink">
                 Votre nom
               </label>
               <input
                 id="nom"
                 name="nom"
                 required
-                className="w-full bg-elsai-creme border border-elsai-pin/20 rounded-organic px-4 py-3 focus:border-elsai-pin outline-none"
+                className="w-full rounded-organic border border-elsai-pin/20 bg-elsai-creme px-4 py-3 outline-none focus:border-elsai-pin"
               />
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold text-elsai-ink mb-1"
-              >
+              <label htmlFor="email" className="mb-1 block text-sm font-semibold text-elsai-ink">
                 Email professionnel
               </label>
               <input
@@ -47,20 +41,17 @@ export default function Page() {
                 name="email"
                 type="email"
                 required
-                className="w-full bg-elsai-creme border border-elsai-pin/20 rounded-organic px-4 py-3 focus:border-elsai-pin outline-none"
+                className="w-full rounded-organic border border-elsai-pin/20 bg-elsai-creme px-4 py-3 outline-none focus:border-elsai-pin"
               />
             </div>
             <div>
-              <label
-                htmlFor="sujet"
-                className="block text-sm font-semibold text-elsai-ink mb-1"
-              >
+              <label htmlFor="sujet" className="mb-1 block text-sm font-semibold text-elsai-ink">
                 Sujet
               </label>
               <select
                 id="sujet"
                 name="sujet"
-                className="w-full bg-elsai-creme border border-elsai-pin/20 rounded-organic px-4 py-3 focus:border-elsai-pin outline-none"
+                className="w-full rounded-organic border border-elsai-pin/20 bg-elsai-creme px-4 py-3 outline-none focus:border-elsai-pin"
               >
                 <option>Partenariat</option>
                 <option>Presse</option>
@@ -70,10 +61,7 @@ export default function Page() {
               </select>
             </div>
             <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold text-elsai-ink mb-1"
-              >
+              <label htmlFor="message" className="mb-1 block text-sm font-semibold text-elsai-ink">
                 Message
               </label>
               <textarea
@@ -81,40 +69,36 @@ export default function Page() {
                 name="message"
                 rows={6}
                 required
-                className="w-full bg-elsai-creme border border-elsai-pin/20 rounded-organic px-4 py-3 focus:border-elsai-pin outline-none resize-y"
+                className="w-full resize-y rounded-organic border border-elsai-pin/20 bg-elsai-creme px-4 py-3 outline-none focus:border-elsai-pin"
               />
             </div>
             <button
               type="submit"
-              className="bg-elsai-pin text-elsai-creme px-6 py-3.5 rounded-organic font-semibold shadow-organic hover:bg-elsai-pin-dark"
+              className="rounded-organic bg-elsai-pin px-6 py-3.5 font-semibold text-elsai-creme shadow-organic hover:bg-elsai-pin-dark"
             >
               Envoyer
             </button>
             <p className="text-xs text-elsai-ink/60">
-              En nous écrivant, vous acceptez que nous conservions votre email
-              le temps nécessaire pour répondre.
+              En nous écrivant, vous acceptez que nous conservions votre email le temps nécessaire
+              pour répondre.
             </p>
           </form>
 
           <aside className="space-y-6">
-            <div className="bg-elsai-rose/10 rounded-organic p-6 border border-elsai-rose/20">
-              <h3 className="font-semibold text-elsai-rose-dark">
-                Vous êtes en difficulté ?
-              </h3>
-              <p className="mt-2 text-sm text-elsai-ink/80 leading-relaxed">
-                Cette page n'est pas un service d'assistance. Pour une demande
-                d'aide, rendez-vous sur{" "}
-                <a href="/start" className="underline text-elsai-pin-dark">
+            <div className="rounded-organic border border-elsai-rose/20 bg-elsai-rose/10 p-6">
+              <h3 className="font-semibold text-elsai-rose-dark">Vous êtes en difficulté ?</h3>
+              <p className="mt-2 text-sm leading-relaxed text-elsai-ink/80">
+                Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous
+                sur{" "}
+                <a href="/start" className="text-elsai-pin-dark underline">
                   le service ELSAI
                 </a>{" "}
                 — anonyme et disponible 24/7.
               </p>
             </div>
-            <div className="bg-elsai-creme rounded-organic p-6 border border-elsai-pin/10">
-              <h3 className="font-semibold text-elsai-pin-dark">
-                Urgence vitale
-              </h3>
-              <ul className="mt-2 text-sm text-elsai-ink/85 space-y-1">
+            <div className="rounded-organic border border-elsai-pin/10 bg-elsai-creme p-6">
+              <h3 className="font-semibold text-elsai-pin-dark">Urgence vitale</h3>
+              <ul className="mt-2 space-y-1 text-sm text-elsai-ink/85">
                 <li>15 — SAMU</li>
                 <li>17 — Police</li>
                 <li>18 — Pompiers</li>

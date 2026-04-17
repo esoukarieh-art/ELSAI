@@ -1,4 +1,5 @@
 """Prompts système ELSAI - chargés depuis les fichiers markdown."""
+
 from pathlib import Path
 
 _DIR = Path(__file__).parent
