@@ -272,7 +272,13 @@ async function adminFetch(path: string, init: RequestInit = {}): Promise<Respons
 
 async function adminJson<T>(path: string, init: RequestInit = {}): Promise<T> {
   const res = await adminFetch(path, init);
-  if (res.status === 401) throw new Error("UNAUTHORIZED");
+  if (res.status === 401) {
+    clearAdminToken();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("elsai:admin-unauthorized"));
+    }
+    throw new Error("UNAUTHORIZED");
+  }
   if (res.status === 503) throw new Error("ADMIN_DISABLED");
   if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
   return res.json() as Promise<T>;
