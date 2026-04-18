@@ -496,7 +496,7 @@ function Plaquette() {
 }
 
 export async function GET() {
-  const buffer = await renderToBuffer(Plaquette() as unknown as React.ReactElement);
+  const buffer = await renderToBuffer(Plaquette() as unknown as Parameters<typeof renderToBuffer>[0]);
   return new NextResponse(buffer as unknown as BodyInit, {
     status: 200,
     headers: {
