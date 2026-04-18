@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
@@ -21,6 +21,14 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export default function Page() {
+  return (
+    <Suspense fallback={<PageHero eyebrow="Espace admin" title="Chargement…" />}>
+      <AdminContent />
+    </Suspense>
+  );
+}
+
+function AdminContent() {
   const params = useSearchParams();
   const token = params.get("token");
   const [org, setOrg] = useState<OrganizationView | null>(null);
