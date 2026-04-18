@@ -43,16 +43,27 @@ def parse_minor_response(text: str) -> tuple[str, bool, dict | None]:
     """Si le prompt mineur a renvoyé du JSON de danger, le parser.
     Retourne (message_final, danger_flag, emergency_cta)."""
     text = text.strip()
-    if text.startswith("{"):
+    # Claude enrobe parfois le JSON dans des fences markdown malgré l'instruction
+    candidate = text
+    if candidate.startswith("```"):
+        candidate = candidate.split("\n", 1)[1] if "\n" in candidate else candidate[3:]
+        if candidate.endswith("```"):
+            candidate = candidate[:-3]
+        candidate = candidate.strip()
+    # Extraire le premier objet JSON présent dans la réponse
+    start, end = candidate.find("{"), candidate.rfind("}")
+    if start != -1 and end != -1 and end > start:
         try:
-            # Extraire le premier objet JSON valide
-            payload = json.loads(text)
-            if payload.get("danger"):
+            payload = json.loads(candidate[start : end + 1])
+            if isinstance(payload, dict) and payload.get("danger"):
                 return (
                     payload.get("message", "Vous n'êtes pas seul·e. Appelez le 119."),
                     True,
                     payload.get("emergency_cta", {"label": "Appeler le 119", "phone": "119"}),
                 )
+            if isinstance(payload, dict) and "message" in payload:
+                # Réponse JSON sans danger : extraire le message propre
+                return payload["message"], False, None
         except json.JSONDecodeError:
             pass
     return text, False, None
