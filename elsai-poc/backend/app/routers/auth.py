@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session as DBSession
 from ..auth import SessionDep, create_token
 from ..config import settings
 from ..database import get_db
-from ..models import MetricEvent
+from ..models import AuditLog, MetricEvent
 from ..models import Session as UserSession
 from ..schemas import ForgetResponse, SessionCreateRequest, SessionResponse
 
@@ -46,6 +46,15 @@ def forget_me(
         db.delete(conv)
 
     db.add(MetricEvent(event_type="forget", profile=session.profile))
+    db.add(
+        AuditLog(
+            actor="user",
+            action="forget.executed",
+            target_type="session",
+            target_id=session.id,
+            details=None,  # anonyme : aucun contenu conservé
+        )
+    )
     db.commit()
 
     return ForgetResponse(

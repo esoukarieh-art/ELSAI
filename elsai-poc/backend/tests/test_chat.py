@@ -18,7 +18,7 @@ def fake_llm(monkeypatch):
     def _set(reply: str):
         def _fake(profile, history):
             calls.append({"profile": profile, "history": list(history)})
-            return reply
+            return reply, None
 
         monkeypatch.setattr(llm_module, "chat_completion", _fake)
         return calls
