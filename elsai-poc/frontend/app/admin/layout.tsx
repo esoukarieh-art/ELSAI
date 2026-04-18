@@ -53,6 +53,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     setAuthed(!!getAdminToken());
     setRole(getAdminRole());
+    const onUnauth = () => {
+      setAuthed(false);
+      setRole(null);
+      setError("Session expirée. Merci de vous reconnecter.");
+    };
+    window.addEventListener("elsai:admin-unauthorized", onUnauth);
+    return () => window.removeEventListener("elsai:admin-unauthorized", onUnauth);
   }, []);
 
   async function handleLogin(e: React.FormEvent) {
