@@ -10,6 +10,7 @@ from .database import init_db
 from .observability import setup_observability
 from .routers import (
     admin,
+    admin_emails,
     admin_users,
     auth,
     billing,
@@ -71,6 +72,7 @@ app.include_router(voice.router)
 app.include_router(billing.router)
 app.include_router(admin.router)
 app.include_router(admin_users.router)
+app.include_router(admin_emails.router)
 app.include_router(templates.router)
 
 
