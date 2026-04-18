@@ -202,6 +202,91 @@ class LetterTemplate(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
 
 
+class EmailTemplate(Base):
+    """Template d'email transactionnel/séquence, éditable depuis l'admin.
+
+    Chaque template appartient à une séquence (ex: "b2b_onboarding") et
+    occupe une position (step_order). Le delay_hours est le délai depuis le
+    déclenchement de la séquence pour cet email.
+    """
+
+    __tablename__ = "email_templates"
+
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    # ex: "b2b_onboarding_j0", "b2c_letter_j3"
+
+    sequence_key: Mapped[str] = mapped_column(String(32), index=True)
+    # ex: "b2b_onboarding", "b2b_pre_expiry", "b2c_letter"
+    sequence_label: Mapped[str] = mapped_column(String(120))
+    # ex: "B2B — Onboarding post-checkout"
+    audience: Mapped[str] = mapped_column(String(8), default="b2b")  # "b2b" | "b2c"
+
+    step_order: Mapped[int] = mapped_column(Integer, default=0)
+    step_label: Mapped[str] = mapped_column(String(120), default="")
+    # ex: "J+0 — Bienvenue + codes"
+
+    delay_hours: Mapped[int] = mapped_column(Integer, default=0)
+    # Délai relatif au trigger de la séquence. 0 = immédiat, 48 = J+2, -336 = J-14.
+
+    subject: Mapped[str] = mapped_column(String(200))
+    preview: Mapped[str | None] = mapped_column(String(240), nullable=True)
+    html_content: Mapped[str] = mapped_column(Text)
+    text_content: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    # Si False : la séquence ne planifie pas cet envoi (utile pour B2C en attente
+    # des events dépendants de la création de compte).
+
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Notes internes (ex: "en attente d'implémentation des events B2C").
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+    updated_by: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    # email de l'admin ayant modifié, ou "seed" pour les valeurs d'origine
+
+
+class ScheduledEmail(Base):
+    """File d'envois d'emails planifiés. Le scheduler dépile cette table.
+
+    Sert aussi d'historique (status='sent' = traces permanentes).
+    """
+
+    __tablename__ = "scheduled_emails"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+
+    template_key: Mapped[str] = mapped_column(
+        ForeignKey("email_templates.key", ondelete="SET NULL"), nullable=True, index=True
+    )
+    # SET NULL pour préserver l'historique même si un template est supprimé.
+    sequence_key: Mapped[str] = mapped_column(String(32), index=True)
+    step_order: Mapped[int] = mapped_column(Integer, default=0)
+
+    recipient_email: Mapped[str] = mapped_column(String(200), index=True)
+    recipient_name: Mapped[str | None] = mapped_column(String(200), nullable=True)
+
+    # Contexte de rendu (JSON sérialisé). ex: {"company_name": "Acme", "seats": 10}
+    context_json: Mapped[str] = mapped_column(Text, default="{}")
+
+    # Sujet identifiant dans le domaine métier (org_id, user_id, etc.) — sert à
+    # l'idempotence et à la suppression en cascade si la cible disparaît.
+    subject_type: Mapped[str] = mapped_column(String(32), default="organization")
+    # "organization" | "b2c_user"
+    subject_id: Mapped[str] = mapped_column(String(36), index=True)
+
+    send_at: Mapped[datetime] = mapped_column(DateTime, index=True)
+    sent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    status: Mapped[str] = mapped_column(String(16), default="pending", index=True)
+    # "pending" | "sent" | "cancelled" | "failed"
+    cancel_reason: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    brevo_message_id: Mapped[str | None] = mapped_column(String(200), nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
 class MetricEvent(Base):
     """Événements anonymes pour le dashboard POC (aucun contenu utilisateur)."""
 

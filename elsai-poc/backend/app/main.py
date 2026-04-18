@@ -30,6 +30,9 @@ async def lifespan(app: FastAPI):
 
     with SessionLocal() as db:
         ensure_initial_admin(db)
+        from .services.email_templates_seed import seed_email_templates
+
+        seed_email_templates(db)
     yield
 
 
