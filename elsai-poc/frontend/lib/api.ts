@@ -605,3 +605,134 @@ export async function deleteFeature(name: string): Promise<void> {
   const res = await adminFetch(`/api/admin/features/${name}`, { method: "DELETE" });
   if (!res.ok && res.status !== 204) throw new Error(`Erreur ${res.status}`);
 }
+
+// =================== Séquences email ===================
+
+export interface EmailSequenceSummary {
+  sequence_key: string;
+  sequence_label: string;
+  audience: "b2b" | "b2c";
+  steps_total: number;
+  steps_active: number;
+  last_sent_at: string | null;
+  pending_count: number;
+}
+
+export interface EmailTemplateSummary {
+  key: string;
+  sequence_key: string;
+  sequence_label: string;
+  audience: "b2b" | "b2c";
+  step_order: number;
+  step_label: string;
+  delay_hours: number;
+  subject: string;
+  preview: string | null;
+  active: boolean;
+  notes: string | null;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+export interface EmailTemplateDetail extends EmailTemplateSummary {
+  html_content: string;
+  text_content: string | null;
+}
+
+export interface EmailTemplateUpdate {
+  subject?: string;
+  preview?: string | null;
+  html_content?: string;
+  text_content?: string | null;
+  delay_hours?: number;
+  step_label?: string;
+  active?: boolean;
+  notes?: string | null;
+}
+
+export interface EmailHistoryRow {
+  id: string;
+  template_key: string | null;
+  sequence_key: string;
+  step_order: number;
+  recipient_email: string;
+  subject_id: string;
+  send_at: string;
+  sent_at: string | null;
+  status: "pending" | "sent" | "cancelled" | "failed";
+  error: string | null;
+  brevo_message_id: string | null;
+}
+
+export interface EmailTestSendResponse {
+  sent: boolean;
+  message_id: string | null;
+  rendered_subject: string;
+  rendered_html_preview: string;
+}
+
+export async function listEmailSequences(): Promise<EmailSequenceSummary[]> {
+  return adminJson<EmailSequenceSummary[]>("/api/admin/email-sequences");
+}
+
+export async function listEmailTemplatesInSequence(
+  sequenceKey: string,
+): Promise<EmailTemplateSummary[]> {
+  return adminJson<EmailTemplateSummary[]>(
+    `/api/admin/email-sequences/${encodeURIComponent(sequenceKey)}`,
+  );
+}
+
+export async function getEmailTemplate(key: string): Promise<EmailTemplateDetail> {
+  return adminJson<EmailTemplateDetail>(
+    `/api/admin/email-sequences/templates/${encodeURIComponent(key)}`,
+  );
+}
+
+export async function updateEmailTemplate(
+  key: string,
+  payload: EmailTemplateUpdate,
+): Promise<EmailTemplateDetail> {
+  return adminJson<EmailTemplateDetail>(
+    `/api/admin/email-sequences/templates/${encodeURIComponent(key)}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function testSendEmailTemplate(
+  key: string,
+  to: string,
+): Promise<EmailTestSendResponse> {
+  return adminJson<EmailTestSendResponse>(
+    `/api/admin/email-sequences/templates/${encodeURIComponent(key)}/test-send?to=${encodeURIComponent(to)}`,
+    { method: "POST" },
+  );
+}
+
+export async function listEmailHistory(
+  sequenceKey?: string,
+  status?: string,
+  limit = 100,
+): Promise<EmailHistoryRow[]> {
+  const params = new URLSearchParams();
+  if (sequenceKey) params.set("sequence_key", sequenceKey);
+  if (status) params.set("status", status);
+  params.set("limit", String(limit));
+  return adminJson<EmailHistoryRow[]>(
+    `/api/admin/email-sequences/history?${params.toString()}`,
+  );
+}
+
+export async function setEmailSequenceActive(
+  sequenceKey: string,
+  active: boolean,
+): Promise<EmailSequenceSummary> {
+  return adminJson<EmailSequenceSummary>(
+    `/api/admin/email-sequences/${encodeURIComponent(sequenceKey)}/${active ? "resume" : "pause"}`,
+    { method: "POST" },
+  );
+}

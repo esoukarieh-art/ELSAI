@@ -27,6 +27,7 @@ const NAV: NavItem[] = [
   { href: "/admin/experiments", label: "A/B testing", roles: ["content_editor"] },
   { href: "/admin/features", label: "Modules & parcours", roles: ["content_editor"] },
   { href: "/admin/courriers", label: "Courriers types", roles: ["content_editor"] },
+  { href: "/admin/email-sequences", label: "Séquences email", roles: ["content_editor"] },
   { href: "/admin/audit", label: "Journal d'audit" },
   { href: "/admin/forget", label: "Droit à l'oubli" },
   { href: "/admin/exports", label: "Exports", roles: ["b2b_sales", "content_editor"] },
