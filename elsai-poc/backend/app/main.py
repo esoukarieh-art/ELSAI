@@ -33,7 +33,17 @@ async def lifespan(app: FastAPI):
         from .services.email_templates_seed import seed_email_templates
 
         seed_email_templates(db)
-    yield
+
+    if settings.email_scheduler_enabled:
+        from .services.email_scheduler import start_scheduler, stop_scheduler
+
+        start_scheduler(tick_minutes=settings.email_scheduler_tick_minutes)
+        try:
+            yield
+        finally:
+            stop_scheduler()
+    else:
+        yield
 
 
 app = FastAPI(

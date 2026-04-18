@@ -49,6 +49,10 @@ class Settings(BaseSettings):
     # RGPD — durée de rétention session inactive (heures)
     session_retention_hours: int = 24
 
+    # Email scheduler (séquences email)
+    email_scheduler_enabled: bool = True
+    email_scheduler_tick_minutes: int = 5
+
     # Observabilité
     log_level: str = "INFO"
     sentry_dsn: str = ""
