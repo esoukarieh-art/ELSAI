@@ -25,7 +25,7 @@ def test_forget_purges_message_content_at_sql_level(
     """Après /api/auth/forget, aucun contenu user ne doit subsister en base.
     Vérification par SELECT brut (pas via l'ORM session, pour garantir que
     rien n'est retenu en cache)."""
-    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: "Je vous écoute.")
+    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("Je vous écoute.", None))
     headers = auth_headers("adult")
     canary = "CANARY-PRIVACY-7F3A"
 
@@ -50,7 +50,7 @@ def test_forget_purges_message_content_at_sql_level(
 
 def test_forget_logs_anonymous_audit_trail(client, auth_headers, monkeypatch, capsys):
     """L'exercice du droit à l'oubli doit être loggé (audit RGPD) sans PII."""
-    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: "ok")
+    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("ok", None))
     headers = auth_headers("minor")
     client.post("/api/chat", json={"message": "bonjour"}, headers=headers)
     client.delete("/api/auth/forget", headers=headers)
@@ -77,7 +77,7 @@ def test_forget_logs_anonymous_audit_trail(client, auth_headers, monkeypatch, ca
 def test_privacy_endpoint_returns_counters_not_content(
     client, auth_headers, monkeypatch
 ):
-    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: "réponse test")
+    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("réponse test", None))
     headers = auth_headers("adult")
     secret = "SECRET-CONTENT-XYZ"
     client.post("/api/chat", json={"message": secret}, headers=headers)
@@ -192,7 +192,7 @@ def test_session_footprint_unknown_session():
 def test_token_still_valid_after_forget_but_no_data(client, auth_headers, monkeypatch):
     """Après oubli, le token reste valide (on ne déconnecte pas de force côté serveur),
     mais /privacy doit montrer 0 conversation / 0 message."""
-    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: "ok")
+    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("ok", None))
     headers = auth_headers("adult")
     client.post("/api/chat", json={"message": "hello"}, headers=headers)
 

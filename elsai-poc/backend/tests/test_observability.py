@@ -27,7 +27,7 @@ def test_danger_log_contains_no_user_content(client, auth_headers, monkeypatch, 
     """Le log `safety.danger_detected` doit logger signals + profil + CTA,
     mais JAMAIS le contenu du message utilisateur (anonymat RGPD)."""
     monkeypatch.setattr(
-        llm_module, "chat_completion", lambda profile, history: "Je vous entends."
+        llm_module, "chat_completion", lambda profile, history: ("Je vous entends.", None)
     )
     headers = auth_headers("adult")
     user_message = "je veux me tuer maintenant voici un secret SECRET-CANARY-42"
@@ -46,7 +46,7 @@ def test_danger_log_contains_no_user_content(client, auth_headers, monkeypatch, 
 
 def test_danger_log_structure(client, auth_headers, monkeypatch, capsys):
     """Le log JSON safety doit contenir profil, signaux, cta_phone, correlation_id."""
-    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: "ok")
+    monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("ok", None))
     headers = auth_headers("minor")
 
     client.post("/api/chat", json={"message": "je veux me tuer"}, headers=headers)

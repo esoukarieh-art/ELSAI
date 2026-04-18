@@ -64,3 +64,171 @@ class TranscribeResponse(BaseModel):
 
 class TTSRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=2000)
+
+
+# =================== Admin ===================
+
+AlertStatus = Literal["new", "reviewing", "escalated_119", "closed"]
+
+
+class DangerAlertView(BaseModel):
+    id: str
+    session_id: str
+    conversation_id: str
+    profile: str
+    source: str
+    excerpt: str
+    status: AlertStatus
+    reviewer_note: str | None
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class DangerAlertUpdate(BaseModel):
+    status: AlertStatus
+    reviewer_note: str | None = Field(default=None, max_length=2000)
+
+
+class PromptView(BaseModel):
+    name: str
+    content: str
+    is_default: bool  # True = chargé depuis .md, False = override DB
+    version_id: int | None
+    updated_at: datetime | None
+
+
+class PromptUpdate(BaseModel):
+    content: str = Field(..., min_length=10, max_length=20000)
+
+
+class PromptVersionView(BaseModel):
+    id: int
+    name: str
+    created_at: datetime
+    active: bool
+
+    model_config = {"from_attributes": True}
+
+
+class AuditLogView(BaseModel):
+    id: int
+    actor: str
+    action: str
+    target_type: str | None
+    target_id: str | None
+    details: str | None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ForgetRequestView(BaseModel):
+    """Événement 'forget' agrégé (anonyme, pas de session_id)."""
+
+    id: int
+    profile: str
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+# ---------- Admin users (RBAC) ----------
+
+AdminRole = Literal["super_admin", "moderator_119", "content_editor", "b2b_sales"]
+
+
+class AdminLoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class AdminLoginResponse(BaseModel):
+    token: str
+    role: AdminRole
+    email: str
+    expires_in: int
+
+
+class AdminUserCreate(BaseModel):
+    email: str = Field(..., min_length=3, max_length=200)
+    password: str = Field(..., min_length=8, max_length=200)
+    role: AdminRole
+
+
+class AdminUserUpdate(BaseModel):
+    role: AdminRole | None = None
+    active: bool | None = None
+    password: str | None = Field(default=None, min_length=8, max_length=200)
+
+
+class AdminUserView(BaseModel):
+    id: str
+    email: str
+    role: AdminRole
+    active: bool
+    created_at: datetime
+    last_login: datetime | None
+
+    model_config = {"from_attributes": True}
+
+
+# ---------- A/B testing prompts ----------
+
+
+class PromptVersionFull(BaseModel):
+    id: int
+    name: str
+    label: str
+    content: str
+    weight: int
+    active: bool
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class PromptVariantCreate(BaseModel):
+    label: str = Field(..., min_length=1, max_length=64)
+    content: str = Field(..., min_length=10, max_length=20000)
+    weight: int = Field(default=50, ge=0, le=1000)
+
+
+class PromptWeightUpdate(BaseModel):
+    """Mise à jour des poids d'expérimentation (batch)."""
+
+    weights: dict[int, int]  # {version_id: weight}
+
+
+class PromptVariantStats(BaseModel):
+    version_id: int
+    label: str
+    weight: int
+    active: bool
+    messages_served: int
+    danger_flags: int
+
+
+# ---------- Feature flags ----------
+
+
+class FeatureFlagView(BaseModel):
+    name: str
+    enabled: bool
+    description: str | None
+    category: str
+    updated_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class FeatureFlagUpsert(BaseModel):
+    name: str = Field(..., min_length=2, max_length=64)
+    enabled: bool = True
+    description: str | None = Field(default=None, max_length=400)
+    category: Literal["module", "parcours", "theme"] = "module"
+
+
+class FeatureFlagToggle(BaseModel):
+    enabled: bool

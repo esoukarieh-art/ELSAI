@@ -2,11 +2,11 @@
 
 from datetime import UTC, datetime, timedelta
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends
 from sqlalchemy import func
 from sqlalchemy.orm import Session as DBSession
 
-from ..config import settings
+from ..admin_auth import get_admin
 from ..database import get_db
 from ..models import MetricEvent
 from ..models import Session as UserSession
@@ -15,14 +15,8 @@ from ..schemas import DashboardMetrics
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 
 
-def require_admin(x_admin_token: str | None = Header(default=None)) -> None:
-    if not settings.admin_token:
-        raise HTTPException(
-            status.HTTP_503_SERVICE_UNAVAILABLE,
-            "Dashboard désactivé : ADMIN_TOKEN non configuré côté serveur.",
-        )
-    if x_admin_token != settings.admin_token:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Token admin invalide ou manquant.")
+# Conservé pour compat : require_admin = simple auth admin (tous rôles)
+require_admin = get_admin
 
 
 def _count(db: DBSession, event_type: str) -> int:

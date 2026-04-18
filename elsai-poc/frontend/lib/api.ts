@@ -129,18 +129,40 @@ export async function synthesizeSpeech(text: string): Promise<Blob> {
 }
 
 const ADMIN_TOKEN_KEY = "elsai_admin_token";
+const ADMIN_AUTH_KEY = "elsai_admin_auth"; // "bearer" | "legacy"
+const ADMIN_ROLE_KEY = "elsai_admin_role";
+
+export type AdminRole =
+  | "super_admin"
+  | "moderator_119"
+  | "content_editor"
+  | "b2b_sales";
 
 export function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
   return sessionStorage.getItem(ADMIN_TOKEN_KEY);
 }
 
-export function setAdminToken(token: string) {
+export function getAdminAuth(): "bearer" | "legacy" {
+  if (typeof window === "undefined") return "legacy";
+  return (sessionStorage.getItem(ADMIN_AUTH_KEY) as "bearer" | "legacy") || "legacy";
+}
+
+export function getAdminRole(): AdminRole | null {
+  if (typeof window === "undefined") return null;
+  return sessionStorage.getItem(ADMIN_ROLE_KEY) as AdminRole | null;
+}
+
+export function setAdminToken(token: string, auth: "bearer" | "legacy" = "legacy", role?: AdminRole) {
   sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
+  sessionStorage.setItem(ADMIN_AUTH_KEY, auth);
+  if (role) sessionStorage.setItem(ADMIN_ROLE_KEY, role);
 }
 
 export function clearAdminToken() {
   sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+  sessionStorage.removeItem(ADMIN_AUTH_KEY);
+  sessionStorage.removeItem(ADMIN_ROLE_KEY);
 }
 
 // =================== Billing ===================
@@ -237,13 +259,284 @@ export async function openBillingPortal(organizationId: string): Promise<string>
 
 // =================== Dashboard (admin global) ===================
 
-export async function fetchMetrics(): Promise<DashboardMetrics> {
+async function adminFetch(path: string, init: RequestInit = {}): Promise<Response> {
   const token = getAdminToken();
-  const headers: Record<string, string> = {};
-  if (token) headers["X-Admin-Token"] = token;
-  const res = await fetch(`${API_URL}/api/dashboard/metrics`, { headers });
+  const auth = getAdminAuth();
+  const headers = new Headers(init.headers);
+  if (token) {
+    if (auth === "bearer") headers.set("Authorization", `Bearer ${token}`);
+    else headers.set("X-Admin-Token", token);
+  }
+  return fetch(`${API_URL}${path}`, { ...init, headers });
+}
+
+async function adminJson<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const res = await adminFetch(path, init);
   if (res.status === 401) throw new Error("UNAUTHORIZED");
   if (res.status === 503) throw new Error("ADMIN_DISABLED");
-  if (!res.ok) throw new Error("Métriques indisponibles");
-  return res.json();
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+  return res.json() as Promise<T>;
+}
+
+export async function fetchMetrics(): Promise<DashboardMetrics> {
+  return adminJson<DashboardMetrics>("/api/dashboard/metrics");
+}
+
+// =================== Admin backoffice ===================
+
+export type AlertStatus = "new" | "reviewing" | "escalated_119" | "closed";
+
+export interface DangerAlert {
+  id: string;
+  session_id: string;
+  conversation_id: string;
+  profile: string;
+  source: "heuristic" | "llm" | "both";
+  excerpt: string;
+  status: AlertStatus;
+  reviewer_note: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function fetchAlerts(status?: AlertStatus): Promise<DangerAlert[]> {
+  const qs = status ? `?status=${status}` : "";
+  return adminJson<DangerAlert[]>(`/api/admin/alerts${qs}`);
+}
+
+export async function updateAlert(
+  id: string,
+  status: AlertStatus,
+  reviewer_note?: string,
+): Promise<DangerAlert> {
+  return adminJson<DangerAlert>(`/api/admin/alerts/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status, reviewer_note }),
+  });
+}
+
+export interface PromptView {
+  name: string;
+  content: string;
+  is_default: boolean;
+  version_id: number | null;
+  updated_at: string | null;
+}
+
+export async function fetchPrompts(): Promise<PromptView[]> {
+  return adminJson<PromptView[]>("/api/admin/prompts");
+}
+
+export async function savePrompt(name: string, content: string): Promise<PromptView> {
+  return adminJson<PromptView>(`/api/admin/prompts/${name}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content }),
+  });
+}
+
+export async function resetPrompt(name: string): Promise<PromptView> {
+  return adminJson<PromptView>(`/api/admin/prompts/${name}/reset`, { method: "POST" });
+}
+
+export interface AuditEntry {
+  id: number;
+  actor: string;
+  action: string;
+  target_type: string | null;
+  target_id: string | null;
+  details: string | null;
+  created_at: string;
+}
+
+export async function fetchAudit(action?: string): Promise<AuditEntry[]> {
+  const qs = action ? `?action=${encodeURIComponent(action)}` : "";
+  return adminJson<AuditEntry[]>(`/api/admin/audit${qs}`);
+}
+
+export interface ForgetEvent {
+  id: number;
+  profile: string;
+  created_at: string;
+}
+
+export async function fetchForgetRequests(): Promise<ForgetEvent[]> {
+  return adminJson<ForgetEvent[]>("/api/admin/forget-requests");
+}
+
+// ---------- Admin auth (login) ----------
+
+export interface AdminLoginResponse {
+  token: string;
+  role: AdminRole;
+  email: string;
+  expires_in: number;
+}
+
+export async function adminLogin(email: string, password: string): Promise<AdminLoginResponse> {
+  const res = await fetch(`${API_URL}/api/admin/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!res.ok) throw new Error(`Identifiants invalides (${res.status})`);
+  const data = (await res.json()) as AdminLoginResponse;
+  setAdminToken(data.token, "bearer", data.role);
+  return data;
+}
+
+export interface AdminIdentity {
+  id: string;
+  email: string;
+  role: AdminRole;
+  active: boolean;
+  created_at: string;
+  last_login: string | null;
+}
+
+export async function fetchMe(): Promise<AdminIdentity> {
+  return adminJson<AdminIdentity>("/api/admin/auth/me");
+}
+
+// ---------- Admin users CRUD ----------
+
+export async function fetchAdminUsers(): Promise<AdminIdentity[]> {
+  return adminJson<AdminIdentity[]>("/api/admin/users");
+}
+
+export async function createAdminUser(
+  email: string,
+  password: string,
+  role: AdminRole,
+): Promise<AdminIdentity> {
+  return adminJson<AdminIdentity>("/api/admin/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, role }),
+  });
+}
+
+export async function updateAdminUser(
+  id: string,
+  payload: { role?: AdminRole; active?: boolean; password?: string },
+): Promise<AdminIdentity> {
+  return adminJson<AdminIdentity>(`/api/admin/users/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteAdminUser(id: string): Promise<void> {
+  const res = await adminFetch(`/api/admin/users/${id}`, { method: "DELETE" });
+  if (!res.ok && res.status !== 204) throw new Error(`Erreur ${res.status}`);
+}
+
+// ---------- A/B prompts ----------
+
+export interface PromptVariant {
+  id: number;
+  name: string;
+  label: string;
+  content: string;
+  weight: number;
+  active: boolean;
+  created_at: string;
+}
+
+export async function fetchVariants(name: string): Promise<PromptVariant[]> {
+  return adminJson<PromptVariant[]>(`/api/admin/prompts/${name}/variants`);
+}
+
+export async function createVariant(
+  name: string,
+  label: string,
+  content: string,
+  weight: number,
+): Promise<PromptVariant> {
+  return adminJson<PromptVariant>(`/api/admin/prompts/${name}/variants`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ label, content, weight }),
+  });
+}
+
+export async function updateWeights(
+  name: string,
+  weights: Record<number, number>,
+): Promise<PromptVariant[]> {
+  return adminJson<PromptVariant[]>(`/api/admin/prompts/${name}/weights`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ weights }),
+  });
+}
+
+export interface VariantStats {
+  version_id: number;
+  label: string;
+  weight: number;
+  active: boolean;
+  messages_served: number;
+  danger_flags: number;
+}
+
+export async function fetchVariantStats(name: string): Promise<VariantStats[]> {
+  return adminJson<VariantStats[]>(`/api/admin/prompts/${name}/stats`);
+}
+
+// ---------- Exports ----------
+
+export function exportUrl(kind: "metrics" | "alerts"): string {
+  return `${API_URL}/api/admin/exports/${kind}.csv`;
+}
+
+export async function downloadExport(kind: "metrics" | "alerts"): Promise<void> {
+  const res = await adminFetch(`/api/admin/exports/${kind}.csv`);
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `elsai_${kind}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ---------- Feature flags ----------
+
+export interface FeatureFlag {
+  name: string;
+  enabled: boolean;
+  description: string | null;
+  category: "module" | "parcours" | "theme";
+  updated_at: string;
+}
+
+export async function fetchFeatures(): Promise<FeatureFlag[]> {
+  return adminJson<FeatureFlag[]>("/api/admin/features");
+}
+
+export async function upsertFeature(
+  flag: Omit<FeatureFlag, "updated_at">,
+): Promise<FeatureFlag> {
+  return adminJson<FeatureFlag>("/api/admin/features", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(flag),
+  });
+}
+
+export async function toggleFeature(name: string, enabled: boolean): Promise<FeatureFlag> {
+  return adminJson<FeatureFlag>(`/api/admin/features/${name}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ enabled }),
+  });
+}
+
+export async function deleteFeature(name: string): Promise<void> {
+  const res = await adminFetch(`/api/admin/features/${name}`, { method: "DELETE" });
+  if (!res.ok && res.status !== 204) throw new Error(`Erreur ${res.status}`);
 }

@@ -7,7 +7,7 @@ from anthropic import Anthropic
 from anthropic.types import MessageParam
 
 from ..config import settings
-from ..prompts import OCR_EXPLAIN, SYSTEM_ADULT, SYSTEM_MINOR
+from ..prompts import get_active, load_file, pick_active
 
 
 def _client() -> Anthropic:
@@ -16,21 +16,27 @@ def _client() -> Anthropic:
     return Anthropic(api_key=settings.anthropic_api_key)
 
 
-def _system_for(profile: str) -> str:
-    return SYSTEM_MINOR if profile == "minor" else SYSTEM_ADULT
+def _pick_system(profile: str) -> tuple[str, int | None]:
+    """Retourne (prompt, version_id) — version_id = None si fichier .md."""
+    name = "system_minor" if profile == "minor" else "system_adult"
+    picked = pick_active(name)
+    if picked is not None:
+        return picked[1], picked[0]
+    return load_file(name), None
 
 
-def chat_completion(profile: str, history: Iterable[dict]) -> str:
-    """Appelle Claude avec l'historique complet. `history` = [{role, content}, ...]."""
+def chat_completion(profile: str, history: Iterable[dict]) -> tuple[str, int | None]:
+    """Appelle Claude avec l'historique. Retourne (reply, prompt_version_id)."""
     messages: list[MessageParam] = [{"role": m["role"], "content": m["content"]} for m in history]
+    system, version_id = _pick_system(profile)
     response = _client().messages.create(
         model=settings.claude_model,
         max_tokens=1024,
-        system=_system_for(profile),
+        system=system,
         messages=messages,
     )
     parts = [block.text for block in response.content if hasattr(block, "text")]
-    return "".join(parts).strip()
+    return "".join(parts).strip(), version_id
 
 
 def parse_minor_response(text: str) -> tuple[str, bool, dict | None]:
@@ -57,7 +63,7 @@ def explain_document(ocr_text: str) -> dict:
     response = _client().messages.create(
         model=settings.claude_model,
         max_tokens=800,
-        system=OCR_EXPLAIN,
+        system=get_active("ocr_explain"),
         messages=[{"role": "user", "content": ocr_text[:6000]}],
     )
     raw = "".join(b.text for b in response.content if hasattr(b, "text")).strip()

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session as DBSession
 
 from ..auth import SessionDep
 from ..database import get_db
-from ..models import Conversation, Message, MetricEvent
+from ..models import Conversation, DangerAlert, Message, MetricEvent
 from ..observability import get_logger
 from ..schemas import ChatRequest, ChatResponse
 from ..services import llm, safety
@@ -57,9 +57,9 @@ def chat(
         .all()
     ]
 
-    # 5. Appel LLM
+    # 5. Appel LLM (retourne aussi la version de prompt utilisée pour A/B tracking)
     try:
-        raw_reply = llm.chat_completion(session.profile, history)
+        raw_reply, prompt_version_id = llm.chat_completion(session.profile, history)
     except RuntimeError as exc:
         logger.error(
             "llm_unavailable",
@@ -86,6 +86,7 @@ def chat(
             role="assistant",
             content=reply_text,
             danger_flag=danger,
+            prompt_version_id=prompt_version_id,
         )
     )
     db.add(MetricEvent(event_type="chat", profile=session.profile))
@@ -99,6 +100,22 @@ def chat(
             heuristic_signals=heuristic["signals"],
             llm_flag=danger_llm,
             cta_phone=(emergency_cta or {}).get("phone"),
+        )
+        if heuristic["danger"] and danger_llm:
+            alert_source = "both"
+        elif danger_llm:
+            alert_source = "llm"
+        else:
+            alert_source = "heuristic"
+        db.add(
+            DangerAlert(
+                session_id=session.id,
+                conversation_id=conv.id,
+                profile=session.profile,
+                source=alert_source,
+                excerpt=payload.message[:240],
+                status="new",
+            )
         )
     db.commit()
 
