@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     session_expire_minutes: int = 60
 
     # CORS
-    cors_origins: str = "http://localhost:3000"
+    cors_origins: str = "http://localhost:3000,https://www.elsai.fr,https://elsai.fr"
 
     # Dashboard admin (POC : token partagé simple, à remplacer par un vrai IAM en prod)
     admin_token: str = ""
