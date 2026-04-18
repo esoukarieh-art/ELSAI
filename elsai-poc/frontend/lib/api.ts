@@ -288,6 +288,65 @@ export async function fetchMetrics(): Promise<DashboardMetrics> {
   return adminJson<DashboardMetrics>("/api/dashboard/metrics");
 }
 
+// =================== Bibliothèque de courriers types ===================
+
+export interface LetterTemplate {
+  id: string;
+  title: string;
+  category: string;
+  body: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LetterTemplateInput {
+  title: string;
+  category: string;
+  body: string;
+}
+
+export async function listLetterTemplates(): Promise<LetterTemplate[]> {
+  return adminJson<LetterTemplate[]>("/api/admin/letter-templates");
+}
+
+export async function createLetterTemplate(
+  payload: LetterTemplateInput,
+): Promise<LetterTemplate> {
+  return adminJson<LetterTemplate>("/api/admin/letter-templates", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateLetterTemplate(
+  id: string,
+  payload: LetterTemplateInput,
+): Promise<LetterTemplate> {
+  return adminJson<LetterTemplate>(`/api/admin/letter-templates/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteLetterTemplate(id: string): Promise<void> {
+  const res = await adminFetch(`/api/admin/letter-templates/${id}`, { method: "DELETE" });
+  if (res.status === 401) throw new Error("UNAUTHORIZED");
+  if (!res.ok) throw new Error(`Erreur ${res.status}`);
+}
+
+export async function generateLetterTemplate(
+  prompt: string,
+  category: string,
+): Promise<{ title: string; category: string; body: string }> {
+  return adminJson("/api/admin/letter-templates/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt, category }),
+  });
+}
+
 // =================== Admin backoffice ===================
 
 export type AlertStatus = "new" | "reviewing" | "escalated_119" | "closed";

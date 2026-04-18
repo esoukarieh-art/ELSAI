@@ -189,6 +189,19 @@ class FeatureFlag(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
 
 
+class LetterTemplate(Base):
+    """Courrier type (modèle) utilisable comme base pour générer des courriers personnalisés."""
+
+    __tablename__ = "letter_templates"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    title: Mapped[str] = mapped_column(String(200))
+    category: Mapped[str] = mapped_column(String(64), default="general")
+    body: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+
+
 class MetricEvent(Base):
     """Événements anonymes pour le dashboard POC (aucun contenu utilisateur)."""
 
