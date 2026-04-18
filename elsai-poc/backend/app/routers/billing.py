@@ -376,7 +376,10 @@ def _handle_checkout_completed(obj: dict, db: DBSession) -> None:
 
     db.commit()
     db.refresh(org)
-    _send_activation_email(org)
+
+    from ..services import email_triggers
+
+    email_triggers.on_checkout_completed(db, org)
 
 
 def _handle_subscription_updated(obj: dict, db: DBSession) -> None:
@@ -421,6 +424,10 @@ def _handle_subscription_deleted(obj: dict, db: DBSession) -> None:
             code.revoked_at = now
     db.commit()
 
+    from ..services import email_triggers
+
+    email_triggers.on_subscription_canceled(db, org)
+
 
 def _handle_invoice_paid(obj: dict, db: DBSession) -> None:
     customer_id = obj.get("customer")
@@ -433,10 +440,28 @@ def _handle_invoice_paid(obj: dict, db: DBSession) -> None:
         org.status = "active"
         db.commit()
 
+    from ..services import email_triggers
+
+    email_triggers.on_invoice_paid(db, org)
+
+
+def _handle_invoice_payment_failed(obj: dict, db: DBSession) -> None:
+    customer_id = obj.get("customer")
+    if not customer_id:
+        return
+    org = db.query(Organization).filter_by(stripe_customer_id=customer_id).first()
+    if not org:
+        return
+
+    from ..services import email_triggers
+
+    email_triggers.on_invoice_payment_failed(db, org, obj)
+
 
 _EVENT_HANDLERS = {
     "checkout.session.completed": _handle_checkout_completed,
     "customer.subscription.updated": _handle_subscription_updated,
     "customer.subscription.deleted": _handle_subscription_deleted,
     "invoice.paid": _handle_invoice_paid,
+    "invoice.payment_failed": _handle_invoice_payment_failed,
 }

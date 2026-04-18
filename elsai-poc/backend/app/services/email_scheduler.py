@@ -25,7 +25,7 @@ from typing import Any
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy.orm import Session
 
-from ..database import SessionLocal
+from .. import database
 from ..models import EmailTemplate, ScheduledEmail
 from . import email as email_service
 
@@ -204,7 +204,7 @@ def process_pending_emails(batch_limit: int = 50) -> dict[str, int]:
     stats = {"sent": 0, "failed": 0, "skipped": 0}
     now = datetime.now(UTC)
 
-    with SessionLocal() as db:
+    with database.SessionLocal() as db:
         due = (
             db.query(ScheduledEmail)
             .filter(
@@ -259,10 +259,19 @@ def process_pending_emails(batch_limit: int = 50) -> dict[str, int]:
 
 
 def start_scheduler(tick_minutes: int = _DEFAULT_TICK_MINUTES) -> BackgroundScheduler:
-    """Démarre le scheduler en background thread. Idempotent."""
+    """Démarre le scheduler en background thread. Idempotent.
+
+    Trois jobs :
+    - email_scheduler_tick : dépile la queue des ScheduledEmail (intervalle)
+    - pre_expiry_daily_scan : 08:00 UTC chaque jour
+    - monthly_reports_scan : 09:00 UTC le 1er du mois
+    """
     global _scheduler
     if _scheduler is not None and _scheduler.running:
         return _scheduler
+
+    # Import tardif pour éviter les cycles (email_triggers importe email_scheduler)
+    from . import email_triggers
 
     sched = BackgroundScheduler(timezone="UTC")
     sched.add_job(
@@ -273,6 +282,25 @@ def start_scheduler(tick_minutes: int = _DEFAULT_TICK_MINUTES) -> BackgroundSche
         max_instances=1,
         coalesce=True,
         next_run_time=datetime.now(UTC) + timedelta(seconds=30),
+    )
+    sched.add_job(
+        email_triggers.trigger_pre_expiry_scan,
+        trigger="cron",
+        hour=8,
+        minute=0,
+        id="pre_expiry_daily_scan",
+        max_instances=1,
+        coalesce=True,
+    )
+    sched.add_job(
+        email_triggers.trigger_monthly_reports,
+        trigger="cron",
+        day=1,
+        hour=9,
+        minute=0,
+        id="monthly_reports_scan",
+        max_instances=1,
+        coalesce=True,
     )
     sched.start()
     _scheduler = sched
