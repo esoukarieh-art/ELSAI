@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync-docs": "node -e \"const fs=require('fs');const path=require('path');const src=path.resolve(__dirname,'..','..','docs','admin-guide.md');const dst=path.resolve(__dirname,'content','admin-guide.md');if(fs.existsSync(src)){fs.mkdirSync(path.dirname(dst),{recursive:true});fs.copyFileSync(src,dst);console.log('Synced',src,'->',dst);}else{console.warn('No source docs found at',src,'- keeping existing copy.');}\"",
+    "predev": "npm run sync-docs",
+    "prebuild": "npm run sync-docs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -2,6 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  // Force l'inclusion du guide admin dans l'output standalone (lu via fs à
+  // l'exécution par app/admin/help/page.tsx — Next ne trace pas les chemins
+  // dynamiques, donc on l'explicite ici).
+  outputFileTracingIncludes: {
+    "/admin/help": ["./content/admin-guide.md"],
+  },
   async rewrites() {
     return [
       {
