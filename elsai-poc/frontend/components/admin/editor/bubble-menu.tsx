@@ -8,6 +8,13 @@ import {
 import { useCallback, useEffect, useState } from "react";
 
 import { aiRewrite, aiShorten, aiExpand } from "@/lib/admin/contentApi";
+import {
+  aiToBulletList,
+  aiToCallout,
+  aiToFAQ,
+  aiToHowTo,
+  aiToSections,
+} from "./ai-structure";
 
 type FormatBtnProps = {
   active: boolean;
@@ -268,6 +275,129 @@ function AiDropdown() {
   );
 }
 
+type StructureAction =
+  | "sections"
+  | "bullets"
+  | "howto"
+  | "faq"
+  | "callout";
+
+const STRUCTURE_ACTIONS: Array<{
+  key: StructureAction;
+  label: string;
+  hint: string;
+}> = [
+  { key: "sections", label: "📋 En sections", hint: "Découpe avec H2/H3 + paragraphes" },
+  { key: "bullets", label: "• En liste", hint: "Transforme en liste à puces" },
+  { key: "howto", label: "1→2 En étapes", hint: "Extrait en bloc HowTo éditable" },
+  { key: "faq", label: "❓ En FAQ", hint: "Détecte Q/R → bloc FAQ éditable" },
+  { key: "callout", label: "💡 En encadré", hint: "Résume en Callout (variant auto)" },
+];
+
+function StructureDropdown() {
+  const { editor } = useEditor();
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState<StructureAction | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const run = useCallback(
+    async (action: StructureAction) => {
+      if (!editor) return;
+      const { from, to } = editor.state.selection;
+      if (from === to) return;
+      const text = editor.state.doc.textBetween(from, to, "\n").trim();
+      if (!text) return;
+
+      setBusy(action);
+      setError(null);
+      try {
+        if (action === "sections") {
+          const html = await aiToSections(text);
+          editor.chain().focus().deleteRange({ from, to }).insertContent(html).run();
+        } else if (action === "bullets") {
+          const html = await aiToBulletList(text);
+          editor.chain().focus().deleteRange({ from, to }).insertContent(html).run();
+        } else if (action === "howto") {
+          const steps = await aiToHowTo(text);
+          editor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .insertContent({
+              type: "mdxBlock",
+              attrs: { tag: "HowTo", props: { steps } },
+            })
+            .run();
+        } else if (action === "faq") {
+          const items = await aiToFAQ(text);
+          editor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .insertContent({
+              type: "mdxBlock",
+              attrs: { tag: "FAQ", props: { items } },
+            })
+            .run();
+        } else if (action === "callout") {
+          const { variant, text: body } = await aiToCallout(text);
+          editor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .insertContent({
+              type: "mdxBlock",
+              attrs: { tag: "Callout", props: { variant, text: body } },
+            })
+            .run();
+        }
+        setOpen(false);
+      } catch (e) {
+        setError((e as Error).message);
+      } finally {
+        setBusy(null);
+      }
+    },
+    [editor],
+  );
+
+  if (!editor) return null;
+
+  return (
+    <div className="relative">
+      <FormatBtn
+        title="Mise en page IA (sélection)"
+        active={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        🪄
+      </FormatBtn>
+      {open && (
+        <div className="rounded-organic border-elsai-pin/20 absolute right-0 top-full z-50 mt-1 w-60 border bg-white p-1 shadow-lg">
+          {STRUCTURE_ACTIONS.map((a) => (
+            <button
+              key={a.key}
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => run(a.key)}
+              disabled={busy !== null}
+              className="hover:bg-elsai-pin/10 flex w-full flex-col items-start gap-0 rounded-organic px-2 py-1.5 text-left text-xs disabled:opacity-50"
+            >
+              <span className="text-elsai-pin-dark font-medium">
+                {busy === a.key ? "…" : a.label}
+              </span>
+              <span className="text-elsai-ink/60 text-[10px]">{a.hint}</span>
+            </button>
+          ))}
+          {error && (
+            <p className="text-elsai-urgence mt-1 px-2 text-[10px]">{error}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ContentBubbleMenu() {
   return (
     <EditorBubble
@@ -279,6 +409,7 @@ export function ContentBubbleMenu() {
       <LinkButton />
       <span className="mx-1 h-4 w-px bg-elsai-pin/20" />
       <AiDropdown />
+      <StructureDropdown />
     </EditorBubble>
   );
 }

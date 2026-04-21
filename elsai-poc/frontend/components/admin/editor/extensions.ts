@@ -18,6 +18,7 @@ import Typography from "@tiptap/extension-typography";
 import { common, createLowlight } from "lowlight";
 
 import { MdxBlock } from "./mdx-block";
+import { AiContinue } from "./ai-continue";
 
 const lowlight = createLowlight(common);
 
@@ -77,4 +78,5 @@ export const defaultExtensions: any[] = [
     HTMLAttributes: { class: "rounded-organic my-4 max-w-full" },
   }),
   MdxBlock,
+  AiContinue,
 ];

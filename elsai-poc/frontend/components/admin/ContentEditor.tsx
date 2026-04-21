@@ -16,6 +16,7 @@ import { defaultExtensions } from "./editor/extensions";
 import { buildSlashCommand, buildSlashItems } from "./editor/slash-command";
 import { ContentBubbleMenu } from "./editor/bubble-menu";
 import { htmlToMdx, mdxToHtml } from "./editor/mdx-transform";
+import { aiLayout } from "./editor/ai-structure";
 
 interface Props {
   initialContent: string;
@@ -40,6 +41,32 @@ export default function ContentEditor({
   const chars = editor?.storage.characterCount?.characters?.() ?? 0;
   const words = editor?.storage.characterCount?.words?.() ?? 0;
   const readingMinutes = Math.max(1, Math.round(words / 200));
+
+  const [layoutBusy, setLayoutBusy] = useState(false);
+  const [layoutError, setLayoutError] = useState<string | null>(null);
+
+  async function runLayoutIA() {
+    if (!editor) return;
+    const html = editor.getHTML();
+    if (!html.trim()) return;
+    if (
+      !window.confirm(
+        "L'IA va restructurer la mise en page de tout l'article (titres, listes, séparateurs). " +
+          "Tu pourras annuler avec Ctrl+Z. Continuer ?",
+      )
+    )
+      return;
+    setLayoutBusy(true);
+    setLayoutError(null);
+    try {
+      const next = await aiLayout(html);
+      editor.chain().focus().setContent(next, true).run();
+    } catch (e) {
+      setLayoutError((e as Error).message);
+    } finally {
+      setLayoutBusy(false);
+    }
+  }
 
   return (
     <div className="rounded-organic border-elsai-pin/15 bg-white relative border">
@@ -98,7 +125,21 @@ export default function ContentEditor({
       </EditorRoot>
 
       <div className="text-elsai-ink/50 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 px-3 py-1.5 text-[11px]">
-        <span>Éditeur Novel (Tiptap) · tape « / » pour insérer un bloc</span>
+        <span className="flex items-center gap-2">
+          <span>Éditeur Novel (Tiptap) · tape « / » pour insérer un bloc</span>
+          <button
+            type="button"
+            onClick={runLayoutIA}
+            disabled={layoutBusy || !editor}
+            title="Restructure tout l'article (H2/H3, listes, séparateurs)"
+            className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-2 py-0.5 text-[11px] disabled:opacity-50"
+          >
+            {layoutBusy ? "… IA en cours" : "🪄 Mise en page IA"}
+          </button>
+          {layoutError && (
+            <span className="text-elsai-urgence text-[10px]">{layoutError}</span>
+          )}
+        </span>
         <span>
           {words} mots · {chars} car. · ≈ {readingMinutes} min de lecture
         </span>
