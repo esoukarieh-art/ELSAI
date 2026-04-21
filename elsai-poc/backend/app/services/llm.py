@@ -220,3 +220,79 @@ def generate_article_draft(
     )
     user = f"Génère l'article pour : {title}"
     return _llm_json(system, user, max_tokens=4000, timeout=180.0)
+
+
+def _parse_json_from_stream(raw: str) -> dict:
+    """Extrait l'objet JSON depuis une réponse LLM potentiellement entourée de fences."""
+    candidate = raw.strip()
+    if candidate.startswith("```"):
+        candidate = candidate.split("\n", 1)[1] if "\n" in candidate else candidate[3:]
+        if candidate.endswith("```"):
+            candidate = candidate[:-3]
+        candidate = candidate.strip()
+    start, end = candidate.find("{"), candidate.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        raise ValueError("Réponse non-JSON")
+    return json.loads(candidate[start : end + 1])
+
+
+def stream_article_draft(
+    template_key: str,
+    title: str,
+    keyword: str,
+    audience: str,
+    kind: str,
+):
+    """Generator SSE : yield des events 'chunk' puis 'done' (ou 'error')."""
+    from ..prompts import ARTICLE_TEMPLATES
+
+    def sse(payload: dict) -> str:
+        return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+
+    tpl = next((t for t in ARTICLE_TEMPLATES if t["key"] == template_key), None)
+    if tpl is None:
+        yield sse({"type": "error", "message": f"Template inconnu : {template_key}"})
+        return
+
+    system = _ai_prompt(
+        tpl["prompt"],
+        title=title,
+        keyword=keyword or title,
+        audience=audience,
+        kind=kind,
+    )
+    system_json = (
+        system
+        + "\n\nIMPORTANT : réponds UNIQUEMENT avec un objet JSON valide, sans texte ni fences markdown."
+    )
+    user = f"Génère l'article pour : {title}"
+
+    yield sse({"type": "start", "template": template_key})
+    parts: list[str] = []
+    try:
+        with _client().messages.stream(
+            model=settings.claude_model,
+            max_tokens=4000,
+            system=system_json,
+            messages=[{"role": "user", "content": user}],
+            timeout=180.0,
+        ) as stream:
+            for text in stream.text_stream:
+                if not text:
+                    continue
+                parts.append(text)
+                yield sse({"type": "chunk", "text": text})
+    except Exception as exc:
+        logger.exception("stream_article_draft LLM failed")
+        yield sse({"type": "error", "message": f"Appel IA échoué : {str(exc)[:200]}"})
+        return
+
+    raw = "".join(parts)
+    try:
+        parsed = _parse_json_from_stream(raw)
+    except (ValueError, json.JSONDecodeError) as exc:
+        logger.warning("stream_article_draft JSON parse failed: %s", exc)
+        yield sse({"type": "error", "message": f"JSON invalide : {str(exc)[:200]}"})
+        return
+
+    yield sse({"type": "done", "draft": parsed})

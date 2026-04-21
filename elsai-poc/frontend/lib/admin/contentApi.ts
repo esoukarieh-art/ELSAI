@@ -215,3 +215,83 @@ export interface GeneratedDraft {
 export function aiGenerateDraft(input: GenerateDraftInput): Promise<GeneratedDraft> {
   return postJson<GeneratedDraft>("/api/admin/ai/generate-draft", input);
 }
+
+export interface StreamHandlers {
+  onStart?: () => void;
+  onChunk?: (text: string, accumulated: string) => void;
+  onDone?: (draft: GeneratedDraft) => void;
+  signal?: AbortSignal;
+}
+
+export async function aiGenerateDraftStream(
+  input: GenerateDraftInput,
+  handlers: StreamHandlers = {},
+): Promise<GeneratedDraft> {
+  const token = getAdminToken();
+  const auth = getAdminAuth();
+  const headers = new Headers({ "Content-Type": "application/json" });
+  if (token) {
+    if (auth === "bearer") headers.set("Authorization", `Bearer ${token}`);
+    else headers.set("X-Admin-Token", token);
+  }
+  const res = await fetch(`${API_URL}/api/admin/ai/generate-draft/stream`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(input),
+    signal: handlers.signal,
+  });
+  if (res.status === 401) {
+    clearAdminToken();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("elsai:admin-unauthorized"));
+    }
+    throw new Error("UNAUTHORIZED");
+  }
+  if (!res.ok || !res.body) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`Erreur ${res.status} : ${txt}`);
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+  let accumulated = "";
+  let finalDraft: GeneratedDraft | null = null;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let sepIdx: number;
+    while ((sepIdx = buffer.indexOf("\n\n")) !== -1) {
+      const rawEvent = buffer.slice(0, sepIdx);
+      buffer = buffer.slice(sepIdx + 2);
+      const dataLines = rawEvent
+        .split("\n")
+        .filter((l) => l.startsWith("data:"))
+        .map((l) => l.slice(l.startsWith("data: ") ? 6 : 5));
+      if (!dataLines.length) continue;
+      let payload: Record<string, unknown>;
+      try {
+        payload = JSON.parse(dataLines.join("\n"));
+      } catch {
+        continue;
+      }
+      const type = payload.type as string;
+      if (type === "start") {
+        handlers.onStart?.();
+      } else if (type === "chunk") {
+        const text = (payload.text as string) ?? "";
+        accumulated += text;
+        handlers.onChunk?.(text, accumulated);
+      } else if (type === "done") {
+        finalDraft = payload.draft as GeneratedDraft;
+        handlers.onDone?.(finalDraft);
+      } else if (type === "error") {
+        throw new Error((payload.message as string) || "Erreur IA");
+      }
+    }
+  }
+  if (!finalDraft) throw new Error("Flux IA terminé sans brouillon final");
+  return finalDraft;
+}

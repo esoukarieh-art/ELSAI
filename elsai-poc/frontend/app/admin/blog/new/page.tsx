@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
-  aiGenerateDraft,
+  aiGenerateDraftStream,
   type ArticleTemplate,
   createPost,
   listArticleTemplates,
@@ -38,6 +38,8 @@ export default function NewBlogPostPage() {
   const [templateKey, setTemplateKey] = useState<string>("");
   const [generating, setGenerating] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  const [streamText, setStreamText] = useState("");
+  const [streamChars, setStreamChars] = useState(0);
 
   useEffect(() => {
     if (!generating) return;
@@ -46,18 +48,18 @@ export default function NewBlogPostPage() {
     return () => window.clearInterval(id);
   }, [generating]);
 
-  const ESTIMATED_SECONDS = 60;
-  const progressPct = Math.min(95, Math.round((elapsed / ESTIMATED_SECONDS) * 100));
+  const EXPECTED_CHARS = 6000;
+  const progressPct = Math.min(98, Math.round((streamChars / EXPECTED_CHARS) * 100));
   const phase =
-    elapsed < 5
-      ? "Préparation du prompt…"
-      : elapsed < 15
-        ? "Réflexion sur la structure…"
-        : elapsed < 40
-          ? "Rédaction de l'article…"
-          : elapsed < 60
-            ? "Rédaction & SEO…"
-            : "Finalisation (ça peut être un peu long)…";
+    streamChars === 0
+      ? "Connexion au modèle…"
+      : streamChars < 1500
+        ? "Rédaction de l'intro…"
+        : streamChars < 4000
+          ? "Corps de l'article…"
+          : streamChars < 5500
+            ? "Finalisation & SEO…"
+            : "Presque fini…";
 
   useEffect(() => {
     listArticleTemplates()
@@ -98,14 +100,24 @@ export default function NewBlogPostPage() {
       return;
     }
     setGenerating(true);
+    setStreamText("");
+    setStreamChars(0);
     try {
-      const draft = await aiGenerateDraft({
-        template_key: templateKey,
-        title: title.trim(),
-        keyword: keyword.trim(),
-        audience,
-        kind,
-      });
+      const draft = await aiGenerateDraftStream(
+        {
+          template_key: templateKey,
+          title: title.trim(),
+          keyword: keyword.trim(),
+          audience,
+          kind,
+        },
+        {
+          onChunk: (_t, accumulated) => {
+            setStreamText(accumulated);
+            setStreamChars(accumulated.length);
+          },
+        },
+      );
       const post = await createPost({
         title: title.trim(),
         slug: slug.trim() || undefined,
@@ -288,18 +300,23 @@ export default function NewBlogPostPage() {
             <div className="flex items-center justify-between text-xs">
               <span className="text-elsai-ink/80">{phase}</span>
               <span className="text-elsai-ink/60 tabular-nums">
-                {elapsed}s / ~{ESTIMATED_SECONDS}s
+                {streamChars} car · {elapsed}s
               </span>
             </div>
             <div className="bg-elsai-pin/10 h-2 w-full overflow-hidden rounded-full">
               <div
-                className="bg-elsai-pin h-full rounded-full transition-all duration-500 ease-out"
+                className="bg-elsai-pin h-full rounded-full transition-all duration-200 ease-out"
                 style={{ width: `${progressPct}%` }}
               />
             </div>
+            {streamText && (
+              <pre className="bg-elsai-creme/40 text-elsai-ink/80 max-h-48 overflow-auto whitespace-pre-wrap rounded p-2 font-mono text-[11px] leading-snug">
+                {streamText.slice(-1200)}
+                <span className="animate-pulse">▍</span>
+              </pre>
+            )}
             <p className="text-elsai-ink/50 text-[11px]">
-              La génération complète prend généralement 30 à 90 secondes. Ne fermez pas la
-              page.
+              Streaming en direct — ne fermez pas la page.
             </p>
           </div>
         )}

@@ -15,6 +15,7 @@ import time
 from collections import deque
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session as DBSession
 
@@ -306,6 +307,42 @@ def post_generate_draft(
         template_key=body.template_key,
         audience=body.audience,
         kind=body.kind,
+    )
+
+
+@router.post("/generate-draft/stream")
+def post_generate_draft_stream(
+    body: GenerateDraftIn,
+    db: DBSession = Depends(get_db),
+    admin: AdminIdentity = Depends(get_admin),
+) -> StreamingResponse:
+    _require_llm()
+    _check_rate_limit(admin.user_id)
+    if not any(t["key"] == body.template_key for t in ARTICLE_TEMPLATES):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Template inconnu")
+    _audit(
+        db,
+        admin,
+        "ai.generate_draft_stream",
+        {
+            "text_length": len(body.title),
+            "template_key": body.template_key,
+            "audience": body.audience,
+            "kind": body.kind,
+            "streaming": True,
+        },
+    )
+    generator = llm.stream_article_draft(
+        body.template_key, body.title, body.keyword, body.audience, body.kind
+    )
+    return StreamingResponse(
+        generator,
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
     )
 
 
