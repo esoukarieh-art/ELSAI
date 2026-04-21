@@ -287,6 +287,184 @@ class ScheduledEmail(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
 
+class ContentCluster(Base):
+    """Cluster de contenu (pillar + articles liés) pour maillage interne SEO."""
+
+    __tablename__ = "content_clusters"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String(200), unique=True, index=True)
+    name: Mapped[str] = mapped_column(String(200))
+    pillar_post_id: Mapped[str | None] = mapped_column(
+        ForeignKey("blog_posts.id", ondelete="SET NULL"), nullable=True
+    )
+    target_keyword_family: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    audience: Mapped[str] = mapped_column(String(8), default="all")
+
+
+class BlogPost(Base):
+    """Article du blog éditorial ELSAI."""
+
+    __tablename__ = "blog_posts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String(200), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(300))
+    description: Mapped[str] = mapped_column(Text)
+    hero_eyebrow: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    content_mdx: Mapped[str] = mapped_column(Text, default="")
+    tags_json: Mapped[str] = mapped_column(Text, default="[]")
+    reading_minutes: Mapped[int] = mapped_column(Integer, default=0)
+    audience: Mapped[str] = mapped_column(String(8), default="adult")
+    # "adult" | "minor" | "b2b" | "all"
+    target_keyword: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    search_intent: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    cluster_id: Mapped[str | None] = mapped_column(
+        ForeignKey("content_clusters.id", ondelete="SET NULL"), nullable=True
+    )
+    readability_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    readability_level: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    freshness_review_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    author_id: Mapped[str | None] = mapped_column(
+        ForeignKey("admin_users.id", ondelete="SET NULL"), nullable=True
+    )
+    author_display: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    status: Mapped[str] = mapped_column(String(16), default="draft", index=True)
+    # "draft" | "review" | "scheduled" | "published"
+    published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)
+    scheduled_for: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    seo_title: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    seo_description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    og_image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    schema_type: Mapped[str] = mapped_column(String(32), default="Article")
+    # "Article" | "HowTo" | "FAQPage" | "GovernmentService"
+    schema_extra_json: Mapped[str] = mapped_column(Text, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+
+
+class CTABlock(Base):
+    """CTA réutilisable + A/B testable (pattern PromptVersion)."""
+
+    __tablename__ = "cta_blocks"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    key: Mapped[str] = mapped_column(String(64), index=True)
+    label: Mapped[str] = mapped_column(String(200))
+    variant: Mapped[str] = mapped_column(String(64), default="control")
+    component: Mapped[str] = mapped_column(String(64))
+    audience: Mapped[str] = mapped_column(String(8), default="all")
+    props_json: Mapped[str] = mapped_column(Text, default="{}")
+    auto_inject_rules_json: Mapped[str] = mapped_column(Text, default="{}")
+    weight: Mapped[int] = mapped_column(Integer, default=100)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+
+
+class PostCTA(Base):
+    """Rattachement CTA ↔ article."""
+
+    __tablename__ = "post_ctas"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    post_id: Mapped[str] = mapped_column(
+        ForeignKey("blog_posts.id", ondelete="CASCADE"), index=True
+    )
+    cta_key: Mapped[str] = mapped_column(String(64), index=True)
+    position: Mapped[str] = mapped_column(String(16), default="inline")
+    # "inline" | "end" | "sticky"
+    sort_order: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class PageContent(Base):
+    """Contenu éditable de pages statiques (offre, pour-qui, etc.)."""
+
+    __tablename__ = "page_contents"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    page_key: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(300))
+    blocks_json: Mapped[str] = mapped_column(Text, default="[]")
+    audience: Mapped[str] = mapped_column(String(8), default="all")
+    seo_title: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    seo_description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    og_image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    schema_type: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    schema_extra_json: Mapped[str] = mapped_column(Text, default="{}")
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+    updated_by: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
+
+class ContentRevision(Base):
+    """Snapshot d'un contenu avant modification (audit + rollback)."""
+
+    __tablename__ = "content_revisions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    entity_type: Mapped[str] = mapped_column(String(32), index=True)
+    entity_id: Mapped[str] = mapped_column(String(64), index=True)
+    snapshot_json: Mapped[str] = mapped_column(Text)
+    author_email: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now, index=True)
+
+
+class SlugRedirect(Base):
+    """Redirections 301 lors du changement de slug."""
+
+    __tablename__ = "slug_redirects"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    entity_type: Mapped[str] = mapped_column(String(32), index=True)
+    old_slug: Mapped[str] = mapped_column(String(200), index=True)
+    new_slug: Mapped[str] = mapped_column(String(200))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
+class NewsletterSubscriber(Base):
+    """Abonné newsletter (email hashé — RGPD minimal)."""
+
+    __tablename__ = "newsletter_subscribers"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    email_hash: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    audience: Mapped[str] = mapped_column(String(8), default="adult")
+    lead_magnet_key: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    consent_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    unsubscribed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    brevo_contact_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
+
+class LeadMagnet(Base):
+    """Ressource téléchargeable (guide PDF, etc.) qui déclenche une séquence."""
+
+    __tablename__ = "lead_magnets"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    key: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(200))
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    audience: Mapped[str] = mapped_column(String(8), default="adult")
+    file_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    trigger_sequence_key: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class ContentEvent(Base):
+    """Events anonymes de consommation du contenu (view, CTA, scroll, opt-in)."""
+
+    __tablename__ = "content_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    post_slug: Mapped[str] = mapped_column(String(200), index=True)
+    event_type: Mapped[str] = mapped_column(String(32))
+    # "view" | "cta_click" | "scroll_75" | "newsletter_subscribe"
+    variant: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    session_hash: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now, index=True)
+
+
 class MetricEvent(Base):
     """Événements anonymes pour le dashboard POC (aucun contenu utilisateur)."""
 

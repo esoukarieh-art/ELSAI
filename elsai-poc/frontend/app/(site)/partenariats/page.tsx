@@ -14,7 +14,7 @@ const PARTENAIRES_CIBLES = [
   {
     titre: "CCAS & services sociaux départementaux",
     texte:
-      "Un relais 24h/24 pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée.",
+      "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée.",
   },
   {
     titre: "France Services & maisons de services au public",

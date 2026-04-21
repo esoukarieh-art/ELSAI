@@ -101,6 +101,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Aller au contenu principal
         </a>
         <ObservabilityBoot />
+        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
+          <Script
+            id="plausible-analytics"
+            strategy="afterInteractive"
+            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+            src={
+              process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL ??
+              "https://plausible.io/js/script.tagged-events.js"
+            }
+          />
+        )}
+        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
+          <Script id="plausible-init" strategy="afterInteractive">
+            {`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}
+          </Script>
+        )}
         {children}
         <Script id="sw-register" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) {

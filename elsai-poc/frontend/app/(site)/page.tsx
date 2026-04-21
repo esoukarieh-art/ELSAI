@@ -124,7 +124,7 @@ export default function HomePage() {
       {/* DIFFERENTIATEURS */}
       <Section tone="soft">
         <h2 className="text-elsai-pin-dark max-w-3xl font-serif text-3xl tracking-tight md:text-4xl">
-          Un service accessible 24h/24, créé par une assistante sociale diplômée.
+          Un service accessible 24h/24h, créé par une assistante sociale diplômée.
         </h2>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {DIFF.map((d) => (

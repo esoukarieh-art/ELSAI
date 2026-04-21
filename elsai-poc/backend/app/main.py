@@ -10,13 +10,21 @@ from .database import init_db
 from .observability import setup_observability
 from .routers import (
     admin,
+    admin_ai,
+    admin_analytics,
+    admin_blog,
+    admin_cta,
     admin_emails,
+    admin_leadmagnets,
     admin_users,
     auth,
     billing,
     chat,
     dashboard,
     documents,
+    public_content,
+    public_events,
+    public_newsletter,
     templates,
     voice,
 )
@@ -34,6 +42,10 @@ async def lifespan(app: FastAPI):
         from .services.email_templates_seed import seed_email_templates
 
         seed_email_templates(db)
+
+        from .services.content_seed import seed_content
+
+        seed_content(db)
 
     if settings.email_scheduler_enabled:
         from .services.email_scheduler import start_scheduler, stop_scheduler
@@ -73,6 +85,14 @@ app.include_router(billing.router)
 app.include_router(admin.router)
 app.include_router(admin_users.router)
 app.include_router(admin_emails.router)
+app.include_router(admin_blog.router)
+app.include_router(admin_cta.router)
+app.include_router(admin_ai.router)
+app.include_router(admin_leadmagnets.router)
+app.include_router(admin_analytics.router)
+app.include_router(public_content.router)
+app.include_router(public_events.router)
+app.include_router(public_newsletter.router)
 app.include_router(templates.router)
 
 

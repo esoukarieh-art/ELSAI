@@ -20,7 +20,18 @@ from .config import settings
 from .database import get_db
 from .models import AdminUser
 
-ROLES = ("super_admin", "moderator_119", "content_editor", "b2b_sales")
+ROLES = (
+    "super_admin",
+    "moderator_119",
+    "content_editor",
+    "content_reviewer",
+    "content_author",
+    "b2b_sales",
+)
+
+# Groupes utilitaires pour le workflow éditorial
+CONTENT_ROLES = ("content_editor", "content_reviewer", "content_author")
+PUBLISH_ROLES = ("content_editor", "content_reviewer")
 
 _SCRYPT_N = 2**14
 _SCRYPT_R = 8

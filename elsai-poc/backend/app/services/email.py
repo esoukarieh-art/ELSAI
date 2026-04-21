@@ -15,6 +15,7 @@ from ..config import settings
 logger = logging.getLogger(__name__)
 
 BREVO_API_URL = "https://api.brevo.com/v3/smtp/email"
+BREVO_CONTACTS_URL = "https://api.brevo.com/v3/contacts"
 
 
 class EmailNotConfiguredError(RuntimeError):
@@ -71,6 +72,83 @@ def send_email(
         r.raise_for_status()
 
     return r.json().get("messageId", "")
+
+
+def create_or_update_contact(
+    email: str,
+    attributes: dict | None = None,
+    list_ids: list[int] | None = None,
+) -> str | None:
+    """Crée/met à jour un contact Brevo. Retourne brevo_contact_id (str) ou None si
+    Brevo n'est pas configuré. `list_ids` rattache le contact à des listes Brevo
+    (ex: newsletter générale, audience b2b…). Le double opt-in est géré via
+    les templates Brevo.
+    """
+    if not settings.brevo_api_key:
+        logger.warning("Brevo non configuré — contact %s non synchronisé", email)
+        return None
+
+    payload: dict = {
+        "email": email,
+        "updateEnabled": True,
+    }
+    if attributes:
+        payload["attributes"] = attributes
+    if list_ids:
+        payload["listIds"] = list_ids
+
+    try:
+        with httpx.Client(timeout=10.0) as client:
+            r = client.post(
+                BREVO_CONTACTS_URL,
+                headers={
+                    "api-key": settings.brevo_api_key,
+                    "accept": "application/json",
+                    "content-type": "application/json",
+                },
+                json=payload,
+            )
+    except httpx.HTTPError as exc:
+        logger.error("Brevo create_or_update_contact exception : %s", exc)
+        return None
+
+    if r.status_code in (200, 201, 204):
+        data: dict = {}
+        try:
+            data = r.json() if r.content else {}
+        except ValueError:
+            data = {}
+        contact_id = data.get("id")
+        return str(contact_id) if contact_id else email
+    logger.error("Brevo contact error %s : %s", r.status_code, r.text)
+    return None
+
+
+def remove_contact_from_lists(email: str, list_ids: list[int]) -> bool:
+    """Retire un contact des listes données. Retourne True si Brevo non configuré
+    (no-op) ou si l'appel a réussi.
+    """
+    if not settings.brevo_api_key:
+        return True
+    url = f"{BREVO_CONTACTS_URL}/lists/{list_ids[0]}/contacts/remove" if list_ids else None
+    if not url:
+        return True
+    try:
+        with httpx.Client(timeout=10.0) as client:
+            for lid in list_ids:
+                client.post(
+                    f"{BREVO_CONTACTS_URL}/lists/{lid}/contacts/remove",
+                    headers={
+                        "api-key": settings.brevo_api_key,
+                        "accept": "application/json",
+                        "content-type": "application/json",
+                    },
+                    json={"emails": [email]},
+                )
+    except httpx.HTTPError as exc:
+        logger.error("Brevo remove_contact_from_lists exception : %s", exc)
+        return False
+    return True
 
 
 def render_activation_email(

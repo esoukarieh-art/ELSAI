@@ -18,7 +18,7 @@ export default function UrgenceBar() {
       className="bg-elsai-ink text-elsai-creme text-xs md:text-sm"
     >
       <h2 id="urgence-heading" className="sr-only">
-        Numéros d'urgence gratuits, disponibles 24h/24
+        Numéros d'urgence gratuits, disponibles 24h/24h
       </h2>
       <ul
         role="list"

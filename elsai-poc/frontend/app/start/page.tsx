@@ -49,7 +49,7 @@ export default function HomePage() {
         <p className="text-elsai-ink/80 mb-12 text-lg leading-relaxed">
           Une permanence d'accueil numérique,
           <br />
-          anonyme et disponible&nbsp;24h/24.
+          anonyme et disponible&nbsp;24h/24h.
         </p>
 
         <div className="space-y-4">

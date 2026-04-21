@@ -109,7 +109,7 @@ export default function Page() {
                 Si vous êtes en danger maintenant&nbsp;:
               </p>
               <p>
-                Appelez le <strong>119</strong> (Enfance en danger, 24h/24, gratuit, anonyme). ELSAI
+                Appelez le <strong>119</strong> (Enfance en danger, 24h/24h, gratuit, anonyme). ELSAI
                 vous le rappellera aussi si besoin.
               </p>
             </div>

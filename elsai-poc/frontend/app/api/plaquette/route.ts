@@ -261,7 +261,7 @@ function Plaquette() {
       React.createElement(
         Text,
         { style: styles.p },
-        "ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24. Un avantage social concret, ",
+        "ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, ",
         React.createElement(Text, { style: styles.strong }, "à partir de 3 € par salarié et par mois"),
         ".",
       ),
@@ -317,7 +317,7 @@ function Plaquette() {
         React.createElement(
           View,
           { style: styles.card },
-          React.createElement(Text, { style: styles.h3 }, "Accessible 24h/24"),
+          React.createElement(Text, { style: styles.h3 }, "Accessible 24h/24h"),
           React.createElement(Text, { style: styles.pSmall }, "Une réponse tout de suite, sans rendez-vous."),
         ),
         React.createElement(

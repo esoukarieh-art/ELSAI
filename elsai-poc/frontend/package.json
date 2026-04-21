@@ -17,12 +17,19 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
     "@sentry/nextjs": "^8.40.0",
+    "@tiptap/core": "^3.22.4",
+    "@tiptap/react": "^3.22.4",
+    "@tiptap/starter-kit": "^3.22.4",
     "next": "16.2.4",
+    "next-mdx-remote": "^6.0.0",
+    "novel": "^1.0.2",
     "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react-dom": "19.2.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "@lhci/cli": "^0.14.0",
     "@playwright/test": "^1.48.0",
     "@tailwindcss/postcss": "4.2.2",
     "@types/node": "22.7.5",
@@ -32,7 +39,6 @@
     "eslint-config-next": "16.2.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "@lhci/cli": "^0.14.0",
     "postcss": "8.4.47",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.7.2",

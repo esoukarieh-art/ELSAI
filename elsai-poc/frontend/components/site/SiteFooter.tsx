@@ -42,7 +42,7 @@ export default function SiteFooter() {
             <span className="text-elsai-pin-dark text-lg font-semibold">ELSAI</span>
           </Link>
           <p className="text-elsai-ink/75 mt-3 max-w-xs text-sm leading-relaxed">
-            Service social numérique de premier accueil. Anonyme, disponible 24h/24, hébergé en France.
+            Service social numérique de premier accueil. Anonyme, disponible 24h/24h, hébergé en France.
           </p>
         </div>
         {COLUMNS.map((col) => (
@@ -68,7 +68,7 @@ export default function SiteFooter() {
           <h3 className="text-elsai-pin-dark mb-3 text-sm font-semibold tracking-wide uppercase">
             Numéros d'accès direct
           </h3>
-          <p className="text-elsai-ink/60 mb-3 text-xs">Gratuits, 24h/24, selon votre situation</p>
+          <p className="text-elsai-ink/60 mb-3 text-xs">Gratuits, 24h/24h, selon votre situation</p>
           <ul className="space-y-2 text-sm">
             {EMERGENCY.map((n) => (
               <li key={n.tel}>

@@ -37,7 +37,7 @@ export default function Page() {
               ELSAI fournit au Client un accès, pour un nombre défini de sièges salariés, à :
             </p>
             <ul className="mt-3 list-disc space-y-1 pl-6">
-              <li>l'assistant social conversationnel ELSAI (chatbot supervisé) 24h/24, 7j/7&nbsp;;</li>
+              <li>l'assistant social conversationnel ELSAI (chatbot supervisé) 24h/24h, 7j/7&nbsp;;</li>
               <li>des consultations humaines par des assistantes sociales diplômées, selon quota inclus dans l'offre&nbsp;;</li>
               <li>un reporting anonymisé (aucune donnée nominative)&nbsp;;</li>
               <li>un kit de communication interne.</li>

@@ -1,7 +1,7 @@
 {
   "name": "ELSAI — Assistant social numérique",
   "short_name": "ELSAI",
-  "description": "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24.",
+  "description": "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24h.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

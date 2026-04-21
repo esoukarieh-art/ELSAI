@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         // Les espaces d'usage (chat, dashboard, scan) sont des outils privés,
         // pas du contenu vitrine à indexer.
-        disallow: ["/chat", "/dashboard", "/scan", "/api/"],
+        disallow: ["/chat", "/dashboard", "/scan", "/api/", "/admin/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

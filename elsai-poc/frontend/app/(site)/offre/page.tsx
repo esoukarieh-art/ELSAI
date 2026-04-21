@@ -8,7 +8,7 @@ import OffreToc from "@/components/site/OffreToc";
 export const metadata: Metadata = {
   title: "Offre entreprises — Un service social pour vos salariés",
   description:
-    "Offrez à vos équipes un accueil social confidentiel, disponible 24h/24. À partir de 3 € par salarié et par mois. Anonymat garanti, hébergé en France.",
+    "Offrez à vos équipes un accueil social confidentiel, disponible 24h/24h. À partir de 3 € par salarié et par mois. Anonymat garanti, hébergé en France.",
   alternates: { canonical: "/offre" },
 };
 
@@ -21,7 +21,7 @@ const STATS_DREES = [
 
 const BENEFICES_SALARIES = [
   {
-    titre: "Accessible 24h/24, 7j/7",
+    titre: "Accessible 24h/24h, 7j/7",
     texte:
       "Une question administrative à 22h un dimanche ? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous.",
   },
@@ -176,7 +176,7 @@ const FAQ = [
 type Crit = { label: string; elsai: boolean | string; public: boolean | string; eap: boolean | string; chatbot: boolean | string };
 
 const COMPARATIF: Crit[] = [
-  { label: "Accessible 24h/24", elsai: true, public: false, eap: "Heures bureau", chatbot: true },
+  { label: "Accessible 24h/24h", elsai: true, public: false, eap: "Heures bureau", chatbot: true },
   { label: "Expertise droits sociaux FR", elsai: true, public: true, eap: "Limitée", chatbot: false },
   { label: "Supervisé par AS diplômé·es", elsai: true, public: true, eap: "Variable", chatbot: false },
   { label: "Gratuit pour le salarié", elsai: true, public: "Avec délai", eap: true, chatbot: true },
@@ -206,7 +206,7 @@ export default function Page() {
       </div>
 
       <PageHero eyebrow="Offre entreprises" title="Un service social pour vos salariés, sans service RH dédié.">
-        ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24. Un avantage
+        ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage
         social concret, <strong>à partir de 3 € par salarié et par mois</strong>.
       </PageHero>
 

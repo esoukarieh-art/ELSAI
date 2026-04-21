@@ -136,7 +136,14 @@ class ForgetRequestView(BaseModel):
 
 # ---------- Admin users (RBAC) ----------
 
-AdminRole = Literal["super_admin", "moderator_119", "content_editor", "b2b_sales"]
+AdminRole = Literal[
+    "super_admin",
+    "moderator_119",
+    "content_editor",
+    "content_reviewer",
+    "content_author",
+    "b2b_sales",
+]
 
 
 class AdminLoginRequest(BaseModel):

@@ -13,6 +13,8 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session as DBSession
 
 from ..admin_auth import (
+    PUBLISH_ROLES,
+    ROLES,
     AdminIdentity,
     create_admin_token,
     get_admin,
@@ -70,6 +72,12 @@ def me(
     if not user:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Utilisateur introuvable")
     return AdminUserView.model_validate(user)
+
+
+@router.get("/auth/roles")
+def list_roles(_: AdminIdentity = Depends(get_admin)) -> dict[str, list[str]]:
+    """Liste canonique des rôles + sous-groupe autorisé à publier."""
+    return {"roles": list(ROLES), "publish_roles": list(PUBLISH_ROLES)}
 
 
 @router.get(

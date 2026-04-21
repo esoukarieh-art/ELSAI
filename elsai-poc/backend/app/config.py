@@ -46,12 +46,21 @@ class Settings(BaseSettings):
     # URL de base du frontend pour construire les liens dans les emails
     frontend_base_url: str = "http://localhost:3000"
 
+    # Revalidation ISR frontend (Next.js) déclenchée après publish/update blog
+    frontend_revalidate_url: str | None = None
+    revalidate_secret: str | None = None
+
     # RGPD — durée de rétention session inactive (heures)
     session_retention_hours: int = 24
 
     # Email scheduler (séquences email)
     email_scheduler_enabled: bool = True
     email_scheduler_tick_minutes: int = 5
+
+    # Plausible Analytics (self-host)
+    plausible_site_id: str = ""
+    plausible_api_key: str = ""
+    plausible_api_url: str = "https://plausible.io/api/v2/query"
 
     # Observabilité
     log_level: str = "INFO"

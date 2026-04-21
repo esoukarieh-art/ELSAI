@@ -37,7 +37,7 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Comment ça marche" title="Simple et anonyme.">
-        Un échange en 4 étapes, 24h/24. Vous gardez la main à chaque instant.
+        Un échange en 4 étapes, 24h/24h. Vous gardez la main à chaque instant.
       </PageHero>
 
       <Section>
