@@ -53,6 +53,17 @@ async def lifespan(app: FastAPI):
 
         seed_content(db)
 
+        # Seed idempotent des 9 pages du centre d'aide (kind=help).
+        # Upsert par slug : safe à chaque boot.
+        from .scripts.seed_help_pages import seed as seed_help
+
+        try:
+            seed_help(db)
+        except Exception as exc:  # noqa: BLE001 — best effort, ne doit pas bloquer le boot
+            import logging
+
+            logging.getLogger(__name__).warning("seed_help_pages failed: %s", exc)
+
     if settings.email_scheduler_enabled:
         from .services.email_scheduler import start_scheduler, stop_scheduler
 
