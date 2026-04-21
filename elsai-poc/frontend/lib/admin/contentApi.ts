@@ -186,3 +186,32 @@ export function aiSuggestSchema(
 export function aiSeoMeta(title: string, content_mdx: string): Promise<SeoMetaResult> {
   return postJson("/api/admin/ai/seo-meta", { title, content_mdx });
 }
+
+export interface ArticleTemplate {
+  key: string;
+  label: string;
+  description: string;
+}
+
+export function listArticleTemplates(): Promise<ArticleTemplate[]> {
+  return adminJson<ArticleTemplate[]>("/api/admin/ai/article-templates");
+}
+
+export interface GenerateDraftInput {
+  template_key: string;
+  title: string;
+  keyword?: string;
+  audience?: string;
+  kind?: string;
+}
+
+export interface GeneratedDraft {
+  content_mdx: string;
+  seo_title: string;
+  seo_description: string;
+  excerpt: string;
+}
+
+export function aiGenerateDraft(input: GenerateDraftInput): Promise<GeneratedDraft> {
+  return postJson<GeneratedDraft>("/api/admin/ai/generate-draft", input);
+}

@@ -196,3 +196,27 @@ def generate_seo_meta(title: str, content_mdx: str) -> dict:
     system = _ai_prompt("ai_seo_meta")
     user = f"Titre : {title}\n\nContenu :\n{content_mdx[:5000]}"
     return _llm_json(system, user, max_tokens=800)
+
+
+def generate_article_draft(
+    template_key: str,
+    title: str,
+    keyword: str,
+    audience: str,
+    kind: str,
+) -> dict:
+    """Génère un brouillon complet via un template de la bibliothèque."""
+    from ..prompts import ARTICLE_TEMPLATES
+
+    tpl = next((t for t in ARTICLE_TEMPLATES if t["key"] == template_key), None)
+    if tpl is None:
+        raise ValueError(f"Template inconnu : {template_key}")
+    system = _ai_prompt(
+        tpl["prompt"],
+        title=title,
+        keyword=keyword or title,
+        audience=audience,
+        kind=kind,
+    )
+    user = f"Génère l'article pour : {title}"
+    return _llm_json(system, user, max_tokens=4000)

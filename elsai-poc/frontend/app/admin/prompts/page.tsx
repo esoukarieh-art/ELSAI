@@ -16,6 +16,12 @@ const LABELS: Record<string, string> = {
   ai_brief: "Éditeur — Brief IA (SEO)",
   ai_suggest_schema: "Éditeur — Suggérer schéma",
   ai_seo_meta: "Éditeur — Générer meta SEO",
+  ai_article_guide: "Template article — Guide pratique",
+  ai_article_explainer: "Template article — Explicatif",
+  ai_article_listicle: "Template article — Liste / Top",
+  ai_article_testimonial: "Template article — Récit d'expérience",
+  ai_article_faq: "Template article — FAQ",
+  ai_article_news: "Template article — Actualité",
 };
 
 export default function PromptsPage() {

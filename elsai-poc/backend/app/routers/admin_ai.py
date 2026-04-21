@@ -22,6 +22,7 @@ from ..admin_auth import AdminIdentity, get_admin
 from ..config import settings
 from ..database import get_db
 from ..models import AuditLog
+from ..prompts import ARTICLE_TEMPLATES
 from ..services import llm
 
 logger = logging.getLogger(__name__)
@@ -153,6 +154,14 @@ class SeoMetaIn(BaseModel):
     content_mdx: str = Field(min_length=1, max_length=30000)
 
 
+class GenerateDraftIn(BaseModel):
+    template_key: str = Field(min_length=1, max_length=50)
+    title: str = Field(min_length=3, max_length=300)
+    keyword: str = Field(default="", max_length=200)
+    audience: str = Field(default="adult", pattern="^(adult|minor|b2b|all)$")
+    kind: str = Field(default="article", pattern="^(article|help)$")
+
+
 # --- Endpoints ----------------------------------------------------------------
 
 
@@ -265,6 +274,38 @@ def post_suggest_schema(
         "ai.suggest_schema",
         lambda: llm.suggest_schema(body.content_mdx, body.title),
         text_length=len(body.content_mdx),
+    )
+
+
+@router.get("/article-templates")
+def get_article_templates(
+    admin: AdminIdentity = Depends(get_admin),
+) -> list[dict]:
+    return [
+        {"key": t["key"], "label": t["label"], "description": t["description"]}
+        for t in ARTICLE_TEMPLATES
+    ]
+
+
+@router.post("/generate-draft")
+def post_generate_draft(
+    body: GenerateDraftIn,
+    db: DBSession = Depends(get_db),
+    admin: AdminIdentity = Depends(get_admin),
+) -> dict:
+    if not any(t["key"] == body.template_key for t in ARTICLE_TEMPLATES):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Template inconnu")
+    return _run(
+        db,
+        admin,
+        "ai.generate_draft",
+        lambda: llm.generate_article_draft(
+            body.template_key, body.title, body.keyword, body.audience, body.kind
+        ),
+        text_length=len(body.title),
+        template_key=body.template_key,
+        audience=body.audience,
+        kind=body.kind,
     )
 
 

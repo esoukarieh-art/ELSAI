@@ -1,9 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { createPost } from "@/lib/admin/contentApi";
+import {
+  aiGenerateDraft,
+  type ArticleTemplate,
+  createPost,
+  listArticleTemplates,
+} from "@/lib/admin/contentApi";
 import type { Audience, PostKind } from "@/lib/admin/types";
 
 const AUDIENCES: Array<{ value: Audience; label: string }> = [
@@ -28,6 +33,20 @@ export default function NewBlogPostPage() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
+  const [aiOpen, setAiOpen] = useState(false);
+  const [templates, setTemplates] = useState<ArticleTemplate[]>([]);
+  const [templateKey, setTemplateKey] = useState<string>("");
+  const [generating, setGenerating] = useState(false);
+
+  useEffect(() => {
+    listArticleTemplates()
+      .then((t) => {
+        setTemplates(t);
+        if (t.length) setTemplateKey(t[0].key);
+      })
+      .catch(() => setTemplates([]));
+  }, []);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -47,11 +66,50 @@ export default function NewBlogPostPage() {
     }
   }
 
+  async function createWithAI() {
+    setError(null);
+    if (!title.trim() || title.trim().length < 3) {
+      setError("Saisissez un titre (3 car min) avant de générer.");
+      return;
+    }
+    if (!templateKey) {
+      setError("Choisissez un template.");
+      return;
+    }
+    setGenerating(true);
+    try {
+      const draft = await aiGenerateDraft({
+        template_key: templateKey,
+        title: title.trim(),
+        keyword: keyword.trim(),
+        audience,
+        kind,
+      });
+      const post = await createPost({
+        title: title.trim(),
+        slug: slug.trim() || undefined,
+        audience,
+        kind,
+        target_keyword: keyword.trim() || undefined,
+        content_mdx: draft.content_mdx,
+        seo_title: draft.seo_title,
+        seo_description: draft.seo_description,
+        description: draft.excerpt,
+      });
+      router.push(`/admin/blog/${post.id}`);
+    } catch (err) {
+      setError((err as Error).message);
+      setGenerating(false);
+    }
+  }
+
+  const activeTemplate = templates.find((t) => t.key === templateKey);
+
   return (
     <div className="mx-auto max-w-xl">
       <h1 className="text-elsai-pin-dark mb-2 font-serif text-2xl">Nouveau post</h1>
       <p className="text-elsai-ink/70 mb-4 text-sm">
-        Créez un draft — vous éditerez le contenu, SEO et CTA sur la page suivante.
+        Créez un draft vide ou laissez l'IA pré-remplir le contenu via un template.
       </p>
       {error && (
         <p className="text-elsai-urgence rounded-organic mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
@@ -131,13 +189,79 @@ export default function NewBlogPostPage() {
             className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full border bg-white px-3 py-2 text-sm focus:outline-none"
           />
         </label>
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-4 py-2 text-sm transition-colors disabled:opacity-50"
-        >
-          {saving ? "Création…" : "Créer le draft"}
-        </button>
+
+        {aiOpen && (
+          <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme/40 space-y-2 border p-3">
+            <span className="text-elsai-ink/80 block text-xs uppercase">
+              Template de prompt IA
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {templates.map((t) => (
+                <button
+                  type="button"
+                  key={t.key}
+                  onClick={() => setTemplateKey(t.key)}
+                  className={`rounded-organic border px-3 py-1 text-xs ${
+                    templateKey === t.key
+                      ? "bg-elsai-pin text-elsai-creme border-elsai-pin"
+                      : "border-elsai-pin/20 bg-white"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+            {activeTemplate && (
+              <p className="text-elsai-ink/70 text-xs">{activeTemplate.description}</p>
+            )}
+            <p className="text-elsai-ink/60 text-xs">
+              Les prompts sont éditables dans{" "}
+              <a href="/admin/prompts" className="underline">
+                Admin → Prompts
+              </a>{" "}
+              (clé <code>ai_article_…</code>).
+            </p>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 pt-1">
+          <button
+            type="submit"
+            disabled={saving || generating}
+            className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-4 py-2 text-sm transition-colors disabled:opacity-50"
+          >
+            {saving ? "Création…" : "Créer le draft"}
+          </button>
+          {!aiOpen ? (
+            <button
+              type="button"
+              onClick={() => setAiOpen(true)}
+              disabled={saving || generating || templates.length === 0}
+              className="rounded-organic border-elsai-pin text-elsai-pin-dark hover:bg-elsai-pin/10 border px-4 py-2 text-sm transition-colors disabled:opacity-50"
+            >
+              ✨ Créer avec IA
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={createWithAI}
+                disabled={saving || generating}
+                className="rounded-organic bg-elsai-pin-dark text-elsai-creme hover:bg-elsai-pin px-4 py-2 text-sm transition-colors disabled:opacity-50"
+              >
+                {generating ? "Génération IA…" : "✨ Générer & créer"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setAiOpen(false)}
+                disabled={generating}
+                className="rounded-organic border-elsai-pin/30 px-3 py-2 text-xs"
+              >
+                Annuler
+              </button>
+            </>
+          )}
+        </div>
       </form>
     </div>
   );
