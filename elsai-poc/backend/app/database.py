@@ -22,23 +22,50 @@ def get_db():
 
 
 def _migrate_page_content() -> None:
-    """Ajoute les colonnes draft/status/published_at sur page_contents (SQLite only).
+    """Ajoute les colonnes draft/status/published_at sur page_contents.
 
-    Idempotent : no-op si les colonnes existent déjà. On ne touche pas à la table
-    si elle n'existe pas encore — `create_all` s'en charge avec le schéma à jour.
+    Supporte SQLite et Postgres. Idempotent : no-op si colonnes déjà présentes.
+    On ne touche pas à la table si elle n'existe pas — `create_all` s'en
+    charge avec le schéma complet.
     """
-    if not settings.database_url.startswith("sqlite"):
+    url = settings.database_url
+    is_sqlite = url.startswith("sqlite")
+    is_postgres = url.startswith("postgres")
+    if not (is_sqlite or is_postgres):
         return
+
+    timestamp_type = "DATETIME" if is_sqlite else "TIMESTAMP"
+
     with engine.connect() as conn:
-        exists = conn.execute(
-            text(
-                "SELECT name FROM sqlite_master "
-                "WHERE type='table' AND name='page_contents'"
-            )
-        ).first()
-        if not exists:
-            return
-        cols = {row[1] for row in conn.execute(text("PRAGMA table_info(page_contents)"))}
+        if is_sqlite:
+            exists = conn.execute(
+                text(
+                    "SELECT name FROM sqlite_master "
+                    "WHERE type='table' AND name='page_contents'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {row[1] for row in conn.execute(text("PRAGMA table_info(page_contents)"))}
+        else:
+            exists = conn.execute(
+                text(
+                    "SELECT 1 FROM information_schema.tables "
+                    "WHERE table_name = 'page_contents'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {
+                row[0]
+                for row in conn.execute(
+                    text(
+                        "SELECT column_name FROM information_schema.columns "
+                        "WHERE table_name = 'page_contents'"
+                    )
+                )
+            }
+
         statements: list[str] = []
         if "status" not in cols:
             statements.append(
@@ -51,7 +78,7 @@ def _migrate_page_content() -> None:
             )
         if "published_at" not in cols:
             statements.append(
-                "ALTER TABLE page_contents ADD COLUMN published_at DATETIME"
+                f"ALTER TABLE page_contents ADD COLUMN published_at {timestamp_type}"
             )
         for stmt in statements:
             conn.execute(text(stmt))
