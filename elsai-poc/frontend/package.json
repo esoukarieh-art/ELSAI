@@ -20,9 +20,11 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.5.1",
     "@sentry/nextjs": "^8.40.0",
-    "@tiptap/core": "^3.22.4",
-    "@tiptap/react": "^3.22.4",
+    "@tiptap/core": "^2.27.2",
+    "@tiptap/extension-typography": "^2.27.2",
+    "@tiptap/react": "^2.27.2",
     "@tiptap/starter-kit": "^3.22.4",
+    "lowlight": "^3.3.0",
     "next": "16.2.4",
     "next-mdx-remote": "^6.0.0",
     "novel": "^1.0.2",

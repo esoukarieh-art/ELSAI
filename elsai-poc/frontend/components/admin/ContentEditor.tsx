@@ -1,36 +1,27 @@
 "use client";
 
-import { EditorContent, EditorRoot, StarterKit, type EditorInstance } from "novel";
-import { useRef, useState } from "react";
+import {
+  EditorCommand,
+  EditorCommandEmpty,
+  EditorCommandItem,
+  EditorCommandList,
+  EditorContent,
+  EditorRoot,
+  handleCommandNavigation,
+  type EditorInstance,
+} from "novel";
+import { useMemo, useRef, useState } from "react";
+
+import { defaultExtensions } from "./editor/extensions";
+import { buildSlashCommand, buildSlashItems } from "./editor/slash-command";
+import { ContentBubbleMenu } from "./editor/bubble-menu";
+import { htmlToMdx, mdxToHtml } from "./editor/mdx-transform";
 
 interface Props {
   initialContent: string;
   onChange: (html: string, plainText: string) => void;
   onInsertCTA: () => void;
 }
-
-const SLASH_ITEMS: Array<{ cmd: string; label: string; snippet: string }> = [
-  {
-    cmd: "/faq",
-    label: "Bloc FAQ",
-    snippet: `<FAQ items={[{"question":"?","answer":"..."}]} />`,
-  },
-  {
-    cmd: "/howto",
-    label: "Bloc HowTo",
-    snippet: `<HowTo steps={[{"name":"Étape 1","text":"..."}]} />`,
-  },
-  {
-    cmd: "/callout",
-    label: "Encadré",
-    snippet: `<Callout variant="info">Texte de l'encadré</Callout>`,
-  },
-  {
-    cmd: "/lead-magnet",
-    label: "Lead magnet",
-    snippet: `<LeadMagnet slug="a-definir" />`,
-  },
-];
 
 export default function ContentEditor({
   initialContent,
@@ -40,70 +31,77 @@ export default function ContentEditor({
   const [editor, setEditor] = useState<EditorInstance | null>(null);
   const lastRef = useRef<string>(initialContent);
 
-  function insertText(text: string) {
-    if (!editor) return;
-    editor.chain().focus().insertContent(text).run();
-  }
+  const slashItems = useMemo(() => buildSlashItems({ onInsertCTA }), [onInsertCTA]);
+  const extensions = useMemo(
+    () => [...defaultExtensions, buildSlashCommand({ onInsertCTA })],
+    [onInsertCTA],
+  );
 
-  function insertBlock(snippet: string) {
-    if (!editor) return;
-    editor.chain().focus().insertContent(`<p>${snippet}</p>`).run();
-  }
+  const chars = editor?.storage.characterCount?.characters?.() ?? 0;
+  const words = editor?.storage.characterCount?.words?.() ?? 0;
+  const readingMinutes = Math.max(1, Math.round(words / 200));
 
   return (
-    <div className="rounded-organic border-elsai-pin/15 bg-white border">
-      {/* Slash-menu toolbar (simplified for P0.5) */}
-      <div className="flex flex-wrap items-center gap-1 border-b border-slate-100 p-2 text-xs">
-        <span className="text-elsai-ink/50 mr-1">Slash menu :</span>
-        <button
-          type="button"
-          onClick={onInsertCTA}
-          className="rounded-organic border-elsai-pin/20 text-elsai-pin-dark hover:bg-elsai-pin/10 border bg-white px-2 py-1"
-        >
-          /cta
-        </button>
-        {SLASH_ITEMS.map((it) => (
-          <button
-            key={it.cmd}
-            type="button"
-            onClick={() => insertBlock(it.snippet)}
-            className="rounded-organic border-elsai-pin/20 text-elsai-pin-dark hover:bg-elsai-pin/10 border bg-white px-2 py-1"
-          >
-            {it.cmd}
-          </button>
-        ))}
-      </div>
+    <div className="rounded-organic border-elsai-pin/15 bg-white relative border">
       <EditorRoot>
         <EditorContent
-          extensions={[StarterKit.configure({ heading: { levels: [1, 2, 3] } })]}
+          extensions={extensions}
           onCreate={({ editor: e }) => {
-            if (initialContent) e.commands.setContent(initialContent, false);
+            if (initialContent) {
+              e.commands.setContent(mdxToHtml(initialContent), false);
+            }
             setEditor(e);
           }}
           onUpdate={({ editor: e }) => {
             const html = e.getHTML();
             if (html !== lastRef.current) {
               lastRef.current = html;
-              onChange(html, e.getText());
+              onChange(htmlToMdx(html), e.getText());
             }
           }}
           editorProps={{
+            handleDOMEvents: {
+              keydown: (_view, event) => handleCommandNavigation(event),
+            },
             attributes: {
               class:
-                "prose prose-sm max-w-none p-4 focus:outline-none min-h-[320px] text-elsai-ink",
+                "novel-editor prose prose-sm max-w-none p-4 pl-10 focus:outline-none min-h-[420px] text-elsai-ink",
             },
           }}
-        />
-      </EditorRoot>
-      <div className="flex items-center justify-between border-t border-slate-100 px-3 py-1.5 text-[11px] text-elsai-ink/50">
-        <span>Éditeur Novel (Tiptap)</span>
-        <button
-          type="button"
-          onClick={() => insertText(" ")}
-          className="hover:text-elsai-pin-dark underline-offset-2 hover:underline"
         >
-          focus
-        </button>
+          <EditorCommand className="rounded-organic border-elsai-pin/20 z-50 max-h-80 w-72 overflow-y-auto border bg-white p-1 shadow-xl">
+            <EditorCommandEmpty className="text-elsai-ink/50 px-3 py-2 text-xs">
+              Aucun bloc ne correspond.
+            </EditorCommandEmpty>
+            <EditorCommandList>
+              {slashItems.map((item) => (
+                <EditorCommandItem
+                  key={item.title}
+                  value={item.title}
+                  onCommand={(val) => item.command?.(val)}
+                  className="hover:bg-elsai-pin/10 aria-selected:bg-elsai-pin/15 flex cursor-pointer items-center gap-2 rounded-organic px-2 py-1.5 text-sm"
+                >
+                  {item.icon}
+                  <div className="min-w-0">
+                    <p className="text-elsai-ink truncate font-medium">{item.title}</p>
+                    <p className="text-elsai-ink/60 truncate text-[11px]">
+                      {item.description}
+                    </p>
+                  </div>
+                </EditorCommandItem>
+              ))}
+            </EditorCommandList>
+          </EditorCommand>
+
+          <ContentBubbleMenu />
+        </EditorContent>
+      </EditorRoot>
+
+      <div className="text-elsai-ink/50 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 px-3 py-1.5 text-[11px]">
+        <span>Éditeur Novel (Tiptap) · tape « / » pour insérer un bloc</span>
+        <span>
+          {words} mots · {chars} car. · ≈ {readingMinutes} min de lecture
+        </span>
       </div>
     </div>
   );
