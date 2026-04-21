@@ -1,3 +1,5 @@
+import secrets
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -24,6 +26,10 @@ class Settings(BaseSettings):
 
     # Dashboard admin (POC : token partagé simple, à remplacer par un vrai IAM en prod)
     admin_token: str = ""
+
+    # Token partagé pour prévisualiser un brouillon de page CMS
+    # (query param ?preview=1&token=... sur /api/public/pages/{key}).
+    admin_preview_token: str = secrets.token_hex(16)
 
     # OCR
     tesseract_cmd: str = ""

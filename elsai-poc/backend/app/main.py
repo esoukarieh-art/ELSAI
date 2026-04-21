@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .config import settings
 from .database import init_db
@@ -16,6 +17,7 @@ from .routers import (
     admin_cta,
     admin_emails,
     admin_leadmagnets,
+    admin_pages,
     admin_users,
     auth,
     billing,
@@ -33,6 +35,10 @@ from .routers import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+    # Répertoires d'upload (images CMS)
+    from .services.uploads import ensure_uploads_dirs
+
+    ensure_uploads_dirs()
     # Seed super_admin initial si ADMIN_BOOTSTRAP_EMAIL/PASSWORD définis
     from .admin_auth import ensure_initial_admin
     from .database import SessionLocal
@@ -89,8 +95,19 @@ app.include_router(admin_blog.router)
 app.include_router(admin_cta.router)
 app.include_router(admin_ai.router)
 app.include_router(admin_leadmagnets.router)
+app.include_router(admin_pages.router)
 app.include_router(admin_analytics.router)
 app.include_router(public_content.router)
+
+# Fichiers uploadés (images CMS) servis en lecture publique
+from .services.uploads import ensure_uploads_dirs as _ensure_uploads_dirs  # noqa: E402
+
+_ensure_uploads_dirs()
+app.mount(
+    "/api/public/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads",
+)
 app.include_router(public_events.router)
 app.include_router(public_newsletter.router)
 app.include_router(templates.router)

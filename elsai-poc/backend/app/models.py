@@ -393,6 +393,9 @@ class PageContent(Base):
     og_image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     schema_type: Mapped[str | None] = mapped_column(String(32), nullable=True)
     schema_extra_json: Mapped[str] = mapped_column(Text, default="{}")
+    status: Mapped[str] = mapped_column(String(16), default="published")
+    draft_blocks_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
     updated_by: Mapped[str | None] = mapped_column(String(64), nullable=True)
 

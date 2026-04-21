@@ -12,6 +12,7 @@ from pydantic import BaseModel
 from sqlalchemy import desc
 from sqlalchemy.orm import Session as DBSession
 
+from ..config import settings
 from ..database import get_db
 from ..models import BlogPost, ContentCluster, PageContent, PostCTA, SlugRedirect
 from ..services.content_utils import parse_tags, resolve_cta_variant
@@ -181,13 +182,35 @@ def get_post(slug: str, response: Response, db: DBSession = Depends(get_db)):
 
 
 @router.get("/pages/{key}", response_model=PublicPageDetail)
-def get_page(key: str, response: Response, db: DBSession = Depends(get_db)) -> PublicPageDetail:
+def get_page(
+    key: str,
+    response: Response,
+    preview: int = 0,
+    token: str | None = None,
+    db: DBSession = Depends(get_db),
+) -> PublicPageDetail:
     page = db.query(PageContent).filter(PageContent.page_key == key).first()
     if not page:
         raise HTTPException(404, "Page introuvable")
-    _set_cache(response)
+
+    preview_ok = bool(
+        preview
+        and token
+        and settings.admin_preview_token
+        and token == settings.admin_preview_token
+    )
+
+    if preview_ok:
+        response.headers["Cache-Control"] = "no-store"
+        raw = page.draft_blocks_json or page.blocks_json
+    else:
+        if page.status != "published":
+            raise HTTPException(404, "Page introuvable")
+        _set_cache(response)
+        raw = page.blocks_json
+
     try:
-        blocks = json.loads(page.blocks_json or "[]")
+        blocks = json.loads(raw or "[]")
         if not isinstance(blocks, list):
             blocks = []
     except ValueError:

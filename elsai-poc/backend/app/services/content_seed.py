@@ -6,11 +6,12 @@ Idempotent : ne recrée rien si les entrées existent déjà.
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy.orm import Session
 
-from ..models import BlogPost, CTABlock, LeadMagnet
+from ..models import BlogPost, CTABlock, LeadMagnet, PageContent
+from ..page_schemas import default_blocks_for
 
 # --- Article initial (recopié depuis frontend/lib/blog.ts) -------------------
 
@@ -148,5 +149,25 @@ def seed_content(db: Session) -> None:
         exists = db.query(LeadMagnet).filter(LeadMagnet.key == lm["key"]).first()
         if exists is None:
             db.add(LeadMagnet(**lm))
+
+    # 4. Page d'accueil (CMS) -----------------------------------------------
+    home = db.query(PageContent).filter(PageContent.page_key == "home").first()
+    if home is None:
+        db.add(
+            PageContent(
+                page_key="home",
+                title="ELSAI – Assistant social numérique",
+                blocks_json=json.dumps(default_blocks_for("home"), ensure_ascii=False),
+                audience="all",
+                status="published",
+                published_at=datetime.now(UTC),
+                seo_title="ELSAI — Service social numérique de premier accueil",
+                seo_description=(
+                    "Assistant social numérique qui répond à vos questions "
+                    "administratives, sociales, familiales ou juridiques. "
+                    "Anonymement, sans rendez-vous, sans jugement."
+                ),
+            )
+        )
 
     db.commit()
