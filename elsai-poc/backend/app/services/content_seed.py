@@ -170,4 +170,104 @@ def seed_content(db: Session) -> None:
             )
         )
 
+    # 5. Autres pages vitrine (CMS) -----------------------------------------
+    other_pages: list[dict] = [
+        {
+            "page_key": "pour-qui",
+            "title": "ELSAI – Pour qui ?",
+            "seo_title": "Pour qui ? Adultes, 12-18 ans & employeurs",
+            "seo_description": (
+                "ELSAI accompagne trois publics : les adultes (CAF, impôts, logement, "
+                "MDPH…), les mineurs de 12 à 18 ans avec un protocole de sécurité, et "
+                "les employeurs qui souhaitent équiper leurs salariés."
+            ),
+        },
+        {
+            "page_key": "comment-ca-marche",
+            "title": "ELSAI – Comment ça marche",
+            "seo_title": "Comment ça marche",
+            "seo_description": (
+                "Le fonctionnement d'ELSAI en 4 étapes : vous posez votre question, "
+                "ELSAI comprend, vous guide étape par étape, vous gardez la main sur "
+                "vos données."
+            ),
+        },
+        {
+            "page_key": "ethique",
+            "title": "ELSAI – Éthique & confidentialité",
+            "seo_title": "Éthique & confidentialité",
+            "seo_description": (
+                "Anonymat par défaut, droit à l'oubli, hébergement en France, "
+                "protection des mineurs avec orientation 119. Nos engagements "
+                "éthiques détaillés."
+            ),
+        },
+        {
+            "page_key": "faq",
+            "title": "ELSAI – FAQ",
+            "seo_title": "Questions fréquentes",
+            "seo_description": (
+                "Réponses aux questions fréquentes sur ELSAI : anonymat, fiabilité "
+                "des réponses, données personnelles, situations d'urgence, "
+                "accompagnement humain."
+            ),
+        },
+        {
+            "page_key": "contact",
+            "title": "ELSAI – Contact",
+            "seo_title": "Contact",
+            "seo_description": (
+                "Une question sur le projet, un partenariat, une offre entreprise, une "
+                "remarque ? Écrivez-nous. ELSAI est un projet à taille humaine et "
+                "chaque message est lu."
+            ),
+        },
+        {
+            "page_key": "exemples-concrets",
+            "title": "ELSAI – Exemples concrets",
+            "seo_title": "Exemples concrets",
+            "seo_description": (
+                "Des situations concrètes où ELSAI peut vous aider : ouverture de "
+                "droits, refus de RSA, surendettement, violences, logement d'urgence."
+            ),
+        },
+        {
+            "page_key": "offre",
+            "title": "ELSAI – Offre entreprises",
+            "seo_title": "Offre entreprises — Un service social pour vos salariés",
+            "seo_description": (
+                "Offrez à vos équipes un accueil social confidentiel, disponible "
+                "24h/24h. À partir de 3 € par salarié et par mois. Anonymat garanti, "
+                "hébergé en France."
+            ),
+        },
+        {
+            "page_key": "partenariats",
+            "title": "ELSAI – Partenariats",
+            "seo_title": "Partenariats — Construisons l'impact ensemble",
+            "seo_description": (
+                "ELSAI se déploie en complémentarité des services sociaux publics. "
+                "CCAS, collectivités, associations, France Services : construisons "
+                "ensemble un relais numérique utile à vos usagers."
+            ),
+        },
+    ]
+
+    for page in other_pages:
+        key = page["page_key"]
+        exists = db.query(PageContent).filter(PageContent.page_key == key).first()
+        if exists is None:
+            db.add(
+                PageContent(
+                    page_key=key,
+                    title=page["title"],
+                    blocks_json=json.dumps(default_blocks_for(key), ensure_ascii=False),
+                    audience="all",
+                    status="published",
+                    published_at=datetime.now(UTC),
+                    seo_title=page["seo_title"],
+                    seo_description=page["seo_description"],
+                )
+            )
+
     db.commit()

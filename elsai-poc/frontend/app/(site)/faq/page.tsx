@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+import {
+  blockList,
+  blockString,
+  findBlock,
+  getPageContent,
+} from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Questions fréquentes",
@@ -9,65 +15,114 @@ export const metadata: Metadata = {
   alternates: { canonical: "/faq" },
 };
 
-const FAQ = [
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const FALLBACK_FAQ: FaqItem[] = [
   {
-    q: "ELSAI, c'est gratuit\u00A0?",
-    a: "Oui, totalement pour les particuliers. Sans palier payant, sans abonnement, sans publicité, sans vente de données. Le service est financé par des entreprises qui l'offrent à leurs salariés et par des subventions dédiées à l'économie sociale et solidaire. Ce modèle nous permet de garantir un accès libre et gratuit à toutes et tous.",
+    question: "ELSAI, c'est gratuit\u00A0?",
+    answer:
+      "Oui, totalement pour les particuliers. Sans palier payant, sans abonnement, sans publicité, sans vente de données. Le service est financé par des entreprises qui l'offrent à leurs salariés et par des subventions dédiées à l'économie sociale et solidaire. Ce modèle nous permet de garantir un accès libre et gratuit à toutes et tous.",
   },
   {
-    q: "Je suis employeur, est-ce qu'il y a une offre pour mon entreprise\u00A0?",
-    a: "Oui. Nous proposons trois formules (Essentiel à 3 €/salarié/mois, Premium à 5 €, Sur mesure) pour équiper vos équipes d'un accueil social confidentiel. Les détails sont sur la page Offre entreprises.",
+    question: "Je suis employeur, est-ce qu'il y a une offre pour mon entreprise\u00A0?",
+    answer:
+      "Oui. Nous proposons trois formules (Essentiel à 3 €/salarié/mois, Premium à 5 €, Sur mesure) pour équiper vos équipes d'un accueil social confidentiel. Les détails sont sur la page Offre entreprises.",
   },
   {
-    q: "Est-ce que vous gardez ce que j'écris\u00A0?",
-    a: "Par défaut, votre session est conservée temporairement pour que la conversation reste cohérente. Vous pouvez tout effacer instantanément, à n'importe quel moment. Nous ne revendons rien, jamais.",
+    question: "Est-ce que vous gardez ce que j'écris\u00A0?",
+    answer:
+      "Par défaut, votre session est conservée temporairement pour que la conversation reste cohérente. Vous pouvez tout effacer instantanément, à n'importe quel moment. Nous ne revendons rien, jamais.",
   },
   {
-    q: "Est-ce qu'ELSAI remplace un travailleur social\u00A0?",
-    a: "Non. ELSAI est un premier point de contact\u00A0: il vous aide à y voir clair, à comprendre vos droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
+    question: "Est-ce qu'ELSAI remplace un travailleur social\u00A0?",
+    answer:
+      "Non. ELSAI est un premier point de contact\u00A0: il vous aide à y voir clair, à comprendre vos droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
   },
   {
-    q: "Est-ce fiable\u00A0? Comment savoir si l'info est juste\u00A0?",
-    a: "ELSAI s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il vous dit «\u00A0je ne suis pas sûr\u00A0» et vous oriente vers la source humaine adaptée.",
+    question: "Est-ce fiable\u00A0? Comment savoir si l'info est juste\u00A0?",
+    answer:
+      "ELSAI s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il vous dit «\u00A0je ne suis pas sûr\u00A0» et vous oriente vers la source humaine adaptée.",
   },
   {
-    q: "J'ai moins de 18 ans, est-ce que mes parents peuvent savoir\u00A0?",
-    a: "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00A0: si vous êtes en danger grave, nous vous orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
+    question: "J'ai moins de 18 ans, est-ce que mes parents peuvent savoir\u00A0?",
+    answer:
+      "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00A0: si vous êtes en danger grave, nous vous orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
   },
   {
-    q: "Et si je veux parler à un humain\u00A0?",
-    a: "ELSAI vous donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez vous. Il peut aussi vous aider à appeler un numéro d'urgence si vous le souhaitez.",
+    question: "Et si je veux parler à un humain\u00A0?",
+    answer:
+      "ELSAI vous donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez vous. Il peut aussi vous aider à appeler un numéro d'urgence si vous le souhaitez.",
   },
   {
-    q: "Qui est derrière ELSAI\u00A0?",
-    a: "Un collectif d'acteurs du travail social et du numérique d'intérêt général. Plus d'infos sur la page Partenariats, ou en nous écrivant via la page Contact.",
+    question: "Qui est derrière ELSAI\u00A0?",
+    answer:
+      "Un collectif d'acteurs du travail social et du numérique d'intérêt général. Plus d'infos sur la page Partenariats, ou en nous écrivant via la page Contact.",
   },
   {
-    q: "Et les langues autres que le français\u00A0?",
-    a: "La V1 est en français uniquement. Des versions simplifiées (FALC) et multilingues sont prévues pour les versions suivantes.",
+    question: "Et les langues autres que le français\u00A0?",
+    answer:
+      "La V1 est en français uniquement. Des versions simplifiées (FALC) et multilingues sont prévues pour les versions suivantes.",
   },
 ];
 
-export default function Page() {
+type SP = { preview?: string; token?: string };
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: Promise<SP> | SP;
+}) {
+  const sp = (searchParams ? await searchParams : undefined) ?? {};
+  const previewEnabled = sp.preview === "1" && !!sp.token;
+
+  const content = await getPageContent("faq", {
+    preview: previewEnabled,
+    token: sp.token,
+  });
+
+  const hero = findBlock(content?.blocks, "hero");
+  const faqBlock = findBlock(content?.blocks, "faq");
+
+  const heroEyebrow = blockString(hero, "eyebrow", "FAQ");
+  const heroTitle = blockString(hero, "title", "Les questions qu'on nous pose.");
+  const heroSubtitle = blockString(hero, "subtitle", "");
+
+  const items = blockList<FaqItem>(faqBlock, "items", FALLBACK_FAQ);
+
   return (
     <>
-      <PageHero eyebrow="FAQ" title="Les questions qu'on nous pose.">
-        Pas la réponse que vous cherchez&nbsp;?{" "}
-        <a href="/contact" className="text-elsai-pin-dark underline">
-          Écrivez-nous
-        </a>
-        .
+      {previewEnabled && (
+        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+          Mode prévisualisation — brouillon non publié
+        </div>
+      )}
+
+      <PageHero eyebrow={heroEyebrow} title={heroTitle}>
+        {heroSubtitle ? (
+          heroSubtitle
+        ) : (
+          <>
+            Pas la réponse que vous cherchez&nbsp;?{" "}
+            <a href="/contact" className="text-elsai-pin-dark underline">
+              Écrivez-nous
+            </a>
+            .
+          </>
+        )}
       </PageHero>
 
       <Section>
         <div className="mx-auto max-w-3xl space-y-3">
-          {FAQ.map((f, i) => (
+          {items.map((f, i) => (
             <details
               key={i}
               className="group rounded-organic border-elsai-pin/10 bg-elsai-creme open:shadow-organic border px-6 py-4"
             >
               <summary className="text-elsai-pin-dark flex cursor-pointer list-none items-start justify-between gap-4 font-semibold">
-                <span>{f.q}</span>
+                <span>{f.question}</span>
                 <span
                   aria-hidden
                   className="text-elsai-pin text-xl transition-transform group-open:rotate-45"
@@ -75,7 +130,7 @@ export default function Page() {
                   +
                 </span>
               </summary>
-              <p className="text-elsai-ink/80 mt-3 leading-relaxed">{f.a}</p>
+              <p className="text-elsai-ink/80 mt-3 leading-relaxed">{f.answer}</p>
             </details>
           ))}
         </div>

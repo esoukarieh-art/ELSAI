@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
+import {
+  blockList,
+  blockString,
+  findBlock,
+  getPageContent,
+} from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -38,26 +44,123 @@ const MESSAGE_PRESETS: Record<string, string> = {
 const INPUT_CLASS =
   "rounded-organic border-elsai-pin/20 bg-white focus:border-elsai-pin focus:ring-2 focus:ring-elsai-pin/30 w-full border px-4 py-3 outline-none transition-colors";
 
+interface LabelItem {
+  label: string;
+}
+
+const FALLBACK_OFFER_ITEMS: LabelItem[] = [
+  { label: "À partir de 3 € par salarié et par mois HT" },
+  { label: "Anonymat total vis-à-vis de l'employeur" },
+  { label: "Mise en place en moins de 2 semaines" },
+  { label: "Engagement 12 mois, facturation mensuelle ou annuelle" },
+];
+
+const FALLBACK_URGENCE_ITEMS: LabelItem[] = [
+  { label: "15 — SAMU" },
+  { label: "17 — Police" },
+  { label: "18 — Pompiers" },
+  { label: "112 — Urgences UE" },
+  { label: "119 — Enfance en danger" },
+  { label: "3114 — Prévention du suicide" },
+];
+
+type SP = { sujet?: string; preview?: string; token?: string };
+
 type Props = {
-  searchParams?: Promise<{ sujet?: string }>;
+  searchParams?: Promise<SP> | SP;
 };
 
 export default async function Page({ searchParams }: Props) {
-  const params = (await searchParams) ?? {};
+  const params = (searchParams ? await searchParams : undefined) ?? {};
   const sujetFromUrl = params.sujet;
   const sujetMatched = SUJETS.find((s) => s.value === sujetFromUrl)?.value ?? "autre";
   const messagePreset = sujetFromUrl ? (MESSAGE_PRESETS[sujetFromUrl] ?? "") : "";
   const isEntreprise = sujetFromUrl?.startsWith("offre-");
 
+  const previewEnabled = params.preview === "1" && !!params.token;
+  const content = await getPageContent("contact", {
+    preview: previewEnabled,
+    token: params.token,
+  });
+
+  const hero = findBlock(content?.blocks, "hero");
+  const formNotes = findBlock(content?.blocks, "form_notes");
+  const asideOffer = findBlock(content?.blocks, "aside_offer");
+  const asideDifficulty = findBlock(content?.blocks, "aside_difficulty");
+  const asideUrgence = findBlock(content?.blocks, "aside_urgence");
+
+  const heroEyebrow = blockString(hero, "eyebrow", "Contact");
+  const heroTitle = blockString(hero, "title", "Nous écrire.");
+  const heroSubtitle = blockString(hero, "subtitle", "");
+
+  const entrepriseTitle = blockString(
+    formNotes,
+    "entreprise_title",
+    "Demande pré-remplie",
+  );
+  const entrepriseBody = blockString(
+    formNotes,
+    "entreprise_body",
+    "Nous vous répondrons sous 48h ouvrées avec une proposition adaptée à votre effectif.",
+  );
+  const privacyNote = blockString(
+    formNotes,
+    "privacy_note",
+    "En nous écrivant, vous acceptez que nous conservions votre email le temps nécessaire pour répondre.",
+  );
+
+  const offerTitle = blockString(
+    asideOffer,
+    "title",
+    "À propos de l'offre entreprises",
+  );
+  const offerItems = blockList<LabelItem>(asideOffer, "items", FALLBACK_OFFER_ITEMS);
+  const offerLinkLabel = blockString(
+    asideOffer,
+    "link_label",
+    "Revoir le détail de l'offre →",
+  );
+  const offerLinkHref = blockString(asideOffer, "link_href", "/offre");
+
+  const difficultyTitle = blockString(
+    asideDifficulty,
+    "title",
+    "Vous êtes en difficulté\u00A0?",
+  );
+  const difficultyBody = blockString(
+    asideDifficulty,
+    "body",
+    "Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous sur le service ELSAI (/start) — anonyme et disponible 24/7.",
+  );
+
+  const urgenceTitle = blockString(asideUrgence, "title", "Urgence vitale");
+  const urgenceItems = blockList<LabelItem>(
+    asideUrgence,
+    "items",
+    FALLBACK_URGENCE_ITEMS,
+  );
+
   return (
     <>
-      <PageHero eyebrow="Contact" title="Nous écrire.">
-        Cette page est réservée aux professionnels, partenaires, entreprises, journalistes et
-        contributeurs. Pour une demande d'aide personnelle,{" "}
-        <a href="/start" className="text-elsai-pin-dark underline">
-          rendez-vous sur le service
-        </a>
-        .
+      {previewEnabled && (
+        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+          Mode prévisualisation — brouillon non publié
+        </div>
+      )}
+
+      <PageHero eyebrow={heroEyebrow} title={heroTitle}>
+        {heroSubtitle ? (
+          heroSubtitle
+        ) : (
+          <>
+            Cette page est réservée aux professionnels, partenaires, entreprises, journalistes et
+            contributeurs. Pour une demande d'aide personnelle,{" "}
+            <a href="/start" className="text-elsai-pin-dark underline">
+              rendez-vous sur le service
+            </a>
+            .
+          </>
+        )}
       </PageHero>
 
       <Section>
@@ -70,11 +173,8 @@ export default async function Page({ searchParams }: Props) {
           >
             {isEntreprise && (
               <div className="rounded-organic bg-elsai-pin/5 border-elsai-pin/20 border p-4 text-sm">
-                <p className="text-elsai-pin-dark font-semibold">Demande pré-remplie</p>
-                <p className="text-elsai-ink/80 mt-1">
-                  Nous vous répondrons sous 48h ouvrées avec une proposition adaptée à votre
-                  effectif.
-                </p>
+                <p className="text-elsai-pin-dark font-semibold">{entrepriseTitle}</p>
+                <p className="text-elsai-ink/80 mt-1">{entrepriseBody}</p>
               </div>
             )}
 
@@ -161,51 +261,39 @@ export default async function Page({ searchParams }: Props) {
             >
               Envoyer
             </button>
-            <p className="text-elsai-ink/60 text-xs">
-              En nous écrivant, vous acceptez que nous conservions votre email le temps nécessaire
-              pour répondre.
-            </p>
+            <p className="text-elsai-ink/60 text-xs">{privacyNote}</p>
           </form>
 
           <aside className="space-y-6">
             {isEntreprise && (
               <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme border p-6">
-                <h3 className="text-elsai-pin-dark font-semibold">À propos de l'offre entreprises</h3>
+                <h3 className="text-elsai-pin-dark font-semibold">{offerTitle}</h3>
                 <ul className="text-elsai-ink/85 mt-3 space-y-2 text-sm">
-                  <li>• À partir de 3 € par salarié et par mois HT</li>
-                  <li>• Anonymat total vis-à-vis de l'employeur</li>
-                  <li>• Mise en place en moins de 2 semaines</li>
-                  <li>• Engagement 12 mois, facturation mensuelle ou annuelle</li>
+                  {offerItems.map((x, i) => (
+                    <li key={`${x.label}-${i}`}>• {x.label}</li>
+                  ))}
                 </ul>
-                <a
-                  href="/offre"
-                  className="text-elsai-pin-dark mt-3 inline-block text-sm font-semibold hover:underline"
-                >
-                  Revoir le détail de l'offre →
-                </a>
+                {offerLinkLabel && (
+                  <a
+                    href={offerLinkHref || "/offre"}
+                    className="text-elsai-pin-dark mt-3 inline-block text-sm font-semibold hover:underline"
+                  >
+                    {offerLinkLabel}
+                  </a>
+                )}
               </div>
             )}
 
             <div className="bg-elsai-rose/10 rounded-organic border-elsai-rose/20 border p-6">
-              <h3 className="text-elsai-rose-dark font-semibold">Vous êtes en difficulté&nbsp;?</h3>
-              <p className="text-elsai-ink/80 mt-2 text-sm leading-relaxed">
-                Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous
-                sur{" "}
-                <a href="/start" className="text-elsai-pin-dark underline">
-                  le service ELSAI
-                </a>{" "}
-                — anonyme et disponible 24/7.
-              </p>
+              <h3 className="text-elsai-rose-dark font-semibold">{difficultyTitle}</h3>
+              <p className="text-elsai-ink/80 mt-2 text-sm leading-relaxed">{difficultyBody}</p>
             </div>
             <div className="rounded-organic border-elsai-pin/10 bg-elsai-creme border p-6">
-              <h3 className="text-elsai-pin-dark font-semibold">Urgence vitale</h3>
+              <h3 className="text-elsai-pin-dark font-semibold">{urgenceTitle}</h3>
               <ul className="text-elsai-ink/85 mt-2 space-y-1 text-sm">
-                <li>15 — SAMU</li>
-                <li>17 — Police</li>
-                <li>18 — Pompiers</li>
-                <li>112 — Urgences UE</li>
-                <li>119 — Enfance en danger</li>
-                <li>3114 — Prévention du suicide</li>
+                {urgenceItems.map((x, i) => (
+                  <li key={`${x.label}-${i}`}>{x.label}</li>
+                ))}
               </ul>
             </div>
           </aside>
