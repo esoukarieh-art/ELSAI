@@ -1,5 +1,11 @@
 export type Audience = "adult" | "minor" | "b2b" | "all";
-export type PostStatus = "draft" | "review" | "scheduled" | "published" | "archived";
+export type PostStatus =
+  | "draft"
+  | "review"
+  | "scheduled"
+  | "published"
+  | "private"
+  | "archived";
 export type PostKind = "article" | "help";
 
 export interface PostCTAItem {

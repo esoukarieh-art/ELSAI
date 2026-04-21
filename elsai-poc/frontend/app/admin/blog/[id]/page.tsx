@@ -13,6 +13,7 @@ import SchemaSelector, { type SchemaType } from "@/components/admin/SchemaSelect
 import {
   aiSeoMeta,
   attachCTA,
+  changePostStatus,
   checkSlug,
   getPost,
   publishPost,
@@ -83,6 +84,7 @@ export default function BlogEditorPage() {
   // draft fields
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+  const [description, setDescription] = useState("");
   const [contentHtml, setContentHtml] = useState("");
   const [plainText, setPlainText] = useState("");
   const [audience, setAudience] = useState<Audience>("adult");
@@ -107,6 +109,10 @@ export default function BlogEditorPage() {
   // cta modal
   const [ctaOpen, setCtaOpen] = useState(false);
 
+  // scheduler
+  const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [scheduleAt, setScheduleAt] = useState("");
+
   // analytics (panneau Performance)
   const [analytics, setAnalytics] = useState<PostDetailResponse | null>(null);
 
@@ -116,6 +122,7 @@ export default function BlogEditorPage() {
     setPost(p);
     setTitle(p.title);
     setSlug(p.slug);
+    setDescription(p.description ?? "");
     setContentHtml(p.content_mdx);
     setPlainText(htmlToPlain(p.content_mdx));
     setAudience(p.audience);
@@ -192,6 +199,7 @@ export default function BlogEditorPage() {
   }, [
     title,
     slug,
+    description,
     contentHtml,
     audience,
     kind,
@@ -229,6 +237,7 @@ export default function BlogEditorPage() {
         const updated = await updatePost(id, {
           title,
           slug,
+          description,
           content_mdx: contentHtml,
           audience,
           kind,
@@ -257,6 +266,7 @@ export default function BlogEditorPage() {
       id,
       title,
       slug,
+      description,
       contentHtml,
       audience,
       kind,
@@ -328,6 +338,24 @@ export default function BlogEditorPage() {
 
   const canPublish = useMemo(() => runGate(gateInput).every((c) => c.ok), [gateInput]);
 
+  async function handleStatusChange(status: "draft" | "private" | "archived") {
+    if (!id) return;
+    const labels: Record<string, string> = {
+      draft: "repasser en brouillon",
+      private: "rendre privé",
+      archived: "archiver",
+    };
+    if (!confirm(`Confirmer : ${labels[status]} cet article ?`)) return;
+    await save({ silent: true });
+    try {
+      const p = await changePostStatus(id, status);
+      hydrate(p);
+      setInfo(`Statut mis à jour : ${p.status}.`);
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  }
+
   async function handlePublish() {
     if (!id || !canPublish) return;
     await save({ silent: true });
@@ -340,15 +368,33 @@ export default function BlogEditorPage() {
     }
   }
 
+  function openScheduler() {
+    const base = post?.scheduled_for
+      ? new Date(post.scheduled_for)
+      : new Date(Date.now() + 60 * 60 * 1000);
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const local = `${base.getFullYear()}-${pad(base.getMonth() + 1)}-${pad(base.getDate())}T${pad(base.getHours())}:${pad(base.getMinutes())}`;
+    setScheduleAt(local);
+    setScheduleOpen(true);
+  }
+
   async function handleSchedule() {
-    if (!id) return;
-    const iso = window.prompt("Date ISO (YYYY-MM-DDTHH:mm) :", new Date().toISOString().slice(0, 16));
-    if (!iso) return;
+    if (!id || !scheduleAt) return;
+    const when = new Date(scheduleAt);
+    if (Number.isNaN(when.getTime())) {
+      setError("Date invalide.");
+      return;
+    }
+    if (when.getTime() < Date.now()) {
+      setError("La date doit être dans le futur.");
+      return;
+    }
     await save({ silent: true });
     try {
-      const p = await schedulePost(id, new Date(iso).toISOString());
+      const p = await schedulePost(id, when.toISOString());
       hydrate(p);
-      setInfo(`Planifié pour ${p.scheduled_for}`);
+      setScheduleOpen(false);
+      setInfo(`Planifié pour ${new Date(p.scheduled_for ?? "").toLocaleString("fr-FR")}.`);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -437,7 +483,7 @@ export default function BlogEditorPage() {
             Enregistrer draft (Ctrl+S)
           </button>
           <button
-            onClick={handleSchedule}
+            onClick={openScheduler}
             className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-3 py-1.5 text-sm"
           >
             Planifier
@@ -450,8 +496,66 @@ export default function BlogEditorPage() {
           >
             Publier
           </button>
+          {post.status !== "draft" && (
+            <button
+              onClick={() => handleStatusChange("draft")}
+              className="rounded-organic border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+            >
+              Brouillon
+            </button>
+          )}
+          {post.status !== "private" && (
+            <button
+              onClick={() => handleStatusChange("private")}
+              className="rounded-organic border border-violet-300 px-3 py-1.5 text-sm text-violet-800 hover:bg-violet-50"
+              title="Visible uniquement pour les admins"
+            >
+              Privé
+            </button>
+          )}
+          {post.status !== "archived" && (
+            <button
+              onClick={() => handleStatusChange("archived")}
+              className="rounded-organic border border-rose-300 px-3 py-1.5 text-sm text-rose-700 hover:bg-rose-50"
+            >
+              Archiver
+            </button>
+          )}
         </div>
       </div>
+
+      {scheduleOpen && (
+        <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme/40 mb-3 flex flex-wrap items-end gap-3 border p-3">
+          <label className="text-xs">
+            <span className="text-elsai-ink/70 mb-1 block uppercase">Publier le</span>
+            <input
+              type="datetime-local"
+              value={scheduleAt}
+              onChange={(e) => setScheduleAt(e.target.value)}
+              className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin border bg-white px-3 py-1.5 text-sm focus:outline-none"
+            />
+          </label>
+          <button
+            type="button"
+            onClick={handleSchedule}
+            className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-3 py-1.5 text-sm"
+          >
+            Confirmer la planification
+          </button>
+          <button
+            type="button"
+            onClick={() => setScheduleOpen(false)}
+            className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-3 py-1.5 text-sm"
+          >
+            Annuler
+          </button>
+          {post.scheduled_for && (
+            <p className="text-elsai-ink/60 text-xs">
+              Déjà planifié : {new Date(post.scheduled_for).toLocaleString("fr-FR")}
+            </p>
+          )}
+        </div>
+      )}
 
       {error && (
         <p className="text-elsai-urgence rounded-organic mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
@@ -637,6 +741,21 @@ export default function BlogEditorPage() {
                   ))}
                 </div>
               </div>
+              <label className="block text-sm">
+                <span className="text-elsai-ink/80 mb-1 flex items-center justify-between text-xs uppercase">
+                  Extrait / description
+                  <span className="text-[10px] normal-case">
+                    {description.length}c (recommandé &lt; 300)
+                  </span>
+                </span>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={3}
+                  placeholder="Résumé de l'article, utilisé en aperçu et comme fallback meta description."
+                  className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full resize-y border bg-white px-3 py-2 text-sm focus:outline-none"
+                />
+              </label>
               <label className="block text-sm">
                 <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">
                   Tags (séparés par virgule)

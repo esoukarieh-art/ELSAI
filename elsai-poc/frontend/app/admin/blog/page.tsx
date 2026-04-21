@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { listPosts } from "@/lib/admin/contentApi";
+import { deletePost, listPosts } from "@/lib/admin/contentApi";
 import type { BlogPostSummary } from "@/lib/admin/types";
 
 const AUDIENCES: Array<{ value: string; label: string }> = [
@@ -14,7 +14,7 @@ const AUDIENCES: Array<{ value: string; label: string }> = [
   { value: "all", label: "Tous publics" },
 ];
 
-const STATUSES = ["", "draft", "review", "scheduled", "published", "archived"];
+const STATUSES = ["", "draft", "review", "scheduled", "published", "private", "archived"];
 
 const KINDS: Array<{ value: string; label: string }> = [
   { value: "", label: "Tous" },
@@ -32,6 +32,7 @@ const STATUS_STYLE: Record<string, string> = {
   review: "bg-amber-100 text-amber-800",
   scheduled: "bg-sky-100 text-sky-800",
   published: "bg-emerald-100 text-emerald-800",
+  private: "bg-violet-100 text-violet-800",
   archived: "bg-rose-100 text-rose-700",
 };
 
@@ -62,6 +63,23 @@ export default function BlogListPage() {
   const [author, setAuthor] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ msg: string; postId: string } | null>(null);
+
+  async function handleDelete(row: BlogPostSummary) {
+    if (!confirm(`Déplacer l'article « ${row.title} » en brouillon ?`)) return;
+    setDeletingId(row.id);
+    setError(null);
+    try {
+      await deletePost(row.id);
+      setRows((prev) => prev.filter((r) => r.id !== row.id));
+      setNotice({ msg: `« ${row.title} » déplacé en brouillon.`, postId: row.id });
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   const filters = useMemo(
     () => ({
@@ -103,13 +121,58 @@ export default function BlogListPage() {
             Gestion des articles (audience, SEO, schéma, gate de publication).
           </p>
         </div>
-        <Link
-          href="/admin/blog/new"
-          className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-4 py-2 text-sm transition-colors"
-        >
-          + Nouveau post
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setStatus(status === "draft" ? "" : "draft")}
+            className={`rounded-organic border px-3 py-2 text-sm transition-colors ${
+              status === "draft"
+                ? "bg-elsai-pin text-elsai-creme border-elsai-pin"
+                : "border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10"
+            }`}
+          >
+            Brouillons
+          </button>
+          <Link
+            href="/admin/blog/new"
+            className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-4 py-2 text-sm transition-colors"
+          >
+            + Nouveau post
+          </Link>
+        </div>
       </div>
+
+      {notice && (
+        <div className="rounded-organic mb-3 flex items-center justify-between border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          <span>{notice.msg}</span>
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/admin/blog/${notice.postId}`}
+              className="underline hover:no-underline"
+            >
+              Ouvrir le brouillon
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setStatus("draft");
+                setNotice(null);
+              }}
+              className="underline hover:no-underline"
+            >
+              Voir tous les brouillons
+            </button>
+            <button
+              type="button"
+              onClick={() => setNotice(null)}
+              className="text-amber-700 hover:text-amber-900"
+              aria-label="Fermer"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="rounded-organic border-elsai-pin/15 bg-white/70 mb-4 border p-3">
         <div className="grid gap-2 sm:grid-cols-5">
@@ -200,12 +263,13 @@ export default function BlogListPage() {
               <th className="px-3 py-2 text-left">Statut</th>
               <th className="px-3 py-2 text-left">Auteur</th>
               <th className="px-3 py-2 text-left">Modifié</th>
+              <th className="px-3 py-2 text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 && !loading && (
               <tr>
-                <td colSpan={6} className="text-elsai-ink/50 px-3 py-4 text-center">
+                <td colSpan={7} className="text-elsai-ink/50 px-3 py-4 text-center">
                   Aucun article.
                 </td>
               </tr>
@@ -253,6 +317,24 @@ export default function BlogListPage() {
                 </td>
                 <td className="text-elsai-ink/60 px-3 py-2 text-xs">
                   {formatDate(r.updated_at)}
+                </td>
+                <td className="px-3 py-2 text-right">
+                  <div className="flex justify-end gap-2">
+                    <Link
+                      href={`/admin/blog/${r.id}`}
+                      className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-2 py-1 text-xs"
+                    >
+                      Éditer
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(r)}
+                      disabled={deletingId === r.id}
+                      className="rounded-organic border border-rose-300 px-2 py-1 text-xs text-rose-700 hover:bg-rose-50 disabled:opacity-50"
+                    >
+                      {deletingId === r.id ? "…" : "Supprimer"}
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

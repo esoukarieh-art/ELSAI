@@ -484,6 +484,48 @@ def publish_post(
     return _to_detail(db, post)
 
 
+_MANUAL_STATUSES = {"draft", "private", "archived"}
+
+
+class StatusChangeRequest(BaseModel):
+    status: str
+
+
+@router.post(
+    "/{post_id}/status",
+    response_model=BlogPostDetail,
+    dependencies=[Depends(require_role(*PUBLISH_ROLES))],
+)
+def change_post_status(
+    post_id: str,
+    payload: StatusChangeRequest,
+    admin: AdminIdentity = Depends(get_admin),
+    db: DBSession = Depends(get_db),
+) -> BlogPostDetail:
+    if payload.status not in _MANUAL_STATUSES:
+        raise HTTPException(
+            400,
+            f"Statut invalide. Autorisés : {sorted(_MANUAL_STATUSES)}. "
+            "Utilisez /publish ou /schedule pour les autres transitions.",
+        )
+    post = db.get(BlogPost, post_id)
+    if not post:
+        raise HTTPException(404, "Article inconnu")
+    previous = post.status
+    _snapshot_revision(db, post, admin)
+    post.status = payload.status
+    if payload.status != "published":
+        post.published_at = None
+    if payload.status != "scheduled":
+        post.scheduled_for = None
+    _audit(db, admin, "blog.status", post.id, {"from": previous, "to": payload.status})
+    db.commit()
+    db.refresh(post)
+    if previous == "published":
+        _trigger_revalidate(post.slug, "post")
+    return _to_detail(db, post)
+
+
 @router.post(
     "/{post_id}/schedule",
     response_model=BlogPostDetail,

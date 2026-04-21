@@ -331,7 +331,7 @@ class BlogPost(Base):
     )
     author_display: Mapped[str | None] = mapped_column(String(120), nullable=True)
     status: Mapped[str] = mapped_column(String(16), default="draft", index=True)
-    # "draft" | "review" | "scheduled" | "published"
+    # "draft" | "review" | "scheduled" | "published" | "private" | "archived"
     kind: Mapped[str] = mapped_column(String(16), default="article", index=True)
     # "article" (blog éditorial) | "help" (centre d'aide / guide utilisateur)
     published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, index=True)

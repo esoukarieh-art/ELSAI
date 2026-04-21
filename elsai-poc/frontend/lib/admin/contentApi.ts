@@ -88,8 +88,27 @@ export function updatePost(id: string, payload: BlogPostUpdate): Promise<BlogPos
   });
 }
 
+export async function deletePost(id: string): Promise<void> {
+  const res = await adminFetch(`/api/admin/blog/${id}`, { method: "DELETE" });
+  if (res.status === 401) {
+    clearAdminToken();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("elsai:admin-unauthorized"));
+    }
+    throw new Error("UNAUTHORIZED");
+  }
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+}
+
 export function publishPost(id: string): Promise<BlogPostDetail> {
   return postJson<BlogPostDetail>(`/api/admin/blog/${id}/publish`, {});
+}
+
+export function changePostStatus(
+  id: string,
+  status: "draft" | "private" | "archived",
+): Promise<BlogPostDetail> {
+  return postJson<BlogPostDetail>(`/api/admin/blog/${id}/status`, { status });
 }
 
 export function schedulePost(id: string, scheduledFor: string): Promise<BlogPostDetail> {
