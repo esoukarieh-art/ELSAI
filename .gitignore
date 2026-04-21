@@ -21,3 +21,5 @@ next-env.d.ts
 .env.local
 *.sqlite
 *.db
+# Added by code-review-graph
+.code-review-graph/
