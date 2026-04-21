@@ -36,6 +36,7 @@ const NAV: NavItem[] = [
   { href: "/admin/forget", label: "Droit à l'oubli" },
   { href: "/admin/exports", label: "Exports", roles: ["b2b_sales", "content_editor"] },
   { href: "/admin/users", label: "Utilisateurs", roles: [] }, // super_admin uniquement
+  { href: "/admin/help", label: "Aide admin" },
 ];
 
 function canSee(role: AdminRole | null, item: NavItem): boolean {

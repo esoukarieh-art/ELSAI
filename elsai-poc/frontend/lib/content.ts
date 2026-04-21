@@ -130,6 +130,36 @@ export async function fetchCluster(slug: string): Promise<PublicCluster | null> 
   }
 }
 
+export async function fetchHelpPages(
+  params: { limit?: number; offset?: number } = {},
+): Promise<PublicPostSummary[]> {
+  const search = new URLSearchParams();
+  if (params.limit != null) search.set("limit", String(params.limit));
+  if (params.offset != null) search.set("offset", String(params.offset));
+  const qs = search.toString();
+  const url = `${API}/api/public/help${qs ? `?${qs}` : ""}`;
+  try {
+    const res = await fetch(url, revalidateOpts(["help"]));
+    if (!res.ok) return [];
+    return (await res.json()) as PublicPostSummary[];
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchHelpPage(slug: string): Promise<PublicPostDetail | null> {
+  try {
+    const res = await fetch(
+      `${API}/api/public/help/${slug}`,
+      revalidateOpts([`help:${slug}`]),
+    );
+    if (!res.ok) return null;
+    return (await res.json()) as PublicPostDetail;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchPage(key: string): Promise<unknown | null> {
   try {
     const res = await fetch(`${API}/api/public/pages/${key}`, revalidateOpts([`page:${key}`]));

@@ -56,6 +56,7 @@ function postJson<T>(path: string, body: unknown): Promise<T> {
 export interface ListPostsFilters {
   audience?: string;
   status?: string;
+  kind?: string;
   q?: string;
   author_id?: string;
   limit?: number;

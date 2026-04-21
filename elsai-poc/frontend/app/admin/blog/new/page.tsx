@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { createPost } from "@/lib/admin/contentApi";
-import type { Audience } from "@/lib/admin/types";
+import type { Audience, PostKind } from "@/lib/admin/types";
 
 const AUDIENCES: Array<{ value: Audience; label: string }> = [
   { value: "adult", label: "Adulte" },
@@ -13,11 +13,17 @@ const AUDIENCES: Array<{ value: Audience; label: string }> = [
   { value: "all", label: "Tous publics" },
 ];
 
+const KINDS: Array<{ value: PostKind; label: string }> = [
+  { value: "article", label: "Article (blog)" },
+  { value: "help", label: "Aide (guide)" },
+];
+
 export default function NewBlogPostPage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [audience, setAudience] = useState<Audience>("adult");
+  const [kind, setKind] = useState<PostKind>("article");
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -31,6 +37,7 @@ export default function NewBlogPostPage() {
         title: title.trim(),
         slug: slug.trim() || undefined,
         audience,
+        kind,
         target_keyword: keyword.trim() || undefined,
       });
       router.push(`/admin/blog/${post.id}`);
@@ -76,6 +83,25 @@ export default function NewBlogPostPage() {
             className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full border bg-white px-3 py-2 text-sm focus:outline-none"
           />
         </label>
+        <div>
+          <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">Type</span>
+          <div className="flex flex-wrap gap-1">
+            {KINDS.map((k) => (
+              <button
+                type="button"
+                key={k.value}
+                onClick={() => setKind(k.value)}
+                className={`rounded-organic border px-3 py-1 text-xs ${
+                  kind === k.value
+                    ? "bg-elsai-pin text-elsai-creme border-elsai-pin"
+                    : "border-elsai-pin/20 bg-white"
+                }`}
+              >
+                {k.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div>
           <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">Audience</span>
           <div className="flex flex-wrap gap-1">

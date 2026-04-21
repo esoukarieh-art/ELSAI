@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
-import { audienceToTrack, fetchPosts, TRACKS } from "@/lib/content";
+import { audienceToTrack, fetchHelpPages, fetchPosts, TRACKS } from "@/lib/content";
 
 const STATIC_ROUTES: {
   path: string;
@@ -20,6 +20,7 @@ const STATIC_ROUTES: {
   { path: "/contact", priority: 0.5, changeFrequency: "yearly" },
   { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },
   { path: "/start", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/aide", priority: 0.9, changeFrequency: "monthly" },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -48,5 +49,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...trackEntries, ...postEntries];
+  const helpPages = await fetchHelpPages({ limit: 200 });
+  const helpEntries: MetadataRoute.Sitemap = helpPages.map((p) => ({
+    url: `${SITE_URL}/aide/${p.slug}`,
+    lastModified: p.updated_at ? new Date(p.updated_at) : now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticEntries, ...trackEntries, ...postEntries, ...helpEntries];
 }

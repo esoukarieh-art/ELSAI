@@ -61,6 +61,7 @@ class BlogPostSummary(BaseModel):
     description: str
     audience: str
     status: str
+    kind: str = "article"
     author_id: str | None = None
     author_display: str | None = None
     cluster_id: str | None = None
@@ -93,6 +94,7 @@ class BlogPostCreate(BaseModel):
     hero_eyebrow: str | None = Field(default=None, max_length=120)
     content_mdx: str = ""
     audience: str = "adult"
+    kind: str = "article"
     tags: list[str] = []
     reading_minutes: int = 0
     target_keyword: str | None = None
@@ -111,6 +113,7 @@ class BlogPostUpdate(BaseModel):
     hero_eyebrow: str | None = None
     content_mdx: str | None = None
     audience: str | None = None
+    kind: str | None = None
     tags: list[str] | None = None
     reading_minutes: int | None = None
     target_keyword: str | None = None
@@ -202,6 +205,7 @@ def _to_summary(post: BlogPost) -> BlogPostSummary:
         description=post.description,
         audience=post.audience,
         status=post.status,
+        kind=getattr(post, "kind", "article") or "article",
         author_id=post.author_id,
         author_display=post.author_display,
         cluster_id=post.cluster_id,
@@ -271,6 +275,7 @@ def _can_edit(admin: AdminIdentity, post: BlogPost) -> bool:
 def list_posts(
     audience: str | None = None,
     status_filter: str | None = Query(default=None, alias="status"),
+    kind: str | None = None,
     author_id: str | None = None,
     cluster_id: str | None = None,
     q: str | None = None,
@@ -283,6 +288,8 @@ def list_posts(
         query = query.filter(BlogPost.audience == audience)
     if status_filter:
         query = query.filter(BlogPost.status == status_filter)
+    if kind:
+        query = query.filter(BlogPost.kind == kind)
     if author_id:
         query = query.filter(BlogPost.author_id == author_id)
     if cluster_id:
@@ -356,6 +363,7 @@ def create_post(
         tags_json=json.dumps(payload.tags, ensure_ascii=False),
         reading_minutes=payload.reading_minutes,
         audience=payload.audience,
+        kind=payload.kind or "article",
         target_keyword=payload.target_keyword,
         search_intent=payload.search_intent,
         cluster_id=payload.cluster_id,
@@ -528,7 +536,7 @@ def revert_post(
 
     for field in (
         "slug", "title", "description", "hero_eyebrow", "content_mdx", "tags_json",
-        "reading_minutes", "audience", "target_keyword", "search_intent", "cluster_id",
+        "reading_minutes", "audience", "kind", "target_keyword", "search_intent", "cluster_id",
         "readability_score", "readability_level", "author_display", "status",
         "seo_title", "seo_description", "og_image_url", "schema_type", "schema_extra_json",
     ):

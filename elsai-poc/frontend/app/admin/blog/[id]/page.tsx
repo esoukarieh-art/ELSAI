@@ -27,6 +27,7 @@ import type {
   Audience,
   BlogPostDetail,
   BriefResult,
+  PostKind,
   EditorialCheckResult,
   ReadabilityResult,
   SchemaSuggestion,
@@ -49,6 +50,11 @@ const AUDIENCES: Array<{ value: Audience; label: string }> = [
   { value: "minor", label: "Mineur" },
   { value: "b2b", label: "B2B" },
   { value: "all", label: "Tous" },
+];
+
+const KINDS: Array<{ value: PostKind; label: string; hint: string }> = [
+  { value: "article", label: "Article (blog)", hint: "Visible dans /blog, workflow éditorial." },
+  { value: "help", label: "Aide (guide utilisateur)", hint: "Visible dans /aide, centre d'aide SEO." },
 ];
 
 function wordsOf(plain: string): number {
@@ -80,6 +86,7 @@ export default function BlogEditorPage() {
   const [contentHtml, setContentHtml] = useState("");
   const [plainText, setPlainText] = useState("");
   const [audience, setAudience] = useState<Audience>("adult");
+  const [kind, setKind] = useState<PostKind>("article");
   const [tags, setTags] = useState<string[]>([]);
   const [authorDisplay, setAuthorDisplay] = useState("");
   const [targetKeyword, setTargetKeyword] = useState("");
@@ -112,6 +119,7 @@ export default function BlogEditorPage() {
     setContentHtml(p.content_mdx);
     setPlainText(htmlToPlain(p.content_mdx));
     setAudience(p.audience);
+    setKind((p.kind ?? "article") as PostKind);
     setTags(p.tags ?? []);
     setAuthorDisplay(p.author_display ?? "");
     setTargetKeyword(p.target_keyword ?? "");
@@ -186,6 +194,7 @@ export default function BlogEditorPage() {
     slug,
     contentHtml,
     audience,
+    kind,
     tags,
     authorDisplay,
     targetKeyword,
@@ -222,6 +231,7 @@ export default function BlogEditorPage() {
           slug,
           content_mdx: contentHtml,
           audience,
+          kind,
           tags,
           author_display: authorDisplay || null,
           target_keyword: targetKeyword || null,
@@ -249,6 +259,7 @@ export default function BlogEditorPage() {
       slug,
       contentHtml,
       audience,
+      kind,
       tags,
       authorDisplay,
       targetKeyword,
@@ -584,6 +595,30 @@ export default function BlogEditorPage() {
 
           {tab === "meta" && (
             <div className="space-y-3">
+              <div>
+                <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">
+                  Type de contenu
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {KINDS.map((k) => (
+                    <button
+                      key={k.value}
+                      onClick={() => setKind(k.value)}
+                      title={k.hint}
+                      className={`rounded-organic border px-2 py-1 text-xs ${
+                        kind === k.value
+                          ? "bg-elsai-pin text-elsai-creme border-elsai-pin"
+                          : "border-elsai-pin/20 bg-white"
+                      }`}
+                    >
+                      {k.label}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-elsai-ink/60 mt-1 text-[11px]">
+                  {KINDS.find((k) => k.value === kind)?.hint}
+                </p>
+              </div>
               <div>
                 <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">Audience</span>
                 <div className="flex flex-wrap gap-1">

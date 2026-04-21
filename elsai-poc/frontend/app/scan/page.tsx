@@ -39,6 +39,12 @@ export default function ScanPage() {
         </Link>
         <div className="text-elsai-ink/70 flex items-center gap-4 text-sm">
           <span>Analyse de document</span>
+          <Link
+            href="/aide/scanner-un-document"
+            className="hover:text-elsai-pin transition-colors"
+          >
+            Guide
+          </Link>
           <ForgetButton />
         </div>
       </header>

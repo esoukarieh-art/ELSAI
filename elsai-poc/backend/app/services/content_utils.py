@@ -36,6 +36,7 @@ def snapshot_post(post: BlogPost, db: DBSession | None = None) -> dict:
         "tags_json": post.tags_json,
         "reading_minutes": post.reading_minutes,
         "audience": post.audience,
+        "kind": getattr(post, "kind", "article") or "article",
         "target_keyword": post.target_keyword,
         "search_intent": post.search_intent,
         "cluster_id": post.cluster_id,

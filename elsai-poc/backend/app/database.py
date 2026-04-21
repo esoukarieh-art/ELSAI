@@ -86,8 +86,67 @@ def _migrate_page_content() -> None:
             conn.commit()
 
 
+def _migrate_blog_posts() -> None:
+    """Ajoute la colonne `kind` sur blog_posts.
+
+    Idempotent : no-op si la colonne existe déjà. Supporte SQLite et Postgres.
+    """
+    url = settings.database_url
+    is_sqlite = url.startswith("sqlite")
+    is_postgres = url.startswith("postgres")
+    if not (is_sqlite or is_postgres):
+        return
+
+    with engine.connect() as conn:
+        if is_sqlite:
+            exists = conn.execute(
+                text(
+                    "SELECT name FROM sqlite_master "
+                    "WHERE type='table' AND name='blog_posts'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {row[1] for row in conn.execute(text("PRAGMA table_info(blog_posts)"))}
+        else:
+            exists = conn.execute(
+                text(
+                    "SELECT 1 FROM information_schema.tables "
+                    "WHERE table_name = 'blog_posts'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {
+                row[0]
+                for row in conn.execute(
+                    text(
+                        "SELECT column_name FROM information_schema.columns "
+                        "WHERE table_name = 'blog_posts'"
+                    )
+                )
+            }
+
+        if "kind" not in cols:
+            conn.execute(
+                text(
+                    "ALTER TABLE blog_posts ADD COLUMN kind VARCHAR(16) "
+                    "NOT NULL DEFAULT 'article'"
+                )
+            )
+            # Index non-unique sur kind pour accélérer les filtres listing
+            try:
+                conn.execute(
+                    text("CREATE INDEX IF NOT EXISTS ix_blog_posts_kind ON blog_posts (kind)")
+                )
+            except Exception:
+                pass
+            conn.commit()
+
+
 def init_db() -> None:
     from . import models  # noqa: F401 — import pour enregistrer les tables
 
     Base.metadata.create_all(bind=engine)
     _migrate_page_content()
+    _migrate_blog_posts()

@@ -1,5 +1,6 @@
 export type Audience = "adult" | "minor" | "b2b" | "all";
 export type PostStatus = "draft" | "review" | "scheduled" | "published" | "archived";
+export type PostKind = "article" | "help";
 
 export interface PostCTAItem {
   cta_key: string;
@@ -14,6 +15,7 @@ export interface BlogPostSummary {
   description: string;
   audience: Audience;
   status: PostStatus;
+  kind?: PostKind;
   author_id?: string | null;
   author_display?: string | null;
   cluster_id?: string | null;
@@ -46,6 +48,7 @@ export interface BlogPostCreate {
   hero_eyebrow?: string | null;
   content_mdx?: string;
   audience?: Audience;
+  kind?: PostKind;
   tags?: string[];
   reading_minutes?: number;
   target_keyword?: string | null;

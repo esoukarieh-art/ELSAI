@@ -117,6 +117,9 @@ export default function ChatPage() {
           <Link href="/scan" className="hover:text-elsai-pin transition-colors">
             Scanner un document
           </Link>
+          <Link href="/aide" className="hover:text-elsai-pin transition-colors">
+            Aide
+          </Link>
           <ForgetButton />
         </div>
       </header>

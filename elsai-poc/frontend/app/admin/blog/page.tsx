@@ -16,6 +16,17 @@ const AUDIENCES: Array<{ value: string; label: string }> = [
 
 const STATUSES = ["", "draft", "review", "scheduled", "published", "archived"];
 
+const KINDS: Array<{ value: string; label: string }> = [
+  { value: "", label: "Tous" },
+  { value: "article", label: "Article" },
+  { value: "help", label: "Aide" },
+];
+
+const KIND_STYLE: Record<string, string> = {
+  article: "bg-indigo-100 text-indigo-800",
+  help: "bg-teal-100 text-teal-800",
+};
+
 const STATUS_STYLE: Record<string, string> = {
   draft: "bg-slate-100 text-slate-700",
   review: "bg-amber-100 text-amber-800",
@@ -47,13 +58,20 @@ export default function BlogListPage() {
   const [q, setQ] = useState("");
   const [audience, setAudience] = useState("");
   const [status, setStatus] = useState("");
+  const [kind, setKind] = useState("");
   const [author, setAuthor] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const filters = useMemo(
-    () => ({ q: q || undefined, audience: audience || undefined, status: status || undefined, author_id: author || undefined }),
-    [q, audience, status, author],
+    () => ({
+      q: q || undefined,
+      audience: audience || undefined,
+      status: status || undefined,
+      kind: kind || undefined,
+      author_id: author || undefined,
+    }),
+    [q, audience, status, kind, author],
   );
 
   useEffect(() => {
@@ -94,7 +112,7 @@ export default function BlogListPage() {
       </div>
 
       <div className="rounded-organic border-elsai-pin/15 bg-white/70 mb-4 border p-3">
-        <div className="grid gap-2 sm:grid-cols-4">
+        <div className="grid gap-2 sm:grid-cols-5">
           <label className="text-xs">
             <span className="text-elsai-ink/70 mb-1 block uppercase">Recherche</span>
             <input
@@ -137,6 +155,24 @@ export default function BlogListPage() {
             </select>
           </label>
           <label className="text-xs">
+            <span className="text-elsai-ink/70 mb-1 block uppercase">Type</span>
+            <div className="flex flex-wrap gap-1">
+              {KINDS.map((k) => (
+                <button
+                  key={k.value}
+                  onClick={() => setKind(k.value)}
+                  className={`rounded-organic border px-2 py-1 text-xs ${
+                    kind === k.value
+                      ? "bg-elsai-pin text-elsai-creme border-elsai-pin"
+                      : "border-elsai-pin/20 bg-white"
+                  }`}
+                >
+                  {k.label}
+                </button>
+              ))}
+            </div>
+          </label>
+          <label className="text-xs">
             <span className="text-elsai-ink/70 mb-1 block uppercase">Auteur (id)</span>
             <input
               value={author}
@@ -159,6 +195,7 @@ export default function BlogListPage() {
           <thead className="text-elsai-ink/60 text-xs uppercase">
             <tr>
               <th className="px-3 py-2 text-left">Titre</th>
+              <th className="px-3 py-2 text-left">Type</th>
               <th className="px-3 py-2 text-left">Audience</th>
               <th className="px-3 py-2 text-left">Statut</th>
               <th className="px-3 py-2 text-left">Auteur</th>
@@ -168,7 +205,7 @@ export default function BlogListPage() {
           <tbody>
             {rows.length === 0 && !loading && (
               <tr>
-                <td colSpan={5} className="text-elsai-ink/50 px-3 py-4 text-center">
+                <td colSpan={6} className="text-elsai-ink/50 px-3 py-4 text-center">
                   Aucun article.
                 </td>
               </tr>
@@ -183,6 +220,15 @@ export default function BlogListPage() {
                     {r.title}
                   </Link>
                   <div className="text-elsai-ink/50 text-[11px]">/{r.slug}</div>
+                </td>
+                <td className="px-3 py-2">
+                  <span
+                    className={`rounded-organic px-2 py-0.5 text-[11px] uppercase ${
+                      KIND_STYLE[r.kind ?? "article"] ?? "bg-slate-100"
+                    }`}
+                  >
+                    {r.kind ?? "article"}
+                  </span>
                 </td>
                 <td className="px-3 py-2">
                   <span

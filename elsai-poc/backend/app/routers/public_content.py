@@ -127,7 +127,10 @@ def list_posts(
     db: DBSession = Depends(get_db),
 ) -> list[PublicPostSummary]:
     _set_cache(response)
-    query = db.query(BlogPost).filter(BlogPost.status == "published")
+    query = db.query(BlogPost).filter(
+        BlogPost.status == "published",
+        BlogPost.kind == "article",
+    )
     effective_audience = audience or track
     if effective_audience:
         query = query.filter(BlogPost.audience.in_([effective_audience, "all"]))
@@ -161,6 +164,70 @@ def get_post(slug: str, response: Response, db: DBSession = Depends(get_db)):
                 url=f"/api/public/posts/{redirect.new_slug}", status_code=301
             )
         raise HTTPException(404, "Article introuvable")
+
+    _set_cache(response)
+    ctas = (
+        db.query(PostCTA)
+        .filter(PostCTA.post_id == post.id)
+        .order_by(PostCTA.sort_order)
+        .all()
+    )
+    return PublicPostDetail(
+        **_to_summary(post).model_dump(),
+        content_mdx=post.content_mdx,
+        schema_type=post.schema_type,
+        schema_extra_json=post.schema_extra_json,
+        ctas=[
+            PublicCTA(cta_key=c.cta_key, position=c.position, sort_order=c.sort_order)
+            for c in ctas
+        ],
+    )
+
+
+@router.get("/help", response_model=list[PublicPostSummary])
+def list_help_pages(
+    response: Response,
+    limit: int = Query(default=50, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+    db: DBSession = Depends(get_db),
+) -> list[PublicPostSummary]:
+    """Liste les pages du centre d'aide (kind=help, status=published)."""
+    _set_cache(response)
+    rows = (
+        db.query(BlogPost)
+        .filter(BlogPost.status == "published", BlogPost.kind == "help")
+        .order_by(BlogPost.published_at.asc().nullslast())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
+    return [_to_summary(r) for r in rows]
+
+
+@router.get("/help/{slug}")
+def get_help_page(slug: str, response: Response, db: DBSession = Depends(get_db)):
+    """Détail d'une page du centre d'aide."""
+    post = (
+        db.query(BlogPost)
+        .filter(
+            BlogPost.slug == slug,
+            BlogPost.status == "published",
+            BlogPost.kind == "help",
+        )
+        .first()
+    )
+    if not post:
+        redirect = (
+            db.query(SlugRedirect)
+            .filter(SlugRedirect.entity_type == "blog_post", SlugRedirect.old_slug == slug)
+            .order_by(desc(SlugRedirect.created_at))
+            .first()
+        )
+        if redirect:
+            return RedirectResponse(
+                url=f"/api/public/help/{redirect.new_slug}", status_code=301
+            )
+        raise HTTPException(404, "Page d'aide introuvable")
 
     _set_cache(response)
     ctas = (
