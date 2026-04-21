@@ -482,6 +482,14 @@ export default function BlogEditorPage() {
           >
             Enregistrer draft (Ctrl+S)
           </button>
+          <Link
+            href={`/admin/blog/${id}/preview`}
+            target="_blank"
+            rel="noopener"
+            className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-3 py-1.5 text-sm"
+          >
+            Prévisualiser
+          </Link>
           <button
             onClick={openScheduler}
             className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-3 py-1.5 text-sm"

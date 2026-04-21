@@ -147,10 +147,18 @@ export default function BlogListPage() {
           <span>{notice.msg}</span>
           <div className="flex items-center gap-3">
             <Link
+              href={`/admin/blog/${notice.postId}/preview`}
+              target="_blank"
+              rel="noopener"
+              className="underline hover:no-underline"
+            >
+              Visualiser le brouillon
+            </Link>
+            <Link
               href={`/admin/blog/${notice.postId}`}
               className="underline hover:no-underline"
             >
-              Ouvrir le brouillon
+              Éditer
             </Link>
             <button
               type="button"
@@ -320,6 +328,14 @@ export default function BlogListPage() {
                 </td>
                 <td className="px-3 py-2 text-right">
                   <div className="flex justify-end gap-2">
+                    <Link
+                      href={`/admin/blog/${r.id}/preview`}
+                      target="_blank"
+                      rel="noopener"
+                      className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-2 py-1 text-xs"
+                    >
+                      Voir
+                    </Link>
                     <Link
                       href={`/admin/blog/${r.id}`}
                       className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/10 border px-2 py-1 text-xs"
