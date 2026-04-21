@@ -830,7 +830,12 @@ export default function BlogEditorPage() {
         </aside>
       </div>
 
-      <CTAPickerModal open={ctaOpen} onClose={() => setCtaOpen(false)} onPick={handleCtaPick} />
+      <CTAPickerModal
+        open={ctaOpen}
+        onClose={() => setCtaOpen(false)}
+        onPick={handleCtaPick}
+        excludeKeys={post?.ctas.map((c) => c.cta_key) ?? []}
+      />
     </div>
   );
 }
