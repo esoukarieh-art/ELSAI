@@ -4,7 +4,19 @@ from pathlib import Path
 
 _DIR = Path(__file__).parent
 
-PROMPT_NAMES = ("system_adult", "system_minor", "ocr_explain")
+PROMPT_NAMES = (
+    "system_adult",
+    "system_minor",
+    "ocr_explain",
+    "ai_rewrite",
+    "ai_shorten",
+    "ai_expand",
+    "ai_readability",
+    "ai_editorial_check",
+    "ai_brief",
+    "ai_suggest_schema",
+    "ai_seo_meta",
+)
 
 
 def load_file(name: str) -> str:

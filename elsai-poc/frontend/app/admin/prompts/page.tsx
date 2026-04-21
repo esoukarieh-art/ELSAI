@@ -8,6 +8,14 @@ const LABELS: Record<string, string> = {
   system_adult: "Prompt système — Majeurs",
   system_minor: "Prompt système — Mineurs 12-18",
   ocr_explain: "Prompt OCR — Explication de documents",
+  ai_rewrite: "Éditeur — Reformuler",
+  ai_shorten: "Éditeur — Raccourcir",
+  ai_expand: "Éditeur — Développer",
+  ai_readability: "Éditeur — Score lisibilité",
+  ai_editorial_check: "Éditeur — Check éditorial",
+  ai_brief: "Éditeur — Brief IA (SEO)",
+  ai_suggest_schema: "Éditeur — Suggérer schéma",
+  ai_seo_meta: "Éditeur — Générer meta SEO",
 };
 
 export default function PromptsPage() {
