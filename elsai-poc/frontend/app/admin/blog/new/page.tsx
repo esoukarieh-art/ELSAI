@@ -37,6 +37,27 @@ export default function NewBlogPostPage() {
   const [templates, setTemplates] = useState<ArticleTemplate[]>([]);
   const [templateKey, setTemplateKey] = useState<string>("");
   const [generating, setGenerating] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (!generating) return;
+    setElapsed(0);
+    const id = window.setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [generating]);
+
+  const ESTIMATED_SECONDS = 60;
+  const progressPct = Math.min(95, Math.round((elapsed / ESTIMATED_SECONDS) * 100));
+  const phase =
+    elapsed < 5
+      ? "Préparation du prompt…"
+      : elapsed < 15
+        ? "Réflexion sur la structure…"
+        : elapsed < 40
+          ? "Rédaction de l'article…"
+          : elapsed < 60
+            ? "Rédaction & SEO…"
+            : "Finalisation (ça peut être un peu long)…";
 
   useEffect(() => {
     listArticleTemplates()
@@ -262,6 +283,26 @@ export default function NewBlogPostPage() {
             </>
           )}
         </div>
+        {generating && (
+          <div className="rounded-organic border-elsai-pin/20 bg-white mt-2 space-y-2 border p-3">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-elsai-ink/80">{phase}</span>
+              <span className="text-elsai-ink/60 tabular-nums">
+                {elapsed}s / ~{ESTIMATED_SECONDS}s
+              </span>
+            </div>
+            <div className="bg-elsai-pin/10 h-2 w-full overflow-hidden rounded-full">
+              <div
+                className="bg-elsai-pin h-full rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+            <p className="text-elsai-ink/50 text-[11px]">
+              La génération complète prend généralement 30 à 90 secondes. Ne fermez pas la
+              page.
+            </p>
+          </div>
+        )}
       </form>
     </div>
   );
