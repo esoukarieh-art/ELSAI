@@ -270,12 +270,12 @@ def stream_article_draft(
     yield sse({"type": "start", "template": template_key})
     parts: list[str] = []
     try:
-        with _client().messages.stream(
+        client = _client().with_options(timeout=180.0)
+        with client.messages.stream(
             model=settings.claude_model,
             max_tokens=4000,
             system=system_json,
             messages=[{"role": "user", "content": user}],
-            timeout=180.0,
         ) as stream:
             for text in stream.text_stream:
                 if not text:
