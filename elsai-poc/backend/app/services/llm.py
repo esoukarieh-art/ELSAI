@@ -102,26 +102,26 @@ def explain_document(ocr_text: str) -> dict:
 # --- Helpers assistant éditeur de contenu -------------------------------------
 
 
-def _llm_text(system: str, user: str, max_tokens: int = 1024) -> str:
+def _llm_text(system: str, user: str, max_tokens: int = 1024, timeout: float = 30.0) -> str:
     """Appel Claude simple, réponse texte brut."""
     response = _client().messages.create(
         model=settings.claude_model,
         max_tokens=max_tokens,
         system=system,
         messages=[{"role": "user", "content": user}],
-        timeout=30.0,
+        timeout=timeout,
     )
     parts = [b.text for b in response.content if hasattr(b, "text")]
     return "".join(parts).strip()
 
 
-def _llm_json(system: str, user: str, max_tokens: int = 1500) -> dict:
+def _llm_json(system: str, user: str, max_tokens: int = 1500, timeout: float = 30.0) -> dict:
     """Appel Claude avec extraction JSON stricte. Lève ValueError si parse impossible."""
     system_json = (
         system
         + "\n\nIMPORTANT : réponds UNIQUEMENT avec un objet JSON valide, sans texte ni fences markdown."
     )
-    raw = _llm_text(system_json, user, max_tokens=max_tokens)
+    raw = _llm_text(system_json, user, max_tokens=max_tokens, timeout=timeout)
     candidate = raw
     if candidate.startswith("```"):
         candidate = candidate.split("\n", 1)[1] if "\n" in candidate else candidate[3:]
@@ -219,4 +219,4 @@ def generate_article_draft(
         kind=kind,
     )
     user = f"Génère l'article pour : {title}"
-    return _llm_json(system, user, max_tokens=4000)
+    return _llm_json(system, user, max_tokens=4000, timeout=180.0)
