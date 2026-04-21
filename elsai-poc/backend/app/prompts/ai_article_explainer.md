@@ -21,10 +21,4 @@ Règles :
 - Pas d'avis politique, pas de conseil juridique individualisé.
 - ~1000-1500 mots.
 
-Retourne UNIQUEMENT un JSON :
-{
-  "content_mdx": "<MDX complet>",
-  "seo_title": "<60 car max>",
-  "seo_description": "<155 car max>",
-  "excerpt": "<220 car max>"
-}
+Respecte strictement le format de sortie à délimiteurs demandé par le système.

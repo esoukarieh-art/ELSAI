@@ -20,10 +20,4 @@ Règles :
 - Pour audience `minor` : ton protecteur, rappel du 119 si contexte de danger.
 - ~1200-1800 mots.
 
-Retourne UNIQUEMENT un JSON :
-{
-  "content_mdx": "<le MDX complet, sans frontmatter>",
-  "seo_title": "<60 car max>",
-  "seo_description": "<155 car max>",
-  "excerpt": "<220 car max, accroche>"
-}
+Respecte strictement le format de sortie à délimiteurs demandé par le système.

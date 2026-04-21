@@ -205,7 +205,7 @@ def generate_article_draft(
     audience: str,
     kind: str,
 ) -> dict:
-    """Génère un brouillon complet via un template de la bibliothèque."""
+    """Génère un brouillon complet via un template de la bibliothèque (non-stream)."""
     from ..prompts import ARTICLE_TEMPLATES
 
     tpl = next((t for t in ARTICLE_TEMPLATES if t["key"] == template_key), None)
@@ -218,8 +218,18 @@ def generate_article_draft(
         audience=audience,
         kind=kind,
     )
+    system_full = (
+        system
+        + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
+        "sans aucun autre texte ni fence markdown :\n\n"
+        "---SEO_TITLE---\n<titre SEO 60 car max>\n"
+        "---SEO_DESCRIPTION---\n<meta description 155 car max>\n"
+        "---EXCERPT---\n<accroche 220 car max>\n"
+        "---CONTENT---\n<le MDX complet de l'article>\n"
+    )
     user = f"Génère l'article pour : {title}"
-    return _llm_json(system, user, max_tokens=4000, timeout=180.0)
+    raw = _llm_text(system_full, user, max_tokens=4000, timeout=180.0)
+    return _parse_delimited_article(raw)
 
 
 def _parse_json_from_stream(raw: str) -> dict:
@@ -234,6 +244,45 @@ def _parse_json_from_stream(raw: str) -> dict:
     if start == -1 or end == -1 or end <= start:
         raise ValueError("Réponse non-JSON")
     return json.loads(candidate[start : end + 1])
+
+
+def _parse_delimited_article(raw: str) -> dict:
+    """Parse une réponse structurée par délimiteurs ---KEY---.
+
+    Format attendu :
+        ---SEO_TITLE---
+        ...
+        ---SEO_DESCRIPTION---
+        ...
+        ---EXCERPT---
+        ...
+        ---CONTENT---
+        [MDX]
+    """
+    import re
+
+    sections = {}
+    pattern = re.compile(r"^---\s*([A-Z_]+)\s*---\s*$", re.MULTILINE)
+    matches = list(pattern.finditer(raw))
+    if not matches:
+        raise ValueError("Aucun délimiteur ---KEY--- trouvé")
+    for i, m in enumerate(matches):
+        key = m.group(1).lower()
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(raw)
+        sections[key] = raw[start:end].strip()
+
+    required = {"seo_title", "seo_description", "excerpt", "content"}
+    missing = required - set(sections)
+    if missing:
+        raise ValueError(f"Sections manquantes : {', '.join(sorted(missing))}")
+
+    return {
+        "seo_title": sections["seo_title"][:300],
+        "seo_description": sections["seo_description"][:300],
+        "excerpt": sections["excerpt"][:500],
+        "content_mdx": sections["content"],
+    }
 
 
 def stream_article_draft(
@@ -263,7 +312,17 @@ def stream_article_draft(
     )
     system_json = (
         system
-        + "\n\nIMPORTANT : réponds UNIQUEMENT avec un objet JSON valide, sans texte ni fences markdown."
+        + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
+        "sans aucun autre texte ni fence markdown. Les 4 sections sont "
+        "obligatoires et dans cet ordre :\n\n"
+        "---SEO_TITLE---\n"
+        "<titre SEO 60 car max>\n"
+        "---SEO_DESCRIPTION---\n"
+        "<meta description 155 car max>\n"
+        "---EXCERPT---\n"
+        "<accroche 220 car max>\n"
+        "---CONTENT---\n"
+        "<le MDX complet de l'article>\n"
     )
     user = f"Génère l'article pour : {title}"
 
@@ -289,10 +348,15 @@ def stream_article_draft(
 
     raw = "".join(parts)
     try:
-        parsed = _parse_json_from_stream(raw)
+        parsed = _parse_delimited_article(raw)
     except (ValueError, json.JSONDecodeError) as exc:
-        logger.warning("stream_article_draft JSON parse failed: %s", exc)
-        yield sse({"type": "error", "message": f"JSON invalide : {str(exc)[:200]}"})
+        logger.warning("stream_article_draft parse failed: %s", exc)
+        yield sse(
+            {
+                "type": "error",
+                "message": f"Parsing impossible : {str(exc)[:200]}",
+            }
+        )
         return
 
     yield sse({"type": "done", "draft": parsed})
