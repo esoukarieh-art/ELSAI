@@ -36,6 +36,12 @@ class Conversation(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
     session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"))
     topic: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    optional_account_id: Mapped[str | None] = mapped_column(
+        ForeignKey("optional_accounts.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    department_code: Mapped[str | None] = mapped_column(String(3), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
 
     session: Mapped["Session"] = relationship(back_populates="conversations")
@@ -479,3 +485,107 @@ class MetricEvent(Base):
     event_type: Mapped[str] = mapped_column(String(32))  # "chat", "ocr", "danger", "forget"
     profile: Mapped[str] = mapped_column(String(16), default="adult")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
+class Feedback(Base):
+    """Feedback fin de session : ai-je répondu à votre question ?"""
+
+    __tablename__ = "feedbacks"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    conversation_id: Mapped[str] = mapped_column(String(36), index=True)
+    helpful: Mapped[bool] = mapped_column(Boolean, default=False)
+    comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    profile: Mapped[str] = mapped_column(String(16), default="adult")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now, index=True)
+
+
+class OptionalAccount(Base):
+    """Compte optionnel anonyme : pseudo + phrase secrète (Argon2).
+
+    Permet de retrouver une conversation sans email. Pseudo unique, phrase
+    hashée. Perte de la phrase = perte du compte (assumé pour l'anonymat).
+    """
+
+    __tablename__ = "optional_accounts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    pseudo: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    phrase_hash: Mapped[str] = mapped_column(String(256))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    last_login_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+
+class GlossaryTerm(Base):
+    """Sigle / terme du jargon social, défini en clair."""
+
+    __tablename__ = "glossary_terms"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
+    sigle: Mapped[str] = mapped_column(String(32), index=True)
+    full_name: Mapped[str] = mapped_column(String(200))
+    definition_md: Mapped[str] = mapped_column(Text)
+    related_rights_json: Mapped[str] = mapped_column(Text, default="[]")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
+
+
+class Right(Base):
+    """Droit social (RSA, AAH, APL...)."""
+
+    __tablename__ = "rights"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
+    name: Mapped[str] = mapped_column(String(200))
+    description_md: Mapped[str] = mapped_column(Text)
+    eligibility_json: Mapped[str] = mapped_column(Text, default="{}")
+    source_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
+class LifeSituation(Base):
+    """Situation de vie ciblée (jeune-majeur-isole, sortie-ase, parent-isole...)."""
+
+    __tablename__ = "life_situations"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
+    name: Mapped[str] = mapped_column(String(200))
+    profile: Mapped[str] = mapped_column(String(8), default="both")  # "adult" | "minor" | "both"
+    context_md: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+
+
+class Department(Base):
+    """Département français (96 + DOM)."""
+
+    __tablename__ = "departments"
+
+    code: Mapped[str] = mapped_column(String(3), primary_key=True)  # "01"..."976"
+    name: Mapped[str] = mapped_column(String(80))
+    slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
+    prefecture: Mapped[str] = mapped_column(String(120))
+    region: Mapped[str] = mapped_column(String(80))
+
+
+class LongTailPage(Base):
+    """Page SEO longue traîne : droit × situation × département."""
+
+    __tablename__ = "long_tail_pages"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    right_slug: Mapped[str] = mapped_column(String(80), index=True)
+    situation_slug: Mapped[str] = mapped_column(String(80), index=True)
+    department_code: Mapped[str] = mapped_column(String(3), index=True)
+    composite_slug: Mapped[str] = mapped_column(String(240), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(300))
+    seo_description: Mapped[str] = mapped_column(Text)
+    content_md: Mapped[str] = mapped_column(Text)
+    word_count: Mapped[int] = mapped_column(Integer, default=0)
+    status: Mapped[str] = mapped_column(String(16), default="draft", index=True)
+    # "draft" | "published" | "noindex"
+    last_generated_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)

@@ -1,17 +1,48 @@
 """Endpoint conversationnel principal."""
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 from sqlalchemy.orm import Session as DBSession
 
 from ..auth import SessionDep
 from ..database import get_db
-from ..models import Conversation, DangerAlert, Message, MetricEvent
+from ..models import Conversation, DangerAlert, Department, Message, MetricEvent
 from ..observability import get_logger
 from ..schemas import ChatRequest, ChatResponse
 from ..services import llm, safety
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 logger = get_logger("elsai.chat")
+
+
+class DepartmentSetRequest(BaseModel):
+    conversation_id: str
+    department_code: str | None = None  # None = clear
+
+
+@router.post("/department")
+def set_department(
+    payload: DepartmentSetRequest,
+    session: SessionDep,
+    db: DBSession = Depends(get_db),
+) -> dict:
+    """Opt-in géoloc : l'utilisateur fournit son département pour des contacts locaux."""
+    conv = (
+        db.query(Conversation)
+        .filter_by(id=payload.conversation_id, session_id=session.id)
+        .first()
+    )
+    if conv is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Conversation introuvable")
+    if payload.department_code is not None:
+        dept = db.query(Department).filter_by(code=payload.department_code).first()
+        if dept is None:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "Département inconnu")
+        conv.department_code = dept.code
+    else:
+        conv.department_code = None
+    db.commit()
+    return {"ok": True, "department_code": conv.department_code}
 
 
 @router.post("", response_model=ChatResponse)
@@ -56,6 +87,18 @@ def chat(
         .order_by(Message.created_at)
         .all()
     ]
+
+    # 4.bis Contexte géoloc opt-in : injecté en premier message system additionnel
+    if conv.department_code:
+        dept = db.query(Department).filter_by(code=conv.department_code).first()
+        if dept is not None:
+            geo_note = (
+                f"[Contexte local — confié par l'utilisateur] "
+                f"Département : {dept.name} ({dept.code}), préfecture : {dept.prefecture}, "
+                f"région : {dept.region}. Quand pertinent, cite la CAF, la MDPH, l'ASE et "
+                f"les services locaux de ce département."
+            )
+            history = [{"role": "user", "content": geo_note}] + history
 
     # 5. Appel LLM (retourne aussi la version de prompt utilisée pour A/B tracking)
     try:

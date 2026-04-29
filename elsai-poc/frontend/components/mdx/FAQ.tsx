@@ -10,8 +10,26 @@ interface Props {
 
 export function FAQ({ items, title }: Props) {
   if (!items || items.length === 0) return null;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <section className="rounded-organic border-elsai-pin/15 bg-elsai-creme/50 my-8 border p-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {title && (
         <h2 className="text-elsai-pin-dark mb-4 font-serif text-xl md:text-2xl">{title}</h2>
       )}

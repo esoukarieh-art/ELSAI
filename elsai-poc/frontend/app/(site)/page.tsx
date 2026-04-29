@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/site/Section";
+import HomeDemoChat from "@/components/site/HomeDemoChat";
 import {
   blockList,
   blockString,
@@ -226,7 +227,19 @@ export default async function HomePage({
                   {ctaSecondaryLabel}
                 </Link>
               )}
+              <Link
+                href="/chat?voice=1"
+                className="rounded-organic border-elsai-rose/40 text-elsai-rose-dark hover:bg-elsai-rose/10 inline-flex items-center gap-2 border px-6 py-4 text-base font-semibold"
+                aria-label="Démarrer une conversation vocale"
+              >
+                <span aria-hidden>🎙️</span> Parle plutôt que d'écrire
+              </Link>
             </div>
+            <p className="text-elsai-ink/60 mt-3 text-xs">
+              <Link href="/securite" className="hover:underline">
+                Données effacées en 1 clic — voir comment →
+              </Link>
+            </p>
             {trustLine && (
               <p className="text-elsai-ink/60 mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
                 {trustLine.split("·").map((chunk, i) => (
@@ -260,6 +273,9 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* DEMO INTERACTIVE */}
+      <HomeDemoChat />
 
       {/* DIFFERENTIATEURS */}
       <Section tone="soft">

@@ -1,3 +1,5 @@
+import MessageWithGlossary from "./MessageWithGlossary";
+
 interface Props {
   role: "user" | "assistant";
   content: string;
@@ -15,7 +17,7 @@ export default function ChatBubble({ role, content }: Props) {
             : "rounded-organic border-elsai-pin/15 text-elsai-ink rounded-bl-md border bg-white/90 backdrop-blur")
         }
       >
-        {content}
+        {isUser ? content : <MessageWithGlossary content={content} />}
       </div>
     </div>
   );

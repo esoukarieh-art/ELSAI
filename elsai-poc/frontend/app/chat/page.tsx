@@ -8,7 +8,10 @@ import ChatBubble from "@/components/ChatBubble";
 import EmergencyBanner from "@/components/EmergencyBanner";
 import VoiceRecorder from "@/components/VoiceRecorder";
 import { ForgetButton } from "@/components/ForgetButton";
-import { getProfile, sendMessage, synthesizeSpeech } from "@/lib/api";
+import FeedbackModal from "@/components/FeedbackModal";
+import AccountModal from "@/components/AccountModal";
+import DepartmentPicker from "@/components/DepartmentPicker";
+import { exportActionPlanPdf, getProfile, sendMessage, synthesizeSpeech } from "@/lib/api";
 import { captureError } from "@/lib/observability";
 
 interface Msg {
@@ -27,9 +30,15 @@ export default function ChatPage() {
   } | null>(null);
   const [profile, setProfile] = useState<"adult" | "minor">("adult");
   const [voiceMode, setVoiceMode] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [accountPseudo, setAccountPseudo] = useState<string | null>(null);
+  const [pdfBusy, setPdfBusy] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioUrlRef = useRef<string | null>(null);
+  const inactivityRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   async function playReply(text: string) {
     try {
@@ -73,7 +82,22 @@ export default function ChatPage() {
     setProfile(getProfile());
     const stored = sessionStorage.getItem("elsai_conversation_id");
     if (stored) setConversationId(stored);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("voice") === "1") setVoiceMode(true);
+    }
   }, []);
+
+  useEffect(() => {
+    if (messages.length < 2 || feedbackSent || feedbackOpen) return;
+    if (inactivityRef.current) clearTimeout(inactivityRef.current);
+    inactivityRef.current = setTimeout(() => {
+      if (conversationId && !feedbackSent) setFeedbackOpen(true);
+    }, 90_000);
+    return () => {
+      if (inactivityRef.current) clearTimeout(inactivityRef.current);
+    };
+  }, [messages, feedbackSent, feedbackOpen, conversationId]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -116,6 +140,39 @@ export default function ChatPage() {
             title="Lecture audio automatique des réponses"
           >
             {voiceMode ? "🔊 Voix activée" : "🔈 Voix"}
+          </button>
+          <DepartmentPicker conversationId={conversationId} />
+          {conversationId && messages.length >= 2 && (
+            <button
+              onClick={async () => {
+                setPdfBusy(true);
+                try {
+                  const blob = await exportActionPlanPdf(conversationId);
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "plan-action-elsai.pdf";
+                  a.click();
+                  URL.revokeObjectURL(url);
+                } catch (err) {
+                  captureError(err, { where: "exportPdf" });
+                } finally {
+                  setPdfBusy(false);
+                }
+              }}
+              disabled={pdfBusy}
+              className="hover:text-elsai-pin transition-colors disabled:opacity-50"
+              title="Exporter un plan d'action en PDF"
+            >
+              {pdfBusy ? "📄…" : "📄 Plan d'action"}
+            </button>
+          )}
+          <button
+            onClick={() => setAccountOpen(true)}
+            className="hover:text-elsai-pin transition-colors"
+            title="Sauvegarder ou retrouver une conversation"
+          >
+            {accountPseudo ? `💾 ${accountPseudo}` : "💾 Sauvegarder"}
           </button>
           <Link href="/scan" className="hover:text-elsai-pin transition-colors">
             Scanner un document
@@ -167,6 +224,28 @@ export default function ChatPage() {
           cta={emergency.cta}
           thirdParty={emergency.thirdParty}
           onClose={() => setEmergency(null)}
+        />
+      )}
+
+      {feedbackOpen && conversationId && (
+        <FeedbackModal
+          conversationId={conversationId}
+          onClose={() => setFeedbackOpen(false)}
+          onSent={() => {
+            setFeedbackSent(true);
+            setFeedbackOpen(false);
+          }}
+        />
+      )}
+
+      {accountOpen && (
+        <AccountModal
+          conversationId={conversationId}
+          onClose={() => setAccountOpen(false)}
+          onSuccess={(pseudo) => {
+            setAccountPseudo(pseudo);
+            setAccountOpen(false);
+          }}
         />
       )}
     </main>

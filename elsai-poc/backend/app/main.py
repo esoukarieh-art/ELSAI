@@ -19,12 +19,17 @@ from .routers import (
     admin_emails,
     admin_leadmagnets,
     admin_pages,
+    admin_seo,
     admin_users,
     auth,
     billing,
     chat,
     dashboard,
     documents,
+    export_pdf,
+    feedback,
+    glossary,
+    longtail,
     public_content,
     public_events,
     public_newsletter,
@@ -53,6 +58,14 @@ async def lifespan(app: FastAPI):
         from .services.content_seed import seed_content
 
         seed_content(db)
+
+        from .services.glossary_seed import seed_glossary
+
+        seed_glossary(db)
+
+        from .services.geo_seed import seed_departments
+
+        seed_departments(db)
 
         # Seed idempotent des 9 pages du centre d'aide (kind=help).
         # Upsert par slug : safe à chaque boot.
@@ -115,6 +128,7 @@ app.include_router(admin_ai.router)
 app.include_router(admin_leadmagnets.router)
 app.include_router(admin_pages.router)
 app.include_router(admin_analytics.router)
+app.include_router(admin_seo.router)
 app.include_router(public_content.router)
 
 # Fichiers uploadés (images CMS) servis en lecture publique
@@ -129,6 +143,10 @@ app.mount(
 app.include_router(public_events.router)
 app.include_router(public_newsletter.router)
 app.include_router(templates.router)
+app.include_router(feedback.router)
+app.include_router(glossary.router)
+app.include_router(longtail.router)
+app.include_router(export_pdf.router)
 
 
 @app.get("/api/health", tags=["health"])

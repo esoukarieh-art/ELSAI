@@ -10,8 +10,25 @@ interface Props {
 
 export function HowToSteps({ steps, title }: Props) {
   if (!steps || steps.length === 0) return null;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: title || "Étapes",
+    step: steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+
   return (
     <section className="my-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {title && (
         <h2 className="text-elsai-pin-dark mb-4 font-serif text-xl md:text-2xl">{title}</h2>
       )}

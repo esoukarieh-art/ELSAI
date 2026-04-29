@@ -67,6 +67,37 @@ class TTSRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=2000)
 
 
+class FeedbackRequest(BaseModel):
+    conversation_id: str
+    helpful: bool
+    comment: str | None = Field(default=None, max_length=2000)
+
+
+class FeedbackResponse(BaseModel):
+    ok: bool = True
+
+
+class AccountCreateRequest(BaseModel):
+    pseudo: str = Field(..., min_length=3, max_length=64)
+    phrase: str = Field(..., min_length=12, max_length=200)
+    attach_conversation_id: str | None = None
+
+
+class AccountLoginRequest(BaseModel):
+    pseudo: str
+    phrase: str
+
+
+class AccountResponse(BaseModel):
+    pseudo: str
+    token: str
+    expires_in: int
+
+
+class ExportPdfRequest(BaseModel):
+    conversation_id: str
+
+
 # =================== Admin ===================
 
 AlertStatus = Literal["new", "reviewing", "escalated_119", "closed"]

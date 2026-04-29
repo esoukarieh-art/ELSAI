@@ -71,6 +71,56 @@ export async function sendMessage(message: string, conversationId?: string): Pro
   return res.json();
 }
 
+export async function sendFeedback(
+  conversationId: string,
+  helpful: boolean,
+  comment?: string,
+): Promise<void> {
+  const res = await apiFetch("/api/chat/feedback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ conversation_id: conversationId, helpful, comment }),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+}
+
+export async function exportActionPlanPdf(conversationId: string): Promise<Blob> {
+  const res = await apiFetch("/api/chat/export-pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ conversation_id: conversationId }),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+  return res.blob();
+}
+
+export async function createOptionalAccount(
+  pseudo: string,
+  phrase: string,
+  attachConversationId?: string,
+): Promise<{ pseudo: string; token: string; expires_in: number }> {
+  const res = await apiFetch("/api/auth/account/create", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pseudo, phrase, attach_conversation_id: attachConversationId }),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+  return res.json();
+}
+
+export async function loginOptionalAccount(
+  pseudo: string,
+  phrase: string,
+): Promise<{ pseudo: string; token: string; expires_in: number }> {
+  const res = await fetch(`${API_URL}/api/auth/account/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pseudo, phrase }),
+  });
+  if (!res.ok) throw new Error(`Erreur ${res.status} : ${await res.text()}`);
+  return res.json();
+}
+
 export interface DocumentAnalyzeResponse {
   ocr_text: string;
   explanation: string;
