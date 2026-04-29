@@ -174,20 +174,20 @@ def render_activation_email(
 
     html = f"""<!doctype html>
 <html lang="fr"><body style="font-family:Inter,Arial,sans-serif;color:#2a2a2a;max-width:560px;margin:0 auto;padding:24px;">
-  <h1 style="font-family:Georgia,serif;color:#3f5a4c;">Bienvenue chez ELSAI</h1>
+  <h1 style="font-family:Georgia,serif;color:#3f5a4c;">Bienvenue chez ESLAÏ</h1>
   <p>Bonjour,</p>
   <p>Votre abonnement <strong>{plan_label}</strong> pour <strong>{company_name}</strong> ({seats} salariés) est actif.
   Voici les {len(codes)} codes d'accès à distribuer à vos équipes :</p>
   <table style="margin:16px 0;">{codes_html}</table>
   <p>Chaque salarié utilise son code sur <a href="{settings.frontend_base_url}/start">{settings.frontend_base_url}/start</a> — aucune donnée nominative n'est collectée.</p>
-  <p><a href="{admin_url}" style="display:inline-block;background:#5A7E6B;color:#F5F5ED;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:600;">Accéder à l'espace admin ELSAI</a></p>
+  <p><a href="{admin_url}" style="display:inline-block;background:#5A7E6B;color:#F5F5ED;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:600;">Accéder à l'espace admin ESLAÏ</a></p>
   {portal_block}
   <hr style="border:none;border-top:1px solid #eee;margin:24px 0;">
-  <p style="font-size:12px;color:#666;">ELSAI — Assistant social numérique. Cet email contient des codes confidentiels, merci de le traiter avec précaution.</p>
+  <p style="font-size:12px;color:#666;">ESLAÏ — Assistant social numérique. Cet email contient des codes confidentiels, merci de le traiter avec précaution.</p>
 </body></html>"""
 
     text = (
-        f"Bienvenue chez ELSAI\n\n"
+        f"Bienvenue chez ESLAÏ\n\n"
         f"Votre abonnement {plan_label} pour {company_name} ({seats} salariés) est actif.\n"
         f"Codes d'accès ({len(codes)}) :\n"
         + "\n".join(f"  - {c}" for c in codes)

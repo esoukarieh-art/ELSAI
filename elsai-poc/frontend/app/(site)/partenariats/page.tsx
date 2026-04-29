@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Partenariats — Construisons l'impact ensemble",
   description:
-    "ELSAI se déploie en complémentarité des services sociaux publics. CCAS, collectivités, associations, France Services : construisons ensemble un relais numérique utile à vos usagers.",
+    "ESLAÏ se déploie en complémentarité des services sociaux publics. CCAS, collectivités, associations, France Services : construisons ensemble un relais numérique utile à vos usagers.",
   alternates: { canonical: "/partenariats" },
 };
 
@@ -27,8 +27,8 @@ interface FormatItem {
 }
 
 const FALLBACK_ENGAGEMENTS: TitleBodyItem[] = [
-  { title: "Réorientation systématique", body: "Nous ne gardons pas l'usager chez nous. ELSAI oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié." },
-  { title: "Transparence des pratiques", body: "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ELSAI est portée par un binôme assistante sociale diplômée + ingénieur." },
+  { title: "Réorientation systématique", body: "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié." },
+  { title: "Transparence des pratiques", body: "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur." },
   { title: "Désengorgement des accueils", body: "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte." },
   { title: "Donnée souveraine", body: "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles." },
 ];
@@ -36,12 +36,12 @@ const FALLBACK_ENGAGEMENTS: TitleBodyItem[] = [
 const FALLBACK_CIBLES: TitleBodyItem[] = [
   { title: "CCAS & services sociaux départementaux", body: "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée." },
   { title: "France Services & maisons de services au public", body: "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié." },
-  { title: "Associations sociales & caritatives", body: "Pour les structures qui orientent déjà des publics vulnérables, ELSAI apporte une réponse immédiate sur les droits, en français clair." },
-  { title: "Collectivités territoriales", body: "Dans le cadre des dispositifs «\u00A0Territoires zéro non-recours\u00A0», ELSAI peut être déployée comme brique numérique complémentaire." },
+  { title: "Associations sociales & caritatives", body: "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair." },
+  { title: "Collectivités territoriales", body: "Dans le cadre des dispositifs «\u00A0Territoires zéro non-recours\u00A0», ESLAÏ peut être déployée comme brique numérique complémentaire." },
 ];
 
 const FALLBACK_FORMATS: FormatItem[] = [
-  { title: "Lien simple", body: "Renvoi depuis votre site vers ELSAI, sans intégration technique.", cost: "Gratuit" },
+  { title: "Lien simple", body: "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.", cost: "Gratuit" },
   { title: "Co-branding", body: "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.", cost: "À discuter" },
   { title: "Intégration métier", body: "Intégration dans votre SI ou votre portail usager, reporting dédié.", cost: "Sur devis" },
 ];
@@ -73,7 +73,7 @@ export default async function Page({
   const heroSubtitle = blockString(
     hero,
     "subtitle",
-    "ELSAI est un projet d'intérêt général qui se déploie en complémentarité des services sociaux publics. Nous ne remplaçons pas\u00A0: nous renforçons l'accès au droit.",
+    "ESLAÏ est un projet d'intérêt général qui se déploie en complémentarité des services sociaux publics. Nous ne remplaçons pas\u00A0: nous renforçons l'accès au droit.",
   );
 
   const posEyebrow = blockString(pos, "eyebrow", "Notre positionnement");
@@ -85,7 +85,7 @@ export default async function Page({
   const posBody = blockString(
     pos,
     "body",
-    "Le non-recours aux droits sociaux ne se résoudra pas avec un seul outil. ELSAI se pense comme un filtre de premier niveau qui prépare le terrain, et qui oriente vers vos services quand un accompagnement humain est nécessaire.",
+    "Le non-recours aux droits sociaux ne se résoudra pas avec un seul outil. ESLAÏ se pense comme un filtre de premier niveau qui prépare le terrain, et qui oriente vers vos services quand un accompagnement humain est nécessaire.",
   );
   const engagements = blockList<TitleBodyItem>(pos, "items", FALLBACK_ENGAGEMENTS);
 
@@ -118,7 +118,7 @@ export default async function Page({
   const entBody = blockString(
     entrepriseCta,
     "body",
-    "Si vous représentez une entreprise qui souhaite proposer ELSAI à ses collaborateurs, une offre distincte existe à partir de 3 € par salarié et par mois.",
+    "Si vous représentez une entreprise qui souhaite proposer ESLAÏ à ses collaborateurs, une offre distincte existe à partir de 3 € par salarié et par mois.",
   );
   const entCtaLabel = blockString(entrepriseCta, "cta_label", "Voir l'offre entreprises →");
   const entCtaHref = blockString(entrepriseCta, "cta_href", "/offre");

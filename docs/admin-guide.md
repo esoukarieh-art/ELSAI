@@ -1,6 +1,6 @@
-# Guide administrateur — Backoffice ELSAI
+# Guide administrateur — Backoffice ESLAÏ
 
-> Guide opérationnel en français à destination des administrateurs du backoffice ELSAI.
+> Guide opérationnel en français à destination des administrateurs du backoffice ESLAÏ.
 > Version : POC — mise à jour 2026-04-21.
 
 ---
@@ -29,7 +29,7 @@
 
 ## 1. Introduction
 
-Le **backoffice ELSAI** est l'interface d'administration qui permet de piloter l'assistant social IA ELSAI : modération des alertes mineurs, édition des prompts de l'IA, publication de contenu (blog, lead magnets, CTA), gestion des séquences email B2B/B2C, et supervision des métriques et de la conformité RGPD.
+Le **backoffice ESLAÏ** est l'interface d'administration qui permet de piloter l'assistant social IA ESLAÏ : modération des alertes mineurs, édition des prompts de l'IA, publication de contenu (blog, lead magnets, CTA), gestion des séquences email B2B/B2C, et supervision des métriques et de la conformité RGPD.
 
 **URL d'accès** : `https://elsai.fr/admin` (production) — `http://localhost:3000/admin` (dev).
 
@@ -120,7 +120,7 @@ Le tableau de bord affiche en temps réel :
 
 **Pages** : `/admin/prompts` (édition) et `/admin/experiments` (A/B) — **Accès** : `content_editor`, `super_admin`.
 
-**À quoi ça sert** : ajuster le comportement conversationnel d'ELSAI (ton, règles éthiques, consignes de sécurité) sans redéploiement, et tester plusieurs formulations pour choisir la plus efficace.
+**À quoi ça sert** : ajuster le comportement conversationnel d'ESLAÏ (ton, règles éthiques, consignes de sécurité) sans redéploiement, et tester plusieurs formulations pour choisir la plus efficace.
 
 ### 5.1 Éditer un prompt
 
@@ -172,7 +172,7 @@ Pour chaque variante : nombre de messages servis, taux de flags de danger décle
 
 **Pages** : `/admin/blog` (liste), `/admin/blog/[id]` (édition), `/admin/blog/[id]/revisions` (historique) — **Accès** : `content_editor`, `content_reviewer`, `content_author`.
 
-**À quoi ça sert** : produire et publier le contenu éditorial du site vitrine ELSAI (guides d'aides sociales, FAQ CAF, articles pour adolescents) avec un vrai workflow de relecture et une stratégie SEO.
+**À quoi ça sert** : produire et publier le contenu éditorial du site vitrine ESLAÏ (guides d'aides sociales, FAQ CAF, articles pour adolescents) avec un vrai workflow de relecture et une stratégie SEO.
 
 ### 7.1 Workflow de publication
 
@@ -205,7 +205,7 @@ Section **CTA** de l'éditeur : ajouter un ou plusieurs blocs existants (voir §
 Page **Revisions** : chaque sauvegarde crée un instantané. Bouton **Restaurer** sur la révision cible.
 
 **Exemple d'usage**
-> Un rédacteur prépare un article *« Comment demander le RSA quand on est jeune majeur »*. Il remplit titre, slug `rsa-jeune-majeur`, audience `adult`, tags `[RSA, jeunesse]`, écrit 800 mots en MDX et sauvegarde en `draft`. Un `content_reviewer` relit, corrige deux formulations, passe en `scheduled` pour le lundi 9h. Avant publication, il attache un CTA *« Discuter avec ELSAI »*. Lundi à 9h01, l'article est en ligne. Trois semaines plus tard, une info change : on revient à la version `scheduled` via *Revisions* pour repartir d'une base propre.
+> Un rédacteur prépare un article *« Comment demander le RSA quand on est jeune majeur »*. Il remplit titre, slug `rsa-jeune-majeur`, audience `adult`, tags `[RSA, jeunesse]`, écrit 800 mots en MDX et sauvegarde en `draft`. Un `content_reviewer` relit, corrige deux formulations, passe en `scheduled` pour le lundi 9h. Avant publication, il attache un CTA *« Discuter avec ESLAÏ »*. Lundi à 9h01, l'article est en ligne. Trois semaines plus tard, une info change : on revient à la version `scheduled` via *Revisions* pour repartir d'une base propre.
 
 ---
 
@@ -229,7 +229,7 @@ Champs :
 > **Suppression** : réservée au `super_admin` et logique (passage en `active=false`). Un CTA supprimé n'apparaît plus mais reste en base pour traçabilité analytique.
 
 **Exemple d'usage**
-> Vous voulez savoir si *« Parler à ELSAI maintenant »* convertit mieux que *« J'ai besoin d'aide »* sur l'audience `minor`. Vous créez deux CTA avec même clé `chat-start`, variantes `control` (poids 500) et `treatment_a` (poids 500), audience `minor`. Après 10 jours, l'onglet *Analytics > CTA* montre 3,2 % CTR sur `control` vs 5,8 % sur `treatment_a`. Vous passez `control` à poids 0 et laissez `treatment_a` en production.
+> Vous voulez savoir si *« Parler à ESLAÏ maintenant »* convertit mieux que *« J'ai besoin d'aide »* sur l'audience `minor`. Vous créez deux CTA avec même clé `chat-start`, variantes `control` (poids 500) et `treatment_a` (poids 500), audience `minor`. Après 10 jours, l'onglet *Analytics > CTA* montre 3,2 % CTR sur `control` vs 5,8 % sur `treatment_a`. Vous passez `control` à poids 0 et laissez `treatment_a` en production.
 
 ---
 
@@ -309,12 +309,12 @@ Trois onglets :
 
 **Page** : `/admin/courriers` — **Accès** : `content_editor`.
 
-**À quoi ça sert** : alimenter la bibliothèque dans laquelle ELSAI puise pour générer des courriers personnalisés aux utilisateurs (CAF, demandes de logement, recours administratifs…).
+**À quoi ça sert** : alimenter la bibliothèque dans laquelle ESLAÏ puise pour générer des courriers personnalisés aux utilisateurs (CAF, demandes de logement, recours administratifs…).
 
 Actions : créer, modifier, désactiver un modèle.
 
 **Exemple d'usage**
-> La procédure de *recours APL* change au 1er juin. Vous éditez le modèle `apl-recours`, ajoutez la nouvelle pièce justificative obligatoire, enregistrez. Dès ce moment, tout utilisateur qui demande à ELSAI *« aide-moi à faire un recours APL »* reçoit un courrier conforme à la nouvelle procédure.
+> La procédure de *recours APL* change au 1er juin. Vous éditez le modèle `apl-recours`, ajoutez la nouvelle pièce justificative obligatoire, enregistrez. Dès ce moment, tout utilisateur qui demande à ESLAÏ *« aide-moi à faire un recours APL »* reçoit un courrier conforme à la nouvelle procédure.
 
 ---
 
@@ -350,7 +350,7 @@ Liste des demandes d'effacement reçues depuis l'application.
 
 **Procédure** : l'effacement est **automatique** côté backend ; cette page sert au contrôle/compte-rendu. Aucun re-traitement manuel n'est requis en temps normal.
 
-> Rappel : les sessions ELSAI sont anonymes ; l'effacement concerne les éventuels emails (newsletters, lead magnets) et les profils B2B.
+> Rappel : les sessions ESLAÏ sont anonymes ; l'effacement concerne les éventuels emails (newsletters, lead magnets) et les profils B2B.
 
 **Exemple d'usage**
 > Un utilisateur a écrit *« supprimez toutes mes données »*. Sa demande apparaît dans `/admin/forget` datée du *15/04*. 24h plus tard, le statut passe à `completed`. Si la CNIL interroge, vous pouvez présenter cette entrée comme preuve du traitement.

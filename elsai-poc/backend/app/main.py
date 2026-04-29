@@ -1,4 +1,4 @@
-"""Point d'entrée FastAPI — monolithe ELSAI POC."""
+"""Point d'entrée FastAPI — monolithe ESLAÏ POC."""
 
 from contextlib import asynccontextmanager
 
@@ -77,7 +77,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="ELSAI POC API",
+    title="ESLAÏ POC API",
     description="Assistant social numérique — POC monolithe web",
     version="0.1.0",
     lifespan=lifespan,

@@ -1,4 +1,4 @@
-# Conformité RGAA — ELSAI PoC
+# Conformité RGAA — ESLAÏ PoC
 
 Niveau visé : **RGAA 4.1 AA** (conforme à l'article 47 de la loi n° 2005-102 ;
 une promotion vers AAA est à l'étude pour la partie mineurs).

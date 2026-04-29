@@ -6,7 +6,7 @@ export interface MockChatScenario {
   emergency_cta?: { label: string; phone: string } | null;
 }
 
-export async function mockElsaiApi(page: Page, scenarios: MockChatScenario[] = []) {
+export async function mockEslaïApi(page: Page, scenarios: MockChatScenario[] = []) {
   let callCount = 0;
 
   await page.route("**/api/auth/session", (route) =>

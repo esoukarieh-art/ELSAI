@@ -1,4 +1,4 @@
-# Tests E2E ELSAI
+# Tests E2E ESLAÏ
 
 Tests end-to-end Playwright couvrant les parcours critiques du POC.
 

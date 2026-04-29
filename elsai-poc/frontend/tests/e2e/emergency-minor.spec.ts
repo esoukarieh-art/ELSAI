@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { mockElsaiApi, setProfile } from "./fixtures/api-mock";
+import { mockEslaïApi, setProfile } from "./fixtures/api-mock";
 
 test.describe("Flux danger mineur → 119", () => {
   test("affiche EmergencyBanner avec numéro 119 quand danger_detected=true", async ({ page }) => {
     await setProfile(page, "minor");
-    await mockElsaiApi(page, [
+    await mockEslaïApi(page, [
       {
         reply: "Je t'entends. Ce que tu vis est grave, un professionnel peut t'aider.",
         danger_detected: true,
@@ -26,7 +26,7 @@ test.describe("Flux danger mineur → 119", () => {
 
   test("banner peut être fermé via bouton Continuer à discuter", async ({ page }) => {
     await setProfile(page, "minor");
-    await mockElsaiApi(page, [
+    await mockEslaïApi(page, [
       {
         reply: "…",
         danger_detected: true,
@@ -47,7 +47,7 @@ test.describe("Flux danger mineur → 119", () => {
 test.describe("Flux danger majeur → 3114", () => {
   test("adulte en détresse voit le 3114", async ({ page }) => {
     await setProfile(page, "adult");
-    await mockElsaiApi(page, [
+    await mockEslaïApi(page, [
       {
         reply: "Je vous entends. Un professionnel peut vous accompagner.",
         danger_detected: true,

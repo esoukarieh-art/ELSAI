@@ -4,7 +4,7 @@
  * Chargé côté client uniquement si `NEXT_PUBLIC_SENTRY_DSN` est défini.
  * Sans DSN : no-op silencieux (dev local).
  *
- * Contraintes ELSAI :
+ * Contraintes ESLAÏ :
  *  - Aucune PII envoyée (pas d'IP, pas de body user, pas de replay).
  *  - Masquer tous les inputs et textes par défaut.
  */

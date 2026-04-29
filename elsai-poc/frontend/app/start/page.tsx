@@ -24,7 +24,7 @@ export default function HomePage() {
       setSession(data.token, data.session_id, data.profile);
       router.push("/chat");
     } catch {
-      alert("Le serveur ELSAI n'est pas joignable. Vérifiez qu'il est démarré.");
+      alert("Le serveur ESLAÏ n'est pas joignable. Vérifiez qu'il est démarré.");
     }
   }
 
@@ -35,7 +35,7 @@ export default function HomePage() {
         <div className="mb-8 flex justify-center">
           <Image
             src="/logo-elsai.svg"
-            alt="ELSAI"
+            alt="ESLAÏ"
             width={140}
             height={140}
             priority
@@ -44,7 +44,7 @@ export default function HomePage() {
         </div>
 
         <h1 className="text-elsai-pin-dark mb-3 font-serif text-4xl tracking-tight md:text-5xl">
-          ELSAI
+          ESLAÏ
         </h1>
         <p className="text-elsai-ink/80 mb-12 text-lg leading-relaxed">
           Une permanence d'accueil numérique,

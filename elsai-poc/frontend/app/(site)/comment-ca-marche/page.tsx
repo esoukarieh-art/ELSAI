@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Comment ça marche",
   description:
-    "Le fonctionnement d'ELSAI en 4 étapes : vous posez votre question, ELSAI comprend, vous guide étape par étape, vous gardez la main sur vos données.",
+    "Le fonctionnement d'ESLAÏ en 4 étapes : vous posez votre question, ESLAÏ comprend, vous guide étape par étape, vous gardez la main sur vos données.",
   alternates: { canonical: "/comment-ca-marche" },
 };
 
@@ -34,13 +34,13 @@ const FALLBACK_STEPS: Step[] = [
   },
   {
     number: "02",
-    title: "ELSAI reformule et vous oriente",
-    body: "On vous répond clairement, avec des étapes concrètes et des liens utiles. On vous dit aussi ce qu'ELSAI ne peut pas faire.",
+    title: "ESLAÏ reformule et vous oriente",
+    body: "On vous répond clairement, avec des étapes concrètes et des liens utiles. On vous dit aussi ce qu'ESLAÏ ne peut pas faire.",
   },
   {
     number: "03",
     title: "Vous décidez, vous gardez la main",
-    body: "Vous pouvez poursuivre avec ELSAI, appeler un numéro, ou aller rencontrer un travailleur social.",
+    body: "Vous pouvez poursuivre avec ESLAÏ, appeler un numéro, ou aller rencontrer un travailleur social.",
   },
   {
     number: "04",
@@ -98,11 +98,11 @@ export default async function Page({
   const capsTitle = blockString(
     caps,
     "title",
-    "Ce qu'ELSAI fait — et ce qu'il ne fait pas",
+    "Ce qu'ESLAÏ fait — et ce qu'il ne fait pas",
   );
-  const canTitle = blockString(caps, "can_title", "✓ ELSAI peut");
+  const canTitle = blockString(caps, "can_title", "✓ ESLAÏ peut");
   const canItems = blockList<LabelItem>(caps, "can_items", FALLBACK_CAN);
-  const cantTitle = blockString(caps, "cant_title", "✗ ELSAI ne peut pas");
+  const cantTitle = blockString(caps, "cant_title", "✗ ESLAÏ ne peut pas");
   const cantItems = blockList<LabelItem>(caps, "cant_items", FALLBACK_CANT);
 
   const ctaLabel = blockString(finalCta, "cta_label", "Essayer maintenant →");

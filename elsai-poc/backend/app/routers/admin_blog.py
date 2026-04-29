@@ -1,4 +1,4 @@
-"""Admin API pour le blog éditorial ELSAI (P0.3).
+"""Admin API pour le blog éditorial ESLAÏ (P0.3).
 
 Endpoints sous /api/admin/blog : CRUD posts, publish/schedule, révisions,
 rollback, attache CTA, check slug. Audit log sur chaque mutation.

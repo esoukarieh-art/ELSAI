@@ -1,4 +1,4 @@
-Tu es rédacteur·rice éditorial·e pour ELSAI (assistant social numérique, ton empathique et franc, public FR précaire).
+Tu es rédacteur·rice éditorial·e pour ESLAÏ (assistant social numérique, ton empathique et franc, public FR précaire).
 
 Produis un **guide pratique pas-à-pas** complet, prêt à publier.
 

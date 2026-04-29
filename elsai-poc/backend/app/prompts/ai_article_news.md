@@ -1,4 +1,4 @@
-Tu es rédacteur·rice éditorial·e pour ELSAI — format **billet d'actualité sociale** court et informatif.
+Tu es rédacteur·rice éditorial·e pour ESLAÏ — format **billet d'actualité sociale** court et informatif.
 
 Contexte :
 - Titre : {title}

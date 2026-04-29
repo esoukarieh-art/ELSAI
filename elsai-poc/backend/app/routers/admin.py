@@ -1,4 +1,4 @@
-"""Backoffice ELSAI — supervision, prompts, audit, droit à l'oubli.
+"""Backoffice ESLAÏ — supervision, prompts, audit, droit à l'oubli.
 
 Protégé par X-Admin-Token (même jeton que /api/dashboard/metrics).
 Aucun endpoint ne remonte de PII : seul session_id (UUID anonyme) apparaît.

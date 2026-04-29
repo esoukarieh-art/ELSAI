@@ -1,4 +1,4 @@
-"""Admin API pour les CTABlocks ELSAI (P0.6).
+"""Admin API pour les CTABlocks ESLAÏ (P0.6).
 
 CRUD des variantes de CTA (A/B). Pattern similaire à admin_blog.py :
 - auth via get_admin (dépendance routeur)

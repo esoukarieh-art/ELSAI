@@ -304,7 +304,7 @@ class ContentCluster(Base):
 
 
 class BlogPost(Base):
-    """Article du blog éditorial ELSAI."""
+    """Article du blog éditorial ESLAÏ."""
 
     __tablename__ = "blog_posts"
 

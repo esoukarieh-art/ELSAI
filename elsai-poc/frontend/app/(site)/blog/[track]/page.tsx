@@ -30,14 +30,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { track } = await params;
-  if (!isTrack(track)) return { title: "Journal ELSAI" };
+  if (!isTrack(track)) return { title: "Journal ESLAÏ" };
   const meta = TRACK_META[track];
   return {
-    title: `Journal ELSAI — ${meta.label}`,
+    title: `Journal ESLAÏ — ${meta.label}`,
     description: meta.description,
     alternates: { canonical: `/blog/${track}` },
     openGraph: {
-      title: `Journal ELSAI — ${meta.label}`,
+      title: `Journal ESLAÏ — ${meta.label}`,
       description: meta.description,
       type: "website",
     },

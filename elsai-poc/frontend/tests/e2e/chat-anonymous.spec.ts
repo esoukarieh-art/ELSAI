@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { mockElsaiApi } from "./fixtures/api-mock";
+import { mockEslaïApi } from "./fixtures/api-mock";
 
 test.describe("Chat anonyme — envoi et réception", () => {
   test("envoi message, réception réponse, pas de cookie identifiant", async ({ page, context }) => {
-    await mockElsaiApi(page, [
+    await mockEslaïApi(page, [
       { reply: "Bonjour, comment puis-je vous aider ?", danger_detected: false },
     ]);
 
@@ -19,7 +19,7 @@ test.describe("Chat anonyme — envoi et réception", () => {
   });
 
   test("bouton Oubli purge sessionStorage", async ({ page }) => {
-    await mockElsaiApi(page, [{ reply: "Réponse test" }]);
+    await mockEslaïApi(page, [{ reply: "Réponse test" }]);
 
     await page.goto("/chat");
     await page.getByPlaceholder(/Décrivez/i).fill("test");

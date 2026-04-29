@@ -12,7 +12,7 @@ export function CTABookingRDV({
   return (
     <section
       role="complementary"
-      aria-label="Réserver un rendez-vous de 15 minutes avec l'équipe ELSAI"
+      aria-label="Réserver un rendez-vous de 15 minutes avec l'équipe ESLAÏ"
       data-cta-component="CTABookingRDV"
       className="rounded-organic bg-elsai-pin p-8 md:p-10"
     >
@@ -22,7 +22,7 @@ export function CTABookingRDV({
             {title}
           </h2>
           <p className="mt-3 text-base text-elsai-cream/90">
-            Vous souhaitez explorer un déploiement ELSAI dans votre organisation ? Choisissez un créneau qui vous convient, nous nous adaptons à votre agenda.
+            Vous souhaitez explorer un déploiement ESLAÏ dans votre organisation ? Choisissez un créneau qui vous convient, nous nous adaptons à votre agenda.
           </p>
         </div>
         <a

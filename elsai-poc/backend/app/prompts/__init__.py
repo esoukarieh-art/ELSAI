@@ -1,4 +1,4 @@
-"""Prompts système ELSAI — fichiers markdown par défaut + override DB (admin)."""
+"""Prompts système ESLAÏ — fichiers markdown par défaut + override DB (admin)."""
 
 from pathlib import Path
 

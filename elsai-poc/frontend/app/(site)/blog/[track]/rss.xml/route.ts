@@ -49,7 +49,7 @@ export async function GET(
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>ELSAI Blog — ${escapeXml(meta.label)}</title>
+    <title>ESLAÏ Blog — ${escapeXml(meta.label)}</title>
     <link>${SITE_URL}/blog/${typedTrack}</link>
     <description>${escapeXml(meta.description)}</description>
     <language>fr-FR</language>

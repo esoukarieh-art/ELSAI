@@ -1,4 +1,4 @@
-"""Seed des templates d'email pour les 8 séquences ELSAI (v1).
+"""Seed des templates d'email pour les 8 séquences ESLAÏ (v1).
 
 Source de vérité : docs/email-sequences.md
 
@@ -21,7 +21,7 @@ from ..models import EmailTemplate
 _FOOTER_HTML = """
 <hr style="border:none;border-top:1px solid #e6e3d8;margin:28px 0 14px 0;">
 <p style="font-size:12px;color:#777;line-height:1.5;">
-ELSAI — Assistant social numérique<br>
+ESLAÏ — Assistant social numérique<br>
 <a href="https://www.elsai.fr" style="color:#5A7E6B;text-decoration:none;">www.elsai.fr</a>
 · info@elsai.fr<br>
 Vos données sont traitées conformément à notre
@@ -30,14 +30,14 @@ Vos données sont traitées conformément à notre
 """.strip()
 
 _FOOTER_TEXT = (
-    "\n\n—\nELSAI — Assistant social numérique\n"
+    "\n\n—\nESLAÏ — Assistant social numérique\n"
     "https://www.elsai.fr · info@elsai.fr\n"
     "Confidentialité : https://www.elsai.fr/confidentialite\n"
 )
 
 
 def _wrap(body_html: str) -> str:
-    """Enveloppe HTML commune (charte ELSAI : vert pin, vieux rose, crème)."""
+    """Enveloppe HTML commune (charte ESLAÏ : vert pin, vieux rose, crème)."""
     return f"""<!doctype html>
 <html lang="fr"><body style="background:#F5F5ED;margin:0;padding:24px;font-family:Inter,Arial,sans-serif;color:#2a2a2a;">
   <div style="max-width:560px;margin:0 auto;background:#ffffff;padding:28px;border-radius:12px;">
@@ -81,10 +81,10 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 1,
         "step_label": "J+0 — Bienvenue + codes",
         "delay_hours": 0,
-        "subject": "Vos codes d'accès ELSAI — {{company_name}}",
+        "subject": "Vos codes d'accès ESLAÏ — {{company_name}}",
         "preview": "Vos {{seats}} codes sont prêts. Distribuez-les à vos équipes en toute confidentialité.",
         "html_content": _wrap(
-            '<h1 style="font-family:Georgia,serif;color:#5A7E6B;margin-top:0;">Bienvenue chez ELSAI</h1>'
+            '<h1 style="font-family:Georgia,serif;color:#5A7E6B;margin-top:0;">Bienvenue chez ESLAÏ</h1>'
             "<p>Bonjour,</p>"
             "<p>Votre abonnement <strong>{{plan_label}}</strong> pour <strong>{{company_name}}</strong> "
             "({{seats}} salariés) est actif. Voici les {{seats}} codes d'accès à distribuer à vos équipes :</p>"
@@ -92,12 +92,12 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Chaque salarié utilise son code sur "
             '<a href="https://www.elsai.fr/start" style="color:#5A7E6B;">www.elsai.fr/start</a> '
             "— aucune donnée nominative n'est collectée.</p>"
-            + _button("Accéder à l'espace admin ELSAI", "{{admin_url}}")
+            + _button("Accéder à l'espace admin ESLAÏ", "{{admin_url}}")
             + "<p>{{portal_block_html}}</p>"
             '<p style="font-size:13px;color:#666;">Cet email contient des codes confidentiels, merci de le traiter avec précaution.</p>'
         ),
         "text_content": (
-            "Bienvenue chez ELSAI\n\n"
+            "Bienvenue chez ESLAÏ\n\n"
             "Votre abonnement {{plan_label}} pour {{company_name}} ({{seats}} salariés) est actif.\n"
             "Codes d'accès ({{seats}}) :\n{{codes_text}}\n\n"
             "Espace admin : {{admin_url}}\n{{portal_block_text}}"
@@ -113,17 +113,17 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 2,
         "step_label": "J+2 — Comment distribuer les codes",
         "delay_hours": 48,
-        "subject": "3 bonnes pratiques pour déployer ELSAI en interne",
+        "subject": "3 bonnes pratiques pour déployer ESLAÏ en interne",
         "preview": "Comment communiquer à vos salariés sans rompre la confidentialité.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
             "<p>Deux jours après votre activation, un mot sur la distribution des codes.</p>"
-            "<p>ELSAI repose sur un principe simple : aucun salarié ne partage son identité avec nous. "
+            "<p>ESLAÏ repose sur un principe simple : aucun salarié ne partage son identité avec nous. "
             "Cela change la manière de communiquer en interne :</p>"
             '<ol style="line-height:1.7;">'
             "<li><strong>Envoyez le code par email individuel</strong>, pas en canal collectif. "
             "Un code = un salarié. Pas de liste partagée sur Slack ou Teams.</li>"
-            "<li><strong>Expliquez le cadre en une phrase</strong> : « ELSAI est un assistant social anonyme, "
+            "<li><strong>Expliquez le cadre en une phrase</strong> : « ESLAÏ est un assistant social anonyme, "
             "mis à disposition par l'entreprise. Ce que vous y dites reste entre vous et l'IA. »</li>"
             "<li><strong>Rappelez que l'usage n'est pas tracé individuellement</strong>. "
             "L'entreprise reçoit uniquement des statistiques globales anonymisées.</li>"
@@ -136,7 +136,7 @@ SEED_TEMPLATES: list[dict] = [
             "Bonjour,\n\n"
             "Deux jours après votre activation, un mot sur la distribution des codes.\n\n"
             "1. Envoyez le code par email individuel, pas en canal collectif.\n"
-            "2. Expliquez le cadre en une phrase : « ELSAI est un assistant social anonyme. »\n"
+            "2. Expliquez le cadre en une phrase : « ESLAÏ est un assistant social anonyme. »\n"
             "3. Rappelez que l'usage n'est pas tracé individuellement.\n\n"
             "Espace admin : {{admin_url}}"
         ) + _FOOTER_TEXT,
@@ -166,7 +166,7 @@ SEED_TEMPLATES: list[dict] = [
             "le besoin se présente, pas de manière forcée.</p>"
             "<p>Quelques pistes si vous voulez relancer :</p>"
             '<ul style="line-height:1.7;">'
-            "<li>Mentionner ELSAI dans une newsletter interne RH</li>"
+            "<li>Mentionner ESLAÏ dans une newsletter interne RH</li>"
             "<li>L'intégrer à votre programme QVT</li>"
             "<li>En parler en réunion d'équipe sans en faire un outil obligatoire</li>"
             "</ul>"
@@ -187,11 +187,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 4,
         "step_label": "J+14 — Besoin d'aide ?",
         "delay_hours": 336,
-        "subject": "Deux semaines avec ELSAI — parlons-en ?",
+        "subject": "Deux semaines avec ESLAÏ — parlons-en ?",
         "preview": "15 min avec notre équipe pour optimiser le déploiement dans votre contexte.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Cela fait deux semaines qu'ELSAI est en place chez <strong>{{company_name}}</strong>.</p>"
+            "<p>Cela fait deux semaines qu'ESLAÏ est en place chez <strong>{{company_name}}</strong>.</p>"
             "<p>Si vous hésitez sur la communication interne, sur le rattachement à la politique QVT, "
             "ou simplement sur les cas d'usage à mettre en avant, nous pouvons échanger 15 minutes.</p>"
             "<p>L'appel est gratuit, sans engagement, et réservé aux abonnés actifs.</p>"
@@ -199,7 +199,7 @@ SEED_TEMPLATES: list[dict] = [
             + _button("Réserver 15 minutes", "{{booking_url}}")
         ),
         "text_content": (
-            "Bonjour,\n\nDeux semaines avec ELSAI chez {{company_name}}.\n"
+            "Bonjour,\n\nDeux semaines avec ESLAÏ chez {{company_name}}.\n"
             "Si vous hésitez sur la communication interne ou les cas d'usage, on peut échanger 15 min.\n\n"
             "Réserver : {{booking_url}}"
         ) + _FOOTER_TEXT,
@@ -213,11 +213,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 5,
         "step_label": "J+30 — Premier rapport mensuel",
         "delay_hours": 720,
-        "subject": "Votre rapport d'usage ELSAI — mois 1",
+        "subject": "Votre rapport d'usage ESLAÏ — mois 1",
         "preview": "Un récap anonymisé du premier mois d'adoption.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Premier mois d'ELSAI chez <strong>{{company_name}}</strong>. Voici le récap anonymisé.</p>"
+            "<p>Premier mois d'ESLAÏ chez <strong>{{company_name}}</strong>. Voici le récap anonymisé.</p>"
             "<h3 style=\"color:#5A7E6B;\">Engagement</h3>"
             '<ul style="line-height:1.7;">'
             "<li>Codes actifs : {{active_codes}}/{{seats}}</li>"
@@ -256,11 +256,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 1,
         "step_label": "J-14 — Annonce renouvellement",
         "delay_hours": -336,
-        "subject": "Renouvellement ELSAI le {{renewal_date}}",
+        "subject": "Renouvellement ESLAÏ le {{renewal_date}}",
         "preview": "Rien à faire si votre moyen de paiement est toujours valide.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Votre abonnement ELSAI <strong>{{plan_label}}</strong> pour <strong>{{company_name}}</strong> "
+            "<p>Votre abonnement ESLAÏ <strong>{{plan_label}}</strong> pour <strong>{{company_name}}</strong> "
             "se renouvelle automatiquement le <strong>{{renewal_date}}</strong> pour <strong>{{amount}}€ TTC</strong>.</p>"
             "<p>Vous n'avez rien à faire si :</p>"
             '<ul style="line-height:1.7;">'
@@ -272,7 +272,7 @@ SEED_TEMPLATES: list[dict] = [
             + _button("Portail facturation", "{{portal_url}}")
         ),
         "text_content": (
-            "Renouvellement ELSAI {{plan_label}} le {{renewal_date}} pour {{amount}}€ TTC.\n"
+            "Renouvellement ESLAÏ {{plan_label}} le {{renewal_date}} pour {{amount}}€ TTC.\n"
             "Rien à faire si votre carte est valide. Sinon : {{portal_url}}"
         ) + _FOOTER_TEXT,
         "active": True,
@@ -289,7 +289,7 @@ SEED_TEMPLATES: list[dict] = [
         "preview": "Dernière occasion d'ajuster sièges ou plan avant prélèvement.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Dernier rappel avant le renouvellement automatique de votre abonnement ELSAI "
+            "<p>Dernier rappel avant le renouvellement automatique de votre abonnement ESLAÏ "
             "<strong>{{plan_label}}</strong>, prévu le <strong>{{renewal_date}}</strong> pour "
             "<strong>{{amount}}€ TTC</strong>.</p>"
             "<p>Si vous souhaitez ajuster le nombre de sièges ou changer de plan, "
@@ -312,14 +312,14 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 1,
         "step_label": "J+1 — Échec de prélèvement",
         "delay_hours": 24,
-        "subject": "Paiement ELSAI non abouti — action requise",
+        "subject": "Paiement ESLAÏ non abouti — action requise",
         "preview": "Votre carte a été refusée. Mettez-la à jour en 2 minutes.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Le prélèvement de <strong>{{amount}}€</strong> pour votre abonnement ELSAI "
+            "<p>Le prélèvement de <strong>{{amount}}€</strong> pour votre abonnement ESLAÏ "
             "<strong>{{plan_label}}</strong> n'a pas abouti.</p>"
             "<p>Raison transmise par votre banque : <em>{{decline_reason_or_generic}}</em></p>"
-            "<p>Votre service ELSAI reste actif pour l'instant. Il sera suspendu si aucun paiement "
+            "<p>Votre service ESLAÏ reste actif pour l'instant. Il sera suspendu si aucun paiement "
             "n'est régularisé sous 7 jours.</p>"
             "<p>Mettez à jour votre moyen de paiement en 2 minutes :</p>"
             + _button("Mettre à jour ma carte", "{{portal_url}}")
@@ -338,11 +338,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 2,
         "step_label": "J+4 — Rappel suspension dans 3 jours",
         "delay_hours": 96,
-        "subject": "ELSAI : service suspendu dans 3 jours si paiement non régularisé",
+        "subject": "ESLAÏ : service suspendu dans 3 jours si paiement non régularisé",
         "preview": "Un second essai de prélèvement sera tenté automatiquement.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Trois jours se sont écoulés depuis l'échec du prélèvement de votre abonnement ELSAI. "
+            "<p>Trois jours se sont écoulés depuis l'échec du prélèvement de votre abonnement ESLAÏ. "
             "Un second essai sera tenté automatiquement sous 48h.</p>"
             "<p>Si vous souhaitez nous éviter ce nouvel essai, vous pouvez régulariser dès maintenant "
             "depuis le portail facturation.</p>"
@@ -365,11 +365,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 3,
         "step_label": "J+7 — Service suspendu",
         "delay_hours": 168,
-        "subject": "Service ELSAI suspendu — réactivation possible",
+        "subject": "Service ESLAÏ suspendu — réactivation possible",
         "preview": "Vos codes sont désactivés temporairement. La réactivation est immédiate.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Faute de régularisation, les codes d'accès ELSAI de <strong>{{company_name}}</strong> "
+            "<p>Faute de régularisation, les codes d'accès ESLAÏ de <strong>{{company_name}}</strong> "
             "sont désactivés depuis le <strong>{{suspension_date}}</strong>.</p>"
             "<p>Vos données (prompts personnalisés, historique admin) sont conservées pendant 30 jours.</p>"
             "<p>Pour réactiver immédiatement le service, mettez à jour votre moyen de paiement. "
@@ -379,7 +379,7 @@ SEED_TEMPLATES: list[dict] = [
             + _button("Réactiver maintenant", "{{portal_url}}")
         ),
         "text_content": (
-            "Service ELSAI suspendu depuis le {{suspension_date}}.\n"
+            "Service ESLAÏ suspendu depuis le {{suspension_date}}.\n"
             "Réactivation immédiate : {{portal_url}}\n"
             "Données conservées 30 jours puis supprimées."
         ) + _FOOTER_TEXT,
@@ -395,11 +395,11 @@ SEED_TEMPLATES: list[dict] = [
         "step_order": 1,
         "step_label": "Mensuel — Rapport d'usage",
         "delay_hours": 0,  # planifié par le cron mensuel, pas de délai relatif
-        "subject": "Votre rapport ELSAI — {{month_label}}",
+        "subject": "Votre rapport ESLAÏ — {{month_label}}",
         "preview": "Les chiffres du mois, 100% anonymisés.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Voici le rapport d'usage ELSAI pour <strong>{{company_name}}</strong> — "
+            "<p>Voici le rapport d'usage ESLAÏ pour <strong>{{company_name}}</strong> — "
             "<strong>{{month_label}}</strong>.</p>"
             "<h3 style=\"color:#5A7E6B;\">Engagement</h3>"
             '<ul style="line-height:1.7;">'
@@ -423,7 +423,7 @@ SEED_TEMPLATES: list[dict] = [
             'Se désabonner de ces rapports</a></p>'
         ),
         "text_content": (
-            "Rapport ELSAI {{month_label}} — {{company_name}}\n\n"
+            "Rapport ESLAÏ {{month_label}} — {{company_name}}\n\n"
             "Codes actifs : {{active_codes}}/{{seats}} · Sessions : {{sessions_count}}\n"
             "Durée moy : {{avg_duration}} min · Nouveaux : {{new_codes_activated}}\n\n"
             "Thèmes : {{top_themes_bulleted}}\n"
@@ -446,7 +446,7 @@ SEED_TEMPLATES: list[dict] = [
         "preview": "Téléchargez-le, envoyez-le, et gardez la trace d'envoi.",
         "html_content": _wrap(
             "<p>Bonjour,</p>"
-            "<p>Votre compte ELSAI est créé. Voici votre courrier destiné à "
+            "<p>Votre compte ESLAÏ est créé. Voici votre courrier destiné à "
             "<strong>{{recipient_org}}</strong>, objet : <em>{{subject_line}}</em>.</p>"
             + _button("Télécharger le courrier PDF", "{{letter_url}}")
             + "<p><strong>Conseils d'envoi :</strong></p>"
@@ -516,7 +516,7 @@ SEED_TEMPLATES: list[dict] = [
             "<li>Recours gracieux auprès de {{recipient_org}}</li>"
             "<li>Recours hiérarchique ou médiateur selon la nature du dossier</li>"
             "</ul>"
-            "<p>Revenez échanger avec ELSAI pour décider de la meilleure suite.</p>"
+            "<p>Revenez échanger avec ESLAÏ pour décider de la meilleure suite.</p>"
             + _button("Générer une relance", "{{account_url}}/letter/{{letter_id}}/followup")
         ),
         "text_content": (
@@ -719,7 +719,7 @@ SEED_TEMPLATES: list[dict] = [
             "<li>Saisir le tribunal administratif (possible sans avocat pour de nombreux contentieux sociaux).</li>"
             "<li>Consulter gratuitement un avocat (permanence du barreau) ou le Défenseur des droits.</li>"
             "</ul>"
-            + _button("En discuter avec ELSAI", "{{account_url}}/appeal/{{appeal_id}}")
+            + _button("En discuter avec ESLAÏ", "{{account_url}}/appeal/{{appeal_id}}")
         ),
         "text_content": (
             "Échéance contentieuse : {{deadline_date}}.\n"
@@ -746,7 +746,7 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Un rappel : <strong>{{event_type}}</strong> est prévu le <strong>{{event_date}}</strong>.</p>"
             "<p>Un mois à l'avance pour vous permettre de rassembler tranquillement les pièces "
             "qui seront utiles le jour J.</p>"
-            + _button("Préparer {{event_type}} avec ELSAI", "{{account_url}}/reminder/{{reminder_id}}")
+            + _button("Préparer {{event_type}} avec ESLAÏ", "{{account_url}}/reminder/{{reminder_id}}")
         ),
         "text_content": (
             "{{event_type}} le {{event_date}} — dans 30 jours.\n"
@@ -778,7 +778,7 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Si vous avez le moindre doute sur un document manquant ou sur ce qui sera attendu de vous, "
             "revenez échanger avec moi — je peux vous aider à préparer ce que vous direz et à anticiper "
             "les questions difficiles.</p>"
-            + _button("Préparer avec ELSAI", "{{account_url}}/reminder/{{reminder_id}}")
+            + _button("Préparer avec ESLAÏ", "{{account_url}}/reminder/{{reminder_id}}")
         ),
         "text_content": (
             "{{event_type}} dans 7 jours — {{event_date}} {{event_time}} à {{event_location}}.\n"

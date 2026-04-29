@@ -102,7 +102,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <header className="border-elsai-pin/10 flex items-center justify-between border-b bg-white/80 px-4 py-3 backdrop-blur">
         <Link href="/" className="text-elsai-pin-dark flex items-center gap-2 font-bold">
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
-          <span>← ELSAI · Backoffice</span>
+          <span>← ESLAÏ · Backoffice</span>
         </Link>
         {authed && (
           <div className="flex items-center gap-4 text-sm">

@@ -12,9 +12,9 @@ export async function GET(
   const { slug } = await params;
   const post = await fetchPost(slug);
 
-  const title = post?.title ?? "ELSAI";
+  const title = post?.title ?? "ESLAÏ";
   const eyebrow =
-    post?.hero_eyebrow ?? (post?.tags && post.tags.length > 0 ? post.tags[0] : "ELSAI");
+    post?.hero_eyebrow ?? (post?.tags && post.tags.length > 0 ? post.tags[0] : "ESLAÏ");
   const track = post ? audienceToTrack(post.audience) : "particuliers";
   const badge = TRACK_META[track].label;
 
@@ -48,7 +48,7 @@ export async function GET(
               color: "#F5F5ED",
             }}
           >
-            ELSAI
+            ESLAÏ
           </div>
           <div
             style={{

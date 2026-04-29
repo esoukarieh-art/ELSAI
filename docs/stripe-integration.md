@@ -1,25 +1,25 @@
-# Plan d'intégration Stripe — ELSAI B2B
+# Plan d'intégration Stripe — ESLAÏ B2B
 
 ## 1. Choix produit Stripe
 
-| Brique Stripe | Usage ELSAI |
+| Brique Stripe | Usage ESLAÏ |
 |---|---|
 | **Stripe Billing** | Abonnements mensuels par siège (seats) — cœur du modèle |
 | **Stripe Checkout** (hosted) | Parcours souscription Essentiel/Premium — rapide, PCI-compliant, pas de formulaire custom |
 | **Customer Portal** | Self-service entreprise : factures, changement CB, upgrade, résiliation |
 | **Stripe Tax** | TVA FR/UE automatique — obligatoire B2B |
-| **Webhooks** | Synchro statut abonnement ↔ codes d'accès ELSAI |
+| **Webhooks** | Synchro statut abonnement ↔ codes d'accès ESLAÏ |
 
 **Non utilisé** : Payment Links seuls (insuffisant pour seats), Connect (pas de marketplace).
 
 ## 2. Modélisation tarifaire dans Stripe
 
 ```
-Product "ELSAI Essentiel"
+Product "ESLAÏ Essentiel"
   └── Price : 3 €/siège/mois · licensed · recurring · EUR
-Product "ELSAI Premium"
+Product "ESLAÏ Premium"
   └── Price : 5 €/siège/mois · licensed · recurring
-Product "ELSAI Sur mesure"
+Product "ESLAÏ Sur mesure"
   └── pas de Price public — créé manuellement par devis (metadata contract_id)
 ```
 
@@ -39,7 +39,7 @@ Type de seat : **licensed** (quantité fixée à la souscription, pas metered). 
 /offre → "Choisir Essentiel" → /offre/checkout?plan=essentiel
                                     ↓
                          Formulaire court (nb salariés, raison sociale,
-                         SIRET, email admin) stocké côté ELSAI
+                         SIRET, email admin) stocké côté ESLAÏ
                                     ↓
                      Stripe Checkout (CB ou SEPA virement B2B)
                                     ↓
@@ -75,7 +75,7 @@ Type de seat : **licensed** (quantité fixée à la souscription, pas metered). 
 
 - **Pas de TVA surprise** : afficher « HT » clairement, mention « TVA 20% en sus » visible avant checkout
 - **Mode de paiement B2B** : activer **SEPA Direct Debit** dans Stripe (les DAF préfèrent souvent au CB)
-- **Facture PDF** automatique envoyée par Stripe (logo ELSAI, mentions ESUS)
+- **Facture PDF** automatique envoyée par Stripe (logo ESLAÏ, mentions ESUS)
 - **Essai gratuit ?** Non recommandé (service sérieux, pas SaaS grand public). Plutôt une phase pilote payante 3 mois négociée manuellement.
 - **Annulation** : Customer Portal permet résiliation self-service → attention engagement 12 mois (CGV doivent prévoir facturation du solde)
 

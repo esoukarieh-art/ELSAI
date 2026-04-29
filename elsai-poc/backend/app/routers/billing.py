@@ -343,7 +343,7 @@ def _send_activation_email(org: Organization) -> bool:
         email_service.send_email(
             to_email=org.admin_email,
             to_name=org.company_name,
-            subject=f"Vos codes d'accès ELSAI — {org.company_name}",
+            subject=f"Vos codes d'accès ESLAÏ — {org.company_name}",
             html_content=html,
             text_content=text,
             tags=["activation", f"plan:{org.plan}"],

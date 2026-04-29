@@ -6,7 +6,7 @@ import Section from "@/components/site/Section";
 export const metadata: Metadata = {
   title: "Conditions générales de vente (B2B)",
   description:
-    "Conditions générales de vente ELSAI pour les entreprises : offres, tarifs, engagement, facturation, résiliation, confidentialité.",
+    "Conditions générales de vente ESLAÏ pour les entreprises : offres, tarifs, engagement, facturation, résiliation, confidentialité.",
   alternates: { canonical: "/cgv" },
   robots: { index: false, follow: true },
 };
@@ -16,7 +16,7 @@ export default function Page() {
     <>
       <PageHero eyebrow="CGV B2B" title="Conditions générales de vente">
         Version provisoire — à faire valider par un conseil juridique avant mise en production.
-        Applicable à toute souscription aux offres Essentiel, Premium et Sur mesure d'ELSAI.
+        Applicable à toute souscription aux offres Essentiel, Premium et Sur mesure d'ESLAÏ.
       </PageHero>
 
       <Section>
@@ -24,9 +24,9 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">1. Objet</h2>
             <p>
-              Les présentes CGV régissent l'ensemble des relations contractuelles entre ELSAI (SAS
+              Les présentes CGV régissent l'ensemble des relations contractuelles entre ESLAÏ (SAS
               en cours d'agrément ESUS, ci-après « le Prestataire ») et toute entreprise (ci-après
-              « le Client ») souscrivant à l'un des services ELSAI dans le cadre de son activité
+              « le Client ») souscrivant à l'un des services ESLAÏ dans le cadre de son activité
               professionnelle. Toute souscription vaut acceptation sans réserve des présentes CGV.
             </p>
           </section>
@@ -34,10 +34,10 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">2. Description du service</h2>
             <p>
-              ELSAI fournit au Client un accès, pour un nombre défini de sièges salariés, à :
+              ESLAÏ fournit au Client un accès, pour un nombre défini de sièges salariés, à :
             </p>
             <ul className="mt-3 list-disc space-y-1 pl-6">
-              <li>l'assistant social conversationnel ELSAI (chatbot supervisé) 24h/24h, 7j/7&nbsp;;</li>
+              <li>l'assistant social conversationnel ESLAÏ (chatbot supervisé) 24h/24h, 7j/7&nbsp;;</li>
               <li>des consultations humaines par des assistantes sociales diplômées, selon quota inclus dans l'offre&nbsp;;</li>
               <li>un reporting anonymisé (aucune donnée nominative)&nbsp;;</li>
               <li>un kit de communication interne.</li>
@@ -58,7 +58,7 @@ export default function Page() {
               La souscription s'effectue en ligne via le formulaire <em>/offre/souscrire</em> ou par
               devis (offre Sur mesure). À la validation du paiement, le Client reçoit par email :
               (i) les codes d'accès personnels à distribuer à ses salariés, (ii) un lien vers son
-              espace admin ELSAI, (iii) un lien vers le portail de facturation. Les codes sont
+              espace admin ESLAÏ, (iii) un lien vers le portail de facturation. Les codes sont
               strictement confidentiels&nbsp;; leur diffusion au-delà du périmètre contractuel est
               interdite.
             </p>
@@ -144,7 +144,7 @@ export default function Page() {
               Le Prestataire s'engage à ne jamais communiquer au Client l'identité des salariés
               utilisant le service, ni le contenu des échanges, même sur demande. Les codes
               d'accès sont distribués par le Client selon ses propres modalités, sans collecte
-              d'identifiant côté ELSAI. Le reporting fourni au Client est strictement agrégé et
+              d'identifiant côté ESLAÏ. Le reporting fourni au Client est strictement agrégé et
               anonymisé (taux d'usage global, grandes thématiques). Cette règle est non
               négociable&nbsp;: elle est la condition même de l'efficacité du service.
             </p>
@@ -185,7 +185,7 @@ export default function Page() {
             <p>
               Le Prestataire s'engage à une disponibilité du service d'au moins 99 % en moyenne
               mensuelle, hors maintenance programmée (annoncée 48 h à l'avance) et cas de force
-              majeure. ELSAI n'étant pas un service d'urgence, aucune garantie n'est donnée sur le
+              majeure. ESLAÏ n'étant pas un service d'urgence, aucune garantie n'est donnée sur le
               délai de réponse humaine en dehors des quotas contractuels.
             </p>
           </section>
@@ -195,7 +195,7 @@ export default function Page() {
               12. Responsabilité
             </h2>
             <p>
-              ELSAI fournit une information générale et une orientation&nbsp;; il ne se substitue
+              ESLAÏ fournit une information générale et une orientation&nbsp;; il ne se substitue
               pas à un avis juridique, médical ou à un accompagnement social professionnel. La
               responsabilité du Prestataire est limitée, tous préjudices confondus, aux sommes
               effectivement versées par le Client sur les douze (12) derniers mois. Le Prestataire

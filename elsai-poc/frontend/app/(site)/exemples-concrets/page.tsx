@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Exemples concrets",
   description:
-    "Des situations concrètes où ELSAI peut vous aider : ouverture de droits, refus de RSA, surendettement, violences, logement d'urgence.",
+    "Des situations concrètes où ESLAÏ peut vous aider : ouverture de droits, refus de RSA, surendettement, violences, logement d'urgence.",
   alternates: { canonical: "/exemples-concrets" },
 };
 
@@ -23,7 +23,7 @@ interface Case {
 const FALLBACK_CASES: Case[] = [
   {
     title: "Je ne sais pas quels sont mes droits",
-    body: "CAF, aides au logement, sécurité sociale, bourse… ELSAI fait un diagnostic de votre situation et vous oriente vers les droits auxquels vous pouvez éventuellement prétendre.",
+    body: "CAF, aides au logement, sécurité sociale, bourse… ESLAÏ fait un diagnostic de votre situation et vous oriente vers les droits auxquels vous pouvez éventuellement prétendre.",
   },
   {
     title: "On m'a refusé le RSA",
@@ -31,11 +31,11 @@ const FALLBACK_CASES: Case[] = [
   },
   {
     title: "Je ne me sens pas bien au collège ou à la maison",
-    body: "Famille, école, relations : un espace anonyme pour poser des mots. Si ELSAI perçoit un danger, elle vous orientera vers le bon interlocuteur.",
+    body: "Famille, école, relations : un espace anonyme pour poser des mots. Si ESLAÏ perçoit un danger, elle vous orientera vers le bon interlocuteur.",
   },
   {
     title: "Je ne sais pas où dormir ce soir",
-    body: "ELSAI vous explique les numéros à contacter et les démarches à engager en fonction de votre lieu de vie.",
+    body: "ESLAÏ vous explique les numéros à contacter et les démarches à engager en fonction de votre lieu de vie.",
   },
   {
     title: "J'ai des problèmes financiers importants",
@@ -43,7 +43,7 @@ const FALLBACK_CASES: Case[] = [
   },
   {
     title: "Je subis des violences",
-    body: "ELSAI vous explique les démarches que vous pouvez engager pour vous protéger, et vous oriente vers les bons interlocuteurs (3919, 119, Ligne Azur, dépôt de plainte, main courante, hébergement).",
+    body: "ESLAÏ vous explique les démarches que vous pouvez engager pour vous protéger, et vous oriente vers les bons interlocuteurs (3919, 119, Ligne Azur, dépôt de plainte, main courante, hébergement).",
   },
 ];
 
@@ -69,7 +69,7 @@ export default async function Page({
   const heroTitle = blockString(
     hero,
     "title",
-    "Des situations concrètes où ELSAI peut vous aider.",
+    "Des situations concrètes où ESLAÏ peut vous aider.",
   );
   const heroSubtitle = blockString(
     hero,

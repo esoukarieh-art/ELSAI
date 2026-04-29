@@ -205,7 +205,7 @@ def test_webhook_completed_triggers_email_send(client, db_session, stripe_config
     send_mock.assert_called_once()
     kwargs = send_mock.call_args.kwargs
     assert kwargs["to_email"] == "admin@acme.fr"
-    assert "ELSAI" in kwargs["subject"] or "elsai" in kwargs["subject"].lower()
+    assert "ESLAÏ" in kwargs["subject"] or "elsai" in kwargs["subject"].lower()
 
 
 def _make_org_with_codes(db_session, seats=3, status="active"):

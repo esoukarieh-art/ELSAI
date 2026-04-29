@@ -9,13 +9,13 @@ type Props = CTAProps & {
 
 export function CTADemoEntreprise({
   ctaLabel = "Demander une démo",
-  title = "Découvrez ELSAI pour vos équipes",
+  title = "Découvrez ESLAÏ pour vos équipes",
   href = "/b2b/demo",
 }: Props) {
   return (
     <section
       role="complementary"
-      aria-label="Demander une démo ELSAI pour votre entreprise"
+      aria-label="Demander une démo ESLAÏ pour votre entreprise"
       data-cta-component="CTADemoEntreprise"
       className="rounded-organic bg-elsai-cream p-8 md:p-10 border border-elsai-pin/10"
     >
@@ -25,13 +25,13 @@ export function CTADemoEntreprise({
             {title}
           </h2>
           <p className="mt-3 text-base text-elsai-pin/80">
-            Offrez à vos collaborateurs un accompagnement social confidentiel. Nous vous présentons ELSAI en 30 minutes, adapté à votre contexte RH.
+            Offrez à vos collaborateurs un accompagnement social confidentiel. Nous vous présentons ESLAÏ en 30 minutes, adapté à votre contexte RH.
           </p>
         </div>
         <Link
           href={href}
           className="inline-flex items-center justify-center rounded-organic bg-elsai-pin px-6 py-3 text-base font-medium text-elsai-cream transition hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2 focus-visible:ring-offset-elsai-cream"
-          aria-label={`${ctaLabel} — ELSAI entreprise`}
+          aria-label={`${ctaLabel} — ESLAÏ entreprise`}
         >
           {ctaLabel}
         </Link>

@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Aide admin — Backoffice ELSAI",
+  title: "Aide admin — Backoffice ESLAÏ",
   robots: {
     index: false,
     follow: false,

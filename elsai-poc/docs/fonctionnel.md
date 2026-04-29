@@ -1,8 +1,8 @@
-# Documentation fonctionnelle — ELSAI
+# Documentation fonctionnelle — ESLAÏ
 
 ## 1. Mission
 
-**ELSAI** est un assistant social numérique conversationnel, en français,
+**ESLAÏ** est un assistant social numérique conversationnel, en français,
 destiné à accompagner les particuliers dans leurs démarches sociales,
 administratives et personnelles. Il vise deux publics :
 
@@ -117,7 +117,7 @@ deux déclenche, le bandeau d'urgence s'affiche.
 ### Posture conversationnelle
 
 - **Empathique** : valider les émotions, ne pas minimiser
-- **Franche** : ne pas promettre ce qu'ELSAI ne peut pas tenir
+- **Franche** : ne pas promettre ce qu'ESLAÏ ne peut pas tenir
 - **Non prescriptive** : proposer des options, pas des ordres
 - **Orienter** : toujours indiquer les interlocuteurs humains pertinents
   (travailleur social, CCAS, France Services, 119, etc.)
@@ -142,7 +142,7 @@ deux déclenche, le bandeau d'urgence s'affiche.
 | "Comment faire une demande de RSA ?" | adult | Explications étapes, lien vers service-public.fr |
 | "Mes parents me frappent" | minor | Bandeau 119, posture rassurante |
 
-## 5. Ce qu'ELSAI ne fait pas (hors POC)
+## 5. Ce qu'ESLAÏ ne fait pas (hors POC)
 
 - Pas de conseil juridique engageant
 - Pas de diagnostic médical
@@ -153,7 +153,7 @@ deux déclenche, le bandeau d'urgence s'affiche.
 
 ## 6. Évolutions prévues (post-POC)
 
-Voir `project_site_vitrine.md` et `Architecture_Technique_ELSAI.docx` :
+Voir `project_site_vitrine.md` et `Architecture_Technique_ESLAÏ.docx` :
 
 - Interface vocale (Whisper + TTS) pour l'accessibilité
 - Annuaire géolocalisé CCAS / France Services
@@ -164,7 +164,7 @@ Voir `project_site_vitrine.md` et `Architecture_Technique_ELSAI.docx` :
 ## Références
 
 - Charte graphique : `project_charte_graphique.md`
-- Modèle économique : `ELSAI_Modele_Economique.docx`
-- Cahier des charges complet : `Cahier_des_charges_ELSAI.docx`
-- Prompts détaillés : `ELSAI_Prompts_Analyse_Situations.docx`
-- Simulations de dialogues : `Simulations_ELSAI.docx`
+- Modèle économique : `ESLAÏ_Modele_Economique.docx`
+- Cahier des charges complet : `Cahier_des_charges_ESLAÏ.docx`
+- Prompts détaillés : `ESLAÏ_Prompts_Analyse_Situations.docx`
+- Simulations de dialogues : `Simulations_ESLAÏ.docx`

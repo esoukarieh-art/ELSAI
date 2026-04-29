@@ -1,6 +1,6 @@
 {
-  "name": "ELSAI — Assistant social numérique",
-  "short_name": "ELSAI",
+  "name": "ESLAÏ — Assistant social numérique",
+  "short_name": "ESLAÏ",
   "description": "Permanence d'accueil numérique, anonyme et empathique. Disponible 24h/24h.",
   "start_url": "/",
   "display": "standalone",

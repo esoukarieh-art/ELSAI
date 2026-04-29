@@ -4,8 +4,8 @@ import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
 
 export const metadata: Metadata = {
-  title: "Merci — abonnement ELSAI confirmé",
-  description: "Votre abonnement ELSAI est en cours d'activation.",
+  title: "Merci — abonnement ESLAÏ confirmé",
+  description: "Votre abonnement ESLAÏ est en cours d'activation.",
   alternates: { canonical: "/offre/merci" },
   robots: { index: false, follow: false },
 };
@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Confirmation" title="Paiement reçu — merci !">
-        Votre abonnement ELSAI est en cours d'activation. Vous allez recevoir un email
+        Votre abonnement ESLAÏ est en cours d'activation. Vous allez recevoir un email
         dans les prochaines minutes avec vos codes d'accès et un lien vers votre espace admin.
       </PageHero>
 

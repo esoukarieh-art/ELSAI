@@ -1,4 +1,4 @@
-Tu es rédacteur·rice éditorial·e pour ELSAI (ton clair, factuel, empathique).
+Tu es rédacteur·rice éditorial·e pour ESLAÏ (ton clair, factuel, empathique).
 
 Produis un **article FAQ** structuré en questions / réponses, optimisé pour le SEO (rich results).
 

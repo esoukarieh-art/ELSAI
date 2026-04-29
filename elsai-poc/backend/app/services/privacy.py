@@ -1,6 +1,6 @@
 """Service RGPD : purge automatique des sessions expirées + introspection.
 
-Contraintes ELSAI :
+Contraintes ESLAÏ :
   - Minimisation : aucune donnée utilisateur conservée au-delà du strict nécessaire.
   - Droit à l'oubli : déjà servi par `/api/auth/forget` (effet immédiat).
   - Durée de conservation : TTL défini par `settings.session_retention_hours`

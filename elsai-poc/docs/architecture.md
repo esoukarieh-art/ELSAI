@@ -1,8 +1,8 @@
-# Architecture technique — ELSAI POC
+# Architecture technique — ESLAÏ POC
 
 ## 1. Vue d'ensemble
 
-ELSAI POC est un **monolithe web** composé de trois couches :
+ESLAÏ POC est un **monolithe web** composé de trois couches :
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -24,7 +24,7 @@ ELSAI POC est un **monolithe web** composé de trois couches :
 
 ### Choix de ce modèle pour le POC
 
-L'architecture cible (cf. `Architecture_Technique_ELSAI.docx`) prévoit
+L'architecture cible (cf. `Architecture_Technique_ESLAÏ.docx`) prévoit
 microservices, Kubernetes, RabbitMQ, Keycloak et PostgreSQL chiffré.
 Pour un POC destiné à **valider le concept fonctionnel**, c'est prématuré.
 
@@ -41,7 +41,7 @@ microservices sans réécriture lourde.
 | `app/` | Routes Next.js (App Router) — `page.tsx`, `chat/`, `scan/`, `dashboard/` |
 | `components/` | `ChatBubble.tsx`, `EmergencyBanner.tsx` |
 | `lib/` | Client API, helpers session |
-| `public/` | Manifest PWA, icônes, logos ELSAI |
+| `public/` | Manifest PWA, icônes, logos ESLAÏ |
 
 PWA : service worker installé, **aucun cache des endpoints API**
 (contenu utilisateur jamais persisté côté client).
@@ -204,4 +204,4 @@ CI (accessibility ≥ 95). Voir [tests E2E](../frontend/tests/e2e/README.md).
 6. Whisper STT + TTS pour interface vocale
 7. Hébergement HDS/SecNumCloud (OVH ou Scaleway)
 
-Détails complets : `Architecture_Technique_ELSAI.docx`.
+Détails complets : `Architecture_Technique_ESLAÏ.docx`.

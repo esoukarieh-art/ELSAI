@@ -5,7 +5,7 @@ import Section from "@/components/site/Section";
 export const metadata: Metadata = {
   title: "Conditions générales d'utilisation",
   description:
-    "Conditions générales d'utilisation du service ELSAI : objet, accès, limites, usage attendu et responsabilité.",
+    "Conditions générales d'utilisation du service ESLAÏ : objet, accès, limites, usage attendu et responsabilité.",
   alternates: { canonical: "/cgu" },
   robots: { index: false, follow: true },
 };
@@ -22,7 +22,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">1. Objet</h2>
             <p>
-              ELSAI est un service gratuit d'assistance conversationnelle sur les droits sociaux
+              ESLAÏ est un service gratuit d'assistance conversationnelle sur les droits sociaux
               français.
             </p>
           </section>
@@ -38,7 +38,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">3. Limites du service</h2>
             <p>
-              ELSAI fournit une information générale et une orientation. Il ne remplace pas un avis
+              ESLAÏ fournit une information générale et une orientation. Il ne remplace pas un avis
               juridique, médical, ni un accompagnement social professionnel.
             </p>
           </section>
@@ -54,7 +54,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">5. Responsabilité</h2>
             <p>
-              ELSAI s'efforce de fournir des informations à jour et exactes mais ne peut garantir
+              ESLAÏ s'efforce de fournir des informations à jour et exactes mais ne peut garantir
               l'exhaustivité ou l'applicabilité à chaque cas particulier.
             </p>
           </section>

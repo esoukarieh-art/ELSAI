@@ -60,11 +60,11 @@ const FALLBACK_SALARIES: TitleBodyItem[] = [
   { title: "Accessible 24h/24h, 7j/7", body: "Une question administrative à 22h un dimanche ? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous." },
   { title: "Anonymat total", body: "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question." },
   { title: "IA supervisée par des assistantes sociales", body: "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État." },
-  { title: "Orientation vers les services publics", body: "ELSAI ne remplace pas le service social : elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)." },
+  { title: "Orientation vers les services publics", body: "ESLAÏ ne remplace pas le service social : elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)." },
 ];
 
 const FALLBACK_ENTREPRISE: TitleBodyItem[] = [
-  { title: "Moins d'absentéisme", body: "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ELSAI aide à les résoudre plus vite." },
+  { title: "Moins d'absentéisme", body: "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite." },
   { title: "Un avantage social différenciant", body: "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT." },
   { title: "Confidentialité totale", body: "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais." },
   { title: "Coût maîtrisé", body: "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne." },
@@ -112,14 +112,14 @@ const FALLBACK_TARIFS: TarifItem[] = [
 const FALLBACK_ETAPES: EtapeItem[] = [
   { num: "01", titre: "Contrat & codes d'accès", texte: "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes." },
   { num: "02", titre: "Communication interne", texte: "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service." },
-  { num: "03", titre: "Vos salariés utilisent ELSAI", texte: "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé." },
+  { num: "03", titre: "Vos salariés utilisent ESLAÏ", texte: "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé." },
 ];
 
 const FALLBACK_FAQ: FaqItem[] = [
   { question: "Comment est garantie la confidentialité vis-à-vis de l'employeur ?", answer: "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global)." },
   { question: "Où sont hébergées les données ?", answer: "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique." },
-  { question: "Quelle est la différence avec un EAP (Employee Assistance Program) classique ?", answer: "Les EAP sont centrés sur le soutien psychologique. ELSAI est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire." },
-  { question: "Que se passe-t-il si un salarié a besoin d'un suivi long ?", answer: "ELSAI est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)." },
+  { question: "Quelle est la différence avec un EAP (Employee Assistance Program) classique ?", answer: "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire." },
+  { question: "Que se passe-t-il si un salarié a besoin d'un suivi long ?", answer: "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)." },
   { question: "Comment se passe la facturation ?", answer: "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable." },
   { question: "Peut-on tester avant de s'engager ?", answer: "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large." },
 ];
@@ -177,7 +177,7 @@ export default async function Page({
   const heroSubtitle = blockString(
     hero,
     "subtitle",
-    "ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, à partir de 3 € par salarié et par mois.",
+    "ESLAÏ équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, à partir de 3 € par salarié et par mois.",
   );
 
   const constatEyebrow = blockString(constat, "eyebrow", "Le constat");
@@ -303,7 +303,7 @@ export default async function Page({
           </Link>
           <a
             href="/api/plaquette"
-            download="ELSAI-offre-entreprises.pdf"
+            download="ESLAÏ-offre-entreprises.pdf"
             className="text-elsai-pin-dark hover:bg-elsai-pin/5 rounded-organic border-elsai-pin/30 inline-flex items-center gap-2 border px-5 py-3 text-sm font-semibold"
           >
             Télécharger la plaquette (PDF)
@@ -483,7 +483,7 @@ export default async function Page({
             Comparatif
           </p>
           <h2 className="text-elsai-pin-dark mt-3 font-serif text-3xl md:text-4xl">
-            ELSAI vs les alternatives du marché.
+            ESLAÏ vs les alternatives du marché.
           </h2>
           <p className="text-elsai-ink/85 mt-5 leading-relaxed">
             Nous ne prétendons pas remplacer les services sociaux publics ni les EAP.
@@ -499,7 +499,7 @@ export default async function Page({
                   Critère
                 </th>
                 <th className="bg-elsai-pin text-elsai-creme rounded-t-organic py-3 text-center text-xs font-semibold tracking-wider uppercase">
-                  ELSAI
+                  ESLAÏ
                 </th>
                 <th className="text-elsai-ink/70 py-3 text-center text-xs font-semibold tracking-wider uppercase">
                   Services publics
@@ -570,7 +570,7 @@ export default async function Page({
             Bientôt, les premières entreprises partenaires.
           </h2>
           <p className="text-elsai-ink/85 mt-4 leading-relaxed">
-            ELSAI est en phase de lancement. Nous constituons actuellement notre premier cercle
+            ESLAÏ est en phase de lancement. Nous constituons actuellement notre premier cercle
             d'entreprises pionnières sur une phase pilote de 3 mois, avec des conditions préférentielles.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -600,7 +600,7 @@ export default async function Page({
             Ce que vous ne verrez jamais
           </p>
           <h2 className="text-elsai-pin-dark mt-3 font-serif text-2xl md:text-3xl">
-            L'identité de vos salariés qui utilisent ELSAI.
+            L'identité de vos salariés qui utilisent ESLAÏ.
           </h2>
           <p className="text-elsai-ink/85 mt-4 leading-relaxed">
             La confidentialité est au cœur du service. Vous ne saurez jamais qui consulte, sur

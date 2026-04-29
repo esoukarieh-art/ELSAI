@@ -1,4 +1,4 @@
-"""Admin API pour les LeadMagnets ELSAI (P0.7).
+"""Admin API pour les LeadMagnets ESLAÏ (P0.7).
 
 CRUD simple : liste, créer, modifier, supprimer (hard delete — peu de données),
 activer. MVP : pas d'upload fichier, seulement URL externe (ou path static

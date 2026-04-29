@@ -2,7 +2,7 @@
 
 Flow subscribe :
   1. Hash email (SHA-256 + jwt_secret comme salt) — RGPD : pas de PII en clair
-     côté ELSAI, la source de vérité email reste Brevo.
+     côté ESLAÏ, la source de vérité email reste Brevo.
   2. Idempotence via email_hash unique.
   3. Sync contact Brevo (best effort : si Brevo indispo, subscriber créé quand
      même côté DB pour reconciliation manuelle).

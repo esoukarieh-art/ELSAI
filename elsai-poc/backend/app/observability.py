@@ -1,6 +1,6 @@
 """Observabilité : logs JSON structurés + correlation ID + Sentry (optionnel).
 
-Contraintes ELSAI :
+Contraintes ESLAÏ :
   - Anonymat : aucune donnée utilisateur (contenu message, email, nom) ne doit
     apparaître dans les logs. On logue seulement profil, flags, signaux, IDs.
   - `send_default_pii=False` côté Sentry.

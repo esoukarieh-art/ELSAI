@@ -31,7 +31,7 @@ _INITIAL_POST = {
     "tags": ["Non-recours", "DREES", "Droits sociaux"],
     "reading_minutes": 8,
     "date": "2026-04-17",
-    "author_display": "L'équipe ELSAI",
+    "author_display": "L'équipe ESLAÏ",
 }
 
 _INITIAL_MDX = """# {title}
@@ -156,12 +156,12 @@ def seed_content(db: Session) -> None:
         db.add(
             PageContent(
                 page_key="home",
-                title="ELSAI – Assistant social numérique",
+                title="ESLAÏ – Assistant social numérique",
                 blocks_json=json.dumps(default_blocks_for("home"), ensure_ascii=False),
                 audience="all",
                 status="published",
                 published_at=datetime.now(UTC),
-                seo_title="ELSAI — Service social numérique de premier accueil",
+                seo_title="ESLAÏ — Service social numérique de premier accueil",
                 seo_description=(
                     "Assistant social numérique qui répond à vos questions "
                     "administratives, sociales, familiales ou juridiques. "
@@ -174,27 +174,27 @@ def seed_content(db: Session) -> None:
     other_pages: list[dict] = [
         {
             "page_key": "pour-qui",
-            "title": "ELSAI – Pour qui ?",
+            "title": "ESLAÏ – Pour qui ?",
             "seo_title": "Pour qui ? Adultes, 12-18 ans & employeurs",
             "seo_description": (
-                "ELSAI accompagne trois publics : les adultes (CAF, impôts, logement, "
+                "ESLAÏ accompagne trois publics : les adultes (CAF, impôts, logement, "
                 "MDPH…), les mineurs de 12 à 18 ans avec un protocole de sécurité, et "
                 "les employeurs qui souhaitent équiper leurs salariés."
             ),
         },
         {
             "page_key": "comment-ca-marche",
-            "title": "ELSAI – Comment ça marche",
+            "title": "ESLAÏ – Comment ça marche",
             "seo_title": "Comment ça marche",
             "seo_description": (
-                "Le fonctionnement d'ELSAI en 4 étapes : vous posez votre question, "
-                "ELSAI comprend, vous guide étape par étape, vous gardez la main sur "
+                "Le fonctionnement d'ESLAÏ en 4 étapes : vous posez votre question, "
+                "ESLAÏ comprend, vous guide étape par étape, vous gardez la main sur "
                 "vos données."
             ),
         },
         {
             "page_key": "ethique",
-            "title": "ELSAI – Éthique & confidentialité",
+            "title": "ESLAÏ – Éthique & confidentialité",
             "seo_title": "Éthique & confidentialité",
             "seo_description": (
                 "Anonymat par défaut, droit à l'oubli, hébergement en France, "
@@ -204,36 +204,36 @@ def seed_content(db: Session) -> None:
         },
         {
             "page_key": "faq",
-            "title": "ELSAI – FAQ",
+            "title": "ESLAÏ – FAQ",
             "seo_title": "Questions fréquentes",
             "seo_description": (
-                "Réponses aux questions fréquentes sur ELSAI : anonymat, fiabilité "
+                "Réponses aux questions fréquentes sur ESLAÏ : anonymat, fiabilité "
                 "des réponses, données personnelles, situations d'urgence, "
                 "accompagnement humain."
             ),
         },
         {
             "page_key": "contact",
-            "title": "ELSAI – Contact",
+            "title": "ESLAÏ – Contact",
             "seo_title": "Contact",
             "seo_description": (
                 "Une question sur le projet, un partenariat, une offre entreprise, une "
-                "remarque ? Écrivez-nous. ELSAI est un projet à taille humaine et "
+                "remarque ? Écrivez-nous. ESLAÏ est un projet à taille humaine et "
                 "chaque message est lu."
             ),
         },
         {
             "page_key": "exemples-concrets",
-            "title": "ELSAI – Exemples concrets",
+            "title": "ESLAÏ – Exemples concrets",
             "seo_title": "Exemples concrets",
             "seo_description": (
-                "Des situations concrètes où ELSAI peut vous aider : ouverture de "
+                "Des situations concrètes où ESLAÏ peut vous aider : ouverture de "
                 "droits, refus de RSA, surendettement, violences, logement d'urgence."
             ),
         },
         {
             "page_key": "offre",
-            "title": "ELSAI – Offre entreprises",
+            "title": "ESLAÏ – Offre entreprises",
             "seo_title": "Offre entreprises — Un service social pour vos salariés",
             "seo_description": (
                 "Offrez à vos équipes un accueil social confidentiel, disponible "
@@ -243,10 +243,10 @@ def seed_content(db: Session) -> None:
         },
         {
             "page_key": "partenariats",
-            "title": "ELSAI – Partenariats",
+            "title": "ESLAÏ – Partenariats",
             "seo_title": "Partenariats — Construisons l'impact ensemble",
             "seo_description": (
-                "ELSAI se déploie en complémentarité des services sociaux publics. "
+                "ESLAÏ se déploie en complémentarité des services sociaux publics. "
                 "CCAS, collectivités, associations, France Services : construisons "
                 "ensemble un relais numérique utile à vos usagers."
             ),

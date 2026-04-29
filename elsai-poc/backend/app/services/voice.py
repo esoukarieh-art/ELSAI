@@ -1,7 +1,7 @@
 """Interface vocale — Whisper STT + TTS via OpenAI.
 
 Abstrait volontairement derrière deux fonctions pour pouvoir basculer
-plus tard vers faster-whisper + Piper en local (cf. éthique ELSAI).
+plus tard vers faster-whisper + Piper en local (cf. éthique ESLAÏ).
 """
 from __future__ import annotations
 

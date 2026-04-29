@@ -19,8 +19,8 @@ export function CTAScanDocument({
     : "Scannez un courrier ou un document";
 
   const defaultHint = isMinor
-    ? "PDF, JPG ou PNG — ELSAI t'explique ce que ça veut dire."
-    : "PDF, JPG ou PNG — ELSAI vous explique ce que cela signifie.";
+    ? "PDF, JPG ou PNG — ESLAÏ t'explique ce que ça veut dire."
+    : "PDF, JPG ou PNG — ESLAÏ vous explique ce que cela signifie.";
 
   const ariaLabel = isMinor
     ? "Importer un document à analyser"

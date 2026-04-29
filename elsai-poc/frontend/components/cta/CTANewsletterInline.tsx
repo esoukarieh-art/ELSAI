@@ -118,7 +118,7 @@ export function CTANewsletterInline({
             className="mt-1 focus-visible:ring-2 focus-visible:ring-elsai-pin"
           />
           <span>
-            J&apos;accepte de recevoir des emails d&apos;ELSAI. Je peux me désabonner à tout moment.
+            J&apos;accepte de recevoir des emails d&apos;ESLAÏ. Je peux me désabonner à tout moment.
           </span>
         </label>
         {errorMsg && (

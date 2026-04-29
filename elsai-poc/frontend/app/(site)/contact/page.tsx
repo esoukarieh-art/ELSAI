@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Une question sur le projet, un partenariat, une offre entreprise, une remarque ? Écrivez-nous. ELSAI est un projet à taille humaine et chaque message est lu.",
+    "Une question sur le projet, un partenariat, une offre entreprise, une remarque ? Écrivez-nous. ESLAÏ est un projet à taille humaine et chaque message est lu.",
   alternates: { canonical: "/contact" },
 };
 
@@ -30,7 +30,7 @@ const SUJETS: { value: string; label: string }[] = [
 
 const MESSAGE_PRESETS: Record<string, string> = {
   "offre-entreprise":
-    "Bonjour,\n\nJe souhaite recevoir des informations sur l'offre ELSAI pour les entreprises.\n\nEffectif de notre structure : \nSecteur d'activité : \nBesoin principal : \n\nMerci.",
+    "Bonjour,\n\nJe souhaite recevoir des informations sur l'offre ESLAÏ pour les entreprises.\n\nEffectif de notre structure : \nSecteur d'activité : \nBesoin principal : \n\nMerci.",
   "offre-essentiel":
     "Bonjour,\n\nJe suis intéressé·e par l'offre Essentiel à 3 €/salarié/mois.\n\nNombre de salariés concernés : \nDate souhaitée de mise en place : \n\nMerci.",
   "offre-premium":
@@ -38,7 +38,7 @@ const MESSAGE_PRESETS: Record<string, string> = {
   "offre-sur-mesure":
     "Bonjour,\n\nNous sommes une structure de plus de 500 salariés et souhaitons étudier une offre sur mesure.\n\nEffectif : \nContraintes particulières (SIRH, multi-sites, etc.) : \n\nMerci.",
   "partenariat-institutionnel":
-    "Bonjour,\n\nNous représentons une structure publique/associative et souhaitons explorer un partenariat avec ELSAI.\n\nStructure : \nTerritoire : \nBesoin identifié : \n\nMerci.",
+    "Bonjour,\n\nNous représentons une structure publique/associative et souhaitons explorer un partenariat avec ESLAÏ.\n\nStructure : \nTerritoire : \nBesoin identifié : \n\nMerci.",
 };
 
 const INPUT_CLASS =
@@ -130,7 +130,7 @@ export default async function Page({ searchParams }: Props) {
   const difficultyBody = blockString(
     asideDifficulty,
     "body",
-    "Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous sur le service ELSAI (/start) — anonyme et disponible 24/7.",
+    "Cette page n'est pas un service d'assistance. Pour une demande d'aide, rendez-vous sur le service ESLAÏ (/start) — anonyme et disponible 24/7.",
   );
 
   const urgenceTitle = blockString(asideUrgence, "title", "Urgence vitale");

@@ -20,9 +20,9 @@ export default function SiteHeader() {
   return (
     <header className="bg-elsai-creme/90 border-elsai-pin/10 sticky top-0 z-40 border-b backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="ELSAI — accueil">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="ESLAÏ — accueil">
           <Image src="/logo-elsai.svg" alt="" width={36} height={36} loading="eager" />
-          <span className="text-elsai-pin-dark text-lg font-semibold tracking-tight">ELSAI</span>
+          <span className="text-elsai-pin-dark text-lg font-semibold tracking-tight">ESLAÏ</span>
         </Link>
 
         <nav aria-label="Principale" className="hidden items-center gap-1 lg:flex">

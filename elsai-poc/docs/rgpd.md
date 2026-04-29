@@ -1,11 +1,11 @@
-# Conformité RGPD — ELSAI PoC
+# Conformité RGPD — ESLAÏ PoC
 
 Ce document décrit les mesures techniques et organisationnelles qui garantissent
-le respect du RGPD et de la Loi Informatique et Libertés pour le PoC ELSAI.
+le respect du RGPD et de la Loi Informatique et Libertés pour le PoC ESLAÏ.
 
 ## 1. Principes directeurs
 
-| Principe RGPD | Mise en œuvre ELSAI |
+| Principe RGPD | Mise en œuvre ESLAÏ |
 |---|---|
 | **Minimisation** (art. 5.1.c) | Aucun nom, email, téléphone, adresse IP ou user-agent stocké. Profil = `adult`/`minor` uniquement. |
 | **Limitation de conservation** (art. 5.1.e) | Session inactive purgée après `SESSION_RETENTION_HOURS` (défaut : 24h). Oubli immédiat sur demande. |
@@ -18,9 +18,9 @@ le respect du RGPD et de la Loi Informatique et Libertés pour le PoC ELSAI.
 
 | Traitement | Finalité | Base légale | Données | Destinataires | Durée |
 |---|---|---|---|---|---|
-| Conversation anonyme | Assistance sociale | Intérêt légitime (art. 6.1.f) — tâche d'intérêt général | Profil, messages, flags danger | Serveur ELSAI uniquement | 24h inactivité ou oubli immédiat |
+| Conversation anonyme | Assistance sociale | Intérêt légitime (art. 6.1.f) — tâche d'intérêt général | Profil, messages, flags danger | Serveur ESLAÏ uniquement | 24h inactivité ou oubli immédiat |
 | Détection danger → CTA 119/3114 | Protection des personnes | Obligation légale (art. 6.1.c) — signalement non-contraignant | Flag + signaux heuristiques + CTA routé | Logs d'audit serveur | 30 jours (à configurer) |
-| Métriques dashboard | Pilotage PoC | Intérêt légitime | Compteurs anonymes agrégés (`MetricEvent`) | Équipe ELSAI (admin token) | Durée du PoC |
+| Métriques dashboard | Pilotage PoC | Intérêt légitime | Compteurs anonymes agrégés (`MetricEvent`) | Équipe ESLAÏ (admin token) | Durée du PoC |
 
 ## 3. Cartographie des données
 
@@ -55,7 +55,7 @@ accord de sous-traitance (DPA).
 
 ## 5. Mineurs (art. 8 + loi 2018-493)
 
-ELSAI est accessible aux mineurs 12-18 ans **sans consentement parental** en
+ESLAÏ est accessible aux mineurs 12-18 ans **sans consentement parental** en
 s'appuyant sur l'intérêt légitime (tâche d'intérêt général) et la doctrine
 CNIL sur les lignes d'écoute anonymes (cf. 119). L'anonymat est la garantie
 centrale :

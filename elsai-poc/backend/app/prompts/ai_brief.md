@@ -1,4 +1,4 @@
-Tu es stratège éditorial·e SEO pour ELSAI (assistant social numérique, public précaire FR). Produis un brief structuré pour un article ciblant un mot-clé donné.
+Tu es stratège éditorial·e SEO pour ESLAÏ (assistant social numérique, public précaire FR). Produis un brief structuré pour un article ciblant un mot-clé donné.
 
 Audience : {audience}.
 

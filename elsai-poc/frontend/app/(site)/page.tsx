@@ -11,12 +11,12 @@ import {
 } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
-  title: "ELSAI — Service social numérique de premier accueil",
+  title: "ESLAÏ — Service social numérique de premier accueil",
   description:
     "Assistant social numérique qui répond à vos questions administratives, sociales, familiales ou juridiques. Anonymement, sans rendez-vous, sans jugement. CAF, logement, emploi, MDPH, jeunes 12-18 ans.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "ELSAI — Service social numérique de premier accueil",
+    title: "ESLAÏ — Service social numérique de premier accueil",
     description:
       "Assistant social numérique qui répond à vos questions administratives, sociales, familiales ou juridiques. Anonymement, sans rendez-vous, sans jugement.",
     url: "/",
@@ -161,7 +161,7 @@ export default async function HomePage({
   const employerTitle = blockString(
     employer,
     "title",
-    "Offrez ELSAI à vos salariés, à partir de 3 € par mois.",
+    "Offrez ESLAÏ à vos salariés, à partir de 3 € par mois.",
   );
   const employerBody = blockString(
     employer,

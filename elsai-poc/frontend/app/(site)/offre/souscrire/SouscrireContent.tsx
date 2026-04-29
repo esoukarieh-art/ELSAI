@@ -62,7 +62,7 @@ export default function SouscrireContent() {
 
   return (
     <>
-      <PageHero eyebrow="Souscription" title="Finalisez votre abonnement ELSAI">
+      <PageHero eyebrow="Souscription" title="Finalisez votre abonnement ESLAÏ">
         Votre paiement est traité par Stripe. Après validation, vous recevez immédiatement
         vos codes d'accès par email.
       </PageHero>

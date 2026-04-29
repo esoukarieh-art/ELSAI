@@ -7,9 +7,9 @@ import { SITE_URL } from "@/lib/seo";
 
 export const revalidate = 60;
 
-const TITLE = "Centre d'aide ELSAI — guide d'utilisation";
+const TITLE = "Centre d'aide ESLAÏ — guide d'utilisation";
 const DESCRIPTION =
-  "Apprenez à utiliser ELSAI : discuter, dicter à la voix, scanner une lettre administrative, installer l'application, effacer vos données. Assistant social IA anonyme et gratuit.";
+  "Apprenez à utiliser ESLAÏ : discuter, dicter à la voix, scanner une lettre administrative, installer l'application, effacer vos données. Assistant social IA anonyme et gratuit.";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -34,7 +34,7 @@ const GROUPS: { key: string; title: string; description: string; slugs: string[]
   {
     key: "demarrer",
     title: "Démarrer",
-    description: "Les bases pour bien commencer avec ELSAI.",
+    description: "Les bases pour bien commencer avec ESLAÏ.",
     slugs: ["demarrer", "poser-une-question", "installer-sur-mobile"],
   },
   {
@@ -98,7 +98,7 @@ export default async function AideHubPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <PageHero eyebrow="Centre d'aide" title="Comment utiliser ELSAI">
+      <PageHero eyebrow="Centre d'aide" title="Comment utiliser ESLAÏ">
         Guides courts et concrets pour tirer le meilleur parti de votre assistant social
         anonyme. Chaque page va droit au but.
       </PageHero>

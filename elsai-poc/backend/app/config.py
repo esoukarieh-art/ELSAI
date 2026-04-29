@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     # Brevo (ex-Sendinblue) — email transactionnel
     brevo_api_key: str = ""
     brevo_sender_email: str = "no-reply@elsai.fr"
-    brevo_sender_name: str = "ELSAI"
+    brevo_sender_name: str = "ESLAÏ"
     # URL de base du frontend pour construire les liens dans les emails
     frontend_base_url: str = "http://localhost:3000"
 

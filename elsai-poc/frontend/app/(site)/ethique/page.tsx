@@ -28,7 +28,7 @@ const FALLBACK_PRINCIPLES: Principle[] = [
   },
   {
     title: "Anonymat par défaut",
-    body: "Aucun nom, aucun email, aucune adresse. Vous pouvez utiliser ELSAI sans créer de compte. Votre seul identifiant est une session temporaire.",
+    body: "Aucun nom, aucun email, aucune adresse. Vous pouvez utiliser ESLAÏ sans créer de compte. Votre seul identifiant est une session temporaire.",
   },
   {
     title: "Droit à l'oubli instantané",
@@ -40,15 +40,15 @@ const FALLBACK_PRINCIPLES: Principle[] = [
   },
   {
     title: "Transparence sur les limites",
-    body: "ELSAI dit ce qu'il ne sait pas. Il n'invente pas de droits, ne promet rien, n'imite pas un professionnel humain.",
+    body: "ESLAÏ dit ce qu'il ne sait pas. Il n'invente pas de droits, ne promet rien, n'imite pas un professionnel humain.",
   },
   {
     title: "Conçu par une assistante sociale diplômée",
-    body: "ELSAI a été pensé et co-conçu par une assistante sociale diplômée d'État, pour garantir la justesse de la posture, du vocabulaire et des orientations.",
+    body: "ESLAÏ a été pensé et co-conçu par une assistante sociale diplômée d'État, pour garantir la justesse de la posture, du vocabulaire et des orientations.",
   },
   {
     title: "Pas de profilage, pas de pub",
-    body: "ELSAI est un projet d'intérêt général. Aucun ciblage publicitaire, aucun tracker, aucun cookie non-essentiel.",
+    body: "ESLAÏ est un projet d'intérêt général. Aucun ciblage publicitaire, aucun tracker, aucun cookie non-essentiel.",
   },
 ];
 
@@ -77,7 +77,7 @@ export default async function Page({
   const heroSubtitle = blockString(
     hero,
     "subtitle",
-    "ELSAI a été conçu pour des publics vulnérables. Chaque décision technique a été guidée par ce principe.",
+    "ESLAÏ a été conçu pour des publics vulnérables. Chaque décision technique a été guidée par ce principe.",
   );
 
   const principles = blockList<Principle>(
@@ -100,12 +100,12 @@ export default async function Page({
   const bizBody2 = blockString(
     biz,
     "body2",
-    "Le fonctionnement de la plateforme est financé par des entreprises clientes qui souscrivent un abonnement pour offrir ELSAI à leurs salariés, ainsi que par des subventions et fonds dédiés à l'économie sociale et solidaire (BPI, fonds ESS, appels à projets publics).",
+    "Le fonctionnement de la plateforme est financé par des entreprises clientes qui souscrivent un abonnement pour offrir ESLAÏ à leurs salariés, ainsi que par des subventions et fonds dédiés à l'économie sociale et solidaire (BPI, fonds ESS, appels à projets publics).",
   );
   const bizBody3 = blockString(
     biz,
     "body3",
-    "ELSAI est porté par une SAS en cours d'agrément ESUS (Entreprise Solidaire d'Utilité Sociale), un statut reconnu par l'État qui engage l'entreprise sur un objectif d'intérêt général.",
+    "ESLAÏ est porté par une SAS en cours d'agrément ESUS (Entreprise Solidaire d'Utilité Sociale), un statut reconnu par l'État qui engage l'entreprise sur un objectif d'intérêt général.",
   );
   const bizLinkLabel = blockString(biz, "link_label", "Voir l'offre entreprises");
   const bizLinkHref = blockString(biz, "link_href", "/offre");
@@ -114,7 +114,7 @@ export default async function Page({
   const postureBody1 = blockString(
     posture,
     "body1",
-    "ELSAI parle empathiquement, mais aussi franchement. Si un droit n'existe pas, on vous le dit. Si une démarche est complexe, on ne le cache pas. Si ELSAI ne sait pas, il le dit aussi.",
+    "ESLAÏ parle empathiquement, mais aussi franchement. Si un droit n'existe pas, on vous le dit. Si une démarche est complexe, on ne le cache pas. Si ESLAÏ ne sait pas, il le dit aussi.",
   );
   const postureBody2 = blockString(
     posture,
@@ -124,7 +124,7 @@ export default async function Page({
   const postureBody3 = blockString(
     posture,
     "body3",
-    "ELSAI n'est pas un substitut à un travailleur social humain. C'est un sas, une première porte, un repère quand les permanences sont fermées.",
+    "ESLAÏ n'est pas un substitut à un travailleur social humain. C'est un sas, une première porte, un repère quand les permanences sont fermées.",
   );
 
   return (

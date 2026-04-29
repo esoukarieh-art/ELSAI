@@ -235,7 +235,7 @@ _HOME_DEFAULT_BLOCKS: list[dict[str, Any]] = [
     {
         "type": "employer",
         "eyebrow": "Vous êtes employeur ?",
-        "title": "Offrez ELSAI à vos salariés, à partir de 3 € par mois.",
+        "title": "Offrez ESLAÏ à vos salariés, à partir de 3 € par mois.",
         "body": (
             "Un avantage social concret, 100% confidentiel, qui soulage vos "
             "équipes sur leurs démarches personnelles — sans créer de service "
@@ -348,7 +348,7 @@ _POUR_QUI_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Pour qui\u00a0?",
         "title": "Trois parcours, une même promesse\u00a0: personne ne reste seul.",
         "subtitle": (
-            "ELSAI parle différemment aux adultes, aux jeunes et aux entreprises qui "
+            "ESLAÏ parle différemment aux adultes, aux jeunes et aux entreprises qui "
             "veulent équiper leurs salariés. Chacun avec la bonne posture."
         ),
     },
@@ -383,7 +383,7 @@ _POUR_QUI_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             "Vouvoiement par défaut, tutoiement si vous préférez. Espace bienveillant. "
             "On ne dit rien à vos parents — sauf si vous êtes en danger."
         ),
-        "cta_label": "Parler à ELSAI →",
+        "cta_label": "Parler à ESLAÏ →",
         "cta_href": "/start",
         "heading": "Vous pouvez nous parler de…",
         "items": [
@@ -398,7 +398,7 @@ _POUR_QUI_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         ],
         "danger_title": "Si vous êtes en danger maintenant\u00a0:",
         "danger_body": (
-            "Appelez le 119 (Enfance en danger, 24h/24h, gratuit, anonyme). ELSAI vous "
+            "Appelez le 119 (Enfance en danger, 24h/24h, gratuit, anonyme). ESLAÏ vous "
             "le rappellera aussi si besoin."
         ),
     },
@@ -469,7 +469,7 @@ COMMENT_CA_MARCHE_SCHEMA: dict[str, Any] = {
         },
         {
             "key": "capabilities",
-            "label": "Ce qu'ELSAI fait / ne fait pas",
+            "label": "Ce qu'ESLAÏ fait / ne fait pas",
             "max": 1,
             "fields": [
                 {"key": "title", "label": "Titre de section", "type": "text"},
@@ -525,17 +525,17 @@ _COMMENT_CA_MARCHE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             },
             {
                 "number": "02",
-                "title": "ELSAI reformule et vous oriente",
+                "title": "ESLAÏ reformule et vous oriente",
                 "body": (
                     "On vous répond clairement, avec des étapes concrètes et des liens "
-                    "utiles. On vous dit aussi ce qu'ELSAI ne peut pas faire."
+                    "utiles. On vous dit aussi ce qu'ESLAÏ ne peut pas faire."
                 ),
             },
             {
                 "number": "03",
                 "title": "Vous décidez, vous gardez la main",
                 "body": (
-                    "Vous pouvez poursuivre avec ELSAI, appeler un numéro, ou aller "
+                    "Vous pouvez poursuivre avec ESLAÏ, appeler un numéro, ou aller "
                     "rencontrer un travailleur social."
                 ),
             },
@@ -551,8 +551,8 @@ _COMMENT_CA_MARCHE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
     },
     {
         "type": "capabilities",
-        "title": "Ce qu'ELSAI fait — et ce qu'il ne fait pas",
-        "can_title": "✓ ELSAI peut",
+        "title": "Ce qu'ESLAÏ fait — et ce qu'il ne fait pas",
+        "can_title": "✓ ESLAÏ peut",
         "can_items": [
             {"label": "Expliquer un courrier administratif (CAF, CPAM, impôts, banque…)"},
             {"label": "Vous indiquer quels droits vous pouvez ouvrir"},
@@ -560,7 +560,7 @@ _COMMENT_CA_MARCHE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {"label": "Trouver le service social ou la Maison France Services la plus proche de chez vous"},
             {"label": "Vous orienter vers des numéros ou des lieux d'urgence"},
         ],
-        "cant_title": "✗ ELSAI ne peut pas",
+        "cant_title": "✗ ESLAÏ ne peut pas",
         "cant_items": [
             {"label": "Remplacer un travailleur social humain"},
             {"label": "Effectuer une démarche à votre place"},
@@ -645,7 +645,7 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Notre éthique",
         "title": "Vous comptez plus que vos données.",
         "subtitle": (
-            "ELSAI a été conçu pour des publics vulnérables. Chaque décision technique "
+            "ESLAÏ a été conçu pour des publics vulnérables. Chaque décision technique "
             "a été guidée par ce principe."
         ),
     },
@@ -664,7 +664,7 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "title": "Anonymat par défaut",
                 "body": (
-                    "Aucun nom, aucun email, aucune adresse. Vous pouvez utiliser ELSAI "
+                    "Aucun nom, aucun email, aucune adresse. Vous pouvez utiliser ESLAÏ "
                     "sans créer de compte. Votre seul identifiant est une session "
                     "temporaire."
                 ),
@@ -686,14 +686,14 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "title": "Transparence sur les limites",
                 "body": (
-                    "ELSAI dit ce qu'il ne sait pas. Il n'invente pas de droits, ne "
+                    "ESLAÏ dit ce qu'il ne sait pas. Il n'invente pas de droits, ne "
                     "promet rien, n'imite pas un professionnel humain."
                 ),
             },
             {
                 "title": "Conçu par une assistante sociale diplômée",
                 "body": (
-                    "ELSAI a été pensé et co-conçu par une assistante sociale diplômée "
+                    "ESLAÏ a été pensé et co-conçu par une assistante sociale diplômée "
                     "d'État, pour garantir la justesse de la posture, du vocabulaire et "
                     "des orientations."
                 ),
@@ -701,7 +701,7 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "title": "Pas de profilage, pas de pub",
                 "body": (
-                    "ELSAI est un projet d'intérêt général. Aucun ciblage publicitaire, "
+                    "ESLAÏ est un projet d'intérêt général. Aucun ciblage publicitaire, "
                     "aucun tracker, aucun cookie non-essentiel."
                 ),
             },
@@ -719,12 +719,12 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         ),
         "body2": (
             "Le fonctionnement de la plateforme est financé par des entreprises clientes "
-            "qui souscrivent un abonnement pour offrir ELSAI à leurs salariés, ainsi "
+            "qui souscrivent un abonnement pour offrir ESLAÏ à leurs salariés, ainsi "
             "que par des subventions et fonds dédiés à l'économie sociale et solidaire "
             "(BPI, fonds ESS, appels à projets publics)."
         ),
         "body3": (
-            "ELSAI est porté par une SAS en cours d'agrément ESUS (Entreprise Solidaire "
+            "ESLAÏ est porté par une SAS en cours d'agrément ESUS (Entreprise Solidaire "
             "d'Utilité Sociale), un statut reconnu par l'État qui engage l'entreprise "
             "sur un objectif d'intérêt général."
         ),
@@ -735,9 +735,9 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "type": "posture",
         "title": "Notre posture éditoriale",
         "body1": (
-            "ELSAI parle empathiquement, mais aussi franchement. Si un droit n'existe "
+            "ESLAÏ parle empathiquement, mais aussi franchement. Si un droit n'existe "
             "pas, on vous le dit. Si une démarche est complexe, on ne le cache pas. Si "
-            "ELSAI ne sait pas, il le dit aussi."
+            "ESLAÏ ne sait pas, il le dit aussi."
         ),
         "body2": (
             "Nous refusons la posture du «\u00a0coach motivationnel\u00a0» qui voudrait "
@@ -745,7 +745,7 @@ _ETHIQUE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             "sont un labyrinthe administratif — on peut vous y aider, pas le réécrire."
         ),
         "body3": (
-            "ELSAI n'est pas un substitut à un travailleur social humain. C'est un sas, "
+            "ESLAÏ n'est pas un substitut à un travailleur social humain. C'est un sas, "
             "une première porte, un repère quand les permanences sont fermées."
         ),
     },
@@ -800,7 +800,7 @@ _FAQ_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "type": "faq",
         "items": [
             {
-                "question": "ELSAI, c'est gratuit\u00a0?",
+                "question": "ESLAÏ, c'est gratuit\u00a0?",
                 "answer": (
                     "Oui, totalement pour les particuliers. Sans palier payant, sans "
                     "abonnement, sans publicité, sans vente de données. Le service est "
@@ -827,9 +827,9 @@ _FAQ_DEFAULT_BLOCKS: list[dict[str, Any]] = [
                 ),
             },
             {
-                "question": "Est-ce qu'ELSAI remplace un travailleur social\u00a0?",
+                "question": "Est-ce qu'ESLAÏ remplace un travailleur social\u00a0?",
                 "answer": (
-                    "Non. ELSAI est un premier point de contact\u00a0: il vous aide à y "
+                    "Non. ESLAÏ est un premier point de contact\u00a0: il vous aide à y "
                     "voir clair, à comprendre vos droits, à préparer une démarche. Pour "
                     "un accompagnement approfondi, un humain (CCAS, France Services, "
                     "assistante sociale) reste indispensable."
@@ -838,7 +838,7 @@ _FAQ_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "question": "Est-ce fiable\u00a0? Comment savoir si l'info est juste\u00a0?",
                 "answer": (
-                    "ELSAI s'appuie sur des sources officielles françaises "
+                    "ESLAÏ s'appuie sur des sources officielles françaises "
                     "(service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il "
                     "vous dit «\u00a0je ne suis pas sûr\u00a0» et vous oriente vers la "
                     "source humaine adaptée."
@@ -847,7 +847,7 @@ _FAQ_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "question": "J'ai moins de 18 ans, est-ce que mes parents peuvent savoir\u00a0?",
                 "answer": (
-                    "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00a0: "
+                    "Non. ESLAÏ est anonyme, même pour les mineurs. Seule exception\u00a0: "
                     "si vous êtes en danger grave, nous vous orienterons fermement vers "
                     "le 119 — mais ce sont eux qui gèrent le relais, pas nous."
                 ),
@@ -855,13 +855,13 @@ _FAQ_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "question": "Et si je veux parler à un humain\u00a0?",
                 "answer": (
-                    "ELSAI vous donne les coordonnées du CCAS, de France Services ou de "
+                    "ESLAÏ vous donne les coordonnées du CCAS, de France Services ou de "
                     "l'association la plus proche de chez vous. Il peut aussi vous aider "
                     "à appeler un numéro d'urgence si vous le souhaitez."
                 ),
             },
             {
-                "question": "Qui est derrière ELSAI\u00a0?",
+                "question": "Qui est derrière ESLAÏ\u00a0?",
                 "answer": (
                     "Un collectif d'acteurs du travail social et du numérique d'intérêt "
                     "général. Plus d'infos sur la page Partenariats, ou en nous écrivant "
@@ -994,7 +994,7 @@ _CONTACT_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "title": "Vous êtes en difficulté\u00a0?",
         "body": (
             "Cette page n'est pas un service d'assistance. Pour une demande d'aide, "
-            "rendez-vous sur le service ELSAI (/start) — anonyme et disponible 24/7."
+            "rendez-vous sur le service ESLAÏ (/start) — anonyme et disponible 24/7."
         ),
     },
     {
@@ -1053,7 +1053,7 @@ _EXEMPLES_DEFAULT_BLOCKS: list[dict[str, Any]] = [
     {
         "type": "hero",
         "eyebrow": "Exemples concrets",
-        "title": "Des situations concrètes où ELSAI peut vous aider.",
+        "title": "Des situations concrètes où ESLAÏ peut vous aider.",
         "subtitle": "On ne remplace pas un humain. On vous aide à y voir plus clair.",
     },
     {
@@ -1062,7 +1062,7 @@ _EXEMPLES_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "title": "Je ne sais pas quels sont mes droits",
                 "body": (
-                    "CAF, aides au logement, sécurité sociale, bourse… ELSAI fait un "
+                    "CAF, aides au logement, sécurité sociale, bourse… ESLAÏ fait un "
                     "diagnostic de votre situation et vous oriente vers les droits "
                     "auxquels vous pouvez éventuellement prétendre."
                 ),
@@ -1078,14 +1078,14 @@ _EXEMPLES_DEFAULT_BLOCKS: list[dict[str, Any]] = [
                 "title": "Je ne me sens pas bien au collège ou à la maison",
                 "body": (
                     "Famille, école, relations\u00a0: un espace anonyme pour poser des "
-                    "mots. Si ELSAI perçoit un danger, elle vous orientera vers le bon "
+                    "mots. Si ESLAÏ perçoit un danger, elle vous orientera vers le bon "
                     "interlocuteur."
                 ),
             },
             {
                 "title": "Je ne sais pas où dormir ce soir",
                 "body": (
-                    "ELSAI vous explique les numéros à contacter et les démarches à "
+                    "ESLAÏ vous explique les numéros à contacter et les démarches à "
                     "engager en fonction de votre lieu de vie."
                 ),
             },
@@ -1100,7 +1100,7 @@ _EXEMPLES_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {
                 "title": "Je subis des violences",
                 "body": (
-                    "ELSAI vous explique les démarches que vous pouvez engager pour vous "
+                    "ESLAÏ vous explique les démarches que vous pouvez engager pour vous "
                     "protéger, et vous oriente vers les bons interlocuteurs (3919, 119, "
                     "Ligne Azur, dépôt de plainte, main courante, hébergement)."
                 ),
@@ -1268,7 +1268,7 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Offre entreprises",
         "title": "Un service social pour vos salariés, sans service RH dédié.",
         "subtitle": (
-            "ELSAI équipe vos équipes d'un accueil social confidentiel, disponible "
+            "ESLAÏ équipe vos équipes d'un accueil social confidentiel, disponible "
             "24h/24h. Un avantage social concret, à partir de 3 € par salarié et par "
             "mois."
         ),
@@ -1299,7 +1299,7 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {"title": "Accessible 24h/24h, 7j/7", "body": "Une question administrative à 22h un dimanche\u00a0? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous."},
             {"title": "Anonymat total", "body": "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question."},
             {"title": "IA supervisée par des assistantes sociales", "body": "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État."},
-            {"title": "Orientation vers les services publics", "body": "ELSAI ne remplace pas le service social\u00a0: elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)."},
+            {"title": "Orientation vers les services publics", "body": "ESLAÏ ne remplace pas le service social\u00a0: elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)."},
         ],
     },
     {
@@ -1307,7 +1307,7 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Pour votre entreprise",
         "title": "Un bénéfice concret, mesurable, différenciant.",
         "items": [
-            {"title": "Moins d'absentéisme", "body": "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ELSAI aide à les résoudre plus vite."},
+            {"title": "Moins d'absentéisme", "body": "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite."},
             {"title": "Un avantage social différenciant", "body": "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT."},
             {"title": "Confidentialité totale", "body": "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais."},
             {"title": "Coût maîtrisé", "body": "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne."},
@@ -1383,7 +1383,7 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "items": [
             {"num": "01", "titre": "Contrat & codes d'accès", "texte": "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes."},
             {"num": "02", "titre": "Communication interne", "texte": "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service."},
-            {"num": "03", "titre": "Vos salariés utilisent ELSAI", "texte": "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé."},
+            {"num": "03", "titre": "Vos salariés utilisent ESLAÏ", "texte": "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé."},
         ],
     },
     {
@@ -1393,8 +1393,8 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "items": [
             {"question": "Comment est garantie la confidentialité vis-à-vis de l'employeur\u00a0?", "answer": "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global)."},
             {"question": "Où sont hébergées les données\u00a0?", "answer": "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique."},
-            {"question": "Quelle est la différence avec un EAP (Employee Assistance Program) classique\u00a0?", "answer": "Les EAP sont centrés sur le soutien psychologique. ELSAI est spécialisée sur les droits sociaux et les démarches administratives\u00a0: logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire."},
-            {"question": "Que se passe-t-il si un salarié a besoin d'un suivi long\u00a0?", "answer": "ELSAI est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)."},
+            {"question": "Quelle est la différence avec un EAP (Employee Assistance Program) classique\u00a0?", "answer": "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives\u00a0: logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire."},
+            {"question": "Que se passe-t-il si un salarié a besoin d'un suivi long\u00a0?", "answer": "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)."},
             {"question": "Comment se passe la facturation\u00a0?", "answer": "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable."},
             {"question": "Peut-on tester avant de s'engager\u00a0?", "answer": "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large."},
         ],
@@ -1522,7 +1522,7 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Partenariats",
         "title": "Construisons l'impact ensemble.",
         "subtitle": (
-            "ELSAI est un projet d'intérêt général qui se déploie en complémentarité "
+            "ESLAÏ est un projet d'intérêt général qui se déploie en complémentarité "
             "des services sociaux publics. Nous ne remplaçons pas\u00a0: nous renforçons "
             "l'accès au droit."
         ),
@@ -1533,13 +1533,13 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "title": "Un relais, pas un concurrent des services sociaux traditionnels.",
         "body": (
             "Le non-recours aux droits sociaux ne se résoudra pas avec un seul outil. "
-            "ELSAI se pense comme un filtre de premier niveau qui prépare le terrain, "
+            "ESLAÏ se pense comme un filtre de premier niveau qui prépare le terrain, "
             "et qui oriente vers vos services quand un accompagnement humain est "
             "nécessaire."
         ),
         "items": [
-            {"title": "Réorientation systématique", "body": "Nous ne gardons pas l'usager chez nous. ELSAI oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié."},
-            {"title": "Transparence des pratiques", "body": "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ELSAI est portée par un binôme assistante sociale diplômée + ingénieur."},
+            {"title": "Réorientation systématique", "body": "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié."},
+            {"title": "Transparence des pratiques", "body": "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur."},
             {"title": "Désengorgement des accueils", "body": "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte."},
             {"title": "Donnée souveraine", "body": "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles."},
         ],
@@ -1551,8 +1551,8 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "items": [
             {"title": "CCAS & services sociaux départementaux", "body": "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée."},
             {"title": "France Services & maisons de services au public", "body": "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié."},
-            {"title": "Associations sociales & caritatives", "body": "Pour les structures qui orientent déjà des publics vulnérables, ELSAI apporte une réponse immédiate sur les droits, en français clair."},
-            {"title": "Collectivités territoriales", "body": "Dans le cadre des dispositifs «\u00a0Territoires zéro non-recours\u00a0», ELSAI peut être déployée comme brique numérique complémentaire."},
+            {"title": "Associations sociales & caritatives", "body": "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair."},
+            {"title": "Collectivités territoriales", "body": "Dans le cadre des dispositifs «\u00a0Territoires zéro non-recours\u00a0», ESLAÏ peut être déployée comme brique numérique complémentaire."},
         ],
     },
     {
@@ -1560,7 +1560,7 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Formats de partenariat",
         "title": "Plusieurs niveaux d'intégration, selon vos besoins.",
         "items": [
-            {"title": "Lien simple", "body": "Renvoi depuis votre site vers ELSAI, sans intégration technique.", "cost": "Gratuit"},
+            {"title": "Lien simple", "body": "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.", "cost": "Gratuit"},
             {"title": "Co-branding", "body": "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.", "cost": "À discuter"},
             {"title": "Intégration métier", "body": "Intégration dans votre SI ou votre portail usager, reporting dédié.", "cost": "Sur devis"},
         ],
@@ -1570,7 +1570,7 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Vous êtes une entreprise\u00a0?",
         "title": "Une offre dédiée pour équiper vos salariés d'un accueil social confidentiel.",
         "body": (
-            "Si vous représentez une entreprise qui souhaite proposer ELSAI à ses "
+            "Si vous représentez une entreprise qui souhaite proposer ESLAÏ à ses "
             "collaborateurs, une offre distincte existe à partir de 3 € par salarié et "
             "par mois."
         ),

@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Pour qui\u00A0? Adultes, 12-18 ans & employeurs",
   description:
-    "ELSAI accompagne trois publics : les adultes (CAF, impôts, logement, MDPH…), les mineurs de 12 à 18 ans avec un protocole de sécurité, et les employeurs qui souhaitent équiper leurs salariés.",
+    "ESLAÏ accompagne trois publics : les adultes (CAF, impôts, logement, MDPH…), les mineurs de 12 à 18 ans avec un protocole de sécurité, et les employeurs qui souhaitent équiper leurs salariés.",
   alternates: { canonical: "/pour-qui" },
 };
 
@@ -82,7 +82,7 @@ export default async function Page({
   const heroSubtitle = blockString(
     hero,
     "subtitle",
-    "ELSAI parle différemment aux adultes, aux jeunes et aux entreprises qui veulent équiper leurs salariés. Chacun avec la bonne posture.",
+    "ESLAÏ parle différemment aux adultes, aux jeunes et aux entreprises qui veulent équiper leurs salariés. Chacun avec la bonne posture.",
   );
 
   const adultsEyebrow = blockString(adults, "eyebrow", "Parcours");
@@ -113,7 +113,7 @@ export default async function Page({
     "intro",
     "Vouvoiement par défaut, tutoiement si vous préférez. Espace bienveillant. On ne dit rien à vos parents — sauf si vous êtes en danger.",
   );
-  const minorsCtaLabel = blockString(minors, "cta_label", "Parler à ELSAI →");
+  const minorsCtaLabel = blockString(minors, "cta_label", "Parler à ESLAÏ →");
   const minorsCtaHref = blockString(minors, "cta_href", "/start");
   const minorsHeading = blockString(
     minors,
@@ -129,7 +129,7 @@ export default async function Page({
   const dangerBody = blockString(
     minors,
     "danger_body",
-    "Appelez le 119 (Enfance en danger, 24h/24h, gratuit, anonyme). ELSAI vous le rappellera aussi si besoin.",
+    "Appelez le 119 (Enfance en danger, 24h/24h, gratuit, anonyme). ESLAÏ vous le rappellera aussi si besoin.",
   );
 
   const empEyebrow = blockString(employers, "eyebrow", "Parcours");

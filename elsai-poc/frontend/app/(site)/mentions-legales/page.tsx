@@ -5,7 +5,7 @@ import Section from "@/components/site/Section";
 export const metadata: Metadata = {
   title: "Mentions légales",
   description:
-    "Mentions légales et informations d'éditeur d'ELSAI : responsabilité éditoriale, hébergement, contact, propriété intellectuelle.",
+    "Mentions légales et informations d'éditeur d'ESLAÏ : responsabilité éditoriale, hébergement, contact, propriété intellectuelle.",
   alternates: { canonical: "/mentions-legales" },
   robots: { index: false, follow: true },
 };
@@ -22,7 +22,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Éditeur</h2>
             <p>
-              ELSAI est un projet porté par un collectif d'intérêt général. Les coordonnées précises
+              ESLAÏ est un projet porté par un collectif d'intérêt général. Les coordonnées précises
               de l'éditeur seront publiées au lancement officiel.
             </p>
           </section>
@@ -31,7 +31,7 @@ export default function Page() {
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
               Données personnelles & RGPD
             </h2>
-            <p>ELSAI a été conçu pour collecter le strict minimum. Concrètement&nbsp;:</p>
+            <p>ESLAÏ a été conçu pour collecter le strict minimum. Concrètement&nbsp;:</p>
             <ul className="mt-3 list-disc space-y-2 pl-5">
               <li>
                 Une session technique temporaire est créée pour la conversation, et peut être
@@ -58,7 +58,7 @@ export default function Page() {
               Cookies & mesure d'audience
             </h2>
             <p>
-              ELSAI n'utilise pas de cookies publicitaires. La mesure d'audience est réalisée avec
+              ESLAÏ n'utilise pas de cookies publicitaires. La mesure d'audience est réalisée avec
               une solution respectueuse de la vie privée (Plausible ou Matomo auto-hébergé), sans
               traçage individuel.
             </p>
@@ -78,7 +78,7 @@ export default function Page() {
               Propriété intellectuelle
             </h2>
             <p>
-              Les contenus éditoriaux, logos et identité visuelle sont la propriété du projet ELSAI.
+              Les contenus éditoriaux, logos et identité visuelle sont la propriété du projet ESLAÏ.
               Le code est ouvert à des fins d'audit et de partenariats (licence détaillée publiée au
               lancement).
             </p>

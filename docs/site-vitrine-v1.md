@@ -1,4 +1,4 @@
-# Site vitrine ELSAI — V1
+# Site vitrine ESLAÏ — V1
 
 Synthèse des décisions produit/marketing et livrables initiaux.
 
@@ -10,7 +10,7 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 |---|---|
 | **Objectif** | Triple équilibré : inscriptions PWA + sensibilisation + partenariats |
 | **Cible V1** | Mixte assumé (majeurs + mineurs + pros), parcours distincts via "Pour qui ?" |
-| **Promesse héro** | *"ELSAI t'aide à comprendre et activer tes droits sociaux. Anonymement, sans rendez-vous, sans jugement."* |
+| **Promesse héro** | *"ESLAÏ t'aide à comprendre et activer tes droits sociaux. Anonymement, sans rendez-vous, sans jugement."* |
 | **Différenciateurs** | Anonymat + droit à l'oubli · 24/7 gratuit · Ton empathique et franc · Expertise droits sociaux FR + sécurité mineurs |
 | **Concurrents positionnés** | Mes Aides · 3939/119 · IA généralistes |
 | **Ton** | Tutoiement usagers / Vouvoiement Partenariats & Contact pros |
@@ -59,7 +59,7 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 │  [Bandeau urgences]  En danger ? 119 (mineurs) · 3919   │
 │                      (violences) · 115 (sans-abri)       │
 ├─────────────────────────────────────────────────────────┤
-│  [Logo ELSAI]    Comment ça marche · Cas d'usage ·       │
+│  [Logo ESLAÏ]    Comment ça marche · Cas d'usage ·       │
 │                  Pour qui ? · Éthique · FAQ              │
 ├─────────────────────────────────────────────────────────┤
 │                                                           │
@@ -72,7 +72,7 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 │   Gratuit · Anonyme · 24/7                               │
 │                                                           │
 ├─────────────────────────────────────────────────────────┤
-│  POURQUOI ELSAI ?  (4 piliers, icônes organiques)        │
+│  POURQUOI ESLAÏ ?  (4 piliers, icônes organiques)        │
 │  ◯ Anonyme        ◯ Disponible 24/7                     │
 │  ◯ Ton humain     ◯ Expertise droits FR                 │
 ├─────────────────────────────────────────────────────────┤
@@ -82,10 +82,10 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 │  → Voir tous les cas d'usage                             │
 ├─────────────────────────────────────────────────────────┤
 │  COMMENT ÇA MARCHE  (3 étapes)                           │
-│  1. Tu poses ta question    2. ELSAI t'écoute et         │
+│  1. Tu poses ta question    2. ESLAÏ t'écoute et         │
 │  en langage naturel         t'oriente    3. Tu agis      │
 ├─────────────────────────────────────────────────────────┤
-│  ELSAI N'EST PAS…  (clarification concurrents)           │
+│  ESLAÏ N'EST PAS…  (clarification concurrents)           │
 │  · un simulateur de droits comme Mes Aides               │
 │  · une ligne d'écoute comme le 3939                      │
 │  · une IA généraliste comme ChatGPT                      │
@@ -93,7 +93,7 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 ├─────────────────────────────────────────────────────────┤
 │  POUR LES PROS  (bloc partenariats, fond Vieux Rose)     │
 │  Travailleur social, association, collectivité ?        │
-│  Orientez vos usagers vers ELSAI.                        │
+│  Orientez vos usagers vers ESLAÏ.                        │
 │  [ Devenir partenaire → ]                                │
 ├─────────────────────────────────────────────────────────┤
 │  FOOTER                                                   │
@@ -110,35 +110,35 @@ Synthèse des décisions produit/marketing et livrables initiaux.
 > **Comprends et active tes droits sociaux.**
 > Anonymement. Sans rendez-vous. Sans jugement.
 >
-> ELSAI est ton assistant social, disponible 24/7 et gratuit. Pose ta question comme tu la formulerais à un ami.
+> ESLAÏ est ton assistant social, disponible 24/7 et gratuit. Pose ta question comme tu la formulerais à un ami.
 >
 > **[ Poser ma question → ]**  *Gratuit · Anonyme · 24/7*
 
-### Pourquoi ELSAI (4 piliers)
+### Pourquoi ESLAÏ (4 piliers)
 - **Anonyme.** Pas de nom, pas d'email, pas de dossier. Tu peux tout effacer quand tu veux.
-- **Disponible 24/7.** La nuit, le week-end, un jour férié. ELSAI est là.
+- **Disponible 24/7.** La nuit, le week-end, un jour férié. ESLAÏ est là.
 - **Ton humain.** Ni condescendant, ni robotique. Empathique et franc.
 - **Expertise FR.** Formé sur le droit social français. RSA, CAF, MDPH, logement, mineurs — il connaît.
 
 ### Cas d'usage (teasers)
-- **🎂 "Je viens d'avoir 18 ans, quelles aides ?"** — Jeune majeur, tu as des droits qui s'ouvrent. ELSAI te les explique.
+- **🎂 "Je viens d'avoir 18 ans, quelles aides ?"** — Jeune majeur, tu as des droits qui s'ouvrent. ESLAÏ te les explique.
 - **📋 "Mon RSA a été refusé, que faire ?"** — Recours, délais, pièces à fournir. On fait le point ensemble.
-- **💬 "Ça va mal à la maison."** — Tu as moins de 18 ans. ELSAI t'écoute et t'oriente vers les bonnes ressources, en toute confidentialité.
+- **💬 "Ça va mal à la maison."** — Tu as moins de 18 ans. ESLAÏ t'écoute et t'oriente vers les bonnes ressources, en toute confidentialité.
 - **🏠 "Je dors dehors ce soir."** — 115, hébergement d'urgence, maraudes. Les options près de toi, maintenant.
 
 ### Comment ça marche
 1. **Tu poses ta question** en langage naturel, comme à quelqu'un.
-2. **ELSAI t'écoute** et t'oriente vers les bonnes démarches ou le bon interlocuteur.
+2. **ESLAÏ t'écoute** et t'oriente vers les bonnes démarches ou le bon interlocuteur.
 3. **Tu agis** avec les infos concrètes en main.
 
-### ELSAI n'est pas…
+### ESLAÏ n'est pas…
 - **Pas un simulateur** comme Mes Aides : tu discutes, tu n'remplis pas de formulaire.
 - **Pas une ligne d'écoute** comme le 3939 : c'est écrit, à ton rythme, 24/7.
 - **Pas une IA généraliste** comme ChatGPT : spécialisé droit social FR, avec une éthique stricte.
 
 ### Bloc partenariats
 > **Vous accompagnez des publics en difficulté ?**
-> Travailleur social, association, collectivité — ELSAI peut compléter votre action auprès de vos usagers, 24/7 et en toute confidentialité.
+> Travailleur social, association, collectivité — ESLAÏ peut compléter votre action auprès de vos usagers, 24/7 et en toute confidentialité.
 >
 > **[ Devenir partenaire → ]**
 

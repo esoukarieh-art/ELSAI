@@ -182,7 +182,7 @@ export default function EmailSequencesPage() {
     <div>
       <h1 className="text-elsai-pin-dark mb-2 font-serif text-3xl">Séquences email</h1>
       <p className="text-elsai-ink/70 mb-4 text-sm leading-relaxed">
-        Éditez les 8 séquences email ELSAI (onboarding B2B, dunning, rapports, démarches B2C…).
+        Éditez les 8 séquences email ESLAÏ (onboarding B2B, dunning, rapports, démarches B2C…).
         Toute modification prend effet immédiatement pour les prochains envois. Les envois déjà
         planifiés conservent le contenu rendu au moment de leur planification.
       </p>

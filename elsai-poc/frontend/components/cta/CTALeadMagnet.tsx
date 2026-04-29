@@ -142,7 +142,7 @@ export function CTALeadMagnet({
             required
             className="mt-1 focus-visible:ring-2 focus-visible:ring-elsai-pin"
           />
-          <span>J&apos;accepte de recevoir le guide et des emails d&apos;ELSAI.</span>
+          <span>J&apos;accepte de recevoir le guide et des emails d&apos;ESLAÏ.</span>
         </label>
         {errorMsg && (
           <p role="alert" className="text-sm text-elsai-rose">

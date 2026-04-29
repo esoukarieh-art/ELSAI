@@ -1,6 +1,6 @@
-# ELSAI — POC Monolithe Web
+# ESLAÏ — POC Monolithe Web
 
-Proof of Concept de l'assistant social numérique **ELSAI**.
+Proof of Concept de l'assistant social numérique **ESLAÏ**.
 
 Architecture simplifiée validant les 3 fonctionnalités cœur : conversation IA,
 analyse de documents (OCR), tableau de bord. Deux parcours : **majeurs** (18+)
@@ -24,7 +24,7 @@ et **mineurs** (12-18) avec détection de danger et escalade vers le 119.
 
 ### Pourquoi un monolithe ?
 
-L'architecture cible (cf `Architecture_Technique_ELSAI.docx`) prévoit des
+L'architecture cible (cf `Architecture_Technique_ESLAÏ.docx`) prévoit des
 microservices + Kubernetes + RabbitMQ. C'est prématuré pour valider le
 concept. Le POC garde la **séparation modulaire** (`routers/`, `services/`,
 `prompts/`) pour faciliter l'extraction future.
@@ -128,4 +128,4 @@ Tous les endpoints émettent un header `X-Correlation-Id` pour l'audit.
 6. Ajouter Whisper STT + TTS pour l'interface vocale
 7. Hébergement HDS/SecNumCloud (OVH/Scaleway)
 
-Voir `Architecture_Technique_ELSAI.docx` pour l'architecture cible complète.
+Voir `Architecture_Technique_ESLAÏ.docx` pour l'architecture cible complète.

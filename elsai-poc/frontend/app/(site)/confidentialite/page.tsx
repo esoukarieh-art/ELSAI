@@ -5,7 +5,7 @@ import Section from "@/components/site/Section";
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description:
-    "Politique de confidentialité d'ELSAI : données collectées, base légale, hébergement en France, durée de conservation, droits RGPD.",
+    "Politique de confidentialité d'ESLAÏ : données collectées, base légale, hébergement en France, durée de conservation, droits RGPD.",
   alternates: { canonical: "/confidentialite" },
   robots: { index: false, follow: true },
 };
@@ -22,7 +22,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Données collectées</h2>
             <p>
-              ELSAI ne demande aucune donnée identifiante. Les conversations sont conservées
+              ESLAÏ ne demande aucune donnée identifiante. Les conversations sont conservées
               temporairement pour maintenir le fil d'une session et peuvent être supprimées à tout
               moment via le bouton «&nbsp;Tout oublier&nbsp;».
             </p>
@@ -131,7 +131,7 @@ export default function Page() {
           <section>
             <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Cookies</h2>
             <p>
-              ELSAI n'utilise aucun cookie de tracking publicitaire. Seul un cookie technique
+              ESLAÏ n'utilise aucun cookie de tracking publicitaire. Seul un cookie technique
               strictement nécessaire à la session est utilisé (aucun bandeau requis selon la CNIL).
             </p>
           </section>

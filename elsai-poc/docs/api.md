@@ -1,4 +1,4 @@
-# Documentation API — ELSAI POC
+# Documentation API — ESLAÏ POC
 
 Base URL locale : `http://localhost:8000`
 Documentation interactive (Swagger) : `http://localhost:8000/docs`

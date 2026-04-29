@@ -40,7 +40,7 @@ export default function SiteFooter() {
         <div>
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/logo-elsai.svg" alt="" width={40} height={40} />
-            <span className="text-elsai-pin-dark text-lg font-semibold">ELSAI</span>
+            <span className="text-elsai-pin-dark text-lg font-semibold">ESLAÏ</span>
           </Link>
           <p className="text-elsai-ink/75 mt-3 max-w-xs text-sm leading-relaxed">
             Service social numérique de premier accueil. Anonyme, disponible 24h/24h, hébergé en France.
@@ -88,7 +88,7 @@ export default function SiteFooter() {
       </div>
       <div className="border-elsai-pin/10 border-t">
         <div className="text-elsai-ink/60 mx-auto flex max-w-6xl flex-col justify-between gap-2 px-4 py-5 text-xs md:flex-row">
-          <p>© {new Date().getFullYear()} ELSAI — Projet d'intérêt général</p>
+          <p>© {new Date().getFullYear()} ESLAÏ — Projet d'intérêt général</p>
           <p>Hébergé en France · Sans cookies · RGAA AA visé</p>
         </div>
       </div>

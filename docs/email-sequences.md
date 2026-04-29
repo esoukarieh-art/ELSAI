@@ -1,9 +1,9 @@
-# Séquences email ELSAI — Design v1
+# Séquences email ESLAÏ — Design v1
 
 **Version :** 1.0 (design, avant implémentation)
 **Date :** 2026-04-18
 **Périmètre :** B2B entreprises (4 séquences) + B2C démarches (4 séquences)
-**Ton :** vouvoiement, signature « ELSAI »
+**Ton :** vouvoiement, signature « ESLAÏ »
 **Expéditeur :** info@elsai.fr via Brevo
 
 ---
@@ -27,7 +27,7 @@
 
 ### Règles éditoriales
 - **Vouvoiement** systématique
-- Signature : **ELSAI** (seule, sobre, pas de « L'équipe »)
+- Signature : **ESLAÏ** (seule, sobre, pas de « L'équipe »)
 - Sujets ≤ 60 caractères, preview ≤ 110
 - 1 CTA principal par email, secondaires en lien texte
 - Longueur corps : 80-200 mots (300 max pour récap mensuel)
@@ -35,11 +35,11 @@
 
 ### Footer commun (tous les emails)
 ```
-ELSAI — Assistant social numérique
+ESLAÏ — Assistant social numérique
 https://www.elsai.fr · info@elsai.fr
 
 [Se désabonner] (hors transactionnels réglementaires)
-Vous recevez cet email car vous avez [souscrit à un abonnement ELSAI / créé un compte pour finaliser une démarche].
+Vous recevez cet email car vous avez [souscrit à un abonnement ESLAÏ / créé un compte pour finaliser une démarche].
 Vos données sont traitées conformément à notre politique de confidentialité : https://www.elsai.fr/confidentialite
 ```
 
@@ -68,7 +68,7 @@ Vos données sont traitées conformément à notre politique de confidentialité
 ### Email 1 — J+0 : Bienvenue + codes (déjà existant dans `render_activation_email`)
 
 - **Send :** immédiat après webhook
-- **Subject :** Vos codes d'accès ELSAI — {{company_name}}
+- **Subject :** Vos codes d'accès ESLAÏ — {{company_name}}
 - **Preview :** Vos {{seats}} codes sont prêts. Distribuez-les à vos équipes en toute confidentialité.
 - **Corps :** (existant — conserver) codes, lien admin, lien portail Stripe
 - **CTA principal :** Accéder à l'espace admin
@@ -76,7 +76,7 @@ Vos données sont traitées conformément à notre politique de confidentialité
 
 ### Email 2 — J+2 : Comment distribuer les codes à vos équipes
 
-- **Subject :** 3 bonnes pratiques pour déployer ELSAI en interne
+- **Subject :** 3 bonnes pratiques pour déployer ESLAÏ en interne
 - **Preview :** Comment communiquer à vos salariés sans rompre la confidentialité.
 - **Corps :**
 ```
@@ -84,13 +84,13 @@ Bonjour,
 
 Deux jours après votre activation, un mot sur la distribution des codes.
 
-ELSAI repose sur un principe simple : aucun salarié ne partage son identité
+ESLAÏ repose sur un principe simple : aucun salarié ne partage son identité
 avec nous. Cela change la manière de communiquer en interne :
 
 1. Envoyez le code par email individuel, pas en canal collectif.
    Un code = un salarié. Pas de liste partagée sur Slack ou Teams.
 
-2. Expliquez le cadre en une phrase : « ELSAI est un assistant social
+2. Expliquez le cadre en une phrase : « ESLAÏ est un assistant social
    anonyme, mis à disposition par l'entreprise. Ce que vous y dites
    reste entre vous et l'IA. »
 
@@ -100,7 +100,7 @@ avec nous. Cela change la manière de communiquer en interne :
 Si un salarié perd son code, régénérez-le depuis votre espace admin
 (l'ancien est révoqué automatiquement).
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Voir le modèle d'email à envoyer aux salariés → `{{admin_url}}#communication`
 - **CTA secondaire :** Régénérer un code
@@ -126,24 +126,24 @@ Si l'adoption est lente, c'est normal : un assistant social
 s'utilise quand le besoin se présente, pas de manière forcée.
 
 Quelques pistes si vous voulez relancer :
-- Mentionner ELSAI dans une newsletter interne RH
+- Mentionner ESLAÏ dans une newsletter interne RH
 - L'intégrer à votre programme QVT
 - En parler en réunion d'équipe sans en faire un outil « obligatoire »
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Voir le tableau de bord complet → `{{admin_url}}`
 - **Variante si codes_used = 0 :** sujet devient « Vos équipes n'ont pas encore commencé — c'est normal » et le corps supprime les stats, propose uniquement les pistes de relance
 
 ### Email 4 — J+14 : Besoin d'aide pour ancrer l'usage ?
 
-- **Subject :** Deux semaines avec ELSAI — parlons-en ?
+- **Subject :** Deux semaines avec ESLAÏ — parlons-en ?
 - **Preview :** 15 min avec notre équipe pour optimiser le déploiement dans votre contexte.
 - **Corps :**
 ```
 Bonjour,
 
-Cela fait deux semaines qu'ELSAI est en place chez {{company_name}}.
+Cela fait deux semaines qu'ESLAÏ est en place chez {{company_name}}.
 
 Si vous hésitez sur la communication interne, sur le rattachement
 à la politique QVT, ou simplement sur les cas d'usage à mettre
@@ -153,14 +153,14 @@ L'appel est gratuit, sans engagement, et réservé aux abonnés actifs.
 
 Sinon, tout continue automatiquement — pas besoin de nous répondre.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Réserver 15 min → lien Calendly / cal.com
 - **Variante si codes_used ≥ 70% :** sujet devient « Belle adoption chez {{company_name}} — la suite » et on propose un cas d'usage avancé plutôt qu'un appel
 
 ### Email 5 — J+30 : Votre premier rapport mensuel
 
-- **Subject :** Votre rapport d'usage ELSAI — mois 1
+- **Subject :** Votre rapport d'usage ESLAÏ — mois 1
 - **Preview :** Un récap anonymisé du premier mois d'adoption.
 - **Corps :** (cf. [B2B-4](#b2b4-rapport-dusage-mensuel) — même template, marqué « Mois 1 — baseline »)
 - **Note :** cet email est le premier de la séquence récurrente B2B-4
@@ -177,13 +177,13 @@ ELSAI
 
 ### Email 1 — J-14 : Votre abonnement se renouvelle bientôt
 
-- **Subject :** Renouvellement ELSAI le {{renewal_date}}
+- **Subject :** Renouvellement ESLAÏ le {{renewal_date}}
 - **Preview :** Rien à faire si votre moyen de paiement est toujours valide.
 - **Corps :**
 ```
 Bonjour,
 
-Votre abonnement ELSAI {{plan_label}} pour {{company_name}} se renouvelle
+Votre abonnement ESLAÏ {{plan_label}} pour {{company_name}} se renouvelle
 automatiquement le {{renewal_date}} pour {{amount}}€ TTC.
 
 Vous n'avez rien à faire si :
@@ -196,7 +196,7 @@ Sinon, accédez au portail facturation pour :
 • passer à un plan supérieur ou inférieur,
 • résilier (effet à la fin de la période en cours).
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Portail facturation → `{{portal_url}}`
 
@@ -219,18 +219,18 @@ ELSAI
 
 ### Email 1 — J+1 : Échec de prélèvement
 
-- **Subject :** Paiement ELSAI non abouti — action requise
+- **Subject :** Paiement ESLAÏ non abouti — action requise
 - **Preview :** Votre carte a été refusée. Mettez-la à jour en 2 minutes.
 - **Corps :**
 ```
 Bonjour,
 
-Le prélèvement de {{amount}}€ pour votre abonnement ELSAI
+Le prélèvement de {{amount}}€ pour votre abonnement ESLAÏ
 {{plan_label}} n'a pas abouti.
 
 Raison transmise par votre banque : {{decline_reason_or_generic}}
 
-Votre service ELSAI reste actif pour l'instant.
+Votre service ESLAÏ reste actif pour l'instant.
 Il sera suspendu si aucun paiement n'est régularisé sous 7 jours.
 
 Mettez à jour votre moyen de paiement en 2 minutes :
@@ -239,14 +239,14 @@ Mettez à jour votre moyen de paiement en 2 minutes :
 
 ### Email 2 — J+4 : Rappel — service suspendu dans 3 jours
 
-- **Subject :** ELSAI : service suspendu dans 3 jours si paiement non régularisé
+- **Subject :** ESLAÏ : service suspendu dans 3 jours si paiement non régularisé
 - **Preview :** Un second essai de prélèvement sera tenté automatiquement.
 - **Corps :**
 ```
 Bonjour,
 
 Trois jours se sont écoulés depuis l'échec du prélèvement de votre
-abonnement ELSAI. Un second essai sera tenté automatiquement sous 48h.
+abonnement ESLAÏ. Un second essai sera tenté automatiquement sous 48h.
 
 Si vous souhaitez nous éviter ce nouvel essai, vous pouvez régulariser
 dès maintenant depuis le portail facturation.
@@ -254,19 +254,19 @@ dès maintenant depuis le portail facturation.
 Sans régularisation, les {{seats}} codes d'accès de vos équipes seront
 désactivés le {{suspension_date}}.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA :** Portail facturation
 
 ### Email 3 — J+7 : Service suspendu
 
-- **Subject :** Service ELSAI suspendu — réactivation possible
+- **Subject :** Service ESLAÏ suspendu — réactivation possible
 - **Preview :** Vos codes sont désactivés temporairement. La réactivation est immédiate.
 - **Corps :**
 ```
 Bonjour,
 
-Faute de régularisation, les codes d'accès ELSAI de {{company_name}}
+Faute de régularisation, les codes d'accès ESLAÏ de {{company_name}}
 sont désactivés depuis le {{suspension_date}}.
 
 Vos données (prompts personnalisés, historique admin) sont conservées
@@ -278,7 +278,7 @@ de paiement. Les codes redeviennent actifs dans les minutes qui suivent.
 Au-delà de 30 jours, l'abonnement sera définitivement résilié et les
 données supprimées conformément à notre politique RGPD.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA :** Réactiver maintenant → `{{portal_url}}`
 
@@ -293,13 +293,13 @@ ELSAI
 
 ### Email unique — mensuel
 
-- **Subject :** Votre rapport ELSAI — {{month_label}}
+- **Subject :** Votre rapport ESLAÏ — {{month_label}}
 - **Preview :** Les chiffres du mois, 100% anonymisés.
 - **Corps :**
 ```
 Bonjour,
 
-Voici le rapport d'usage ELSAI pour {{company_name}} — {{month_label}}.
+Voici le rapport d'usage ESLAÏ pour {{company_name}} — {{month_label}}.
 
 Engagement
 • Codes actifs : {{active_codes}}/{{seats}}
@@ -318,7 +318,7 @@ Démarches concrètes abouties
 Rappel : ces chiffres sont des agrégats. Nous ne pouvons pas
 relier un usage à un salarié spécifique.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Voir le rapport détaillé → `{{admin_url}}/metrics`
 - **CTA secondaire :** Se désabonner de ces rapports → `{{admin_url}}/settings#notifications`
@@ -328,7 +328,7 @@ ELSAI
 
 ## B2C-1 — Génération d'un courrier
 
-**Déclencheur :** l'utilisateur accepte la proposition d'ELSAI de générer un courrier et crée un compte
+**Déclencheur :** l'utilisateur accepte la proposition d'ESLAÏ de générer un courrier et crée un compte
 **Cible :** email vérifié lors de la création de compte
 **Objectif :** accompagner la démarche de bout en bout (envoi → réponse → recours si besoin)
 **Durée :** variable, jusqu'à 30 jours après génération
@@ -341,7 +341,7 @@ ELSAI
 ```
 Bonjour,
 
-Votre compte ELSAI est créé. Voici votre courrier destiné à
+Votre compte ESLAÏ est créé. Voici votre courrier destiné à
 {{recipient_org}}, objet : {{subject}}.
 
 [Bouton : Télécharger le courrier PDF]
@@ -350,14 +350,14 @@ Conseils d'envoi :
 • Envoyez en recommandé avec accusé de réception si la démarche
   est importante (recours, contestation, demande officielle).
 • Conservez l'AR : il fait preuve de la date d'envoi.
-• Une fois envoyé, revenez sur votre espace ELSAI pour indiquer
+• Une fois envoyé, revenez sur votre espace ESLAÏ pour indiquer
   la date d'envoi. Nous pourrons alors vous rappeler si aucune
   réponse n'arrive dans les délais légaux.
 
 Vous pouvez à tout moment supprimer votre compte et toutes vos
 données depuis votre espace.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Télécharger le courrier
 - **CTA secondaire :** Accéder à mon espace
@@ -381,7 +381,7 @@ Cela nous permet de :
 Si vous ne l'avez pas encore envoyé, pas de pression — vous pouvez
 revenir quand vous êtes prêt.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA :** Indiquer la date d'envoi
 
@@ -405,9 +405,9 @@ Si aucune réponse n'est arrivée, plusieurs options s'offrent à vous :
 • Recours gracieux auprès de {{recipient_org}}
 • Recours hiérarchique ou médiateur selon la nature du dossier
 
-Revenez échanger avec ELSAI pour décider de la meilleure suite.
+Revenez échanger avec ESLAÏ pour décider de la meilleure suite.
 
-ELSAI
+ESLAÏ
 ```
 - **CTA principal :** Générer une relance
 - **CTA secondaire :** J'ai reçu une réponse
@@ -450,7 +450,7 @@ Avant de transmettre :
 4. Transmettez selon la voie indiquée par {{target_organism}}
    (en ligne / courrier / guichet).
 
-ELSAI
+ESLAÏ
 ```
 - **CTA :** Télécharger le formulaire
 
@@ -496,7 +496,7 @@ ELSAI
 - **Subject :** Action à décider avant le {{deadline_date}}
 - **Preview :** Après cette date, certaines voies de recours seront fermées.
 - **Corps :** alerte délai contentieux (typiquement 2 mois), 3 options (accepter la décision, saisir le tribunal administratif, consulter un avocat/défenseur des droits)
-- **CTA principal :** En discuter avec ELSAI
+- **CTA principal :** En discuter avec ESLAÏ
 
 ---
 
@@ -535,9 +535,9 @@ qui sera attendu de vous, revenez échanger avec moi — je peux
 vous aider à préparer ce que vous direz et à anticiper les
 questions difficiles.
 
-ELSAI
+ESLAÏ
 ```
-- **CTA principal :** Préparer {{event_type}} avec ELSAI
+- **CTA principal :** Préparer {{event_type}} avec ESLAÏ
 - **CTA secondaire :** Modifier / annuler ce rappel
 
 ### Emails J-30 et J-1

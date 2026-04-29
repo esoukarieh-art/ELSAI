@@ -7,12 +7,12 @@ type Props = CTAProps & {
 
 export function CTAPlaquetteB2B({
   pdfUrl = "/downloads/plaquette-b2b.pdf",
-  title = "Téléchargez la plaquette ELSAI Entreprises",
+  title = "Téléchargez la plaquette ESLAÏ Entreprises",
 }: Props) {
   return (
     <section
       role="complementary"
-      aria-label="Télécharger la plaquette ELSAI B2B"
+      aria-label="Télécharger la plaquette ESLAÏ B2B"
       data-cta-component="CTAPlaquetteB2B"
       className="rounded-organic bg-elsai-rose/10 p-8 md:p-10 border border-elsai-rose/20"
     >

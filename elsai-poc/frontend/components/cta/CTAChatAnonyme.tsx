@@ -25,8 +25,8 @@ export function CTAChatAnonyme({
     : "Pas besoin de créer un compte. Vous pouvez tout effacer à tout moment.";
 
   const ariaLabel = isMinor
-    ? "Commencer une conversation anonyme avec ELSAI"
-    : "Démarrer une conversation anonyme avec ELSAI";
+    ? "Commencer une conversation anonyme avec ESLAÏ"
+    : "Démarrer une conversation anonyme avec ESLAÏ";
 
   const buttonLabel = isMinor ? "Commencer →" : "Commencer →";
 

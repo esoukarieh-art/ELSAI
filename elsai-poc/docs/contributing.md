@@ -1,4 +1,4 @@
-# Guide contributeur — ELSAI POC
+# Guide contributeur — ESLAÏ POC
 
 ## Prérequis
 

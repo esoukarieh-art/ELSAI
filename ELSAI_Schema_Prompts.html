@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ELSAI — Architecture des Prompts</title>
+<title>ESLAÏ — Architecture des Prompts</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: #1a1a2e; min-height: 100vh; }
@@ -152,7 +152,7 @@
 <body>
 
 <div class="header">
-  <h1>ELSAI</h1>
+  <h1>ESLAÏ</h1>
   <p>Architecture de la cha&icirc;ne de prompts d'analyse de situations</p>
 </div>
 
@@ -164,7 +164,7 @@
 
     <div class="entry-point">
       <div class="label">Prompt #1</div>
-      <div class="name">ELSAI_SYSTEM_CORE</div>
+      <div class="name">ESLAÏ_SYSTEM_CORE</div>
       <div class="desc">D&eacute;finit l'identit&eacute;, la posture et les r&egrave;gles fondamentales de l'IA.<br>Empathie &bull; Franchise bienveillante &bull; Non-jugement &bull; Responsabilisation</div>
     </div>
 
@@ -188,7 +188,7 @@
     <div class="dual-row">
       <div class="classifier-box">
         <div class="label">Prompt #2 &mdash; Chaque message</div>
-        <div class="name">ELSAI_INTENT_CLASSIFIER</div>
+        <div class="name">ESLAÏ_INTENT_CLASSIFIER</div>
         <p style="font-size:0.85em; color:#666; margin-bottom:10px;">Analyse automatique et invisible. Retourne un JSON de triage.</p>
         <div class="outputs">
           <span class="output-tag">cat&eacute;gorie</span>
@@ -202,7 +202,7 @@
       <div class="emotion-box">
         <span class="parallel-badge">Parall&egrave;le</span>
         <div class="label">Prompt #7</div>
-        <div class="name">ELSAI_EMOTION_ADAPTER</div>
+        <div class="name">ESLAÏ_EMOTION_ADAPTER</div>
         <div class="desc">Adapte le ton, la longueur et le rythme selon l'&eacute;tat &eacute;motionnel d&eacute;tect&eacute; (d&eacute;couragement, col&egrave;re, peur, d&eacute;tresse).</div>
       </div>
     </div>
@@ -238,7 +238,7 @@
       <div class="branch-card card-admin">
         <div class="card-header">
           <div class="card-icon">&#128196;</div>
-          <div class="card-title">ELSAI_ADMIN_ANALYSIS</div>
+          <div class="card-title">ESLAÏ_ADMIN_ANALYSIS</div>
         </div>
         <div class="card-trigger">cat&eacute;gorie = administratif &bull; public = majeur</div>
         <div class="card-desc">
@@ -252,7 +252,7 @@
       <div class="branch-card card-doc">
         <div class="card-header">
           <div class="card-icon">&#128247;</div>
-          <div class="card-title">ELSAI_DOC_SCANNER</div>
+          <div class="card-title">ESLAÏ_DOC_SCANNER</div>
         </div>
         <div class="card-trigger">upload de photo / document</div>
         <div class="card-desc">
@@ -266,7 +266,7 @@
       <div class="branch-card card-sep">
         <div class="card-header">
           <div class="card-icon">&#128107;</div>
-          <div class="card-title">ELSAI_SEPARATION_ANALYSIS</div>
+          <div class="card-title">ESLAÏ_SEPARATION_ANALYSIS</div>
         </div>
         <div class="card-trigger">sous_cat&eacute;gorie = s&eacute;paration / divorce</div>
         <div class="card-desc">
@@ -280,7 +280,7 @@
       <div class="branch-card card-child">
         <div class="card-header">
           <div class="card-icon">&#128721;</div>
-          <div class="card-title">ELSAI_CHILD_PROTECTION</div>
+          <div class="card-title">ESLAÏ_CHILD_PROTECTION</div>
         </div>
         <div class="card-trigger">public = mineur ET score_danger &ge; 0.6</div>
         <div class="card-desc">

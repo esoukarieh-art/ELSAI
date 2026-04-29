@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
 function Plaquette() {
   return React.createElement(
     Document,
-    { title: "ELSAI — Offre entreprises", author: "ELSAI" },
+    { title: "ESLAÏ — Offre entreprises", author: "ESLAÏ" },
     // Page 1 ----------------------------------------------------------
     React.createElement(
       Page,
@@ -248,7 +248,7 @@ function Plaquette() {
       React.createElement(
         View,
         { style: styles.header },
-        React.createElement(Text, { style: styles.logo }, "ELSAI"),
+        React.createElement(Text, { style: styles.logo }, "ESLAÏ"),
         React.createElement(Text, { style: styles.tagline }, "Service social numérique de premier accueil"),
       ),
 
@@ -261,7 +261,7 @@ function Plaquette() {
       React.createElement(
         Text,
         { style: styles.p },
-        "ELSAI équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, ",
+        "ESLAÏ équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, ",
         React.createElement(Text, { style: styles.strong }, "à partir de 3 € par salarié et par mois"),
         ".",
       ),
@@ -310,7 +310,7 @@ function Plaquette() {
       ),
       React.createElement(Text, { style: styles.pSmall }, "Source : DREES, enquête 2022 sur le non-recours."),
 
-      React.createElement(Text, { style: styles.h2 }, "Ce qu'ELSAI apporte à vos salariés"),
+      React.createElement(Text, { style: styles.h2 }, "Ce qu'ESLAÏ apporte à vos salariés"),
       React.createElement(
         View,
         { style: styles.cardRow },
@@ -324,7 +324,7 @@ function Plaquette() {
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Anonymat total"),
-          React.createElement(Text, { style: styles.pSmall }, "Codes d'accès personnels. Ni employeur ni ELSAI ne savent qui pose quoi."),
+          React.createElement(Text, { style: styles.pSmall }, "Codes d'accès personnels. Ni employeur ni ESLAÏ ne savent qui pose quoi."),
         ),
         React.createElement(
           View,
@@ -381,7 +381,7 @@ function Plaquette() {
       React.createElement(
         View,
         { style: styles.footer, fixed: true },
-        React.createElement(Text, null, "ELSAI — contact@elsai.fr — elsai.fr/offre"),
+        React.createElement(Text, null, "ESLAÏ — contact@elsai.fr — elsai.fr/offre"),
         React.createElement(Text, null, "1 / 2"),
       ),
     ),
@@ -393,7 +393,7 @@ function Plaquette() {
       React.createElement(
         View,
         { style: styles.header },
-        React.createElement(Text, { style: styles.logo }, "ELSAI"),
+        React.createElement(Text, { style: styles.logo }, "ESLAÏ"),
         React.createElement(Text, { style: styles.tagline }, "Service social numérique de premier accueil"),
       ),
 
@@ -441,7 +441,7 @@ function Plaquette() {
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "3. Usage confidentiel"),
-          React.createElement(Text, { style: styles.pSmall }, "Vos salariés utilisent ELSAI. Vous recevez un reporting anonymisé."),
+          React.createElement(Text, { style: styles.pSmall }, "Vos salariés utilisent ESLAÏ. Vous recevez un reporting anonymisé."),
         ),
       ),
 
@@ -449,7 +449,7 @@ function Plaquette() {
       React.createElement(
         Text,
         { style: styles.p },
-        "L'identité de vos salariés qui utilisent ELSAI. Le reporting que vous recevez est exclusivement agrégé et anonymisé : taux d'utilisation global, grandes thématiques, évolution dans le temps. Cette règle est ",
+        "L'identité de vos salariés qui utilisent ESLAÏ. Le reporting que vous recevez est exclusivement agrégé et anonymisé : taux d'utilisation global, grandes thématiques, évolution dans le temps. Cette règle est ",
         React.createElement(Text, { style: styles.strong }, "non négociable"),
         " — c'est ce qui rend le service réellement utile pour vos équipes.",
       ),
@@ -459,7 +459,7 @@ function Plaquette() {
       React.createElement(
         Text,
         { style: styles.p },
-        "Les EAP sont centrés sur le soutien psychologique. ELSAI est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire.",
+        "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire.",
       ),
       React.createElement(Text, { style: styles.h3 }, "Où sont hébergées les données ?"),
       React.createElement(
@@ -488,7 +488,7 @@ function Plaquette() {
       React.createElement(
         View,
         { style: styles.footer, fixed: true },
-        React.createElement(Text, null, "ELSAI — contact@elsai.fr — elsai.fr/offre"),
+        React.createElement(Text, null, "ESLAÏ — contact@elsai.fr — elsai.fr/offre"),
         React.createElement(Text, null, "2 / 2"),
       ),
     ),
@@ -501,7 +501,7 @@ export async function GET() {
     status: 200,
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'inline; filename="ELSAI-offre-entreprises.pdf"',
+      "Content-Disposition": 'inline; filename="ESLAÏ-offre-entreprises.pdf"',
       "Cache-Control": "public, max-age=3600, s-maxage=86400",
     },
   });

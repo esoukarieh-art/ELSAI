@@ -39,7 +39,7 @@ export default function PriceCalculator() {
             Simulateur
           </p>
           <h3 className="text-elsai-pin-dark mt-2 font-serif text-2xl">
-            Combien ELSAI coûterait-il à votre entreprise&nbsp;?
+            Combien ESLAÏ coûterait-il à votre entreprise&nbsp;?
           </h3>
         </div>
         <div className="flex items-center gap-3 text-sm">

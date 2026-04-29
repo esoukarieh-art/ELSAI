@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Questions fréquentes",
   description:
-    "Réponses aux questions fréquentes sur ELSAI : anonymat, fiabilité des réponses, données personnelles, situations d'urgence, accompagnement humain.",
+    "Réponses aux questions fréquentes sur ESLAÏ : anonymat, fiabilité des réponses, données personnelles, situations d'urgence, accompagnement humain.",
   alternates: { canonical: "/faq" },
 };
 
@@ -22,7 +22,7 @@ interface FaqItem {
 
 const FALLBACK_FAQ: FaqItem[] = [
   {
-    question: "ELSAI, c'est gratuit\u00A0?",
+    question: "ESLAÏ, c'est gratuit\u00A0?",
     answer:
       "Oui, totalement pour les particuliers. Sans palier payant, sans abonnement, sans publicité, sans vente de données. Le service est financé par des entreprises qui l'offrent à leurs salariés et par des subventions dédiées à l'économie sociale et solidaire. Ce modèle nous permet de garantir un accès libre et gratuit à toutes et tous.",
   },
@@ -37,27 +37,27 @@ const FALLBACK_FAQ: FaqItem[] = [
       "Par défaut, votre session est conservée temporairement pour que la conversation reste cohérente. Vous pouvez tout effacer instantanément, à n'importe quel moment. Nous ne revendons rien, jamais.",
   },
   {
-    question: "Est-ce qu'ELSAI remplace un travailleur social\u00A0?",
+    question: "Est-ce qu'ESLAÏ remplace un travailleur social\u00A0?",
     answer:
-      "Non. ELSAI est un premier point de contact\u00A0: il vous aide à y voir clair, à comprendre vos droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
+      "Non. ESLAÏ est un premier point de contact\u00A0: il vous aide à y voir clair, à comprendre vos droits, à préparer une démarche. Pour un accompagnement approfondi, un humain (CCAS, France Services, assistante sociale) reste indispensable.",
   },
   {
     question: "Est-ce fiable\u00A0? Comment savoir si l'info est juste\u00A0?",
     answer:
-      "ELSAI s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il vous dit «\u00A0je ne suis pas sûr\u00A0» et vous oriente vers la source humaine adaptée.",
+      "ESLAÏ s'appuie sur des sources officielles françaises (service-public.fr, CAF, CNAM, Légifrance). En cas de doute, il vous dit «\u00A0je ne suis pas sûr\u00A0» et vous oriente vers la source humaine adaptée.",
   },
   {
     question: "J'ai moins de 18 ans, est-ce que mes parents peuvent savoir\u00A0?",
     answer:
-      "Non. ELSAI est anonyme, même pour les mineurs. Seule exception\u00A0: si vous êtes en danger grave, nous vous orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
+      "Non. ESLAÏ est anonyme, même pour les mineurs. Seule exception\u00A0: si vous êtes en danger grave, nous vous orienterons fermement vers le 119 — mais ce sont eux qui gèrent le relais, pas nous.",
   },
   {
     question: "Et si je veux parler à un humain\u00A0?",
     answer:
-      "ELSAI vous donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez vous. Il peut aussi vous aider à appeler un numéro d'urgence si vous le souhaitez.",
+      "ESLAÏ vous donne les coordonnées du CCAS, de France Services ou de l'association la plus proche de chez vous. Il peut aussi vous aider à appeler un numéro d'urgence si vous le souhaitez.",
   },
   {
-    question: "Qui est derrière ELSAI\u00A0?",
+    question: "Qui est derrière ESLAÏ\u00A0?",
     answer:
       "Un collectif d'acteurs du travail social et du numérique d'intérêt général. Plus d'infos sur la page Partenariats, ou en nous écrivant via la page Contact.",
   },

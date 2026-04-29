@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { mockElsaiApi } from "./fixtures/api-mock";
+import { mockEslaïApi } from "./fixtures/api-mock";
 
 /**
  * Audit a11y automatisé — tags WCAG 2.0/2.1 AA (base RGAA 4.1).
@@ -44,7 +44,7 @@ for (const [url, label] of VITRINE_PAGES) {
 
 test.describe("a11y pages interactives", () => {
   test("chat — sans bannière urgence", async ({ page }) => {
-    await mockElsaiApi(page);
+    await mockEslaïApi(page);
     await page.goto("/chat");
     const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
     const blocking = filterBlocking(results.violations);
@@ -52,7 +52,7 @@ test.describe("a11y pages interactives", () => {
   });
 
   test("chat — avec bannière urgence 119 visible", async ({ page }) => {
-    await mockElsaiApi(page, [
+    await mockEslaïApi(page, [
       {
         reply: "Je t'entends.",
         danger_detected: true,
@@ -89,7 +89,7 @@ test.describe("Navigation clavier (RGAA 7.1)", () => {
   });
 
   test("chat — input accessible au clavier", async ({ page }) => {
-    await mockElsaiApi(page);
+    await mockEslaïApi(page);
     await page.goto("/chat");
     // Tab jusqu'à l'input
     await page.keyboard.press("Tab");

@@ -33,9 +33,9 @@ export async function GET(): Promise<Response> {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>ELSAI Blog</title>
+    <title>ESLAÏ Blog</title>
     <link>${SITE_URL}/blog</link>
-    <description>Décryptages et ressources sociales ELSAI</description>
+    <description>Décryptages et ressources sociales ESLAÏ</description>
     <language>fr-FR</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 ${items}

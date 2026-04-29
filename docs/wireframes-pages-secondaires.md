@@ -1,4 +1,4 @@
-# Wireframes — Pages secondaires ELSAI
+# Wireframes — Pages secondaires ESLAÏ
 
 Conventions :
 - **Tu** = tutoiement usagers (pages orientées particuliers)
@@ -13,12 +13,12 @@ Conventions :
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ HERO                                                     │
-│ Comment ELSAI fonctionne                                 │
+│ Comment ESLAÏ fonctionne                                 │
 │ Pas de formulaire. Pas de jargon. Juste une conversation.│
 ├─────────────────────────────────────────────────────────┤
 │ 3 ÉTAPES  (timeline horizontale, formes organiques)      │
 │                                                           │
-│  ◯ 1. Tu poses      ◯ 2. ELSAI        ◯ 3. Tu repars    │
+│  ◯ 1. Tu poses      ◯ 2. ESLAÏ        ◯ 3. Tu repars    │
 │     ta question        comprend et       avec des        │
 │     comme à un         t'oriente          infos claires  │
 │     ami                                   et concrètes   │
@@ -33,7 +33,7 @@ Conventions :
 │  · Savoir quoi faire en urgence                          │
 │  · Comprendre un courrier administratif                  │
 ├─────────────────────────────────────────────────────────┤
-│ CE QU'ELSAI NE FAIT PAS  (fond Crème, transparence)      │
+│ CE QU'ESLAÏ NE FAIT PAS  (fond Crème, transparence)      │
 │  ✗ Remplir tes dossiers à ta place                       │
 │  ✗ Remplacer une assistante sociale                      │
 │  ✗ Te juger ou te mettre la pression                     │
@@ -42,13 +42,13 @@ Conventions :
 │ SÉCURITÉ & CONFIDENTIALITÉ  (encart Vert Pin)            │
 │  🔒 Anonyme par défaut — aucune donnée identifiante.     │
 │  🗑 Droit à l'oubli — tu effaces tout, quand tu veux.    │
-│  🚨 Si tu es en danger, ELSAI t'oriente immédiatement    │
+│  🚨 Si tu es en danger, ESLAÏ t'oriente immédiatement    │
 │     vers le 119, 3919, 115 ou 3114.                      │
 │  → En savoir plus sur notre éthique                      │
 ├─────────────────────────────────────────────────────────┤
 │ EXEMPLE DE CONVERSATION  (captures d'écran stylisées)    │
 │  [Toi] : "Ma CAF a coupé mes APL, je comprends pas."     │
-│  [ELSAI] : "Je vais t'aider à y voir clair. Tu as reçu   │
+│  [ESLAÏ] : "Je vais t'aider à y voir clair. Tu as reçu   │
 │             un courrier récemment ? Qu'est-ce qu'il      │
 │             disait exactement ?"                         │
 ├─────────────────────────────────────────────────────────┤
@@ -66,7 +66,7 @@ Conventions :
 ┌─────────────────────────────────────────────────────────┐
 │ HERO                                                     │
 │ Des situations concrètes, des réponses concrètes.        │
-│ Voici ce qu'ELSAI peut faire pour toi.                   │
+│ Voici ce qu'ESLAÏ peut faire pour toi.                   │
 │                                                           │
 │ [Filtre tags] : Tous · Jeunes · Famille · Logement       │
 │                 Revenus · Handicap · Urgence             │
@@ -74,7 +74,7 @@ Conventions :
 │ 7 CARTES EXPANDABLES (accordéon, ancres URL #slug)       │
 │                                                           │
 │ ▼ 🎂 #droits-18-ans  "Je viens d'avoir 18 ans"           │
-│    Contexte · Ce qu'ELSAI t'apporte · Aides à           │
+│    Contexte · Ce qu'ESLAÏ t'apporte · Aides à           │
 │    connaître · [Essayer avec ce scénario →]              │
 │                                                           │
 │ ▼ 📋 #rsa-caf-refuse  "Mon RSA a été refusé"            │
@@ -95,7 +95,7 @@ Conventions :
 │  │ Le contexte                                    │        │
 │  │ 2-3 lignes qui normalisent la situation       │        │
 │  │                                                │        │
-│  │ Ce qu'ELSAI fait                              │        │
+│  │ Ce qu'ESLAÏ fait                              │        │
 │  │ · Point 1                                      │        │
 │  │ · Point 2                                      │        │
 │  │ · Point 3                                      │        │
@@ -107,7 +107,7 @@ Conventions :
 │  └──────────────────────────────────────────────┘        │
 ├─────────────────────────────────────────────────────────┤
 │ CTA FINAL                                                 │
-│  Ton cas n'est pas là ? ELSAI t'aide quand même.         │
+│  Ton cas n'est pas là ? ESLAÏ t'aide quand même.         │
 │  [ Poser ma question → ]                                 │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -119,7 +119,7 @@ Conventions :
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ HERO                                                     │
-│ ELSAI est fait pour toi si…                              │
+│ ESLAÏ est fait pour toi si…                              │
 │ [3 portes d'entrée visuelles — cards cliquables]         │
 │                                                           │
 │  ┌────────┐   ┌────────┐   ┌────────┐                   │
@@ -137,7 +137,7 @@ Conventions :
 │  · Tu as reçu un refus que tu ne comprends pas          │
 │  · Tu n'oses pas pousser la porte d'un CCAS             │
 │                                                           │
-│ Ce qu'ELSAI t'apporte                                    │
+│ Ce qu'ESLAÏ t'apporte                                    │
 │  [3 puces clés]                                          │
 │                                                           │
 │ [ Poser ma question → ]                                  │
@@ -153,7 +153,7 @@ Conventions :
 │ 🚨 Encart danger immédiat                                │
 │   Si tu es en danger maintenant : 119 (gratuit, 24/7)   │
 │                                                           │
-│ Ce qu'ELSAI te garantit                                  │
+│ Ce qu'ESLAÏ te garantit                                  │
 │  · Anonymat strict                                       │
 │  · Orientation vers des ressources adaptées             │
 │  · Détection des situations qui nécessitent de          │
@@ -166,7 +166,7 @@ Conventions :
 │ Vous êtes travailleur social, éducateur, bénévole,       │
 │ enseignant, professionnel de santé ?                     │
 │                                                           │
-│ ELSAI peut :                                              │
+│ ESLAÏ peut :                                              │
 │  · Compléter votre action auprès des usagers             │
 │  · Offrir une première réponse 24/7 hors permanences    │
 │  · Aider à orienter les publics que vous ne suivez pas  │
@@ -197,7 +197,7 @@ Conventions :
 │                                                           │
 │ 3️⃣ Sécurité renforcée pour les mineurs                  │
 │    Si tu as -18 ans et que tu décris une situation de   │
-│    danger, ELSAI t'oriente immédiatement vers le 119.   │
+│    danger, ESLAÏ t'oriente immédiatement vers le 119.   │
 │    C'est une règle non négociable.                       │
 │                                                           │
 │ 4️⃣ Ton empathique, pas complaisant                      │
@@ -206,7 +206,7 @@ Conventions :
 │    le dit. Franchise = respect.                          │
 │                                                           │
 │ 5️⃣ Pas de publicité, pas de revente de données         │
-│    ELSAI n'est pas un produit commercial. Zéro tracker, │
+│    ESLAÏ n'est pas un produit commercial. Zéro tracker, │
 │    zéro cookie marketing, zéro partage à des tiers.     │
 ├─────────────────────────────────────────────────────────┤
 │ COMMENT ON PROTÈGE TES DONNÉES  (schéma simple)         │
@@ -223,7 +223,7 @@ Conventions :
 │  ✗ Remplacer l'humain quand il faut un humain           │
 ├─────────────────────────────────────────────────────────┤
 │ CAS DE DANGER IMMÉDIAT                                   │
-│ Dans certaines situations, ELSAI t'oriente vers une      │
+│ Dans certaines situations, ESLAÏ t'oriente vers une      │
 │ ligne d'urgence humaine. Voici lesquelles :              │
 │  · Mineur en danger → 119                                │
 │  · Violences → 3919                                      │
@@ -253,33 +253,33 @@ Conventions :
 │ UTILISATION                                               │
 │ ▼ C'est vraiment gratuit ?                               │
 │ ▼ Il faut s'inscrire ?                                   │
-│ ▼ ELSAI marche dans toute la France ?                    │
-│ ▼ ELSAI parle d'autres langues que le français ?         │
-│ ▼ Je peux utiliser ELSAI sur mon téléphone ?             │
+│ ▼ ESLAÏ marche dans toute la France ?                    │
+│ ▼ ESLAÏ parle d'autres langues que le français ?         │
+│ ▼ Je peux utiliser ESLAÏ sur mon téléphone ?             │
 │                                                           │
 │ CONFIDENTIALITÉ                                           │
-│ ▼ ELSAI garde mes conversations ?                        │
+│ ▼ ESLAÏ garde mes conversations ?                        │
 │ ▼ Qui peut voir ce que j'écris ?                         │
 │ ▼ Comment j'efface tout ?                                │
 │ ▼ Mes données partent-elles à l'étranger ?              │
 │                                                           │
 │ FIABILITÉ                                                 │
-│ ▼ ELSAI se trompe parfois ?                              │
+│ ▼ ESLAÏ se trompe parfois ?                              │
 │ ▼ Pourquoi faire confiance à une IA ?                    │
-│ ▼ ELSAI remplace une assistante sociale ?                │
-│ ▼ D'où viennent les infos d'ELSAI ?                      │
+│ ▼ ESLAÏ remplace une assistante sociale ?                │
+│ ▼ D'où viennent les infos d'ESLAÏ ?                      │
 │                                                           │
 │ MINEURS                                                   │
-│ ▼ J'ai moins de 18 ans, je peux utiliser ELSAI ?         │
+│ ▼ J'ai moins de 18 ans, je peux utiliser ESLAÏ ?         │
 │ ▼ Mes parents peuvent voir ce que j'écris ?              │
 │ ▼ C'est quoi le 119 ?                                    │
 │                                                           │
 │ PROFESSIONNELS                                            │
-│ ▼ Je suis travailleur social, comment intégrer ELSAI ?  │
+│ ▼ Je suis travailleur social, comment intégrer ESLAÏ ?  │
 │ ▼ Y a-t-il une version pour les institutions ?           │
 ├─────────────────────────────────────────────────────────┤
 │ ENCART "TU NE TROUVES PAS ?"                             │
-│  [ Poser ta question à ELSAI → ]                         │
+│  [ Poser ta question à ESLAÏ → ]                         │
 │  ou [ Nous contacter → ]                                 │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -293,7 +293,7 @@ Conventions :
 │ HERO (fond Vieux Rose léger, ton institutionnel)        │
 │                                                           │
 │ Un partenaire complémentaire pour vos publics.          │
-│ ELSAI étend votre action au-delà de vos horaires        │
+│ ESLAÏ étend votre action au-delà de vos horaires        │
 │ d'ouverture, sans jamais remplacer l'humain.            │
 │                                                           │
 │ [ Demander une démo → ]  [ Nous écrire → ]              │
@@ -355,9 +355,9 @@ Conventions :
 │ ┌────────────────────────────────────────────────────┐  │
 │ │ 🆘 Vous êtes en difficulté et cherchez de l'aide ?│  │
 │ │ Ce formulaire n'est pas fait pour ça.              │  │
-│ │ Utilisez directement ELSAI, c'est plus rapide et  │  │
+│ │ Utilisez directement ESLAÏ, c'est plus rapide et  │  │
 │ │ anonyme.                                            │  │
-│ │ [ Aller sur ELSAI → ]                              │  │
+│ │ [ Aller sur ESLAÏ → ]                              │  │
 │ │                                                     │  │
 │ │ Urgence immédiate : 119 · 3919 · 115 · 3114        │  │
 │ └────────────────────────────────────────────────────┘  │
@@ -385,7 +385,7 @@ Conventions :
 │  Droit d'accès · Droit d'effacement · Droit d'opposition│
 │  DPO : dpo@elsai.fr                                      │
 │                                                           │
-│  Note : pour l'effacement d'une conversation ELSAI,     │
+│  Note : pour l'effacement d'une conversation ESLAÏ,     │
 │  utilisez directement le bouton "Tout effacer" dans     │
 │  l'application — c'est immédiat.                         │
 └─────────────────────────────────────────────────────────┘
@@ -412,4 +412,4 @@ Conventions :
 - `/cas-dusage` → mots-clés long tail par cas
 - `/ethique` → "assistant IA anonyme", "IA éthique social"
 - `/faq` → schema.org FAQPage
-- `/partenariats` → "partenaire ELSAI CCAS", B2B
+- `/partenariats` → "partenaire ESLAÏ CCAS", B2B

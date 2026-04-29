@@ -7,7 +7,7 @@ import { TRACKS, TRACK_META, fetchPosts, type PublicPostSummary, type Track } fr
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Journal ELSAI",
+  title: "Journal ESLAÏ",
   description:
     "Décryptages de dispositifs, retours de terrain et notes d'usage pour mieux comprendre l'accès aux droits sociaux en France.",
   alternates: { canonical: "/blog" },

@@ -90,8 +90,8 @@ export default function ChatPage() {
     profile === "minor" ? "Posez votre question librement…" : "Décrivez votre situation…";
   const intro =
     profile === "minor"
-      ? "Bonjour, je suis ELSAI. Vous pouvez me poser n'importe quelle question, c'est confidentiel. Si vous préférez qu'on se tutoie, dites-le moi."
-      : "Bonjour, je suis ELSAI. Décrivez votre situation, je vais essayer de vous aider.";
+      ? "Bonjour, je suis ESLAÏ. Vous pouvez me poser n'importe quelle question, c'est confidentiel. Si vous préférez qu'on se tutoie, dites-le moi."
+      : "Bonjour, je suis ESLAÏ. Décrivez votre situation, je vais essayer de vous aider.";
 
   const accentBar = profile === "minor" ? "bg-elsai-rose" : "bg-elsai-pin";
 
@@ -103,7 +103,7 @@ export default function ChatPage() {
       <header className="border-elsai-pin/10 flex items-center justify-between border-b bg-white/80 px-4 py-3 backdrop-blur">
         <Link href="/" className="text-elsai-pin-dark flex items-center gap-2 font-bold">
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
-          <span>ELSAI</span>
+          <span>ESLAÏ</span>
         </Link>
         <div className="text-elsai-ink/70 flex items-center gap-4 text-sm">
           <button

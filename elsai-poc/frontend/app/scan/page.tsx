@@ -35,7 +35,7 @@ export default function ScanPage() {
       <header className="border-elsai-pin/10 flex items-center justify-between border-b bg-white/80 px-4 py-3 backdrop-blur">
         <Link href="/chat" className="text-elsai-pin-dark flex items-center gap-2 font-bold">
           <Image src="/logo-elsai.svg" alt="" width={32} height={32} />
-          <span>← ELSAI</span>
+          <span>← ESLAÏ</span>
         </Link>
         <div className="text-elsai-ink/70 flex items-center gap-4 text-sm">
           <span>Analyse de document</span>
@@ -52,7 +52,7 @@ export default function ScanPage() {
       <div className="mx-auto max-w-2xl p-6">
         <h1 className="text-elsai-pin-dark mb-2 font-serif text-3xl">Scanner un document</h1>
         <p className="text-elsai-ink/75 mb-8 leading-relaxed">
-          Prenez en photo un courrier administratif. ELSAI vous l'explique en français simple et
+          Prenez en photo un courrier administratif. ESLAÏ vous l'explique en français simple et
           propose des actions concrètes.
         </p>
 
