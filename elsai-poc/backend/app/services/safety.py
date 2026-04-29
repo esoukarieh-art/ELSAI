@@ -48,14 +48,39 @@ _EMERGENCY_CTAS = {
     "adult": {"label": "Appeler le 3919 (violences) ou 3114 (suicide)", "phone": "3114"},
 }
 
+# Marqueurs « parent qui décrit un enfant » — si présents, l'utilisateur n'est
+# pas la personne en danger mais le proche inquiet. On affiche quand même la
+# ressource (119) à titre informatif, sans armer l'alerte côté admin.
+_THIRD_PARTY_CHILD = re.compile(
+    r"\b(ma fille|mon fils|mon enfant|mes enfants|mon ado|mon adolescent\w*|"
+    r"mon gamin|ma gamine|mon gosse|ma gosse|mon bébé|mon petit|ma petite)\b",
+    re.IGNORECASE,
+)
+
+# Pronoms qui indiquent que l'utilisateur lui-même est victime ; dans ce cas
+# on n'applique PAS la règle « tiers concerné », même si « ma mère / mon père »
+# apparaît (ex. « ma mère me bat »).
+_FIRST_PERSON_VICTIM = re.compile(
+    r"\b(me |m'|moi)",
+    re.IGNORECASE,
+)
+
 
 def scan(text: str, profile: str = "adult") -> dict:
-    """Retourne {danger: bool, signals: [str], cta: dict|None}."""
+    """Retourne {danger, signals, cta, third_party}.
+
+    - `danger`: l'utilisateur lui-même est probablement en danger.
+    - `third_party`: signaux détectés mais l'utilisateur parle d'un proche
+      (typiquement un parent à propos de son enfant). `danger` est False
+      mais `cta` reste fournie en mode informatif.
+    """
     signals = [name for name, pattern in _PATTERNS.items() if pattern.search(text)]
     if not signals:
-        return {"danger": False, "signals": [], "cta": None}
-    return {
-        "danger": True,
-        "signals": signals,
-        "cta": _EMERGENCY_CTAS.get(profile, _EMERGENCY_CTAS["adult"]),
-    }
+        return {"danger": False, "signals": [], "cta": None, "third_party": False}
+
+    third_party = bool(_THIRD_PARTY_CHILD.search(text)) and not _FIRST_PERSON_VICTIM.search(text)
+    cta = _EMERGENCY_CTAS.get(profile, _EMERGENCY_CTAS["adult"])
+
+    if third_party:
+        return {"danger": False, "signals": signals, "cta": cta, "third_party": True}
+    return {"danger": True, "signals": signals, "cta": cta, "third_party": False}

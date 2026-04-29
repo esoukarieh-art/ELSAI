@@ -138,3 +138,31 @@ def test_case_insensitive():
 def test_empty_signals_when_no_match():
     r = scan("bonjour")
     assert r["signals"] == []
+
+
+# --- Tiers concerné : parent qui décrit l'enfant ----------------------------
+# L'utilisateur n'est pas en danger lui-même mais s'inquiète d'un proche.
+# `danger=False` (pas d'alerte admin) mais `cta` reste fournie en mode info.
+THIRD_PARTY_CASES = [
+    "ma fille n'arrête pas de fuguer",
+    "mon fils a fugué hier soir",
+    "mon ado fugue tous les week-ends",
+    "mon enfant se scarifie, je ne sais plus quoi faire",
+]
+
+
+@pytest.mark.parametrize("text", THIRD_PARTY_CASES)
+def test_third_party_downgrades_danger(text: str):
+    r = scan(text, profile="adult")
+    assert r["third_party"] is True, f"tiers non détecté : {text!r}"
+    assert r["danger"] is False, f"alerte armée à tort sur tiers : {text!r}"
+    assert r["signals"], "signaux toujours présents pour orienter la réponse"
+    assert r["cta"] is not None, "CTA info à conserver pour le parent"
+
+
+def test_first_person_victim_overrides_third_party_marker():
+    # « ma mère me bat » : « ma mère » est un proche mais « me » indique
+    # que l'utilisateur est la victime → on garde danger=True.
+    r = scan("ma mère me frappe quand elle rentre", profile="adult")
+    assert r["danger"] is True
+    assert r["third_party"] is False

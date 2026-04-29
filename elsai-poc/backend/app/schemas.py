@@ -35,6 +35,7 @@ class ChatResponse(BaseModel):
     reply: str
     danger_detected: bool = False
     emergency_cta: dict | None = None  # {"label": "Appeler le 119", "phone": "119"}
+    third_party_concern: bool = False  # CTA affichée pour un proche, pas pour l'utilisateur
 
 
 class DocumentAnalyzeResponse(BaseModel):

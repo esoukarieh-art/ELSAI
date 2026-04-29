@@ -21,7 +21,10 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | undefined>();
-  const [emergency, setEmergency] = useState<{ label: string; phone: string } | null>(null);
+  const [emergency, setEmergency] = useState<{
+    cta: { label: string; phone: string };
+    thirdParty: boolean;
+  } | null>(null);
   const [profile, setProfile] = useState<"adult" | "minor">("adult");
   const [voiceMode, setVoiceMode] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,8 +56,8 @@ export default function ChatPage() {
       setConversationId(res.conversation_id);
       sessionStorage.setItem("elsai_conversation_id", res.conversation_id);
       setMessages((m) => [...m, { role: "assistant", content: res.reply }]);
-      if (res.danger_detected && res.emergency_cta) {
-        setEmergency(res.emergency_cta);
+      if (res.emergency_cta && (res.danger_detected || res.third_party_concern)) {
+        setEmergency({ cta: res.emergency_cta, thirdParty: !!res.third_party_concern });
       }
       if (voiceMode) playReply(res.reply);
     } catch (err) {
@@ -159,7 +162,13 @@ export default function ChatPage() {
         </div>
       </form>
 
-      {emergency && <EmergencyBanner cta={emergency} onClose={() => setEmergency(null)} />}
+      {emergency && (
+        <EmergencyBanner
+          cta={emergency.cta}
+          thirdParty={emergency.thirdParty}
+          onClose={() => setEmergency(null)}
+        />
+      )}
     </main>
   );
 }

@@ -57,6 +57,7 @@ export interface ChatResponse {
   reply: string;
   danger_detected: boolean;
   emergency_cta: { label: string; phone: string } | null;
+  third_party_concern?: boolean;
 }
 
 export async function sendMessage(message: string, conversationId?: string): Promise<ChatResponse> {

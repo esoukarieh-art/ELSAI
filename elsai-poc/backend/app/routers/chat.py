@@ -78,6 +78,7 @@ def chat(
     # 7. Fusionner avec heuristique
     danger = heuristic["danger"] or danger_llm
     emergency_cta = cta or heuristic["cta"]
+    third_party_info = heuristic.get("third_party", False) and not danger
 
     # 8. Stocker la réponse assistant
     db.add(
@@ -90,6 +91,15 @@ def chat(
         )
     )
     db.add(MetricEvent(event_type="chat", profile=session.profile))
+    if third_party_info:
+        # Tiers concerné : on n'arme pas l'alerte admin, on log en info uniquement.
+        logger.info(
+            "safety.third_party_info",
+            profile=session.profile,
+            conversation_id=str(conv.id),
+            heuristic_signals=heuristic["signals"],
+            cta_phone=(emergency_cta or {}).get("phone"),
+        )
     if danger:
         db.add(MetricEvent(event_type="danger", profile=session.profile))
         # Event safety loggé SANS contenu utilisateur (anonymat + audit légal)
@@ -124,4 +134,5 @@ def chat(
         reply=reply_text,
         danger_detected=danger,
         emergency_cta=emergency_cta,
+        third_party_concern=third_party_info,
     )
