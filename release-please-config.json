@@ -9,7 +9,8 @@
         "elsai-poc/frontend/package.json",
         "elsai-poc/backend/pyproject.toml",
         "elsai-poc/backend/app/__init__.py",
-        "README.md"
+        "README.md",
+        { "type": "generic", "path": "VERSION" }
       ],
       "changelog-sections": [
         { "type": "feat",     "section": "✨ Nouvelles fonctionnalités" },
