@@ -111,6 +111,18 @@ def chat(
             error=str(exc),
         )
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001 — pas de 500 brut côté client (CORS masquerait l'erreur)
+        logger.error(
+            "llm_call_failed",
+            profile=session.profile,
+            conversation_id=str(conv.id),
+            error_type=type(exc).__name__,
+            error=str(exc),
+        )
+        raise HTTPException(
+            status.HTTP_503_SERVICE_UNAVAILABLE,
+            "Le service LLM est temporairement indisponible. Réessayez dans un instant.",
+        ) from exc
 
     # 6. Post-traitement : détection danger côté LLM (mineur uniquement)
     if session.profile == "minor":

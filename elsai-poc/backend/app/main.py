@@ -50,33 +50,38 @@ async def lifespan(app: FastAPI):
     from .database import SessionLocal
 
     with SessionLocal() as db:
+        import logging as _logging
+
+        _seed_log = _logging.getLogger(__name__)
         ensure_initial_admin(db)
+
+        def _safe_seed(label: str, fn) -> None:
+            try:
+                fn(db)
+            except Exception as exc:  # noqa: BLE001 — best effort, ne doit pas bloquer le boot
+                _seed_log.warning("%s failed: %s", label, exc)
+
         from .services.email_templates_seed import seed_email_templates
 
-        seed_email_templates(db)
+        _safe_seed("seed_email_templates", seed_email_templates)
 
         from .services.content_seed import seed_content
 
-        seed_content(db)
+        _safe_seed("seed_content", seed_content)
 
         from .services.glossary_seed import seed_glossary
 
-        seed_glossary(db)
+        _safe_seed("seed_glossary", seed_glossary)
 
         from .services.geo_seed import seed_departments
 
-        seed_departments(db)
+        _safe_seed("seed_departments", seed_departments)
 
         # Seed idempotent des 9 pages du centre d'aide (kind=help).
         # Upsert par slug : safe à chaque boot.
         from .scripts.seed_help_pages import seed as seed_help
 
-        try:
-            seed_help(db)
-        except Exception as exc:  # noqa: BLE001 — best effort, ne doit pas bloquer le boot
-            import logging
-
-            logging.getLogger(__name__).warning("seed_help_pages failed: %s", exc)
+        _safe_seed("seed_help_pages", seed_help)
 
     if settings.email_scheduler_enabled:
         from .services.email_scheduler import start_scheduler, stop_scheduler

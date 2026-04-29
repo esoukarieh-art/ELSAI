@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  generateBuildId: async () => process.env.GIT_SHA || process.env.BUILD_ID || null,
   // Force l'inclusion du guide admin dans l'output standalone (lu via fs à
   // l'exécution par app/admin/help/page.tsx — Next ne trace pas les chemins
   // dynamiques, donc on l'explicite ici).

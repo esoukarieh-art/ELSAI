@@ -5,7 +5,9 @@ RUN npm install --legacy-peer-deps
 
 FROM node:20-alpine AS builder
 ARG NEXT_PUBLIC_API_URL
+ARG GIT_SHA
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV GIT_SHA=$GIT_SHA
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
