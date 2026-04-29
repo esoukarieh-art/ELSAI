@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
+from . import __version__
 from .config import settings
 from .database import init_db
 from .observability import setup_observability
@@ -79,9 +80,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="ESLAÏ POC API",
     description="Assistant social numérique — POC monolithe web",
-    version="0.1.0",
+    version=__version__,
     lifespan=lifespan,
 )
+
+
+@app.get("/api/version", tags=["meta"])
+def api_version() -> dict:
+    """Version courante du backend, pour healthcheck et diagnostic."""
+    return {"version": __version__}
 
 setup_observability(app)
 
