@@ -2,14 +2,17 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
+  type LongTailDetail,
   type LongTailRow,
   type SeoStats,
   type Taxonomy,
   deleteLongTail,
   generateBatch,
+  getLongTail,
   getStats,
   getTaxonomy,
   listLongTail,
+  updateLongTail,
   updateStatus,
 } from "@/lib/admin/seoApi";
 
@@ -34,6 +37,14 @@ export default function AdminSeoPage() {
   const [genPublish, setGenPublish] = useState(false);
   const [genBusy, setGenBusy] = useState(false);
   const [genReport, setGenReport] = useState<string | null>(null);
+
+  // Édition
+  const [editing, setEditing] = useState<LongTailDetail | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDesc, setEditDesc] = useState("");
+  const [editContent, setEditContent] = useState("");
+  const [editBusy, setEditBusy] = useState(false);
+  const [editError, setEditError] = useState<string | null>(null);
 
   useEffect(() => {
     void refreshAll();
@@ -126,6 +137,56 @@ export default function AdminSeoPage() {
       setStats(await getStats());
     } catch {}
   }
+
+  async function openEdit(row: LongTailRow) {
+    setEditError(null);
+    try {
+      const detail = await getLongTail(row.id);
+      setEditing(detail);
+      setEditTitle(detail.title);
+      setEditDesc(detail.seo_description);
+      setEditContent(detail.content_md);
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  }
+
+  function closeEdit() {
+    setEditing(null);
+    setEditError(null);
+  }
+
+  async function saveEdit() {
+    if (!editing) return;
+    setEditBusy(true);
+    setEditError(null);
+    try {
+      const payload: Partial<Pick<LongTailDetail, "title" | "seo_description" | "content_md">> = {};
+      if (editTitle !== editing.title) payload.title = editTitle;
+      if (editDesc !== editing.seo_description) payload.seo_description = editDesc;
+      if (editContent !== editing.content_md) payload.content_md = editContent;
+      if (Object.keys(payload).length > 0) {
+        await updateLongTail(editing.id, payload);
+        await reloadRows({
+          right: filterRight || undefined,
+          situation: filterSituation || undefined,
+          department: filterDept || undefined,
+          page_status: filterStatus || undefined,
+        });
+        await refreshStats();
+      }
+      closeEdit();
+    } catch (err) {
+      setEditError((err as Error).message);
+    } finally {
+      setEditBusy(false);
+    }
+  }
+
+  const editWordCount = useMemo(
+    () => (editContent ? editContent.trim().split(/\s+/).filter(Boolean).length : 0),
+    [editContent],
+  );
 
   async function remove(row: LongTailRow) {
     if (!window.confirm(`Supprimer ${row.composite_slug} ?`)) return;
@@ -316,6 +377,12 @@ export default function AdminSeoPage() {
                       </td>
                       <td className="px-2 py-2">
                         <div className="flex flex-wrap gap-2 text-xs">
+                          <button
+                            onClick={() => openEdit(r)}
+                            className="text-elsai-pin-dark hover:underline"
+                          >
+                            Éditer
+                          </button>
                           {r.status !== "published" && r.word_count >= 350 && (
                             <button
                               onClick={() => changeStatus(r, "published")}
@@ -354,6 +421,109 @@ export default function AdminSeoPage() {
               </table>
             </div>
           )}
+        </div>
+      )}
+
+      {editing && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4"
+          onClick={closeEdit}
+        >
+          <div
+            className="rounded-organic mt-8 w-full max-w-3xl bg-white p-5 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-elsai-pin-dark font-serif text-xl">Éditer la page</h3>
+                <p className="text-elsai-ink/60 mt-1 font-mono text-xs">
+                  {editing.right_slug}/{editing.situation_slug}/{editing.department_code}
+                </p>
+              </div>
+              <button
+                onClick={closeEdit}
+                className="text-elsai-ink/60 hover:text-elsai-ink text-2xl leading-none"
+                aria-label="Fermer"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3">
+              <label className="flex flex-col text-sm">
+                <span className="text-elsai-ink/70 mb-1 text-xs">Titre</span>
+                <input
+                  type="text"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="rounded-organic border-elsai-pin/20 border bg-white px-2 py-2 text-sm"
+                  maxLength={300}
+                />
+              </label>
+
+              <label className="flex flex-col text-sm">
+                <span className="text-elsai-ink/70 mb-1 flex justify-between text-xs">
+                  <span>Méta-description</span>
+                  <span
+                    className={
+                      editDesc.length < 140 || editDesc.length > 160
+                        ? "text-amber-700"
+                        : "text-emerald-700"
+                    }
+                  >
+                    {editDesc.length} car. (idéal 140–160)
+                  </span>
+                </span>
+                <textarea
+                  value={editDesc}
+                  onChange={(e) => setEditDesc(e.target.value)}
+                  rows={3}
+                  className="rounded-organic border-elsai-pin/20 border bg-white px-2 py-2 text-sm"
+                  maxLength={400}
+                />
+              </label>
+
+              <label className="flex flex-col text-sm">
+                <span className="text-elsai-ink/70 mb-1 flex justify-between text-xs">
+                  <span>Contenu Markdown</span>
+                  <span
+                    className={editWordCount < 350 ? "text-red-600" : "text-emerald-700"}
+                  >
+                    {editWordCount} mots (min 350 pour publier)
+                  </span>
+                </span>
+                <textarea
+                  value={editContent}
+                  onChange={(e) => setEditContent(e.target.value)}
+                  className="rounded-organic border-elsai-pin/20 border bg-white px-2 py-2 font-mono text-xs"
+                  style={{ height: "50vh" }}
+                />
+              </label>
+
+              {editError && (
+                <p className="rounded-organic border border-red-200 bg-red-50 p-2 text-sm text-red-800">
+                  ⚠️ {editError}
+                </p>
+              )}
+
+              <div className="mt-2 flex justify-end gap-2">
+                <button
+                  onClick={closeEdit}
+                  disabled={editBusy}
+                  className="rounded-organic border-elsai-pin/30 text-elsai-pin-dark hover:bg-elsai-pin/5 border px-4 py-2 text-sm disabled:opacity-40"
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={saveEdit}
+                  disabled={editBusy}
+                  className="rounded-organic bg-elsai-pin text-elsai-creme hover:bg-elsai-pin-dark px-4 py-2 text-sm font-semibold disabled:opacity-40"
+                >
+                  {editBusy ? "Enregistrement…" : "Enregistrer"}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </section>

@@ -99,6 +99,17 @@ export function generateBatch(
   });
 }
 
+export function updateLongTail(
+  id: string,
+  payload: Partial<Pick<LongTailDetail, "title" | "seo_description" | "content_md">>,
+): Promise<LongTailDetail> {
+  return adminJson<LongTailDetail>(`/api/admin/seo/longtail/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
 export function updateStatus(
   id: string,
   status: "draft" | "published" | "noindex",

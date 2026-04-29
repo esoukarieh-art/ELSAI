@@ -69,6 +69,12 @@ class StatusUpdateRequest(BaseModel):
     status: str  # "draft" | "published" | "noindex"
 
 
+class LongTailUpdateRequest(BaseModel):
+    title: str | None = Field(default=None, min_length=1, max_length=300)
+    seo_description: str | None = Field(default=None, min_length=1, max_length=400)
+    content_md: str | None = Field(default=None, min_length=1)
+
+
 # ---------------- Endpoints ----------------
 
 
@@ -172,6 +178,46 @@ def generate(
         skipped=skipped,
         pages=[LongTailRow.model_validate(p) for p in pages],
     )
+
+
+@router.put(
+    "/longtail/{page_id}",
+    response_model=LongTailDetail,
+    dependencies=[Depends(require_role(*CONTENT_ROLES))],
+)
+def update_page(
+    page_id: str,
+    payload: LongTailUpdateRequest,
+    admin: AdminIdentity = Depends(get_admin),
+    db: DBSession = Depends(get_db),
+) -> LongTailPage:
+    page = db.get(LongTailPage, page_id)
+    if page is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Page introuvable")
+    changed: list[str] = []
+    if payload.title is not None and payload.title != page.title:
+        page.title = payload.title
+        changed.append("title")
+    if payload.seo_description is not None and payload.seo_description != page.seo_description:
+        page.seo_description = payload.seo_description
+        changed.append("seo_description")
+    if payload.content_md is not None and payload.content_md != page.content_md:
+        page.content_md = payload.content_md
+        page.word_count = len(payload.content_md.split())
+        changed.append("content_md")
+    if changed:
+        db.commit()
+        db.refresh(page)
+        logger.info(
+            "admin.seo.longtail_updated",
+            extra={
+                "admin_email": admin.email,
+                "page_id": page_id,
+                "fields": changed,
+                "word_count": page.word_count,
+            },
+        )
+    return page
 
 
 @router.patch(
