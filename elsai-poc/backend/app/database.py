@@ -144,9 +144,107 @@ def _migrate_blog_posts() -> None:
             conn.commit()
 
 
+def _migrate_conversations() -> None:
+    """Ajoute les colonnes `optional_account_id` et `department_code` sur conversations.
+
+    Idempotent : no-op si les colonnes existent déjà. Supporte SQLite et Postgres.
+    Pour Postgres, une FK est ajoutée vers optional_accounts(id) si la table existe.
+    """
+    url = settings.database_url
+    is_sqlite = url.startswith("sqlite")
+    is_postgres = url.startswith("postgres")
+    if not (is_sqlite or is_postgres):
+        return
+
+    with engine.connect() as conn:
+        if is_sqlite:
+            exists = conn.execute(
+                text(
+                    "SELECT name FROM sqlite_master "
+                    "WHERE type='table' AND name='conversations'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {row[1] for row in conn.execute(text("PRAGMA table_info(conversations)"))}
+        else:
+            exists = conn.execute(
+                text(
+                    "SELECT 1 FROM information_schema.tables "
+                    "WHERE table_name = 'conversations'"
+                )
+            ).first()
+            if not exists:
+                return
+            cols = {
+                row[0]
+                for row in conn.execute(
+                    text(
+                        "SELECT column_name FROM information_schema.columns "
+                        "WHERE table_name = 'conversations'"
+                    )
+                )
+            }
+
+        statements: list[str] = []
+        if "optional_account_id" not in cols:
+            statements.append(
+                "ALTER TABLE conversations ADD COLUMN optional_account_id VARCHAR(36)"
+            )
+        if "department_code" not in cols:
+            statements.append(
+                "ALTER TABLE conversations ADD COLUMN department_code VARCHAR(3)"
+            )
+        for stmt in statements:
+            conn.execute(text(stmt))
+
+        if statements and is_postgres:
+            # Index sur optional_account_id pour cohérence avec le mapping ORM
+            try:
+                conn.execute(
+                    text(
+                        "CREATE INDEX IF NOT EXISTS ix_conversations_optional_account_id "
+                        "ON conversations (optional_account_id)"
+                    )
+                )
+            except Exception:
+                pass
+            # FK vers optional_accounts si la table existe (best-effort, n'échoue
+                # pas le boot si la table n'est pas encore là).
+            try:
+                has_oa = conn.execute(
+                    text(
+                        "SELECT 1 FROM information_schema.tables "
+                        "WHERE table_name = 'optional_accounts'"
+                    )
+                ).first()
+                has_fk = conn.execute(
+                    text(
+                        "SELECT 1 FROM information_schema.table_constraints "
+                        "WHERE table_name = 'conversations' "
+                        "AND constraint_name = 'fk_conversations_optional_account_id'"
+                    )
+                ).first()
+                if has_oa and not has_fk:
+                    conn.execute(
+                        text(
+                            "ALTER TABLE conversations "
+                            "ADD CONSTRAINT fk_conversations_optional_account_id "
+                            "FOREIGN KEY (optional_account_id) "
+                            "REFERENCES optional_accounts(id) ON DELETE SET NULL"
+                        )
+                    )
+            except Exception:
+                pass
+
+        if statements:
+            conn.commit()
+
+
 def init_db() -> None:
     from . import models  # noqa: F401 — import pour enregistrer les tables
 
     Base.metadata.create_all(bind=engine)
     _migrate_page_content()
     _migrate_blog_posts()
+    _migrate_conversations()

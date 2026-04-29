@@ -1,9 +1,11 @@
 """Point d'entrée FastAPI — monolithe ESLAÏ POC."""
 
+import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from . import __version__
@@ -117,6 +119,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def _unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    """Renvoie une 500 JSON propre — passe par les middlewares (donc CORS),
+    contrairement au 500 brut d'uvicorn qui court-circuite la pile.
+
+    Sans ce handler, une exception non gérée fait que le navigateur voit un
+    'CORS missing' qui masque la vraie erreur côté frontend.
+    """
+    logging.getLogger(__name__).exception(
+        "unhandled_exception path=%s method=%s", request.url.path, request.method
+    )
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Erreur interne du serveur."},
+    )
 
 app.include_router(auth.router)
 app.include_router(chat.router)
