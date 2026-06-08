@@ -1,6 +1,6 @@
 # ESLAÏ
 
-![version](https://img.shields.io/badge/version-1.0.0-5A7E6B?style=flat&logoColor=white) <!-- x-release-please-version -->
+![version](https://img.shields.io/badge/version-1.1.0?style=flat&logoColor=white) <!-- x-release-please-version -->
 
 Assistant social IA conversationnel (FR) — PWA Next.js + FastAPI. Cible : particuliers
 majeurs et mineurs 12-18 ans. Posture empathique et franche, anonymat strict, droit à l'oubli,
