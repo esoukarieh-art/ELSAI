@@ -24,7 +24,11 @@ export default function UsersPage() {
   const [users, setUsers] = useState<AdminIdentity[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
-  const [form, setForm] = useState({ email: "", password: "", role: "content_editor" as AdminRole });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    role: "content_editor" as AdminRole,
+  });
 
   async function load() {
     try {
@@ -167,9 +171,7 @@ export default function UsersPage() {
                 <td className="px-3 py-2">
                   <span
                     className={`rounded-organic px-2 py-0.5 text-xs ${
-                      u.active
-                        ? "bg-elsai-pin/10 text-elsai-pin-dark"
-                        : "bg-gray-100 text-gray-500"
+                      u.active ? "bg-elsai-pin/10 text-elsai-pin-dark" : "bg-gray-100 text-gray-500"
                     }`}
                   >
                     {u.active ? "Actif" : "Désactivé"}

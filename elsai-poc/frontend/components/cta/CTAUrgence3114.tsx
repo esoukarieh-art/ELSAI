@@ -15,17 +15,18 @@ export function CTAUrgence3114({ context, audience = "all", className }: CTAUrge
   return (
     <aside
       data-cta-component="CTAUrgence3114"
-      role="complementary"
       aria-label="Numéro d'urgence 3114 - Prévention du suicide"
-      className={`rounded-organic bg-elsai-cream border-l-4 border-elsai-rose my-6 p-5 ${className ?? ""}`}
+      className={`rounded-organic bg-elsai-cream border-elsai-rose my-6 border-l-4 p-5 ${className ?? ""}`}
     >
-      <h3 className="text-elsai-rose font-semibold text-lg">Besoin de parler ? Des professionnels vous écoutent.</h3>
+      <h3 className="text-elsai-rose text-lg font-semibold">
+        Besoin de parler ? Des professionnels vous écoutent.
+      </h3>
       <p className="mt-1 text-sm text-slate-700">{description}</p>
       <p className="mt-3">
         <a
           href="tel:3114"
           aria-label="Appeler le 3114, numéro national de prévention du suicide"
-          className="font-bold text-2xl text-elsai-pin underline decoration-elsai-rose focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-rose focus-visible:ring-offset-2"
+          className="text-elsai-pin decoration-elsai-rose focus-visible:ring-elsai-rose text-2xl font-bold underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         >
           3114
         </a>

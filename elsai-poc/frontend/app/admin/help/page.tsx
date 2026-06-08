@@ -54,12 +54,12 @@ export default async function AdminHelpPage() {
             Guide d'utilisation du backoffice. Lecture seule. Non indexé par les moteurs.
           </p>
         </div>
-        <span className="rounded-organic bg-slate-200 text-slate-700 px-2 py-1 text-[11px] uppercase">
+        <span className="rounded-organic bg-slate-200 px-2 py-1 text-[11px] text-slate-700 uppercase">
           noindex
         </span>
       </div>
 
-      <article className="prose-elsai rounded-organic border-elsai-pin/15 bg-white/70 border p-6">
+      <article className="prose-elsai rounded-organic border-elsai-pin/15 border bg-white/70 p-6">
         <MDXRemote source={markdown} />
       </article>
     </div>

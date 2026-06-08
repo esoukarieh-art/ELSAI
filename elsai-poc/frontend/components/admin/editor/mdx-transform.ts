@@ -62,35 +62,27 @@ export function mdxToHtml(mdx: string): string {
 
   out = out.replace(
     /<Callout\s+variant="([^"]*)"\s*>([\s\S]*?)<\/Callout>/g,
-    (_m, variant: string, text: string) =>
-      divFor("Callout", { variant, text }),
+    (_m, variant: string, text: string) => divFor("Callout", { variant, text }),
   );
 
-  out = out.replace(
-    /<FAQ\s+items=\{(\[[\s\S]*?\])\}\s*\/>/g,
-    (match, items: string) => {
-      try {
-        return divFor("FAQ", { items: JSON.parse(items) });
-      } catch {
-        return match;
-      }
-    },
-  );
+  out = out.replace(/<FAQ\s+items=\{(\[[\s\S]*?\])\}\s*\/>/g, (match, items: string) => {
+    try {
+      return divFor("FAQ", { items: JSON.parse(items) });
+    } catch {
+      return match;
+    }
+  });
 
-  out = out.replace(
-    /<HowTo\s+steps=\{(\[[\s\S]*?\])\}\s*\/>/g,
-    (match, steps: string) => {
-      try {
-        return divFor("HowTo", { steps: JSON.parse(steps) });
-      } catch {
-        return match;
-      }
-    },
-  );
+  out = out.replace(/<HowTo\s+steps=\{(\[[\s\S]*?\])\}\s*\/>/g, (match, steps: string) => {
+    try {
+      return divFor("HowTo", { steps: JSON.parse(steps) });
+    } catch {
+      return match;
+    }
+  });
 
-  out = out.replace(
-    /<LeadMagnet\s+slug="([^"]*)"\s*\/>/g,
-    (_m, slug: string) => divFor("LeadMagnet", { slug }),
+  out = out.replace(/<LeadMagnet\s+slug="([^"]*)"\s*\/>/g, (_m, slug: string) =>
+    divFor("LeadMagnet", { slug }),
   );
 
   return out;

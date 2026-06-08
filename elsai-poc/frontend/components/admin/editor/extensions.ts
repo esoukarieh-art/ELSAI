@@ -44,8 +44,7 @@ export const defaultExtensions: any[] = [
     autolink: true,
     linkOnPaste: true,
     HTMLAttributes: {
-      class:
-        "text-elsai-pin-dark underline underline-offset-2 cursor-pointer hover:text-elsai-pin",
+      class: "text-elsai-pin-dark underline underline-offset-2 cursor-pointer hover:text-elsai-pin",
     },
   }),
   TaskList.configure({ HTMLAttributes: { class: "not-prose space-y-1" } }),
@@ -56,8 +55,7 @@ export const defaultExtensions: any[] = [
   CodeBlockLowlight.configure({
     lowlight,
     HTMLAttributes: {
-      class:
-        "rounded-organic bg-slate-900 text-slate-100 p-3 text-xs font-mono overflow-x-auto",
+      class: "rounded-organic bg-slate-900 text-slate-100 p-3 text-xs font-mono overflow-x-auto",
     },
   }),
   Typography,

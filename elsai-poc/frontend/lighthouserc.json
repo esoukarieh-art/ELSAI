@@ -15,12 +15,7 @@
       "numberOfRuns": 1,
       "settings": {
         "preset": "desktop",
-        "onlyCategories": [
-          "accessibility",
-          "best-practices",
-          "seo",
-          "performance"
-        ]
+        "onlyCategories": ["accessibility", "best-practices", "seo", "performance"]
       }
     },
     "assert": {

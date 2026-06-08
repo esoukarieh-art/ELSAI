@@ -7,11 +7,7 @@ import Section from "@/components/site/Section";
 import { CTABlockRender } from "@/components/cta/CTABlockRender";
 import { CTA_REGISTRY } from "@/components/cta/registry";
 import { MDX_COMPONENTS } from "@/components/mdx";
-import {
-  fetchHelpPage,
-  fetchHelpPages,
-  type PublicPostDetail,
-} from "@/lib/content";
+import { fetchHelpPage, fetchHelpPages, type PublicPostDetail } from "@/lib/content";
 import { buildJsonLd } from "@/lib/jsonLd";
 import { computeAutoInjectedCTAs, type ExistingCTA } from "@/lib/ctaAutoInject";
 import { SITE_URL } from "@/lib/seo";
@@ -154,16 +150,11 @@ export default async function HelpDetailPage({ params }: Props) {
         <footer className="border-elsai-pin/15 mx-auto mt-16 max-w-3xl border-t pt-8">
           {related.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">
-                Voir aussi
-              </h2>
+              <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">Voir aussi</h2>
               <ul className="space-y-2">
                 {related.map((r) => (
                   <li key={r.slug}>
-                    <Link
-                      href={`/aide/${r.slug}`}
-                      className="text-elsai-pin-dark hover:underline"
-                    >
+                    <Link href={`/aide/${r.slug}`} className="text-elsai-pin-dark hover:underline">
                       → {r.title}
                     </Link>
                   </li>

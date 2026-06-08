@@ -1,11 +1,7 @@
 "use client";
 
 import { Node, mergeAttributes } from "@tiptap/core";
-import {
-  NodeViewWrapper,
-  ReactNodeViewRenderer,
-  type NodeViewProps,
-} from "@tiptap/react";
+import { NodeViewWrapper, ReactNodeViewRenderer, type NodeViewProps } from "@tiptap/react";
 import { useMemo, useState } from "react";
 
 import type { MdxBlockProps, MdxBlockTag } from "./mdx-transform";
@@ -29,7 +25,7 @@ export const MdxBlock = Node.create({
   parseHTML() {
     return [
       {
-        tag: 'div[data-elsai-block]',
+        tag: "div[data-elsai-block]",
         getAttrs: (el) => {
           if (!(el instanceof HTMLElement)) return false;
           const tag = el.getAttribute("data-elsai-block") as MdxBlockTag;
@@ -80,21 +76,19 @@ function MdxBlockView(props: NodeViewProps) {
   return (
     <NodeViewWrapper
       className={`mdx-block rounded-organic my-3 border p-3 text-sm transition-colors ${
-        selected
-          ? "border-elsai-pin bg-elsai-pin/5"
-          : "border-elsai-pin/20 bg-elsai-creme/30"
+        selected ? "border-elsai-pin bg-elsai-pin/5" : "border-elsai-pin/20 bg-elsai-creme/30"
       }`}
       data-drag-handle
     >
       <header className="mb-2 flex items-center justify-between gap-2">
-        <span className="text-elsai-pin-dark text-[11px] font-semibold uppercase tracking-wide">
+        <span className="text-elsai-pin-dark text-[11px] font-semibold tracking-wide uppercase">
           {label}
         </span>
         <div className="flex items-center gap-1 text-xs">
           <button
             type="button"
             onClick={() => setEditing((v) => !v)}
-            className="text-elsai-pin-dark rounded-organic border border-elsai-pin/30 px-2 py-0.5 hover:bg-elsai-pin/10"
+            className="text-elsai-pin-dark rounded-organic border-elsai-pin/30 hover:bg-elsai-pin/10 border px-2 py-0.5"
           >
             {editing ? "Fermer" : "Éditer"}
           </button>
@@ -129,7 +123,9 @@ function Preview({ tag, attrs }: { tag: MdxBlockTag; attrs: MdxBlockProps }) {
       const variant = (attrs.variant as string) || "info";
       const text = (attrs.text as string) || "(encadré vide)";
       return (
-        <div className={`rounded-organic border-l-4 px-3 py-2 ${CALLOUT_COLORS[variant] ?? CALLOUT_COLORS.info}`}>
+        <div
+          className={`rounded-organic border-l-4 px-3 py-2 ${CALLOUT_COLORS[variant] ?? CALLOUT_COLORS.info}`}
+        >
           <p className="text-[10px] uppercase opacity-70">{variant}</p>
           <p>{text}</p>
         </div>
@@ -137,8 +133,7 @@ function Preview({ tag, attrs }: { tag: MdxBlockTag; attrs: MdxBlockProps }) {
     }
     case "FAQ": {
       const items = (attrs.items as Array<{ question: string; answer: string }>) ?? [];
-      if (items.length === 0)
-        return <p className="text-elsai-ink/50 italic">(aucune question)</p>;
+      if (items.length === 0) return <p className="text-elsai-ink/50 italic">(aucune question)</p>;
       return (
         <ul className="space-y-1">
           {items.map((it, i) => (
@@ -157,8 +152,7 @@ function Preview({ tag, attrs }: { tag: MdxBlockTag; attrs: MdxBlockProps }) {
     }
     case "HowTo": {
       const steps = (attrs.steps as Array<{ name: string; text: string }>) ?? [];
-      if (steps.length === 0)
-        return <p className="text-elsai-ink/50 italic">(aucune étape)</p>;
+      if (steps.length === 0) return <p className="text-elsai-ink/50 italic">(aucune étape)</p>;
       return (
         <ol className="list-decimal space-y-1 pl-5 text-xs">
           {steps.map((s, i) => (
@@ -285,7 +279,7 @@ function FAQForm({
   return (
     <div className="space-y-2">
       {items.map((it, i) => (
-        <div key={i} className="rounded-organic border border-elsai-pin/10 bg-white p-2">
+        <div key={i} className="rounded-organic border-elsai-pin/10 border bg-white p-2">
           <div className="mb-1 flex items-center justify-between">
             <span className="text-elsai-ink/60 text-[10px] uppercase">Q{i + 1}</span>
             <button
@@ -314,7 +308,7 @@ function FAQForm({
       <button
         type="button"
         onClick={add}
-        className="text-elsai-pin-dark rounded-organic border border-elsai-pin/30 px-2 py-1 text-xs hover:bg-elsai-pin/10"
+        className="text-elsai-pin-dark rounded-organic border-elsai-pin/30 hover:bg-elsai-pin/10 border px-2 py-1 text-xs"
       >
         + Ajouter une question
       </button>
@@ -343,7 +337,7 @@ function HowToForm({
   return (
     <div className="space-y-2">
       {steps.map((st, i) => (
-        <div key={i} className="rounded-organic border border-elsai-pin/10 bg-white p-2">
+        <div key={i} className="rounded-organic border-elsai-pin/10 border bg-white p-2">
           <div className="mb-1 flex items-center justify-between">
             <span className="text-elsai-ink/60 text-[10px] uppercase">#{i + 1}</span>
             <button
@@ -372,7 +366,7 @@ function HowToForm({
       <button
         type="button"
         onClick={add}
-        className="text-elsai-pin-dark rounded-organic border border-elsai-pin/30 px-2 py-1 text-xs hover:bg-elsai-pin/10"
+        className="text-elsai-pin-dark rounded-organic border-elsai-pin/30 hover:bg-elsai-pin/10 border px-2 py-1 text-xs"
       >
         + Ajouter une étape
       </button>

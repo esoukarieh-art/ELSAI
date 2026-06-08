@@ -203,7 +203,8 @@ export default function AdminSeoPage() {
     <section>
       <h1 className="text-elsai-pin-dark font-serif text-2xl">SEO longue traîne</h1>
       <p className="text-elsai-ink/70 mt-1 text-sm">
-        Génération de pages <code>droit × situation × département</code>, supervision et publication.
+        Génération de pages <code>droit × situation × département</code>, supervision et
+        publication.
       </p>
 
       {error && (
@@ -235,8 +236,8 @@ export default function AdminSeoPage() {
         <div className="rounded-organic border-elsai-pin/15 mt-8 border bg-white p-4">
           <h2 className="text-elsai-pin-dark font-semibold">Générer un lot</h2>
           <p className="text-elsai-ink/70 mt-1 text-xs">
-            Sélectionnez plusieurs droits, situations et départements. Le produit cartésien sera généré
-            (max 200 par lot).
+            Sélectionnez plusieurs droits, situations et départements. Le produit cartésien sera
+            généré (max 200 par lot).
           </p>
           <div className="mt-3 grid gap-3 md:grid-cols-3">
             <MultiSelect
@@ -283,9 +284,7 @@ export default function AdminSeoPage() {
               {genBusy ? "Génération…" : "Lancer la génération"}
             </button>
           </div>
-          {genReport && (
-            <p className="text-elsai-ink/80 mt-3 text-sm">{genReport}</p>
-          )}
+          {genReport && <p className="text-elsai-ink/80 mt-3 text-sm">{genReport}</p>}
         </div>
       )}
 
@@ -358,11 +357,7 @@ export default function AdminSeoPage() {
                       </td>
                       <td className="px-2 py-2">{r.title}</td>
                       <td className="px-2 py-2 tabular-nums">
-                        <span
-                          className={
-                            r.word_count < 350 ? "text-red-600" : "text-elsai-ink"
-                          }
-                        >
+                        <span className={r.word_count < 350 ? "text-red-600" : "text-elsai-ink"}>
                           {r.word_count}
                         </span>
                       </td>
@@ -426,12 +421,17 @@ export default function AdminSeoPage() {
 
       {editing && (
         <div
+          role="presentation"
           className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4"
-          onClick={closeEdit}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeEdit();
+          }}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Éditer la page"
             className="rounded-organic mt-8 w-full max-w-3xl bg-white p-5 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -461,9 +461,9 @@ export default function AdminSeoPage() {
                 />
               </label>
 
-              <label className="flex flex-col text-sm">
+              <label className="flex flex-col text-sm" htmlFor="seo-edit-desc">
                 <span className="text-elsai-ink/70 mb-1 flex justify-between text-xs">
-                  <span>Méta-description</span>
+                  Méta-description
                   <span
                     className={
                       editDesc.length < 140 || editDesc.length > 160
@@ -475,6 +475,7 @@ export default function AdminSeoPage() {
                   </span>
                 </span>
                 <textarea
+                  id="seo-edit-desc"
                   value={editDesc}
                   onChange={(e) => setEditDesc(e.target.value)}
                   rows={3}
@@ -483,16 +484,15 @@ export default function AdminSeoPage() {
                 />
               </label>
 
-              <label className="flex flex-col text-sm">
+              <label className="flex flex-col text-sm" htmlFor="seo-edit-content">
                 <span className="text-elsai-ink/70 mb-1 flex justify-between text-xs">
-                  <span>Contenu Markdown</span>
-                  <span
-                    className={editWordCount < 350 ? "text-red-600" : "text-emerald-700"}
-                  >
+                  Contenu Markdown
+                  <span className={editWordCount < 350 ? "text-red-600" : "text-emerald-700"}>
                     {editWordCount} mots (min 350 pour publier)
                   </span>
                 </span>
                 <textarea
+                  id="seo-edit-content"
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
                   className="rounded-organic border-elsai-pin/20 border bg-white px-2 py-2 font-mono text-xs"
@@ -530,15 +530,7 @@ export default function AdminSeoPage() {
   );
 }
 
-function Stat({
-  label,
-  value,
-  sub,
-}: {
-  label: string;
-  value: string | number;
-  sub?: string;
-}) {
+function Stat({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div className="rounded-organic border-elsai-pin/15 bg-elsai-creme border p-4">
       <p className="text-elsai-ink/60 text-xs tracking-widest uppercase">{label}</p>
@@ -611,9 +603,7 @@ function MultiSelect({
         multiple
         size={6}
         value={value}
-        onChange={(e) =>
-          onChange(Array.from(e.target.selectedOptions).map((o) => o.value))
-        }
+        onChange={(e) => onChange(Array.from(e.target.selectedOptions).map((o) => o.value))}
         className="rounded-organic border-elsai-pin/20 border bg-white px-2 py-1 text-sm"
       >
         {options.map((o) => (

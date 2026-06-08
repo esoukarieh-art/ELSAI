@@ -42,28 +42,26 @@ export default function CTAListPage() {
     <div>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-serif text-3xl text-elsai-pin">CTA Blocks</h1>
-          <p className="text-sm text-slate-600">
-            Variantes A/B des 17 CTA. CTR calculé en P0.10.
-          </p>
+          <h1 className="text-elsai-pin font-serif text-3xl">CTA Blocks</h1>
+          <p className="text-sm text-slate-600">Variantes A/B des 17 CTA. CTR calculé en P0.10.</p>
         </div>
         <Link
           href="/admin/cta/new"
-          className="rounded-organic bg-elsai-pin px-4 py-2 text-sm text-elsai-cream hover:bg-elsai-pin/90"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-2 text-sm"
         >
           + Nouvelle variante
         </Link>
       </div>
 
       {error && (
-        <p className="mb-3 rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-elsai-rose">
+        <p className="rounded-organic text-elsai-rose mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
       )}
 
-      <div className="overflow-x-auto rounded-organic border border-elsai-pin/15 bg-white/70">
+      <div className="rounded-organic border-elsai-pin/15 overflow-x-auto border bg-white/70">
         <table className="w-full text-sm">
-          <thead className="text-xs uppercase text-slate-500">
+          <thead className="text-xs text-slate-500 uppercase">
             <tr>
               <th className="px-3 py-2 text-left">Clé</th>
               <th className="px-3 py-2 text-left">Composant</th>
@@ -86,41 +84,36 @@ export default function CTAListPage() {
             {rows.map((r) => {
               const m = metrics.get(`${r.key}:${r.variant}`);
               const ctr = m && m.impressions > 0 ? `${(m.ctr * 100).toFixed(1)}%` : "—";
-              const ctrHint = m
-                ? `${m.clicks}/${m.impressions}`
-                : "";
+              const ctrHint = m ? `${m.clicks}/${m.impressions}` : "";
               return (
-              <tr
-                key={r.id}
-                className={`border-t border-slate-100 hover:bg-elsai-pin/5 ${
-                  !r.active ? "opacity-50" : ""
-                }`}
-              >
-                <td className="px-3 py-2 font-mono text-xs">{r.key}</td>
-                <td className="px-3 py-2">{r.component}</td>
-                <td className="px-3 py-2">{r.variant}</td>
-                <td className="px-3 py-2">
-                  <span className="rounded-organic bg-slate-100 px-2 py-0.5 text-[11px] uppercase">
-                    {r.audience}
-                  </span>
-                </td>
-                <td className="px-3 py-2">{r.weight}</td>
-                <td className="px-3 py-2">{r.active ? "✓" : "✗"}</td>
-                <td className="px-3 py-2 font-mono text-xs">
-                  {ctr}
-                  {ctrHint && (
-                    <span className="ml-1 text-[10px] text-slate-400">({ctrHint})</span>
-                  )}
-                </td>
-                <td className="px-3 py-2">
-                  <Link
-                    href={`/admin/cta/${r.id}`}
-                    className="text-elsai-pin hover:underline"
-                  >
-                    Modifier
-                  </Link>
-                </td>
-              </tr>
+                <tr
+                  key={r.id}
+                  className={`hover:bg-elsai-pin/5 border-t border-slate-100 ${
+                    !r.active ? "opacity-50" : ""
+                  }`}
+                >
+                  <td className="px-3 py-2 font-mono text-xs">{r.key}</td>
+                  <td className="px-3 py-2">{r.component}</td>
+                  <td className="px-3 py-2">{r.variant}</td>
+                  <td className="px-3 py-2">
+                    <span className="rounded-organic bg-slate-100 px-2 py-0.5 text-[11px] uppercase">
+                      {r.audience}
+                    </span>
+                  </td>
+                  <td className="px-3 py-2">{r.weight}</td>
+                  <td className="px-3 py-2">{r.active ? "✓" : "✗"}</td>
+                  <td className="px-3 py-2 font-mono text-xs">
+                    {ctr}
+                    {ctrHint && (
+                      <span className="ml-1 text-[10px] text-slate-400">({ctrHint})</span>
+                    )}
+                  </td>
+                  <td className="px-3 py-2">
+                    <Link href={`/admin/cta/${r.id}`} className="text-elsai-pin hover:underline">
+                      Modifier
+                    </Link>
+                  </td>
+                </tr>
               );
             })}
           </tbody>

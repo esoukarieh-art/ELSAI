@@ -249,7 +249,11 @@ function Plaquette() {
         View,
         { style: styles.header },
         React.createElement(Text, { style: styles.logo }, "ESLAÏ"),
-        React.createElement(Text, { style: styles.tagline }, "Service social numérique de premier accueil"),
+        React.createElement(
+          Text,
+          { style: styles.tagline },
+          "Service social numérique de premier accueil",
+        ),
       ),
 
       React.createElement(Text, { style: styles.eyebrow }, "Offre entreprises"),
@@ -262,7 +266,11 @@ function Plaquette() {
         Text,
         { style: styles.p },
         "ESLAÏ équipe vos équipes d'un accueil social confidentiel, disponible 24h/24h. Un avantage social concret, ",
-        React.createElement(Text, { style: styles.strong }, "à partir de 3 € par salarié et par mois"),
+        React.createElement(
+          Text,
+          { style: styles.strong },
+          "à partir de 3 € par salarié et par mois",
+        ),
         ".",
       ),
 
@@ -287,28 +295,48 @@ function Plaquette() {
           View,
           { style: styles.statBox },
           React.createElement(Text, { style: styles.statValue }, "10 Md€"),
-          React.createElement(Text, { style: styles.statLabel }, "d'aides sociales non réclamées chaque année"),
+          React.createElement(
+            Text,
+            { style: styles.statLabel },
+            "d'aides sociales non réclamées chaque année",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.statBox },
           React.createElement(Text, { style: styles.statValue }, "37 %"),
-          React.createElement(Text, { style: styles.statLabel }, "des non-recours dus au manque d'information"),
+          React.createElement(
+            Text,
+            { style: styles.statLabel },
+            "des non-recours dus au manque d'information",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.statBox },
           React.createElement(Text, { style: styles.statValue }, "34 %"),
-          React.createElement(Text, { style: styles.statLabel }, "des ayants droit au RSA ne le demandent pas"),
+          React.createElement(
+            Text,
+            { style: styles.statLabel },
+            "des ayants droit au RSA ne le demandent pas",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.statBox },
           React.createElement(Text, { style: styles.statValue }, "44 %"),
-          React.createElement(Text, { style: styles.statLabel }, "des ayants droit à la CSS non plus"),
+          React.createElement(
+            Text,
+            { style: styles.statLabel },
+            "des ayants droit à la CSS non plus",
+          ),
         ),
       ),
-      React.createElement(Text, { style: styles.pSmall }, "Source : DREES, enquête 2022 sur le non-recours."),
+      React.createElement(
+        Text,
+        { style: styles.pSmall },
+        "Source : DREES, enquête 2022 sur le non-recours.",
+      ),
 
       React.createElement(Text, { style: styles.h2 }, "Ce qu'ESLAÏ apporte à vos salariés"),
       React.createElement(
@@ -318,19 +346,31 @@ function Plaquette() {
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Accessible 24h/24h"),
-          React.createElement(Text, { style: styles.pSmall }, "Une réponse tout de suite, sans rendez-vous."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Une réponse tout de suite, sans rendez-vous.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Anonymat total"),
-          React.createElement(Text, { style: styles.pSmall }, "Codes d'accès personnels. Ni employeur ni ESLAÏ ne savent qui pose quoi."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Codes d'accès personnels. Ni employeur ni ESLAÏ ne savent qui pose quoi.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Supervisée par AS diplômé·es"),
-          React.createElement(Text, { style: styles.pSmall }, "Pas un chatbot générique — vérifié par des pros."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Pas un chatbot générique — vérifié par des pros.",
+          ),
         ),
       ),
 
@@ -394,7 +434,11 @@ function Plaquette() {
         View,
         { style: styles.header },
         React.createElement(Text, { style: styles.logo }, "ESLAÏ"),
-        React.createElement(Text, { style: styles.tagline }, "Service social numérique de premier accueil"),
+        React.createElement(
+          Text,
+          { style: styles.tagline },
+          "Service social numérique de premier accueil",
+        ),
       ),
 
       React.createElement(Text, { style: styles.h2 }, "Bénéfices pour l'entreprise"),
@@ -405,19 +449,31 @@ function Plaquette() {
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Moins d'absentéisme"),
-          React.createElement(Text, { style: styles.pSmall }, "Les soucis sociaux non résolus sont une cause majeure d'arrêts et de baisse de productivité."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Les soucis sociaux non résolus sont une cause majeure d'arrêts et de baisse de productivité.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Attractivité employeur"),
-          React.createElement(Text, { style: styles.pSmall }, "Un avantage social rare dans les PME. Signal fort pour la marque employeur."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Un avantage social rare dans les PME. Signal fort pour la marque employeur.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "Confidentialité totale"),
-          React.createElement(Text, { style: styles.pSmall }, "Reporting agrégé anonymisé uniquement. Aucun salarié identifiable, jamais."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Reporting agrégé anonymisé uniquement. Aucun salarié identifiable, jamais.",
+          ),
         ),
       ),
 
@@ -429,19 +485,31 @@ function Plaquette() {
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "1. Contrat & codes"),
-          React.createElement(Text, { style: styles.pSmall }, "Signature puis envoi d'un lot de codes personnels pour vos équipes."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Signature puis envoi d'un lot de codes personnels pour vos équipes.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "2. Communication"),
-          React.createElement(Text, { style: styles.pSmall }, "Kit prêt à l'emploi : affiche, email type, message Slack / Teams."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Kit prêt à l'emploi : affiche, email type, message Slack / Teams.",
+          ),
         ),
         React.createElement(
           View,
           { style: styles.card },
           React.createElement(Text, { style: styles.h3 }, "3. Usage confidentiel"),
-          React.createElement(Text, { style: styles.pSmall }, "Vos salariés utilisent ESLAÏ. Vous recevez un reporting anonymisé."),
+          React.createElement(
+            Text,
+            { style: styles.pSmall },
+            "Vos salariés utilisent ESLAÏ. Vous recevez un reporting anonymisé.",
+          ),
         ),
       ),
 
@@ -477,7 +545,11 @@ function Plaquette() {
       React.createElement(
         View,
         { style: styles.ctaBox },
-        React.createElement(Text, { style: styles.ctaTitle }, "Discutons de votre besoin en 20 minutes"),
+        React.createElement(
+          Text,
+          { style: styles.ctaTitle },
+          "Discutons de votre besoin en 20 minutes",
+        ),
         React.createElement(
           Text,
           { style: styles.ctaText },
@@ -496,7 +568,9 @@ function Plaquette() {
 }
 
 export async function GET() {
-  const buffer = await renderToBuffer(Plaquette() as unknown as Parameters<typeof renderToBuffer>[0]);
+  const buffer = await renderToBuffer(
+    Plaquette() as unknown as Parameters<typeof renderToBuffer>[0],
+  );
   return new NextResponse(buffer as unknown as BodyInit, {
     status: 200,
     headers: {

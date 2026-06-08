@@ -24,11 +24,7 @@ interface Props {
   onInsertCTA: () => void;
 }
 
-export default function ContentEditor({
-  initialContent,
-  onChange,
-  onInsertCTA,
-}: Props) {
+export default function ContentEditor({ initialContent, onChange, onInsertCTA }: Props) {
   const [editor, setEditor] = useState<EditorInstance | null>(null);
   const lastRef = useRef<string>(initialContent);
 
@@ -69,7 +65,7 @@ export default function ContentEditor({
   }
 
   return (
-    <div className="rounded-organic border-elsai-pin/15 bg-white relative border">
+    <div className="rounded-organic border-elsai-pin/15 relative border bg-white">
       <EditorRoot>
         <EditorContent
           extensions={extensions}
@@ -106,14 +102,12 @@ export default function ContentEditor({
                   key={item.title}
                   value={item.title}
                   onCommand={(val) => item.command?.(val)}
-                  className="hover:bg-elsai-pin/10 aria-selected:bg-elsai-pin/15 flex cursor-pointer items-center gap-2 rounded-organic px-2 py-1.5 text-sm"
+                  className="hover:bg-elsai-pin/10 aria-selected:bg-elsai-pin/15 rounded-organic flex cursor-pointer items-center gap-2 px-2 py-1.5 text-sm"
                 >
                   {item.icon}
                   <div className="min-w-0">
                     <p className="text-elsai-ink truncate font-medium">{item.title}</p>
-                    <p className="text-elsai-ink/60 truncate text-[11px]">
-                      {item.description}
-                    </p>
+                    <p className="text-elsai-ink/60 truncate text-[11px]">{item.description}</p>
                   </div>
                 </EditorCommandItem>
               ))}
@@ -136,9 +130,7 @@ export default function ContentEditor({
           >
             {layoutBusy ? "… IA en cours" : "🪄 Mise en page IA"}
           </button>
-          {layoutError && (
-            <span className="text-elsai-urgence text-[10px]">{layoutError}</span>
-          )}
+          {layoutError && <span className="text-elsai-urgence text-[10px]">{layoutError}</span>}
         </span>
         <span>
           {words} mots · {chars} car. · ≈ {readingMinutes} min de lecture

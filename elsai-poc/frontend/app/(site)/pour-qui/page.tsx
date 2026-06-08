@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Pour qui\u00A0? Adultes, 12-18 ans & employeurs",
@@ -55,11 +50,7 @@ const FALLBACK_EMPLOYER_ITEMS: LabelItem[] = [
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -94,11 +85,7 @@ export default async function Page({
   );
   const adultsCtaLabel = blockString(adults, "cta_label", "Commencer →");
   const adultsCtaHref = blockString(adults, "cta_href", "/start");
-  const adultsHeading = blockString(
-    adults,
-    "heading",
-    "Ce que vous pouvez nous demander",
-  );
+  const adultsHeading = blockString(adults, "heading", "Ce que vous pouvez nous demander");
   const adultsItems = blockList<LabelItem>(adults, "items", FALLBACK_ADULT_ITEMS);
   const adultsFooter = blockString(
     adults,
@@ -115,11 +102,7 @@ export default async function Page({
   );
   const minorsCtaLabel = blockString(minors, "cta_label", "Parler à ESLAÏ →");
   const minorsCtaHref = blockString(minors, "cta_href", "/start");
-  const minorsHeading = blockString(
-    minors,
-    "heading",
-    "Vous pouvez nous parler de…",
-  );
+  const minorsHeading = blockString(minors, "heading", "Vous pouvez nous parler de…");
   const minorsItems = blockList<LabelItem>(minors, "items", FALLBACK_MINOR_ITEMS);
   const dangerTitle = blockString(
     minors,
@@ -141,11 +124,7 @@ export default async function Page({
   );
   const empCtaLabel = blockString(employers, "cta_label", "Voir l'offre entreprises →");
   const empCtaHref = blockString(employers, "cta_href", "/offre");
-  const empHeading = blockString(
-    employers,
-    "heading",
-    "Ce que vous cherchez probablement",
-  );
+  const empHeading = blockString(employers, "heading", "Ce que vous cherchez probablement");
   const empItems = blockList<LabelItem>(employers, "items", FALLBACK_EMPLOYER_ITEMS);
   const empFooter = blockString(
     employers,
@@ -156,7 +135,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}
@@ -192,9 +171,7 @@ export default async function Page({
                 </li>
               ))}
             </ul>
-            {adultsFooter && (
-              <p className="text-elsai-ink/70 text-sm">{adultsFooter}</p>
-            )}
+            {adultsFooter && <p className="text-elsai-ink/70 text-sm">{adultsFooter}</p>}
           </div>
         </div>
       </Section>

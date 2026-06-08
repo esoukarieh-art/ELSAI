@@ -7,9 +7,15 @@
       "audience": "adult",
       "messages": [
         { "role": "user", "text": "On m'a refusé le RSA et je comprends pas pourquoi." },
-        { "role": "assistant", "text": "Je comprends, c'est frustrant. Vous avez reçu une lettre de la CAF avec le motif du refus ?" },
+        {
+          "role": "assistant",
+          "text": "Je comprends, c'est frustrant. Vous avez reçu une lettre de la CAF avec le motif du refus ?"
+        },
         { "role": "user", "text": "Oui mais c'est plein de sigles, je comprends rien." },
-        { "role": "assistant", "text": "On va relire ensemble. Vous pouvez recopier la phrase qui contient le motif, ou prendre une photo. Ensuite on regarde si vous avez droit à un recours administratif (RAPO) — vous avez 2 mois après la décision pour le faire." }
+        {
+          "role": "assistant",
+          "text": "On va relire ensemble. Vous pouvez recopier la phrase qui contient le motif, ou prendre une photo. Ensuite on regarde si vous avez droit à un recours administratif (RAPO) — vous avez 2 mois après la décision pour le faire."
+        }
       ]
     },
     {
@@ -18,10 +24,19 @@
       "tag": "Jeune majeur",
       "audience": "adult",
       "messages": [
-        { "role": "user", "text": "J'ai 18 ans depuis 3 mois, je suis sorti de l'ASE, j'ai plus rien." },
-        { "role": "assistant", "text": "Tu as plusieurs droits ouverts à 18 ans selon ta situation. Tu es scolarisé, en formation, ou tu cherches un emploi ?" },
+        {
+          "role": "user",
+          "text": "J'ai 18 ans depuis 3 mois, je suis sorti de l'ASE, j'ai plus rien."
+        },
+        {
+          "role": "assistant",
+          "text": "Tu as plusieurs droits ouverts à 18 ans selon ta situation. Tu es scolarisé, en formation, ou tu cherches un emploi ?"
+        },
         { "role": "user", "text": "Je cherche du boulot mais j'ai pas de logement." },
-        { "role": "assistant", "text": "Trois pistes immédiates : 1) Le contrat jeune majeur (à demander à l'ASE de ton département, parfois prolongeable), 2) FJT (Foyer Jeunes Travailleurs) pour le logement, 3) Mission Locale pour l'emploi + Garantie Jeunes (jusqu'à ~520€/mois). Tu veux qu'on regarde lequel coche le mieux pour toi ?" }
+        {
+          "role": "assistant",
+          "text": "Trois pistes immédiates : 1) Le contrat jeune majeur (à demander à l'ASE de ton département, parfois prolongeable), 2) FJT (Foyer Jeunes Travailleurs) pour le logement, 3) Mission Locale pour l'emploi + Garantie Jeunes (jusqu'à ~520€/mois). Tu veux qu'on regarde lequel coche le mieux pour toi ?"
+        }
       ]
     },
     {
@@ -30,10 +45,19 @@
       "tag": "Mineur·e",
       "audience": "minor",
       "messages": [
-        { "role": "user", "text": "Ça se passe mal chez moi mais je veux pas en parler à mes profs." },
-        { "role": "assistant", "text": "Ok, ici c'est anonyme, tu peux tout effacer en un clic. Tu veux juste qu'on en parle, ou tu cherches une solution concrète ?" },
+        {
+          "role": "user",
+          "text": "Ça se passe mal chez moi mais je veux pas en parler à mes profs."
+        },
+        {
+          "role": "assistant",
+          "text": "Ok, ici c'est anonyme, tu peux tout effacer en un clic. Tu veux juste qu'on en parle, ou tu cherches une solution concrète ?"
+        },
         { "role": "user", "text": "Je sais pas. Ça crie tout le temps. J'ai peur parfois." },
-        { "role": "assistant", "text": "Ce que tu décris, ça mérite d'être pris au sérieux. Si tu te sens en danger, le 119 (Allô Enfance en Danger) est gratuit, anonyme, 24h/24. Sinon, on peut explorer ensemble : Maison des Adolescents près de chez toi, ou un point écoute jeunes. Tu décides du rythme." }
+        {
+          "role": "assistant",
+          "text": "Ce que tu décris, ça mérite d'être pris au sérieux. Si tu te sens en danger, le 119 (Allô Enfance en Danger) est gratuit, anonyme, 24h/24. Sinon, on peut explorer ensemble : Maison des Adolescents près de chez toi, ou un point écoute jeunes. Tu décides du rythme."
+        }
       ]
     },
     {
@@ -43,9 +67,15 @@
       "audience": "adult",
       "messages": [
         { "role": "user", "text": "Je n'ai pas où dormir ce soir." },
-        { "role": "assistant", "text": "On agit tout de suite. Le 115 est joignable 24h/24, c'est gratuit, ils orientent vers un hébergement d'urgence. Vous êtes seul·e, en couple, ou avec des enfants ?" },
+        {
+          "role": "assistant",
+          "text": "On agit tout de suite. Le 115 est joignable 24h/24, c'est gratuit, ils orientent vers un hébergement d'urgence. Vous êtes seul·e, en couple, ou avec des enfants ?"
+        },
         { "role": "user", "text": "Seule avec mon fils de 4 ans." },
-        { "role": "assistant", "text": "Avec un enfant, vous êtes prioritaire. Appelez le 115 maintenant. Si saturé, le SIAO de votre département peut être contacté. Demain on peut regarder les démarches plus longues : DALO, demande HLM, accompagnement social." }
+        {
+          "role": "assistant",
+          "text": "Avec un enfant, vous êtes prioritaire. Appelez le 115 maintenant. Si saturé, le SIAO de votre département peut être contacté. Demain on peut regarder les démarches plus longues : DALO, demande HLM, accompagnement social."
+        }
       ]
     }
   ]

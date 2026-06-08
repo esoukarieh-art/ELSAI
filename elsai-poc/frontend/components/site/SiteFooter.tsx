@@ -43,7 +43,8 @@ export default function SiteFooter() {
             <span className="text-elsai-pin-dark text-lg font-semibold">ESLAÏ</span>
           </Link>
           <p className="text-elsai-ink/75 mt-3 max-w-xs text-sm leading-relaxed">
-            Service social numérique de premier accueil. Anonyme, disponible 24h/24h, hébergé en France.
+            Service social numérique de premier accueil. Anonyme, disponible 24h/24h, hébergé en
+            France.
           </p>
         </div>
         {COLUMNS.map((col) => (

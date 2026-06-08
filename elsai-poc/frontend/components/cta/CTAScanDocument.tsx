@@ -31,20 +31,15 @@ export function CTAScanDocument({
   return (
     <aside
       data-cta-component="CTAScanDocument"
-      role="complementary"
       aria-label={ariaLabel}
       className={`rounded-organic bg-elsai-cream p-6 ${className ?? ""}`}
     >
-      <h3 className="text-elsai-pin font-semibold text-lg">
-        {title ?? defaultTitle}
-      </h3>
-      <p className="mt-1 text-sm text-slate-700">
-        {fileHint ?? defaultHint}
-      </p>
+      <h3 className="text-elsai-pin text-lg font-semibold">{title ?? defaultTitle}</h3>
+      <p className="mt-1 text-sm text-slate-700">{fileHint ?? defaultHint}</p>
       <Link
         href="/scan"
         aria-label={ariaLabel}
-        className="mt-4 inline-flex items-center rounded-organic bg-elsai-rose px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-rose/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2"
+        className="rounded-organic bg-elsai-rose text-elsai-cream hover:bg-elsai-rose/90 focus-visible:ring-elsai-pin mt-4 inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       >
         {buttonLabel}
       </Link>

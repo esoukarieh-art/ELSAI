@@ -48,7 +48,9 @@ export function buildArticleJsonLd(post: PublicPostDetail): object {
 
 export function buildHowToJsonLd(post: PublicPostDetail): object | null {
   const extra = parseExtra(post);
-  const steps = Array.isArray(extra.steps) ? (extra.steps as { name?: string; text?: string }[]) : null;
+  const steps = Array.isArray(extra.steps)
+    ? (extra.steps as { name?: string; text?: string }[])
+    : null;
   if (!steps || steps.length === 0) return null;
   return {
     "@context": "https://schema.org",

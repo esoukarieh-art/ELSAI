@@ -25,11 +25,7 @@ export interface CTATrackingClientProps {
  * [data-cta-key="{blockKey}"] pour émettre "cta_click".
  * Plausible optionnel (si window.plausible).
  */
-export function CTATrackingClient({
-  blockKey,
-  variant,
-  postSlug,
-}: CTATrackingClientProps) {
+export function CTATrackingClient({ blockKey, variant, postSlug }: CTATrackingClientProps) {
   useEffect(() => {
     const post = postSlug ?? (typeof window !== "undefined" ? window.location.pathname : "");
 
@@ -46,9 +42,7 @@ export function CTATrackingClient({
     }).catch(() => null);
 
     // 2) listener clic sur le parent
-    const parent = document.querySelector<HTMLElement>(
-      `[data-cta-key="${blockKey}"]`,
-    );
+    const parent = document.querySelector<HTMLElement>(`[data-cta-key="${blockKey}"]`);
     if (!parent) return;
 
     const onClick = () => {

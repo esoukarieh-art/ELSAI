@@ -43,8 +43,7 @@ export default async function GlossairePage() {
             Les sigles du droit social, expliqués sans jargon.
           </h1>
           <p className="text-elsai-ink/80 mt-5 text-lg">
-            CAF, MDPH, RAPO, AAH, RSA, C2S... Quand vous vous perdez dans les
-            sigles, c'est ici.
+            CAF, MDPH, RAPO, AAH, RSA, C2S... Quand vous vous perdez dans les sigles, c'est ici.
           </p>
         </div>
       </section>
@@ -56,9 +55,7 @@ export default async function GlossairePage() {
           <div className="space-y-10">
             {Object.entries(grouped).map(([letter, items]) => (
               <div key={letter}>
-                <h2 className="text-elsai-pin font-serif text-2xl font-bold">
-                  {letter}
-                </h2>
+                <h2 className="text-elsai-pin font-serif text-2xl font-bold">{letter}</h2>
                 <ul className="mt-3 grid gap-3 md:grid-cols-2">
                   {items.map((e) => (
                     <li key={e.slug}>
@@ -66,12 +63,8 @@ export default async function GlossairePage() {
                         href={`/glossaire/${e.slug}`}
                         className="rounded-organic border-elsai-pin/15 bg-elsai-creme hover:border-elsai-pin/40 block border p-4 transition-colors"
                       >
-                        <div className="text-elsai-pin-dark font-semibold">
-                          {e.sigle}
-                        </div>
-                        <div className="text-elsai-ink/70 text-sm">
-                          {e.full_name}
-                        </div>
+                        <div className="text-elsai-pin-dark font-semibold">{e.sigle}</div>
+                        <div className="text-elsai-ink/70 text-sm">{e.full_name}</div>
                       </Link>
                     </li>
                   ))}

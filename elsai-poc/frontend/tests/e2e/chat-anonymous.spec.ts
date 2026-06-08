@@ -32,9 +32,7 @@ test.describe("Chat anonyme — envoi et réception", () => {
     page.once("dialog", (d) => d.accept());
     await page.getByRole("button", { name: /Droit à l'oubli/i }).click();
 
-    await expect
-      .poll(() => page.evaluate(() => sessionStorage.getItem("elsai_token")))
-      .toBeNull();
+    await expect.poll(() => page.evaluate(() => sessionStorage.getItem("elsai_token"))).toBeNull();
     await expect
       .poll(() => page.evaluate(() => sessionStorage.getItem("elsai_conversation_id")))
       .toBeNull();

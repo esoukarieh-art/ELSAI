@@ -1,12 +1,12 @@
 import MessageWithGlossary from "./MessageWithGlossary";
 
 interface Props {
-  role: "user" | "assistant";
+  author: "user" | "assistant";
   content: string;
 }
 
-export default function ChatBubble({ role, content }: Props) {
-  const isUser = role === "user";
+export default function ChatBubble({ author, content }: Props) {
+  const isUser = author === "user";
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
       <div

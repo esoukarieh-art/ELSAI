@@ -17,8 +17,7 @@ function formatDate(iso: string): string {
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const label =
-    status === "published" ? "Publié" : status === "draft" ? "Brouillon" : status;
+  const label = status === "published" ? "Publié" : status === "draft" ? "Brouillon" : status;
   const cls =
     status === "published"
       ? "bg-emerald-100 text-emerald-700"
@@ -60,22 +59,23 @@ export default function PagesListPage() {
     <div>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-serif text-3xl text-elsai-pin">Pages du site</h1>
+          <h1 className="text-elsai-pin font-serif text-3xl">Pages du site</h1>
           <p className="text-sm text-slate-600">
-            Contenu éditable des pages statiques (accueil, etc.) avec workflow brouillon / publication.
+            Contenu éditable des pages statiques (accueil, etc.) avec workflow brouillon /
+            publication.
           </p>
         </div>
       </div>
 
       {error && (
-        <p className="mb-3 rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-elsai-rose">
+        <p className="rounded-organic text-elsai-rose mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
       )}
 
-      <div className="overflow-x-auto rounded-organic border border-elsai-pin/15 bg-white/70">
+      <div className="rounded-organic border-elsai-pin/15 overflow-x-auto border bg-white/70">
         <table className="w-full text-sm">
-          <thead className="text-xs uppercase text-slate-500">
+          <thead className="text-xs text-slate-500 uppercase">
             <tr>
               <th className="px-3 py-2 text-left">Clé</th>
               <th className="px-3 py-2 text-left">Titre</th>
@@ -95,7 +95,7 @@ export default function PagesListPage() {
               </tr>
             )}
             {rows.map((r) => (
-              <tr key={r.page_key} className="border-t border-slate-100 hover:bg-elsai-pin/5">
+              <tr key={r.page_key} className="hover:bg-elsai-pin/5 border-t border-slate-100">
                 <td className="px-3 py-2 font-mono text-xs">{r.page_key}</td>
                 <td className="px-3 py-2">{r.title}</td>
                 <td className="px-3 py-2">
@@ -103,7 +103,7 @@ export default function PagesListPage() {
                 </td>
                 <td className="px-3 py-2">
                   {r.has_draft ? (
-                    <span className="rounded-organic bg-amber-100 px-2 py-0.5 text-[11px] font-semibold uppercase text-amber-700">
+                    <span className="rounded-organic bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-700 uppercase">
                       Non publié
                     </span>
                   ) : (

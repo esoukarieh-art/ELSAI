@@ -154,10 +154,7 @@ export default function BlogListPage() {
             >
               Visualiser le brouillon
             </Link>
-            <Link
-              href={`/admin/blog/${notice.postId}`}
-              className="underline hover:no-underline"
-            >
+            <Link href={`/admin/blog/${notice.postId}`} className="underline hover:no-underline">
               Éditer
             </Link>
             <button
@@ -182,7 +179,7 @@ export default function BlogListPage() {
         </div>
       )}
 
-      <div className="rounded-organic border-elsai-pin/15 bg-white/70 mb-4 border p-3">
+      <div className="rounded-organic border-elsai-pin/15 mb-4 border bg-white/70 p-3">
         <div className="grid gap-2 sm:grid-cols-5">
           <label className="text-xs">
             <span className="text-elsai-ink/70 mb-1 block uppercase">Recherche</span>
@@ -261,7 +258,7 @@ export default function BlogListPage() {
         </p>
       )}
 
-      <div className="rounded-organic border-elsai-pin/15 bg-white/70 overflow-x-auto border">
+      <div className="rounded-organic border-elsai-pin/15 overflow-x-auto border bg-white/70">
         <table className="w-full text-sm">
           <thead className="text-elsai-ink/60 text-xs uppercase">
             <tr>
@@ -283,7 +280,7 @@ export default function BlogListPage() {
               </tr>
             )}
             {rows.map((r) => (
-              <tr key={r.id} className="border-t border-slate-100 hover:bg-elsai-pin/5">
+              <tr key={r.id} className="hover:bg-elsai-pin/5 border-t border-slate-100">
                 <td className="px-3 py-2">
                   <Link
                     href={`/admin/blog/${r.id}`}
@@ -323,9 +320,7 @@ export default function BlogListPage() {
                 <td className="text-elsai-ink/70 px-3 py-2 text-xs">
                   {r.author_display ?? r.author_id ?? "—"}
                 </td>
-                <td className="text-elsai-ink/60 px-3 py-2 text-xs">
-                  {formatDate(r.updated_at)}
-                </td>
+                <td className="text-elsai-ink/60 px-3 py-2 text-xs">{formatDate(r.updated_at)}</td>
                 <td className="px-3 py-2 text-right">
                   <div className="flex justify-end gap-2">
                     <Link

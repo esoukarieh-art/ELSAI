@@ -141,7 +141,10 @@ export default function EmailSequencesPage() {
       const updated = await updateEmailTemplate(selectedKey, draft);
       setDetail(updated);
       setInfo("Template enregistré.");
-      await Promise.all([loadSequences(), selectedSeq ? loadSteps(selectedSeq) : Promise.resolve()]);
+      await Promise.all([
+        loadSequences(),
+        selectedSeq ? loadSteps(selectedSeq) : Promise.resolve(),
+      ]);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -188,22 +191,20 @@ export default function EmailSequencesPage() {
       </p>
 
       {error && (
-        <p className="text-elsai-urgence mb-3 rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
+        <p className="text-elsai-urgence rounded-organic mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
       )}
       {info && (
-        <p className="mb-3 rounded-organic border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+        <p className="rounded-organic mb-3 border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
           {info}
         </p>
       )}
 
       <div className="grid gap-4 lg:grid-cols-[260px_220px_1fr]">
         {/* Col 1 : séquences */}
-        <aside className="rounded-organic border-elsai-pin/15 bg-white/70 border p-3">
-          <h2 className="text-elsai-pin-dark mb-2 text-sm font-semibold uppercase">
-            Séquences
-          </h2>
+        <aside className="rounded-organic border-elsai-pin/15 border bg-white/70 p-3">
+          <h2 className="text-elsai-pin-dark mb-2 text-sm font-semibold uppercase">Séquences</h2>
           <ul className="space-y-1">
             {sequences.map((s) => {
               const active = s.sequence_key === selectedSeq;
@@ -216,16 +217,14 @@ export default function EmailSequencesPage() {
                       setSelectedKey(null);
                       setDetail(null);
                     }}
-                    className={`w-full rounded-organic px-3 py-2 text-left text-sm transition-colors ${
-                      active
-                        ? "bg-elsai-pin text-elsai-creme"
-                        : "hover:bg-elsai-pin/5"
+                    className={`rounded-organic w-full px-3 py-2 text-left text-sm transition-colors ${
+                      active ? "bg-elsai-pin text-elsai-creme" : "hover:bg-elsai-pin/5"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-medium">{s.sequence_label}</span>
                       <span
-                        className={`rounded-organic px-2 py-0.5 text-[10px] uppercase tracking-wide ${
+                        className={`rounded-organic px-2 py-0.5 text-[10px] tracking-wide uppercase ${
                           s.audience === "b2b"
                             ? "bg-sky-100 text-sky-800"
                             : "bg-purple-100 text-purple-800"
@@ -240,9 +239,7 @@ export default function EmailSequencesPage() {
                         {s.steps_total > 1 ? "s" : ""}
                       </span>
                       {paused && <span className="text-amber-700">· en pause</span>}
-                      {s.pending_count > 0 && (
-                        <span>· {s.pending_count} en attente</span>
-                      )}
+                      {s.pending_count > 0 && <span>· {s.pending_count} en attente</span>}
                     </div>
                   </button>
                 </li>
@@ -252,14 +249,11 @@ export default function EmailSequencesPage() {
         </aside>
 
         {/* Col 2 : étapes de la séquence */}
-        <aside className="rounded-organic border-elsai-pin/15 bg-white/70 border p-3">
+        <aside className="rounded-organic border-elsai-pin/15 border bg-white/70 p-3">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-elsai-pin-dark text-sm font-semibold uppercase">Étapes</h2>
             {currentSeq && (
-              <button
-                onClick={handleTogglePause}
-                className="text-elsai-pin-dark text-xs underline"
-              >
+              <button onClick={handleTogglePause} className="text-elsai-pin-dark text-xs underline">
                 {currentSeq.steps_active === 0 ? "Activer" : "Pauser"}
               </button>
             )}
@@ -274,10 +268,8 @@ export default function EmailSequencesPage() {
                   <li key={step.key}>
                     <button
                       onClick={() => setSelectedKey(step.key)}
-                      className={`w-full rounded-organic px-3 py-2 text-left text-sm transition-colors ${
-                        active
-                          ? "bg-elsai-pin text-elsai-creme"
-                          : "hover:bg-elsai-pin/5"
+                      className={`rounded-organic w-full px-3 py-2 text-left text-sm transition-colors ${
+                        active ? "bg-elsai-pin text-elsai-creme" : "hover:bg-elsai-pin/5"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
@@ -300,7 +292,7 @@ export default function EmailSequencesPage() {
         </aside>
 
         {/* Col 3 : éditeur */}
-        <section className="rounded-organic border-elsai-pin/15 bg-white/70 border p-4">
+        <section className="rounded-organic border-elsai-pin/15 border bg-white/70 p-4">
           {!detail ? (
             <p className="text-elsai-ink/50 text-sm">Sélectionnez une étape à éditer.</p>
           ) : (
@@ -348,9 +340,7 @@ export default function EmailSequencesPage() {
                   <input
                     type="number"
                     value={draft.delay_hours ?? 0}
-                    onChange={(e) =>
-                      setDraft({ ...draft, delay_hours: Number(e.target.value) })
-                    }
+                    onChange={(e) => setDraft({ ...draft, delay_hours: Number(e.target.value) })}
                     className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full border bg-white px-3 py-2 text-sm focus:outline-none"
                   />
                 </label>
@@ -425,16 +415,14 @@ export default function EmailSequencesPage() {
                   </button>
                 </div>
               </div>
-              {testStatus && (
-                <p className="text-elsai-ink/70 text-xs">{testStatus}</p>
-              )}
+              {testStatus && <p className="text-elsai-ink/70 text-xs">{testStatus}</p>}
             </div>
           )}
         </section>
       </div>
 
       {/* Historique */}
-      <section className="rounded-organic border-elsai-pin/15 bg-white/70 mt-6 border p-4">
+      <section className="rounded-organic border-elsai-pin/15 mt-6 border bg-white/70 p-4">
         <h2 className="text-elsai-pin-dark mb-3 font-serif text-lg">
           Historique — {currentSeq?.sequence_label ?? "toutes séquences"}
         </h2>
@@ -455,9 +443,7 @@ export default function EmailSequencesPage() {
               <tbody>
                 {history.map((h) => (
                   <tr key={h.id} className="border-t border-slate-100">
-                    <td className="px-2 py-1">
-                      {formatDate(h.sent_at ?? h.send_at)}
-                    </td>
+                    <td className="px-2 py-1">{formatDate(h.sent_at ?? h.send_at)}</td>
                     <td className="px-2 py-1">{h.step_order}</td>
                     <td className="px-2 py-1">{h.recipient_email}</td>
                     <td className="px-2 py-1">
@@ -469,9 +455,7 @@ export default function EmailSequencesPage() {
                         {h.status}
                       </span>
                     </td>
-                    <td className="text-elsai-urgence px-2 py-1 text-xs">
-                      {h.error ?? ""}
-                    </td>
+                    <td className="text-elsai-urgence px-2 py-1 text-xs">{h.error ?? ""}</td>
                   </tr>
                 ))}
               </tbody>

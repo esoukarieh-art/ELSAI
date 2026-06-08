@@ -137,8 +137,8 @@ export default function AdminAnalyticsPage() {
 
       {!plausibleOn && (
         <div className="rounded-organic border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
-          Plausible non configuré — seuls les events internes (ContentEvent) sont affichés.
-          Pour activer les pageviews et le goal <code>pwa_start</code>, renseigner{" "}
+          Plausible non configuré — seuls les events internes (ContentEvent) sont affichés. Pour
+          activer les pageviews et le goal <code>pwa_start</code>, renseigner{" "}
           <code>PLAUSIBLE_SITE_ID</code> et <code>PLAUSIBLE_API_KEY</code> côté backend.
         </div>
       )}
@@ -164,7 +164,7 @@ export default function AdminAnalyticsPage() {
       </div>
 
       {/* Section 1 — Top posts */}
-      <section className="rounded-organic border-elsai-pin/15 bg-white/70 border p-4">
+      <section className="rounded-organic border-elsai-pin/15 border bg-white/70 p-4">
         <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">Top posts — {period}</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -198,11 +198,11 @@ export default function AdminAnalyticsPage() {
                     </Link>
                     <div className="text-elsai-ink/40 text-[11px]">/{r.slug}</div>
                   </td>
-                  <td className="px-3 py-2 text-xs uppercase text-elsai-ink/60">{r.audience}</td>
+                  <td className="text-elsai-ink/60 px-3 py-2 text-xs uppercase">{r.audience}</td>
                   <td className="px-3 py-2 text-right font-mono">
                     {r.views.toLocaleString("fr-FR")}
                   </td>
-                  <td className="px-3 py-2 text-right font-mono text-elsai-ink/70">
+                  <td className="text-elsai-ink/70 px-3 py-2 text-right font-mono">
                     {r.cta_impressions.toLocaleString("fr-FR")}
                   </td>
                   <td className="px-3 py-2 text-right font-mono">
@@ -220,7 +220,7 @@ export default function AdminAnalyticsPage() {
       </section>
 
       {/* Section 2 — CTA performance */}
-      <section className="rounded-organic border-elsai-pin/15 bg-white/70 border p-4">
+      <section className="rounded-organic border-elsai-pin/15 border bg-white/70 p-4">
         <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">Performance CTA</h2>
         {ctaGroups.size === 0 && (
           <p className="text-elsai-ink/50 text-sm">Aucun event CTA sur la période.</p>
@@ -251,7 +251,7 @@ export default function AdminAnalyticsPage() {
                           className="border-t border-slate-100"
                         >
                           <td className="px-2 py-1 font-mono">{v.variant}</td>
-                          <td className="px-2 py-1 uppercase text-elsai-ink/60">{v.audience}</td>
+                          <td className="text-elsai-ink/60 px-2 py-1 uppercase">{v.audience}</td>
                           <td className="px-2 py-1 text-right font-mono">
                             {v.impressions.toLocaleString("fr-FR")}
                           </td>
@@ -261,10 +261,7 @@ export default function AdminAnalyticsPage() {
                           <td className="px-2 py-1 text-right font-mono">{formatPct(v.ctr)}</td>
                           <td className="px-2 py-1">
                             <div className="bg-elsai-creme/60 h-2 w-32 overflow-hidden rounded-full">
-                              <div
-                                className="bg-elsai-pin h-full"
-                                style={{ width: `${pct}%` }}
-                              />
+                              <div className="bg-elsai-pin h-full" style={{ width: `${pct}%` }} />
                             </div>
                           </td>
                         </tr>
@@ -279,7 +276,7 @@ export default function AdminAnalyticsPage() {
       </section>
 
       {/* Section 3 — Funnel PWA */}
-      <section className="rounded-organic border-elsai-pin/15 bg-white/70 border p-4">
+      <section className="rounded-organic border-elsai-pin/15 border bg-white/70 p-4">
         <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">
           Funnel PWA — article → CTA → /start
         </h2>

@@ -24,9 +24,7 @@ export function CTANewsletterInline({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const defaultTitle = isMinor
-    ? "Reçois nos conseils par mail"
-    : "Recevez nos conseils par mail";
+  const defaultTitle = isMinor ? "Reçois nos conseils par mail" : "Recevez nos conseils par mail";
   const defaultPlaceholder = "votre.email@exemple.fr";
   const defaultSuccess = isMinor
     ? "Merci ! Vérifie ta boîte mail."
@@ -62,7 +60,10 @@ export function CTANewsletterInline({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event_type: "newsletter_subscribe", source: "CTANewsletterInline" }),
       }).catch(() => null);
-      if (typeof window !== "undefined" && (window as unknown as { plausible?: (e: string) => void }).plausible) {
+      if (
+        typeof window !== "undefined" &&
+        (window as unknown as { plausible?: (e: string) => void }).plausible
+      ) {
         (window as unknown as { plausible: (e: string) => void }).plausible("newsletter_subscribe");
       }
       setStatus("success");
@@ -88,11 +89,10 @@ export function CTANewsletterInline({
   return (
     <aside
       data-cta-component="CTANewsletterInline"
-      role="complementary"
       aria-label="Inscription à la newsletter"
       className={`rounded-organic bg-elsai-cream my-6 p-6 ${className ?? ""}`}
     >
-      <h3 className="text-elsai-pin font-semibold text-lg">{title ?? defaultTitle}</h3>
+      <h3 className="text-elsai-pin text-lg font-semibold">{title ?? defaultTitle}</h3>
       <form onSubmit={handleSubmit} className="mt-4 space-y-3">
         <div>
           <label htmlFor="newsletter-email" className="sr-only">
@@ -106,7 +106,7 @@ export function CTANewsletterInline({
             onChange={(e) => setEmail(e.target.value)}
             placeholder={placeholder ?? defaultPlaceholder}
             disabled={status === "loading"}
-            className="w-full rounded-organic border border-slate-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin"
+            className="rounded-organic focus-visible:ring-elsai-pin w-full border border-slate-300 px-3 py-2 focus-visible:ring-2 focus-visible:outline-none"
           />
         </div>
         <label className="flex items-start gap-2 text-sm text-slate-700">
@@ -115,21 +115,21 @@ export function CTANewsletterInline({
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
             required
-            className="mt-1 focus-visible:ring-2 focus-visible:ring-elsai-pin"
+            className="focus-visible:ring-elsai-pin mt-1 focus-visible:ring-2"
           />
           <span>
             J&apos;accepte de recevoir des emails d&apos;ESLAÏ. Je peux me désabonner à tout moment.
           </span>
         </label>
         {errorMsg && (
-          <p role="alert" className="text-sm text-elsai-rose">
+          <p role="alert" className="text-elsai-rose text-sm">
             {errorMsg}
           </p>
         )}
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center rounded-organic bg-elsai-pin px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2 disabled:opacity-60"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 focus-visible:ring-elsai-pin inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60"
         >
           {status === "loading" ? "Envoi…" : "S'inscrire"}
         </button>

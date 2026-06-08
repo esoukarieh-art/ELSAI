@@ -39,20 +39,15 @@ export function CTAChatAnonyme({
   return (
     <aside
       data-cta-component="CTAChatAnonyme"
-      role="complementary"
       aria-label={ariaLabel}
       className={`rounded-organic bg-elsai-cream ${variantClasses[variant]} ${className ?? ""}`}
     >
-      <h3 className="text-elsai-pin font-semibold text-lg">
-        {title ?? defaultTitle}
-      </h3>
-      <p className="mt-1 text-sm text-slate-700">
-        {subtitle ?? defaultSubtitle}
-      </p>
+      <h3 className="text-elsai-pin text-lg font-semibold">{title ?? defaultTitle}</h3>
+      <p className="mt-1 text-sm text-slate-700">{subtitle ?? defaultSubtitle}</p>
       <Link
         href="/start"
         aria-label={ariaLabel}
-        className="mt-4 inline-flex items-center rounded-organic bg-elsai-pin px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2"
+        className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 focus-visible:ring-elsai-pin mt-4 inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       >
         {buttonLabel}
       </Link>

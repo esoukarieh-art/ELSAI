@@ -1,8 +1,4 @@
-import {
-  clearAdminToken,
-  getAdminAuth,
-  getAdminToken,
-} from "@/lib/api";
+import { clearAdminToken, getAdminAuth, getAdminToken } from "@/lib/api";
 
 import type {
   BlogPostCreate,
@@ -176,10 +172,7 @@ export function aiBrief(keyword: string, audience: string = "adult"): Promise<Br
   return postJson("/api/admin/ai/brief", { keyword, audience });
 }
 
-export function aiSuggestSchema(
-  content_mdx: string,
-  title: string,
-): Promise<SchemaSuggestion> {
+export function aiSuggestSchema(content_mdx: string, title: string): Promise<SchemaSuggestion> {
   return postJson("/api/admin/ai/suggest-schema", { content_mdx, title });
 }
 

@@ -34,7 +34,8 @@ export function runGate(i: GateInput): GateCheck[] {
   const content = (i.content ?? "").toLowerCase();
 
   const firstSentence = content.slice(0, 300);
-  const keywordPresent = !!keyword && (firstSentence.includes(keyword) || content.includes(keyword));
+  const keywordPresent =
+    !!keyword && (firstSentence.includes(keyword) || content.includes(keyword));
 
   const hasMoney = MONEY_RE.test(i.content ?? "");
 

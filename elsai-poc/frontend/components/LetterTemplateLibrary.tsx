@@ -153,10 +153,14 @@ export function LetterTemplateLibrary({ onUnauthorized }: { onUnauthorized?: () 
           </h3>
 
           <div className="rounded-organic border-elsai-pin/10 bg-elsai-creme/40 space-y-2 border p-3">
-            <label className="text-elsai-ink/80 block text-xs font-semibold uppercase tracking-wide">
+            <label
+              className="text-elsai-ink/80 block text-xs font-semibold tracking-wide uppercase"
+              htmlFor="letter-ai-prompt"
+            >
               Génération IA
             </label>
             <textarea
+              id="letter-ai-prompt"
               value={aiPrompt}
               onChange={(e) => setAiPrompt(e.target.value)}
               placeholder="Ex : lettre de demande de délai de paiement à la CAF pour un trop-perçu"
@@ -232,7 +236,7 @@ export function LetterTemplateLibrary({ onUnauthorized }: { onUnauthorized?: () 
             {items.map((tpl) => (
               <li
                 key={tpl.id}
-                className="rounded-organic border-elsai-pin/15 bg-white/80 border p-3"
+                className="rounded-organic border-elsai-pin/15 border bg-white/80 p-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
@@ -252,7 +256,7 @@ export function LetterTemplateLibrary({ onUnauthorized }: { onUnauthorized?: () 
                     <span className="text-elsai-ink/30">·</span>
                     <button
                       onClick={() => remove(tpl.id)}
-                      className="text-elsai-urgence hover:underline text-xs"
+                      className="text-elsai-urgence text-xs hover:underline"
                     >
                       Supprimer
                     </button>

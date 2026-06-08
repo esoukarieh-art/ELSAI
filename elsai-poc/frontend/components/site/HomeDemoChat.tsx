@@ -56,13 +56,25 @@ export default function HomeDemoChat() {
           await wait(PAUSE_BEFORE_REPLY_MS);
           if (ctrl.cancelled) return;
           setIsTyping(false);
-          await typeOut(msg, (partial) => {
-            if (ctrl.cancelled) return;
-            setShownMessages((prev) => {
-              const base = prev.filter((m) => !(m.role === "assistant" && m === prev[prev.length - 1] && m.text !== msg.text && m.text === partial));
-              return appendOrUpdate(prev, partial, "assistant");
-            });
-          }, ctrl);
+          await typeOut(
+            msg,
+            (partial) => {
+              if (ctrl.cancelled) return;
+              setShownMessages((prev) => {
+                const base = prev.filter(
+                  (m) =>
+                    !(
+                      m.role === "assistant" &&
+                      m === prev[prev.length - 1] &&
+                      m.text !== msg.text &&
+                      m.text === partial
+                    ),
+                );
+                return appendOrUpdate(prev, partial, "assistant");
+              });
+            },
+            ctrl,
+          );
         } else {
           await wait(400);
           if (ctrl.cancelled) return;
@@ -86,10 +98,7 @@ export default function HomeDemoChat() {
   if (!scenario) return null;
 
   return (
-    <section
-      aria-labelledby="home-demo-title"
-      className="bg-elsai-creme/60"
-    >
+    <section aria-labelledby="home-demo-title" className="bg-elsai-creme/60">
       <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -103,12 +112,17 @@ export default function HomeDemoChat() {
               Voyez comment ça se passe.
             </h2>
             <p className="text-elsai-ink/70 mt-2 max-w-2xl text-sm">
-              Choisissez une situation pour voir un échange réel — c'est juste une démo, rien n'est envoyé.
+              Choisissez une situation pour voir un échange réel — c'est juste une démo, rien n'est
+              envoyé.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Scénarios de démonstration">
+        <div
+          className="flex flex-wrap gap-2"
+          role="tablist"
+          aria-label="Scénarios de démonstration"
+        >
           {SCENARIOS.map((s) => {
             const active = s.id === activeId;
             return (
@@ -123,7 +137,7 @@ export default function HomeDemoChat() {
                     : "border-elsai-pin/20 text-elsai-pin-dark hover:bg-elsai-pin/5"
                 }`}
               >
-                <span className="opacity-70 mr-1.5 text-[10px] tracking-widest uppercase">
+                <span className="mr-1.5 text-[10px] tracking-widest uppercase opacity-70">
                   {s.tag}
                 </span>
                 {s.label}
@@ -140,15 +154,12 @@ export default function HomeDemoChat() {
         >
           <ul className="flex flex-col gap-3">
             {shownMessages.map((m, i) => (
-              <li
-                key={i}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-              >
+              <li key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm ${
                     m.role === "user"
                       ? "bg-elsai-pin text-elsai-creme"
-                      : "bg-white text-elsai-ink border-elsai-pin/10 border"
+                      : "text-elsai-ink border-elsai-pin/10 border bg-white"
                   }`}
                 >
                   {m.text}
@@ -157,7 +168,7 @@ export default function HomeDemoChat() {
             ))}
             {isTyping && (
               <li className="flex justify-start">
-                <div className="bg-white text-elsai-ink border-elsai-pin/10 inline-flex items-center gap-1 rounded-2xl border px-4 py-2.5 shadow-sm">
+                <div className="text-elsai-ink border-elsai-pin/10 inline-flex items-center gap-1 rounded-2xl border bg-white px-4 py-2.5 shadow-sm">
                   <Dot delay={0} />
                   <Dot delay={150} />
                   <Dot delay={300} />
@@ -183,11 +194,7 @@ export default function HomeDemoChat() {
   );
 }
 
-function appendOrUpdate(
-  prev: DemoMessage[],
-  text: string,
-  role: Role,
-): DemoMessage[] {
+function appendOrUpdate(prev: DemoMessage[], text: string, role: Role): DemoMessage[] {
   if (prev.length === 0 || prev[prev.length - 1].role !== role) {
     return [...prev, { role, text }];
   }

@@ -16,14 +16,14 @@ Le `webServer` de `playwright.config.ts` démarre automatiquement `next dev`.
 
 ## Couverture
 
-| Fichier | Scénario | Criticité |
-|---|---|---|
+| Fichier                   | Scénario                                              | Criticité    |
+| ------------------------- | ----------------------------------------------------- | ------------ |
 | `emergency-minor.spec.ts` | Profil mineur → `danger_detected=true` → bannière 119 | **CRITIQUE** |
-| `emergency-minor.spec.ts` | Profil adulte → 3114 | **CRITIQUE** |
-| `chat-anonymous.spec.ts` | Envoi message + réponse, aucun cookie identifiant | **CRITIQUE** |
-| `chat-anonymous.spec.ts` | Bouton "Droit à l'oubli" purge `sessionStorage` | **CRITIQUE** |
-| `a11y.spec.ts` | Audit axe-core RGAA AA (accueil + /chat) | **MAJEURE** |
-| `a11y.spec.ts` | Skip link clavier | **MAJEURE** |
+| `emergency-minor.spec.ts` | Profil adulte → 3114                                  | **CRITIQUE** |
+| `chat-anonymous.spec.ts`  | Envoi message + réponse, aucun cookie identifiant     | **CRITIQUE** |
+| `chat-anonymous.spec.ts`  | Bouton "Droit à l'oubli" purge `sessionStorage`       | **CRITIQUE** |
+| `a11y.spec.ts`            | Audit axe-core RGAA AA (accueil + /chat)              | **MAJEURE**  |
+| `a11y.spec.ts`            | Skip link clavier                                     | **MAJEURE**  |
 
 ## Stratégie de mock
 

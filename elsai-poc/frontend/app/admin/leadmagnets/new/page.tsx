@@ -43,15 +43,18 @@ export default function NewLeadMagnetPage() {
   return (
     <div className="max-w-2xl">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="font-serif text-3xl text-elsai-pin">Nouveau lead magnet</h1>
-        <Link href="/admin/leadmagnets" className="text-sm text-elsai-pin hover:underline">
+        <h1 className="text-elsai-pin font-serif text-3xl">Nouveau lead magnet</h1>
+        <Link href="/admin/leadmagnets" className="text-elsai-pin text-sm hover:underline">
           ← Retour
         </Link>
       </div>
 
-      {error && <p className="mb-3 text-sm text-elsai-rose">{error}</p>}
+      {error && <p className="text-elsai-rose mb-3 text-sm">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4 rounded-organic border border-elsai-pin/15 bg-white/70 p-5">
+      <form
+        onSubmit={handleSubmit}
+        className="rounded-organic border-elsai-pin/15 space-y-4 border bg-white/70 p-5"
+      >
         <label className="block text-sm">
           <span className="text-slate-700">Clé (slug, unique)</span>
           <input
@@ -60,7 +63,7 @@ export default function NewLeadMagnetPage() {
             onChange={(e) => setKey(e.target.value)}
             pattern="[a-z0-9_]+"
             placeholder="guide_droits_18_ans"
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2 font-mono text-xs"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2 font-mono text-xs"
             required
           />
         </label>
@@ -71,7 +74,7 @@ export default function NewLeadMagnetPage() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
             required
           />
         </label>
@@ -82,7 +85,7 @@ export default function NewLeadMagnetPage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           />
         </label>
 
@@ -91,7 +94,7 @@ export default function NewLeadMagnetPage() {
           <select
             value={audience}
             onChange={(e) => setAudience(e.target.value)}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           >
             {AUDIENCES.map((a) => (
               <option key={a} value={a}>
@@ -108,7 +111,7 @@ export default function NewLeadMagnetPage() {
             value={fileUrl}
             onChange={(e) => setFileUrl(e.target.value)}
             placeholder="https://elsai.fr/static/leadmagnets/guide.pdf"
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           />
         </label>
 
@@ -119,14 +122,14 @@ export default function NewLeadMagnetPage() {
             value={sequence}
             onChange={(e) => setSequence(e.target.value)}
             placeholder="b2c_guide_18ans"
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2 font-mono text-xs"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2 font-mono text-xs"
           />
         </label>
 
         <button
           type="submit"
           disabled={saving}
-          className="rounded-organic bg-elsai-pin px-4 py-2 text-sm text-elsai-cream hover:bg-elsai-pin/90 disabled:opacity-60"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-2 text-sm disabled:opacity-60"
         >
           {saving ? "Création…" : "Créer"}
         </button>

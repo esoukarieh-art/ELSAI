@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Exemples concrets",
@@ -49,11 +44,7 @@ const FALLBACK_CASES: Case[] = [
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -82,7 +73,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}

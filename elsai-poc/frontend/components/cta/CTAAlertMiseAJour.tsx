@@ -73,7 +73,6 @@ export function CTAAlertMiseAJour({
   return (
     <aside
       data-cta-component="CTAAlertMiseAJour"
-      role="complementary"
       aria-label="Alerte de mise à jour"
       className={`rounded-organic bg-elsai-cream my-6 p-5 ${className ?? ""}`}
     >
@@ -86,7 +85,7 @@ export function CTAAlertMiseAJour({
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="inline-flex items-center rounded-organic bg-elsai-pin px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2"
+            className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 focus-visible:ring-elsai-pin inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             S&apos;abonner aux alertes
           </button>
@@ -105,24 +104,24 @@ export function CTAAlertMiseAJour({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="votre.email@exemple.fr"
             disabled={status === "loading"}
-            className="flex-1 rounded-organic border border-slate-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin"
+            className="rounded-organic focus-visible:ring-elsai-pin flex-1 border border-slate-300 px-3 py-2 focus-visible:ring-2 focus-visible:outline-none"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="inline-flex items-center rounded-organic bg-elsai-pin px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2 disabled:opacity-60"
+            className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 focus-visible:ring-elsai-pin inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60"
           >
             {status === "loading" ? "Envoi…" : "Valider"}
           </button>
         </form>
       )}
       {errorMsg && (
-        <p role="alert" className="mt-2 text-sm text-elsai-rose">
+        <p role="alert" className="text-elsai-rose mt-2 text-sm">
           {errorMsg}
         </p>
       )}
       {status === "success" && (
-        <p role="status" className="mt-2 text-sm text-elsai-pin font-medium">
+        <p role="status" className="text-elsai-pin mt-2 text-sm font-medium">
           Merci ! Vous serez prévenu·e des prochaines mises à jour.
         </p>
       )}

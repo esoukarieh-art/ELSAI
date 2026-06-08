@@ -19,87 +19,85 @@ export async function GET(
   const badge = TRACK_META[track].label;
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "72px",
+        backgroundImage: "linear-gradient(135deg, #5A7E6B 0%, #F5F5ED 100%)",
+        fontFamily: "system-ui, sans-serif",
+        color: "#1E2A23",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px",
-          backgroundImage: "linear-gradient(135deg, #5A7E6B 0%, #F5F5ED 100%)",
-          fontFamily: "system-ui, sans-serif",
-          color: "#1E2A23",
+          alignItems: "center",
         }}
       >
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            fontSize: 44,
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            color: "#F5F5ED",
           }}
         >
-          <div
-            style={{
-              fontSize: 44,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              color: "#F5F5ED",
-            }}
-          >
-            ESLAÏ
-          </div>
-          <div
-            style={{
-              fontSize: 22,
-              fontWeight: 600,
-              padding: "10px 22px",
-              borderRadius: 999,
-              background: "rgba(255,255,255,0.85)",
-              color: "#5A7E6B",
-            }}
-          >
-            {badge}
-          </div>
+          ESLAÏ
         </div>
-
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 24,
+            fontSize: 22,
+            fontWeight: 600,
+            padding: "10px 22px",
+            borderRadius: 999,
+            background: "rgba(255,255,255,0.85)",
+            color: "#5A7E6B",
           }}
         >
-          <div
-            style={{
-              fontSize: 24,
-              fontWeight: 600,
-              color: "#5A7E6B",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-            }}
-          >
-            {eyebrow}
-          </div>
-          <div
-            style={{
-              fontSize: 62,
-              fontWeight: 700,
-              lineHeight: 1.15,
-              color: "#1E2A23",
-              maxWidth: 1000,
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {title}
-          </div>
+          {badge}
         </div>
       </div>
-    ),
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 24,
+        }}
+      >
+        <div
+          style={{
+            fontSize: 24,
+            fontWeight: 600,
+            color: "#5A7E6B",
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+          }}
+        >
+          {eyebrow}
+        </div>
+        <div
+          style={{
+            fontSize: 62,
+            fontWeight: 700,
+            lineHeight: 1.15,
+            color: "#1E2A23",
+            maxWidth: 1000,
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {title}
+        </div>
+      </div>
+    </div>,
     {
       ...SIZE,
       headers: {

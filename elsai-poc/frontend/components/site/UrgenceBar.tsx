@@ -20,10 +20,7 @@ export default function UrgenceBar() {
       <h2 id="urgence-heading" className="sr-only">
         Numéros d'urgence gratuits, disponibles 24h/24h
       </h2>
-      <ul
-        role="list"
-        className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-1 px-4 py-2"
-      >
+      <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-1 px-4 py-2">
         <li className="text-elsai-creme font-semibold" aria-hidden="true">
           En danger, tout de suite ?
         </li>

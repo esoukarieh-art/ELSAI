@@ -34,10 +34,7 @@ export function HowToSteps({ steps, title }: Props) {
       )}
       <ol className="space-y-4">
         {steps.map((step, i) => (
-          <li
-            key={i}
-            className="rounded-organic border-elsai-pin/15 border p-4"
-          >
+          <li key={i} className="rounded-organic border-elsai-pin/15 border p-4">
             <div className="text-elsai-pin text-xs font-semibold tracking-[0.2em] uppercase">
               Étape {i + 1}
             </div>

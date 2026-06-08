@@ -60,7 +60,9 @@ export interface CTAUpdatePayload {
   component?: string;
 }
 
-export function listCTAs(filters: { key?: string; audience?: string; active?: boolean } = {}): Promise<CTARow[]> {
+export function listCTAs(
+  filters: { key?: string; audience?: string; active?: boolean } = {},
+): Promise<CTARow[]> {
   const qs = new URLSearchParams();
   for (const [k, v] of Object.entries(filters)) {
     if (v !== undefined && v !== "") qs.set(k, String(v));

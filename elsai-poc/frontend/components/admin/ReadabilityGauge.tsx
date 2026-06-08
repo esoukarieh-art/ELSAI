@@ -35,7 +35,7 @@ export default function ReadabilityGauge({ level, score, compact }: Props) {
           return (
             <div
               key={lvl}
-              className={`h-2 flex-1 rounded-organic transition-all ${
+              className={`rounded-organic h-2 flex-1 transition-all ${
                 active ? LEVEL_COLORS[lvl] : "bg-slate-200"
               }`}
               title={lvl}

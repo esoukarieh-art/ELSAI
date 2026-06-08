@@ -66,11 +66,7 @@ export function computeAutoInjectedCTAs(input: AutoInjectInput): InjectedCTA[] {
   }
 
   // 5) Adulte sans CTA "end" → chat_anonyme en end
-  if (
-    post.audience === "adult" &&
-    !hasEndCTA &&
-    !alreadyHas("chat_anonyme")
-  ) {
+  if (post.audience === "adult" && !hasEndCTA && !alreadyHas("chat_anonyme")) {
     result.push({ blockKey: "chat_anonyme", position: "end" });
   }
 

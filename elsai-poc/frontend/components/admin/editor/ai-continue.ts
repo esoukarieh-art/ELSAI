@@ -56,20 +56,14 @@ export const AiContinue = Extension.create({
           // Texte du paragraphe courant, jusqu'au curseur.
           const $from = state.doc.resolve(range.from);
           const paraStart = $from.start($from.depth);
-          const paragraphText = state.doc
-            .textBetween(paraStart, range.from, " ")
-            .trim();
+          const paragraphText = state.doc.textBetween(paraStart, range.from, " ").trim();
           if (!paragraphText) return;
 
           const token = makeToken();
 
           // Remplace immédiatement "++ " par un token visible pour que l'utilisateur
           // voie qu'une génération est en cours.
-          editor
-            .chain()
-            .deleteRange(range)
-            .insertContent(`${token} `)
-            .run();
+          editor.chain().deleteRange(range).insertContent(`${token} `).run();
 
           // Appel IA asynchrone → remplace le token par le résultat.
           aiExpand(paragraphText)

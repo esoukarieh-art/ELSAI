@@ -3,13 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  TRACKS,
-  TRACK_META,
-  fetchPosts,
-  type PublicPostSummary,
-  type Track,
-} from "@/lib/content";
+import { TRACKS, TRACK_META, fetchPosts, type PublicPostSummary, type Track } from "@/lib/content";
 
 export const revalidate = 60;
 
@@ -57,7 +51,15 @@ function formatDate(iso: string | null): string {
   }
 }
 
-function Card({ post, track, tutoiement }: { post: PublicPostSummary; track: Track; tutoiement: boolean }) {
+function Card({
+  post,
+  track,
+  tutoiement,
+}: {
+  post: PublicPostSummary;
+  track: Track;
+  tutoiement: boolean;
+}) {
   return (
     <article className="rounded-organic border-elsai-pin/15 bg-elsai-creme hover:border-elsai-pin/40 border p-7 transition-colors">
       <div className="flex flex-wrap items-center gap-2 text-xs">

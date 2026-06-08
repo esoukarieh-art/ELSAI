@@ -5,11 +5,11 @@ une promotion vers AAA est à l'étude pour la partie mineurs).
 
 ## Outillage automatisé (CI)
 
-| Outil | Rôle | Seuil bloquant |
-|---|---|---|
-| `eslint-plugin-jsx-a11y` (flat config) | Lint statique a11y (alt-text, aria-*, label…) | Toute erreur bloque `npm run lint` |
-| `@axe-core/playwright` (E2E) | Audit runtime sur DOM rendu (Chromium + Firefox + mobile-chrome) | Zéro violation `critical` / `serious` |
-| `@lhci/cli` (Lighthouse CI) | Scores perf + a11y + best-practices + SEO | Accessibility ≥ 95 ; best-practices ≥ 90 |
+| Outil                                  | Rôle                                                             | Seuil bloquant                           |
+| -------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------- |
+| `eslint-plugin-jsx-a11y` (flat config) | Lint statique a11y (alt-text, aria-\*, label…)                   | Toute erreur bloque `npm run lint`       |
+| `@axe-core/playwright` (E2E)           | Audit runtime sur DOM rendu (Chromium + Firefox + mobile-chrome) | Zéro violation `critical` / `serious`    |
+| `@lhci/cli` (Lighthouse CI)            | Scores perf + a11y + best-practices + SEO                        | Accessibility ≥ 95 ; best-practices ≥ 90 |
 
 ## Pages couvertes
 

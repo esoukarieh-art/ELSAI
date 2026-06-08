@@ -55,12 +55,12 @@ export default function RevisionsPage() {
         </p>
       )}
       {info && (
-        <p className="mb-3 rounded-organic border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+        <p className="rounded-organic mb-3 border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
           {info}
         </p>
       )}
 
-      <div className="rounded-organic border-elsai-pin/15 bg-white/70 border">
+      <div className="rounded-organic border-elsai-pin/15 border bg-white/70">
         <table className="w-full text-sm">
           <thead className="text-elsai-ink/60 text-xs uppercase">
             <tr>

@@ -82,8 +82,8 @@ test.describe("Navigation clavier (RGAA 7.1)", () => {
   test("skip link cible l'ancre #contenu", async ({ page }) => {
     await page.goto("/");
     await page.keyboard.press("Tab");
-    const href = await page.evaluate(
-      () => (document.activeElement as HTMLAnchorElement | null)?.getAttribute("href")
+    const href = await page.evaluate(() =>
+      (document.activeElement as HTMLAnchorElement | null)?.getAttribute("href"),
     );
     expect(href).toBe("#contenu");
   });

@@ -14,8 +14,8 @@ export default function Page() {
   return (
     <>
       <PageHero eyebrow="Confirmation" title="Paiement reçu — merci !">
-        Votre abonnement ESLAÏ est en cours d'activation. Vous allez recevoir un email
-        dans les prochaines minutes avec vos codes d'accès et un lien vers votre espace admin.
+        Votre abonnement ESLAÏ est en cours d'activation. Vous allez recevoir un email dans les
+        prochaines minutes avec vos codes d'accès et un lien vers votre espace admin.
       </PageHero>
 
       <Section>
@@ -23,16 +23,16 @@ export default function Page() {
           <h2 className="text-elsai-pin-dark font-serif text-2xl">Prochaines étapes</h2>
           <ol className="text-elsai-ink/85 mt-5 space-y-3 text-sm leading-relaxed">
             <li>
-              <strong>1.</strong> Vérifiez la boîte de réception de l'email administrateur
-              (pensez aux spams).
+              <strong>1.</strong> Vérifiez la boîte de réception de l'email administrateur (pensez
+              aux spams).
             </li>
             <li>
               <strong>2.</strong> Distribuez les codes d'accès à vos salariés avec le kit de
               communication fourni.
             </li>
             <li>
-              <strong>3.</strong> Utilisez votre espace admin pour révoquer ou regénérer des
-              codes à tout moment.
+              <strong>3.</strong> Utilisez votre espace admin pour révoquer ou regénérer des codes à
+              tout moment.
             </li>
           </ol>
 

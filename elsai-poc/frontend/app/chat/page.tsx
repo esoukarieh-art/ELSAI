@@ -191,9 +191,9 @@ export default function ChatPage() {
           </div>
         )}
         {messages.map((m, i) => (
-          <ChatBubble key={i} role={m.role} content={m.content} />
+          <ChatBubble key={i} author={m.role} content={m.content} />
         ))}
-        {loading && <ChatBubble role="assistant" content="…" />}
+        {loading && <ChatBubble author="assistant" content="…" />}
       </div>
 
       <form

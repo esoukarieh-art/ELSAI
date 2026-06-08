@@ -10,17 +10,20 @@ export function CTAUrgence119({ context, className }: CTAUrgence119Props) {
       data-cta-component="CTAUrgence119"
       role="alert"
       aria-label="Numéro d'urgence 119 - Enfance en danger"
-      className={`rounded-organic bg-elsai-cream border-l-4 border-elsai-rose my-6 p-5 ${className ?? ""}`}
+      className={`rounded-organic bg-elsai-cream border-elsai-rose my-6 border-l-4 p-5 ${className ?? ""}`}
     >
-      <h3 className="text-elsai-rose font-semibold text-lg">Tu es en danger ? Tu n&apos;es pas seul·e.</h3>
+      <h3 className="text-elsai-rose text-lg font-semibold">
+        Tu es en danger ? Tu n&apos;es pas seul·e.
+      </h3>
       <p className="mt-1 text-sm text-slate-700">
-        {context ?? "Le 119 est gratuit, anonyme, 24h/24. Des professionnels formés sont là pour t'écouter."}
+        {context ??
+          "Le 119 est gratuit, anonyme, 24h/24. Des professionnels formés sont là pour t'écouter."}
       </p>
       <p className="mt-3">
         <a
           href="tel:119"
           aria-label="Appeler le 119, numéro Enfance en danger"
-          className="font-bold text-2xl text-elsai-pin underline decoration-elsai-rose focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-rose focus-visible:ring-offset-2"
+          className="text-elsai-pin decoration-elsai-rose focus-visible:ring-elsai-rose text-2xl font-bold underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         >
           119
         </a>

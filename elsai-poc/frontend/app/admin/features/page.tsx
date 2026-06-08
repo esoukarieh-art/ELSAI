@@ -18,15 +18,60 @@ const CAT_LABELS: Record<string, string> = {
 };
 
 const SUGGESTIONS: Omit<FeatureFlag, "updated_at">[] = [
-  { name: "module_caf", enabled: true, description: "Aides CAF, RSA, prime d'activité", category: "module" },
-  { name: "module_logement", enabled: true, description: "APL, demande HLM, DALO", category: "module" },
-  { name: "module_emploi", enabled: true, description: "France Travail, CV, formation", category: "module" },
-  { name: "module_sante", enabled: true, description: "CSS, AME, accès aux soins", category: "module" },
-  { name: "module_annuaire", enabled: true, description: "Annuaire géolocalisé CCAS/France Services/MDA", category: "module" },
-  { name: "module_courriers", enabled: true, description: "Générateur de courriers types", category: "module" },
-  { name: "parcours_mineur", enabled: true, description: "Onboarding tutoiement + escalade 119", category: "parcours" },
-  { name: "parcours_majeur", enabled: true, description: "Onboarding vouvoiement + démarches admin", category: "parcours" },
-  { name: "theme_symbiose", enabled: true, description: "Charte Vert Pin / Vieux Rose (par défaut)", category: "theme" },
+  {
+    name: "module_caf",
+    enabled: true,
+    description: "Aides CAF, RSA, prime d'activité",
+    category: "module",
+  },
+  {
+    name: "module_logement",
+    enabled: true,
+    description: "APL, demande HLM, DALO",
+    category: "module",
+  },
+  {
+    name: "module_emploi",
+    enabled: true,
+    description: "France Travail, CV, formation",
+    category: "module",
+  },
+  {
+    name: "module_sante",
+    enabled: true,
+    description: "CSS, AME, accès aux soins",
+    category: "module",
+  },
+  {
+    name: "module_annuaire",
+    enabled: true,
+    description: "Annuaire géolocalisé CCAS/France Services/MDA",
+    category: "module",
+  },
+  {
+    name: "module_courriers",
+    enabled: true,
+    description: "Générateur de courriers types",
+    category: "module",
+  },
+  {
+    name: "parcours_mineur",
+    enabled: true,
+    description: "Onboarding tutoiement + escalade 119",
+    category: "parcours",
+  },
+  {
+    name: "parcours_majeur",
+    enabled: true,
+    description: "Onboarding vouvoiement + démarches admin",
+    category: "parcours",
+  },
+  {
+    name: "theme_symbiose",
+    enabled: true,
+    description: "Charte Vert Pin / Vieux Rose (par défaut)",
+    category: "theme",
+  },
 ];
 
 export default function FeaturesPage() {
@@ -189,9 +234,7 @@ export default function FeaturesPage() {
                         {f.enabled ? "Actif" : "Désactivé"}
                       </label>
                     </div>
-                    {f.description && (
-                      <p className="text-elsai-ink/70 text-xs">{f.description}</p>
-                    )}
+                    {f.description && <p className="text-elsai-ink/70 text-xs">{f.description}</p>}
                     <button
                       onClick={() => remove(f)}
                       className="text-elsai-urgence mt-1 text-xs hover:underline"

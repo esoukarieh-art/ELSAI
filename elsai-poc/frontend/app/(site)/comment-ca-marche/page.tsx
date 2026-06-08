@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Comment ça marche",
@@ -67,11 +62,7 @@ const FALLBACK_CANT: LabelItem[] = [
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -95,11 +86,7 @@ export default async function Page({
 
   const steps = blockList<Step>(stepsBlock, "items", FALLBACK_STEPS);
 
-  const capsTitle = blockString(
-    caps,
-    "title",
-    "Ce qu'ESLAÏ fait — et ce qu'il ne fait pas",
-  );
+  const capsTitle = blockString(caps, "title", "Ce qu'ESLAÏ fait — et ce qu'il ne fait pas");
   const canTitle = blockString(caps, "can_title", "✓ ESLAÏ peut");
   const canItems = blockList<LabelItem>(caps, "can_items", FALLBACK_CAN);
   const cantTitle = blockString(caps, "cant_title", "✗ ESLAÏ ne peut pas");
@@ -111,7 +98,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}

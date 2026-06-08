@@ -99,8 +99,8 @@ export default async function AideHubPage() {
       />
 
       <PageHero eyebrow="Centre d'aide" title="Comment utiliser ESLAÏ">
-        Guides courts et concrets pour tirer le meilleur parti de votre assistant social
-        anonyme. Chaque page va droit au but.
+        Guides courts et concrets pour tirer le meilleur parti de votre assistant social anonyme.
+        Chaque page va droit au but.
       </PageHero>
 
       <Section>

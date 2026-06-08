@@ -63,16 +63,12 @@ export default function SouscrireContent() {
   return (
     <>
       <PageHero eyebrow="Souscription" title="Finalisez votre abonnement ESLAÏ">
-        Votre paiement est traité par Stripe. Après validation, vous recevez immédiatement
-        vos codes d'accès par email.
+        Votre paiement est traité par Stripe. Après validation, vous recevez immédiatement vos codes
+        d'accès par email.
       </PageHero>
 
       <Section>
-        <form
-          onSubmit={handleSubmit}
-          className="grid gap-8 md:grid-cols-[1fr_360px]"
-          noValidate
-        >
+        <form onSubmit={handleSubmit} className="grid gap-8 md:grid-cols-[1fr_360px]" noValidate>
           <div className="space-y-6">
             <fieldset className="rounded-organic border-elsai-pin/20 bg-elsai-creme border p-6">
               <legend className="text-elsai-pin px-2 text-xs font-semibold tracking-widest uppercase">
@@ -96,9 +92,7 @@ export default function SouscrireContent() {
                       onChange={() => setPlan(p)}
                       className="sr-only"
                     />
-                    <span className="text-elsai-pin-dark font-serif text-lg">
-                      {PLANS[p].label}
-                    </span>
+                    <span className="text-elsai-pin-dark font-serif text-lg">{PLANS[p].label}</span>
                     <span className="text-elsai-ink/70 text-sm">
                       {PLANS[p].prix} € / salarié / mois HT
                     </span>
@@ -191,9 +185,15 @@ export default function SouscrireContent() {
                 required
               />
               <span>
-                J'accepte les <Link href="/cgv" className="underline">CGV B2B</Link> et la{" "}
-                <Link href="/confidentialite" className="underline">politique de confidentialité</Link>.
-                Je confirme que Stripe (hébergé en UE/US) traite les données de paiement.
+                J'accepte les{" "}
+                <Link href="/cgv" className="underline">
+                  CGV B2B
+                </Link>{" "}
+                et la{" "}
+                <Link href="/confidentialite" className="underline">
+                  politique de confidentialité
+                </Link>
+                . Je confirme que Stripe (hébergé en UE/US) traite les données de paiement.
               </span>
             </label>
 
@@ -237,7 +237,9 @@ export default function SouscrireContent() {
                 {total.toLocaleString("fr-FR")} €
               </span>
             </div>
-            <p className="text-elsai-ink/60 mt-1 text-xs">TVA 20 % en sus (collectée par Stripe).</p>
+            <p className="text-elsai-ink/60 mt-1 text-xs">
+              TVA 20 % en sus (collectée par Stripe).
+            </p>
             <button
               type="submit"
               disabled={loading || !consent}

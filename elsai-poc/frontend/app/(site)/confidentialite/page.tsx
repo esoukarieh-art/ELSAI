@@ -45,9 +45,7 @@ export default function Page() {
           </section>
 
           <section>
-            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">
-              Durée de conservation
-            </h2>
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-2xl">Durée de conservation</h2>
             <p>
               Session&nbsp;: durée de la session utilisateur. Conversations sauvegardées&nbsp;: 30
               jours maximum, sauf demande d'effacement anticipée.
@@ -71,9 +69,8 @@ export default function Page() {
               Sous-traitants techniques
             </h2>
             <p>
-              Pour fournir le service, nous recourons à des sous-traitants dûment encadrés
-              (art. 28 RGPD). Aucun contenu conversationnel n'est jamais transmis à ces
-              sous-traitants.
+              Pour fournir le service, nous recourons à des sous-traitants dûment encadrés (art. 28
+              RGPD). Aucun contenu conversationnel n'est jamais transmis à ces sous-traitants.
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-[520px] border-collapse text-sm">
@@ -122,9 +119,9 @@ export default function Page() {
               </table>
             </div>
             <p className="text-elsai-ink/70 mt-4 text-sm">
-              Les données traitées par Stripe et Brevo concernent uniquement la relation
-              commerciale avec les entreprises clientes (B2B) — jamais les salariés utilisateurs
-              du service, qui restent strictement anonymes.
+              Les données traitées par Stripe et Brevo concernent uniquement la relation commerciale
+              avec les entreprises clientes (B2B) — jamais les salariés utilisateurs du service, qui
+              restent strictement anonymes.
             </p>
           </section>
 

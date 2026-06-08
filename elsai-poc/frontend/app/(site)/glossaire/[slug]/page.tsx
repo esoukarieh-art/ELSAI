@@ -38,11 +38,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function TermPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function TermPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const term = await fetchTerm(slug);
   if (!term) notFound();
@@ -63,27 +59,20 @@ export default async function TermPage({
       />
       <section className="bg-symbiose">
         <div className="mx-auto max-w-3xl px-4 py-14 md:py-16">
-          <Link
-            href="/glossaire"
-            className="text-elsai-pin hover:underline text-sm font-semibold"
-          >
+          <Link href="/glossaire" className="text-elsai-pin text-sm font-semibold hover:underline">
             ← Glossaire
           </Link>
           <p className="text-elsai-pin mt-4 text-xs font-semibold tracking-[0.2em] uppercase">
             Sigle
           </p>
-          <h1 className="text-elsai-pin-dark mt-3 font-serif text-4xl md:text-5xl">
-            {term.sigle}
-          </h1>
+          <h1 className="text-elsai-pin-dark mt-3 font-serif text-4xl md:text-5xl">{term.sigle}</h1>
           <p className="text-elsai-ink/80 mt-2 text-lg">{term.full_name}</p>
         </div>
       </section>
 
       <Section>
         <article className="prose-elsai max-w-3xl">
-          <p className="text-elsai-ink/85 leading-relaxed">
-            {term.definition_md}
-          </p>
+          <p className="text-elsai-ink/85 leading-relaxed">{term.definition_md}</p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/start"

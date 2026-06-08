@@ -4,12 +4,7 @@ import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
 import PriceCalculator from "@/components/site/PriceCalculator";
 import OffreToc from "@/components/site/OffreToc";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Offre entreprises — Un service social pour vos salariés",
@@ -57,17 +52,41 @@ const FALLBACK_STATS: Stat[] = [
 ];
 
 const FALLBACK_SALARIES: TitleBodyItem[] = [
-  { title: "Accessible 24h/24h, 7j/7", body: "Une question administrative à 22h un dimanche ? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous." },
-  { title: "Anonymat total", body: "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question." },
-  { title: "IA supervisée par des assistantes sociales", body: "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État." },
-  { title: "Orientation vers les services publics", body: "ESLAÏ ne remplace pas le service social : elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)." },
+  {
+    title: "Accessible 24h/24h, 7j/7",
+    body: "Une question administrative à 22h un dimanche ? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous.",
+  },
+  {
+    title: "Anonymat total",
+    body: "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question.",
+  },
+  {
+    title: "IA supervisée par des assistantes sociales",
+    body: "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État.",
+  },
+  {
+    title: "Orientation vers les services publics",
+    body: "ESLAÏ ne remplace pas le service social : elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…).",
+  },
 ];
 
 const FALLBACK_ENTREPRISE: TitleBodyItem[] = [
-  { title: "Moins d'absentéisme", body: "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite." },
-  { title: "Un avantage social différenciant", body: "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT." },
-  { title: "Confidentialité totale", body: "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais." },
-  { title: "Coût maîtrisé", body: "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne." },
+  {
+    title: "Moins d'absentéisme",
+    body: "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite.",
+  },
+  {
+    title: "Un avantage social différenciant",
+    body: "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT.",
+  },
+  {
+    title: "Confidentialité totale",
+    body: "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais.",
+  },
+  {
+    title: "Coût maîtrisé",
+    body: "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne.",
+  },
 ];
 
 const FALLBACK_TARIFS: TarifItem[] = [
@@ -110,32 +129,101 @@ const FALLBACK_TARIFS: TarifItem[] = [
 ];
 
 const FALLBACK_ETAPES: EtapeItem[] = [
-  { num: "01", titre: "Contrat & codes d'accès", texte: "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes." },
-  { num: "02", titre: "Communication interne", texte: "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service." },
-  { num: "03", titre: "Vos salariés utilisent ESLAÏ", texte: "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé." },
+  {
+    num: "01",
+    titre: "Contrat & codes d'accès",
+    texte:
+      "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes.",
+  },
+  {
+    num: "02",
+    titre: "Communication interne",
+    texte:
+      "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service.",
+  },
+  {
+    num: "03",
+    titre: "Vos salariés utilisent ESLAÏ",
+    texte:
+      "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé.",
+  },
 ];
 
 const FALLBACK_FAQ: FaqItem[] = [
-  { question: "Comment est garantie la confidentialité vis-à-vis de l'employeur ?", answer: "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global)." },
-  { question: "Où sont hébergées les données ?", answer: "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique." },
-  { question: "Quelle est la différence avec un EAP (Employee Assistance Program) classique ?", answer: "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire." },
-  { question: "Que se passe-t-il si un salarié a besoin d'un suivi long ?", answer: "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)." },
-  { question: "Comment se passe la facturation ?", answer: "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable." },
-  { question: "Peut-on tester avant de s'engager ?", answer: "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large." },
+  {
+    question: "Comment est garantie la confidentialité vis-à-vis de l'employeur ?",
+    answer:
+      "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global).",
+  },
+  {
+    question: "Où sont hébergées les données ?",
+    answer:
+      "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique.",
+  },
+  {
+    question: "Quelle est la différence avec un EAP (Employee Assistance Program) classique ?",
+    answer:
+      "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives : logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire.",
+  },
+  {
+    question: "Que se passe-t-il si un salarié a besoin d'un suivi long ?",
+    answer:
+      "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée).",
+  },
+  {
+    question: "Comment se passe la facturation ?",
+    answer:
+      "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable.",
+  },
+  {
+    question: "Peut-on tester avant de s'engager ?",
+    answer:
+      "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large.",
+  },
 ];
 
 // Comparatif reste hardcodé (structure complexe, valeur éditoriale faible)
-type Crit = { label: string; elsai: boolean | string; public: boolean | string; eap: boolean | string; chatbot: boolean | string };
+type Crit = {
+  label: string;
+  elsai: boolean | string;
+  public: boolean | string;
+  eap: boolean | string;
+  chatbot: boolean | string;
+};
 
 const COMPARATIF: Crit[] = [
   { label: "Accessible 24h/24h", elsai: true, public: false, eap: "Heures bureau", chatbot: true },
-  { label: "Expertise droits sociaux FR", elsai: true, public: true, eap: "Limitée", chatbot: false },
-  { label: "Supervisé par AS diplômé·es", elsai: true, public: true, eap: "Variable", chatbot: false },
+  {
+    label: "Expertise droits sociaux FR",
+    elsai: true,
+    public: true,
+    eap: "Limitée",
+    chatbot: false,
+  },
+  {
+    label: "Supervisé par AS diplômé·es",
+    elsai: true,
+    public: true,
+    eap: "Variable",
+    chatbot: false,
+  },
   { label: "Gratuit pour le salarié", elsai: true, public: "Avec délai", eap: true, chatbot: true },
   { label: "Anonymat total employeur", elsai: true, public: true, eap: "Variable", chatbot: true },
   { label: "Sans rendez-vous préalable", elsai: true, public: false, eap: false, chatbot: true },
-  { label: "Réorientation vers services publics", elsai: true, public: true, eap: "Partiel", chatbot: "Partiel" },
-  { label: "Tarif PME accessible", elsai: "3 €/sal/mois", public: "—", eap: "Élevé", chatbot: "Variable" },
+  {
+    label: "Réorientation vers services publics",
+    elsai: true,
+    public: true,
+    eap: "Partiel",
+    chatbot: "Partiel",
+  },
+  {
+    label: "Tarif PME accessible",
+    elsai: "3 €/sal/mois",
+    public: "—",
+    eap: "Élevé",
+    chatbot: "Variable",
+  },
 ];
 
 function CellValue({ v }: { v: boolean | string }) {
@@ -146,11 +234,7 @@ function CellValue({ v }: { v: boolean | string }) {
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -212,11 +296,7 @@ export default async function Page({
     "title",
     "Un bénéfice concret, mesurable, différenciant.",
   );
-  const entrepriseItems = blockList<TitleBodyItem>(
-    entreprise,
-    "items",
-    FALLBACK_ENTREPRISE,
-  );
+  const entrepriseItems = blockList<TitleBodyItem>(entreprise, "items", FALLBACK_ENTREPRISE);
 
   const tarifsEyebrow = blockString(tarifs, "eyebrow", "Tarifs");
   const tarifsTitle = blockString(
@@ -237,26 +317,14 @@ export default async function Page({
   const tarifsItems = blockList<TarifItem>(tarifs, "items", FALLBACK_TARIFS);
 
   const deployEyebrow = blockString(deploiement, "eyebrow", "Déploiement");
-  const deployTitle = blockString(
-    deploiement,
-    "title",
-    "Opérationnel en moins de deux semaines.",
-  );
+  const deployTitle = blockString(deploiement, "title", "Opérationnel en moins de deux semaines.");
   const etapes = blockList<EtapeItem>(deploiement, "items", FALLBACK_ETAPES);
 
   const faqEyebrow = blockString(faqBlock, "eyebrow", "Questions fréquentes");
-  const faqTitle = blockString(
-    faqBlock,
-    "title",
-    "Ce que les DRH nous demandent souvent.",
-  );
+  const faqTitle = blockString(faqBlock, "title", "Ce que les DRH nous demandent souvent.");
   const faqItems = blockList<FaqItem>(faqBlock, "items", FALLBACK_FAQ);
 
-  const finalTitle = blockString(
-    finalCta,
-    "title",
-    "Discutons de votre besoin en 20 minutes.",
-  );
+  const finalTitle = blockString(finalCta, "title", "Discutons de votre besoin en 20 minutes.");
   const finalBody = blockString(
     finalCta,
     "body",
@@ -268,7 +336,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}
@@ -341,9 +409,7 @@ export default async function Page({
             </div>
           ))}
         </div>
-        {constatSource && (
-          <p className="text-elsai-ink/60 mt-6 text-xs">{constatSource}</p>
-        )}
+        {constatSource && <p className="text-elsai-ink/60 mt-6 text-xs">{constatSource}</p>}
       </Section>
 
       <Section id="salaries">
@@ -460,14 +526,14 @@ export default async function Page({
           })}
         </div>
 
-        {tarifsFooter && (
-          <p className="text-elsai-ink/60 mt-6 text-xs">{tarifsFooter}</p>
-        )}
+        {tarifsFooter && <p className="text-elsai-ink/60 mt-6 text-xs">{tarifsFooter}</p>}
       </Section>
 
       <Section tone="soft" id="simulateur">
         <div className="max-w-3xl scroll-mt-24">
-          <p className="text-elsai-pin text-xs font-semibold tracking-[0.2em] uppercase">Simulateur</p>
+          <p className="text-elsai-pin text-xs font-semibold tracking-[0.2em] uppercase">
+            Simulateur
+          </p>
           <h2 className="text-elsai-pin-dark mt-3 font-serif text-3xl md:text-4xl">
             Estimez le coût en quelques secondes.
           </h2>
@@ -486,9 +552,9 @@ export default async function Page({
             ESLAÏ vs les alternatives du marché.
           </h2>
           <p className="text-elsai-ink/85 mt-5 leading-relaxed">
-            Nous ne prétendons pas remplacer les services sociaux publics ni les EAP.
-            Nous occupons une place complémentaire&nbsp;: celle du premier accueil immédiat,
-            spécialisé droits sociaux.
+            Nous ne prétendons pas remplacer les services sociaux publics ni les EAP. Nous occupons
+            une place complémentaire&nbsp;: celle du premier accueil immédiat, spécialisé droits
+            sociaux.
           </p>
         </div>
         <div className="mt-8 overflow-x-auto">
@@ -514,10 +580,7 @@ export default async function Page({
             </thead>
             <tbody>
               {COMPARATIF.map((c, i) => (
-                <tr
-                  key={c.label}
-                  className={i % 2 === 0 ? "bg-elsai-creme/60" : "bg-transparent"}
-                >
+                <tr key={c.label} className={i % 2 === 0 ? "bg-elsai-creme/60" : "bg-transparent"}>
                   <td className="text-elsai-ink py-3 pr-4">{c.label}</td>
                   <td className="bg-elsai-pin/5 py-3 text-center">
                     <CellValue v={c.elsai} />
@@ -571,7 +634,8 @@ export default async function Page({
           </h2>
           <p className="text-elsai-ink/85 mt-4 leading-relaxed">
             ESLAÏ est en phase de lancement. Nous constituons actuellement notre premier cercle
-            d'entreprises pionnières sur une phase pilote de 3 mois, avec des conditions préférentielles.
+            d'entreprises pionnières sur une phase pilote de 3 mois, avec des conditions
+            préférentielles.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             {[1, 2, 3].map((i) => (
@@ -579,7 +643,7 @@ export default async function Page({
                 key={i}
                 className="border-elsai-pin/15 bg-elsai-creme-dark/20 flex h-20 items-center justify-center rounded border border-dashed"
               >
-                <span className="text-elsai-ink/40 text-xs uppercase tracking-wider">
+                <span className="text-elsai-ink/40 text-xs tracking-wider uppercase">
                   Votre logo ici
                 </span>
               </div>
@@ -603,10 +667,10 @@ export default async function Page({
             L'identité de vos salariés qui utilisent ESLAÏ.
           </h2>
           <p className="text-elsai-ink/85 mt-4 leading-relaxed">
-            La confidentialité est au cœur du service. Vous ne saurez jamais qui consulte, sur
-            quel sujet, à quel moment. Notre reporting se limite à des statistiques agrégées&nbsp;:
-            taux d'utilisation global, grandes thématiques, évolution dans le temps. Cette règle
-            est non négociable — c'est ce qui rend le service réellement utile pour vos équipes.
+            La confidentialité est au cœur du service. Vous ne saurez jamais qui consulte, sur quel
+            sujet, à quel moment. Notre reporting se limite à des statistiques agrégées&nbsp;: taux
+            d'utilisation global, grandes thématiques, évolution dans le temps. Cette règle est non
+            négociable — c'est ce qui rend le service réellement utile pour vos équipes.
           </p>
         </div>
       </Section>

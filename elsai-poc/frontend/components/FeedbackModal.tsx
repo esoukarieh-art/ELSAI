@@ -39,10 +39,7 @@ export default function FeedbackModal({ conversationId, onClose, onSent }: Props
       <div className="rounded-organic shadow-organic w-full max-w-md bg-white p-6">
         {!done ? (
           <>
-            <h2
-              id="feedback-title"
-              className="text-elsai-pin-dark font-serif text-xl"
-            >
+            <h2 id="feedback-title" className="text-elsai-pin-dark font-serif text-xl">
               Est-ce que j'ai répondu à votre question&nbsp;?
             </h2>
             <p className="text-elsai-ink/70 mt-2 text-sm">
@@ -111,9 +108,7 @@ export default function FeedbackModal({ conversationId, onClose, onSent }: Props
         ) : (
           <div className="text-center">
             <p className="text-elsai-pin-dark font-serif text-xl">Merci 🙏</p>
-            <p className="text-elsai-ink/70 mt-2 text-sm">
-              Votre retour a été pris en compte.
-            </p>
+            <p className="text-elsai-ink/70 mt-2 text-sm">Votre retour a été pris en compte.</p>
           </div>
         )}
       </div>

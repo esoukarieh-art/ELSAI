@@ -17,11 +17,7 @@ interface CTABlockRenderProps {
  * 2. Merge props DB + overrides
  * 3. Rend le composant du registry, enrobé pour le tracking
  */
-export async function CTABlockRender({
-  blockKey,
-  postSlug,
-  overrides,
-}: CTABlockRenderProps) {
+export async function CTABlockRender({ blockKey, postSlug, overrides }: CTABlockRenderProps) {
   let data: CTAResolvedResponse | null = null;
   try {
     const res = await fetch(`${API_URL}/api/public/ctas/${blockKey}`, {
@@ -52,11 +48,7 @@ export async function CTABlockRender({
   return (
     <span data-cta-key={blockKey} data-variant={data.variant}>
       <Component {...props} />
-      <CTATrackingClient
-        blockKey={blockKey}
-        variant={data.variant}
-        postSlug={postSlug}
-      />
+      <CTATrackingClient blockKey={blockKey} variant={data.variant} postSlug={postSlug} />
     </span>
   );
 }

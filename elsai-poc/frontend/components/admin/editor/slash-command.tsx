@@ -23,7 +23,7 @@ function icon(label: string) {
   return (
     <span
       aria-hidden
-      className="bg-elsai-creme text-elsai-pin-dark flex h-8 w-8 items-center justify-center rounded-organic border border-elsai-pin/20 text-xs font-semibold"
+      className="bg-elsai-creme text-elsai-pin-dark rounded-organic border-elsai-pin/20 flex h-8 w-8 items-center justify-center border text-xs font-semibold"
     >
       {label}
     </span>

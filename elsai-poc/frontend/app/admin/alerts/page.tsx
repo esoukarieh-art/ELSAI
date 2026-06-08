@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import {
-  type AlertStatus,
-  type DangerAlert,
-  fetchAlerts,
-  updateAlert,
-} from "@/lib/api";
+import { type AlertStatus, type DangerAlert, fetchAlerts, updateAlert } from "@/lib/api";
 
 const STATUS_LABELS: Record<AlertStatus, string> = {
   new: "Nouveau",

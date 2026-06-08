@@ -53,9 +53,7 @@ export default function AccountModal({
         className="rounded-organic shadow-organic w-full max-w-md bg-white p-6"
       >
         <h2 className="text-elsai-pin-dark font-serif text-xl">
-          {mode === "create"
-            ? "Sauvegarder cette conversation"
-            : "Retrouver mes conversations"}
+          {mode === "create" ? "Sauvegarder cette conversation" : "Retrouver mes conversations"}
         </h2>
         <p className="text-elsai-ink/70 mt-2 text-sm">
           {mode === "create"
@@ -87,9 +85,7 @@ export default function AccountModal({
           />
         </div>
 
-        {error && (
-          <p className="text-elsai-rose-dark mt-3 text-sm">⚠️ {error}</p>
-        )}
+        {error && <p className="text-elsai-rose-dark mt-3 text-sm">⚠️ {error}</p>}
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <button

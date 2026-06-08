@@ -71,10 +71,9 @@ export default function DepartmentPicker({ conversationId, onChange }: Props) {
         {current ? `📍 ${current.name}` : "📍 Mon département (optionnel)"}
       </button>
       {open && (
-        <div className="rounded-organic border-elsai-pin/20 shadow-organic absolute right-0 top-full z-30 mt-2 w-72 border bg-white p-3">
+        <div className="rounded-organic border-elsai-pin/20 shadow-organic absolute top-full right-0 z-30 mt-2 w-72 border bg-white p-3">
           <p className="text-elsai-ink/70 mb-2 text-xs">
-            Pour des contacts locaux (CAF, MDPH...). Stocké uniquement le temps
-            de la conversation.
+            Pour des contacts locaux (CAF, MDPH...). Stocké uniquement le temps de la conversation.
           </p>
           <select
             value={code}

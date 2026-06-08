@@ -48,7 +48,10 @@ export default function BlogPreviewPage() {
         <p className="text-elsai-urgence rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
-        <Link href="/admin/blog" className="text-elsai-pin-dark mt-4 inline-block text-sm underline">
+        <Link
+          href="/admin/blog"
+          className="text-elsai-pin-dark mt-4 inline-block text-sm underline"
+        >
           ← Retour à la liste
         </Link>
       </div>
@@ -82,14 +85,10 @@ export default function BlogPreviewPage() {
 
       <article className="mx-auto max-w-3xl px-4 py-10">
         {post.hero_eyebrow && (
-          <p className="text-elsai-pin mb-2 text-sm uppercase tracking-wide">
-            {post.hero_eyebrow}
-          </p>
+          <p className="text-elsai-pin mb-2 text-sm tracking-wide uppercase">{post.hero_eyebrow}</p>
         )}
         <h1 className="text-elsai-pin-dark font-serif text-4xl md:text-5xl">{post.title}</h1>
-        {post.description && (
-          <p className="text-elsai-ink/80 mt-4 text-lg">{post.description}</p>
-        )}
+        {post.description && <p className="text-elsai-ink/80 mt-4 text-lg">{post.description}</p>}
         <div className="text-elsai-ink/60 mt-4 flex flex-wrap items-center gap-3 text-xs">
           {post.author_display && <span>Par {post.author_display}</span>}
           {post.published_at ? (
@@ -101,11 +100,7 @@ export default function BlogPreviewPage() {
         </div>
 
         {post.og_image_url && (
-          <img
-            src={post.og_image_url}
-            alt=""
-            className="rounded-organic mt-6 w-full"
-          />
+          <img src={post.og_image_url} alt="" className="rounded-organic mt-6 w-full" />
         )}
 
         <div

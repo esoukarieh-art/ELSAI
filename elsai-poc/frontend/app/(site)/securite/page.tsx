@@ -21,9 +21,9 @@ export default function SecuritePage() {
             Vos données sont à vous. Toujours.
           </h1>
           <p className="text-elsai-ink/80 mt-5 text-lg leading-relaxed">
-            ESLAÏ est conçu pour ne pas savoir qui vous êtes. Pas d'email, pas de
-            compte obligatoire, pas de cookies de tracking. Et un bouton{" "}
-            <strong>« Effacer »</strong> qui supprime tout en moins d'une seconde.
+            ESLAÏ est conçu pour ne pas savoir qui vous êtes. Pas d'email, pas de compte
+            obligatoire, pas de cookies de tracking. Et un bouton <strong>« Effacer »</strong> qui
+            supprime tout en moins d'une seconde.
           </p>
         </div>
       </section>
@@ -34,8 +34,8 @@ export default function SecuritePage() {
           Le parcours de vos données, étape par étape
         </h2>
         <p className="text-elsai-ink/70 mt-3 max-w-3xl">
-          Du moment où vous tapez votre question jusqu'à sa suppression, voici ce
-          qui se passe vraiment.
+          Du moment où vous tapez votre question jusqu'à sa suppression, voici ce qui se passe
+          vraiment.
         </p>
 
         <div className="mt-10">
@@ -72,8 +72,8 @@ export default function SecuritePage() {
           ESLAÏ vs un assistant IA grand public
         </h2>
         <p className="text-elsai-ink/70 mt-3 max-w-3xl">
-          Pourquoi vous ne devriez pas raconter votre situation sociale à
-          ChatGPT, Gemini ou un autre assistant généraliste.
+          Pourquoi vous ne devriez pas raconter votre situation sociale à ChatGPT, Gemini ou un
+          autre assistant généraliste.
         </p>
 
         <div className="rounded-organic border-elsai-pin/15 mt-8 overflow-hidden border bg-white">
@@ -86,11 +86,7 @@ export default function SecuritePage() {
               </tr>
             </thead>
             <tbody className="divide-elsai-pin/10 divide-y">
-              <Row
-                label="Compte / email obligatoire"
-                a="Non, jamais"
-                b="Oui (téléphone parfois)"
-              />
+              <Row label="Compte / email obligatoire" a="Non, jamais" b="Oui (téléphone parfois)" />
               <Row
                 label="Hébergement des données"
                 a="France (UE, RGPD strict)"
@@ -240,14 +236,7 @@ function FlowDiagram() {
         <Arrow x1={590} y1={120} x2={630} y2={120} />
 
         {/* Forget cascade */}
-        <text
-          x={420}
-          y={210}
-          textAnchor="middle"
-          fontSize="13"
-          fontWeight="600"
-          fill="#9B7F7F"
-        >
+        <text x={420} y={210} textAnchor="middle" fontSize="13" fontWeight="600" fill="#9B7F7F">
           🗑️ Bouton « Effacer » → cascade DELETE conversations + messages
         </text>
         <Arrow x1={500} y1={170} x2={500} y2={195} dashed />
@@ -298,13 +287,7 @@ function Box({
       >
         {label}
       </text>
-      <text
-        x={x + w / 2}
-        y={y + 50}
-        textAnchor="middle"
-        fontSize="11"
-        fill="#7A8C82"
-      >
+      <text x={x + w / 2} y={y + 50} textAnchor="middle" fontSize="11" fill="#7A8C82">
         {sub}
       </text>
     </g>

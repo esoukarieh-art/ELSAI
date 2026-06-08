@@ -151,7 +151,7 @@ export default function NewBlogPostPage() {
       )}
       <form
         onSubmit={submit}
-        className="rounded-organic border-elsai-pin/15 bg-white/70 space-y-3 border p-4"
+        className="rounded-organic border-elsai-pin/15 space-y-3 border bg-white/70 p-4"
       >
         <label className="block text-sm">
           <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">Titre *</span>
@@ -225,9 +225,7 @@ export default function NewBlogPostPage() {
 
         {aiOpen && (
           <div className="rounded-organic border-elsai-pin/20 bg-elsai-creme/40 space-y-2 border p-3">
-            <span className="text-elsai-ink/80 block text-xs uppercase">
-              Template de prompt IA
-            </span>
+            <span className="text-elsai-ink/80 block text-xs uppercase">Template de prompt IA</span>
             <div className="flex flex-wrap gap-1">
               {templates.map((t) => (
                 <button
@@ -296,7 +294,7 @@ export default function NewBlogPostPage() {
           )}
         </div>
         {generating && (
-          <div className="rounded-organic border-elsai-pin/20 bg-white mt-2 space-y-2 border p-3">
+          <div className="rounded-organic border-elsai-pin/20 mt-2 space-y-2 border bg-white p-3">
             <div className="flex items-center justify-between text-xs">
               <span className="text-elsai-ink/80">{phase}</span>
               <span className="text-elsai-ink/60 tabular-nums">
@@ -310,7 +308,7 @@ export default function NewBlogPostPage() {
               />
             </div>
             {streamText && (
-              <pre className="bg-elsai-creme/40 text-elsai-ink/80 max-h-48 overflow-auto whitespace-pre-wrap rounded p-2 font-mono text-[11px] leading-snug">
+              <pre className="bg-elsai-creme/40 text-elsai-ink/80 max-h-48 overflow-auto rounded p-2 font-mono text-[11px] leading-snug whitespace-pre-wrap">
                 {streamText.slice(-1200)}
                 <span className="animate-pulse">▍</span>
               </pre>

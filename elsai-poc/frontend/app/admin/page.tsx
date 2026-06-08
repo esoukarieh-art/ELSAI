@@ -45,7 +45,11 @@ export default function AdminHome() {
           <Card label="Actives (1h)" value={metrics.active_last_hour} accent="rose" />
           <Card label="Conversations" value={metrics.chats_total} />
           <Card label="Documents analysés" value={metrics.ocr_total} />
-          <Card label="Signaux de danger" value={metrics.danger_detections_total} accent="urgence" />
+          <Card
+            label="Signaux de danger"
+            value={metrics.danger_detections_total}
+            accent="urgence"
+          />
           <Card label="Droits à l'oubli" value={metrics.forget_requests_total} accent="rose" />
         </div>
       )}

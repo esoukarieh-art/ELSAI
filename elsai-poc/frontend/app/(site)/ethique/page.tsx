@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Éthique & confidentialité",
@@ -54,11 +49,7 @@ const FALLBACK_PRINCIPLES: Principle[] = [
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -80,18 +71,10 @@ export default async function Page({
     "ESLAÏ a été conçu pour des publics vulnérables. Chaque décision technique a été guidée par ce principe.",
   );
 
-  const principles = blockList<Principle>(
-    principlesBlock,
-    "items",
-    FALLBACK_PRINCIPLES,
-  );
+  const principles = blockList<Principle>(principlesBlock, "items", FALLBACK_PRINCIPLES);
 
   const bizEyebrow = blockString(biz, "eyebrow", "Modèle économique");
-  const bizTitle = blockString(
-    biz,
-    "title",
-    "Gratuit pour vous. Financé par les entreprises.",
-  );
+  const bizTitle = blockString(biz, "title", "Gratuit pour vous. Financé par les entreprises.");
   const bizBody1 = blockString(
     biz,
     "body1",
@@ -130,7 +113,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}

@@ -121,7 +121,10 @@ export default async function Page({ params }: Props) {
   const slots: Slot[] = [
     ...existing
       .filter((c) => c.position !== "sticky")
-      .map<Slot>((c) => ({ key: ctaKeyToBlockKey(c.cta_key), position: c.position as Slot["position"] })),
+      .map<Slot>((c) => ({
+        key: ctaKeyToBlockKey(c.cta_key),
+        position: c.position as Slot["position"],
+      })),
     ...injected.map<Slot>((i) => ({ key: i.blockKey, position: i.position })),
   ];
 

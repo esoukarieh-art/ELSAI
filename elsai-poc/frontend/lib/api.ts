@@ -183,11 +183,7 @@ const ADMIN_TOKEN_KEY = "elsai_admin_token";
 const ADMIN_AUTH_KEY = "elsai_admin_auth"; // "bearer" | "legacy"
 const ADMIN_ROLE_KEY = "elsai_admin_role";
 
-export type AdminRole =
-  | "super_admin"
-  | "moderator_119"
-  | "content_editor"
-  | "b2b_sales";
+export type AdminRole = "super_admin" | "moderator_119" | "content_editor" | "b2b_sales";
 
 export function getAdminToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -204,7 +200,11 @@ export function getAdminRole(): AdminRole | null {
   return sessionStorage.getItem(ADMIN_ROLE_KEY) as AdminRole | null;
 }
 
-export function setAdminToken(token: string, auth: "bearer" | "legacy" = "legacy", role?: AdminRole) {
+export function setAdminToken(
+  token: string,
+  auth: "bearer" | "legacy" = "legacy",
+  role?: AdminRole,
+) {
   sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
   sessionStorage.setItem(ADMIN_AUTH_KEY, auth);
   if (role) sessionStorage.setItem(ADMIN_ROLE_KEY, role);
@@ -259,9 +259,7 @@ export interface OrganizationView {
 }
 
 export async function fetchOrganization(token: string): Promise<OrganizationView> {
-  const res = await fetch(
-    `${API_URL}/api/billing/organization?token=${encodeURIComponent(token)}`,
-  );
+  const res = await fetch(`${API_URL}/api/billing/organization?token=${encodeURIComponent(token)}`);
   if (!res.ok) throw new Error(`Erreur ${res.status}`);
   return res.json();
 }
@@ -360,9 +358,7 @@ export async function listLetterTemplates(): Promise<LetterTemplate[]> {
   return adminJson<LetterTemplate[]>("/api/admin/letter-templates");
 }
 
-export async function createLetterTemplate(
-  payload: LetterTemplateInput,
-): Promise<LetterTemplate> {
+export async function createLetterTemplate(payload: LetterTemplateInput): Promise<LetterTemplate> {
   return adminJson<LetterTemplate>("/api/admin/letter-templates", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -634,9 +630,7 @@ export async function fetchFeatures(): Promise<FeatureFlag[]> {
   return adminJson<FeatureFlag[]>("/api/admin/features");
 }
 
-export async function upsertFeature(
-  flag: Omit<FeatureFlag, "updated_at">,
-): Promise<FeatureFlag> {
+export async function upsertFeature(flag: Omit<FeatureFlag, "updated_at">): Promise<FeatureFlag> {
   return adminJson<FeatureFlag>("/api/admin/features", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -773,9 +767,7 @@ export async function listEmailHistory(
   if (sequenceKey) params.set("sequence_key", sequenceKey);
   if (status) params.set("status", status);
   params.set("limit", String(limit));
-  return adminJson<EmailHistoryRow[]>(
-    `/api/admin/email-sequences/history?${params.toString()}`,
-  );
+  return adminJson<EmailHistoryRow[]>(`/api/admin/email-sequences/history?${params.toString()}`);
 }
 
 export async function setEmailSequenceActive(

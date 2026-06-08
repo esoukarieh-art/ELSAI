@@ -80,11 +80,7 @@ interface DiffItem {
 
 type SP = { preview?: string; token?: string };
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function HomePage({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -131,11 +127,7 @@ export default async function HomePage({
 
   // Use cases
   const useCasesTitle = blockString(useCasesBlock, "title", "À quoi ça sert concrètement ?");
-  const useCasesLinkLabel = blockString(
-    useCasesBlock,
-    "link_label",
-    "Voir tous les exemples →",
-  );
+  const useCasesLinkLabel = blockString(useCasesBlock, "link_label", "Voir tous les exemples →");
   const useCasesLinkHref = blockString(useCasesBlock, "link_href", "/exemples-concrets");
   const useCases = blockList<CaseItem>(useCasesBlock, "items", FALLBACK_CAS);
 
@@ -173,11 +165,7 @@ export default async function HomePage({
   const employerCtaHref = blockString(employer, "cta_href", "/offre");
 
   // Final CTA
-  const finalTitle = blockString(
-    finalCta,
-    "title",
-    "Vous pouvez tester ce service gratuitement.",
-  );
+  const finalTitle = blockString(finalCta, "title", "Vous pouvez tester ce service gratuitement.");
   const finalBody = blockString(
     finalCta,
     "body",
@@ -189,7 +177,7 @@ export default async function HomePage({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}
@@ -266,7 +254,9 @@ export default async function HomePage({
                 height={280}
                 priority
                 fetchPriority="high"
-                unoptimized={heroImage.startsWith("http") || heroImage.includes("/api/public/uploads")}
+                unoptimized={
+                  heroImage.startsWith("http") || heroImage.includes("/api/public/uploads")
+                }
                 className="h-auto w-[220px] drop-shadow-sm md:w-[280px]"
               />
             )}

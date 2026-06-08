@@ -54,9 +54,7 @@ export async function aiToBulletList(text: string): Promise<string> {
   return stripFences(raw);
 }
 
-export async function aiToHowTo(
-  text: string,
-): Promise<Array<{ name: string; text: string }>> {
+export async function aiToHowTo(text: string): Promise<Array<{ name: string; text: string }>> {
   const { text: raw } = await aiRewrite(
     text,
     "Extrais ce texte en étapes numérotées. Réponds UNIQUEMENT avec un JSON de la forme " +
@@ -67,9 +65,7 @@ export async function aiToHowTo(
   return parsed?.steps ?? [];
 }
 
-export async function aiToFAQ(
-  text: string,
-): Promise<Array<{ question: string; answer: string }>> {
+export async function aiToFAQ(text: string): Promise<Array<{ question: string; answer: string }>> {
   const { text: raw } = await aiRewrite(
     text,
     "Transforme ce texte en FAQ. Réponds UNIQUEMENT avec un JSON de la forme " +
@@ -88,7 +84,7 @@ export async function aiToCallout(
   const { text: raw } = await aiRewrite(
     text,
     "Résume ce texte en un encadré court et frappant. Choisis un variant parmi " +
-      'info | success | warning | danger. Réponds UNIQUEMENT avec un JSON de la forme ' +
+      "info | success | warning | danger. Réponds UNIQUEMENT avec un JSON de la forme " +
       '{"variant":"info","text":"…"}. Pas de markdown, pas d\'explication.',
   );
   const parsed = extractJson<{

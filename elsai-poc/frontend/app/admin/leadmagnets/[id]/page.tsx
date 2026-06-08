@@ -40,7 +40,7 @@ export default function LeadMagnetEditPage() {
   }, [id]);
 
   if (error) {
-    return <p className="text-sm text-elsai-rose">{error}</p>;
+    return <p className="text-elsai-rose text-sm">{error}</p>;
   }
   if (!row) {
     return <p className="text-sm text-slate-400">Chargement…</p>;
@@ -101,23 +101,26 @@ export default function LeadMagnetEditPage() {
   return (
     <div className="max-w-2xl">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="font-serif text-3xl text-elsai-pin">Lead magnet — {row.key}</h1>
-        <Link href="/admin/leadmagnets" className="text-sm text-elsai-pin hover:underline">
+        <h1 className="text-elsai-pin font-serif text-3xl">Lead magnet — {row.key}</h1>
+        <Link href="/admin/leadmagnets" className="text-elsai-pin text-sm hover:underline">
           ← Retour
         </Link>
       </div>
 
-      {error && <p className="mb-3 text-sm text-elsai-rose">{error}</p>}
-      {message && <p className="mb-3 text-sm text-elsai-pin">{message}</p>}
+      {error && <p className="text-elsai-rose mb-3 text-sm">{error}</p>}
+      {message && <p className="text-elsai-pin mb-3 text-sm">{message}</p>}
 
-      <form onSubmit={handleSave} className="space-y-4 rounded-organic border border-elsai-pin/15 bg-white/70 p-5">
+      <form
+        onSubmit={handleSave}
+        className="rounded-organic border-elsai-pin/15 space-y-4 border bg-white/70 p-5"
+      >
         <label className="block text-sm">
           <span className="text-slate-700">Titre</span>
           <input
             type="text"
             value={row.title}
             onChange={(e) => setRow({ ...row, title: e.target.value })}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
             required
           />
         </label>
@@ -128,7 +131,7 @@ export default function LeadMagnetEditPage() {
             value={row.description ?? ""}
             onChange={(e) => setRow({ ...row, description: e.target.value })}
             rows={3}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           />
         </label>
 
@@ -137,7 +140,7 @@ export default function LeadMagnetEditPage() {
           <select
             value={row.audience}
             onChange={(e) => setRow({ ...row, audience: e.target.value })}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           >
             {AUDIENCES.map((a) => (
               <option key={a} value={a}>
@@ -154,7 +157,7 @@ export default function LeadMagnetEditPage() {
             value={row.file_url ?? ""}
             onChange={(e) => setRow({ ...row, file_url: e.target.value || null })}
             placeholder="https://elsai.fr/static/leadmagnets/guide.pdf"
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           />
         </label>
 
@@ -165,7 +168,7 @@ export default function LeadMagnetEditPage() {
             value={row.trigger_sequence_key ?? ""}
             onChange={(e) => setRow({ ...row, trigger_sequence_key: e.target.value || null })}
             placeholder="b2c_guide_18ans"
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2 font-mono text-xs"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2 font-mono text-xs"
           />
         </label>
 
@@ -182,7 +185,7 @@ export default function LeadMagnetEditPage() {
           <button
             type="submit"
             disabled={saving}
-            className="rounded-organic bg-elsai-pin px-4 py-2 text-sm text-elsai-cream hover:bg-elsai-pin/90 disabled:opacity-60"
+            className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-2 text-sm disabled:opacity-60"
           >
             {saving ? "Enregistrement…" : "Enregistrer"}
           </button>
@@ -191,7 +194,7 @@ export default function LeadMagnetEditPage() {
               type="button"
               onClick={handleActivate}
               disabled={saving}
-              className="rounded-organic border border-elsai-pin px-4 py-2 text-sm text-elsai-pin hover:bg-elsai-pin/10"
+              className="rounded-organic border-elsai-pin text-elsai-pin hover:bg-elsai-pin/10 border px-4 py-2 text-sm"
             >
               Activer
             </button>
@@ -200,7 +203,7 @@ export default function LeadMagnetEditPage() {
             type="button"
             onClick={handleDelete}
             disabled={saving}
-            className="ml-auto rounded-organic border border-elsai-rose px-4 py-2 text-sm text-elsai-rose hover:bg-elsai-rose/10"
+            className="rounded-organic border-elsai-rose text-elsai-rose hover:bg-elsai-rose/10 ml-auto border px-4 py-2 text-sm"
           >
             Supprimer
           </button>

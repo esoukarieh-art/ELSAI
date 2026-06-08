@@ -20,10 +20,7 @@ import {
   schedulePost,
   updatePost,
 } from "@/lib/admin/contentApi";
-import {
-  getPostAnalytics,
-  type PostDetailResponse,
-} from "@/lib/admin/analyticsApi";
+import { getPostAnalytics, type PostDetailResponse } from "@/lib/admin/analyticsApi";
 import type {
   Audience,
   BlogPostDetail,
@@ -55,7 +52,11 @@ const AUDIENCES: Array<{ value: Audience; label: string }> = [
 
 const KINDS: Array<{ value: PostKind; label: string; hint: string }> = [
   { value: "article", label: "Article (blog)", hint: "Visible dans /blog, workflow éditorial." },
-  { value: "help", label: "Aide (guide utilisateur)", hint: "Visible dans /aide, centre d'aide SEO." },
+  {
+    value: "help",
+    label: "Aide (guide utilisateur)",
+    hint: "Visible dans /aide, centre d'aide SEO.",
+  },
 ];
 
 function wordsOf(plain: string): number {
@@ -140,7 +141,9 @@ export default function BlogEditorPage() {
 
   useEffect(() => {
     if (!id) return;
-    getPost(id).then(hydrate).catch((e) => setError((e as Error).message));
+    getPost(id)
+      .then(hydrate)
+      .catch((e) => setError((e as Error).message));
   }, [id, hydrate]);
 
   // Charge les analytics du post si publié (/api/admin/analytics/posts/{slug}).
@@ -440,11 +443,14 @@ export default function BlogEditorPage() {
   }, []);
 
   // Cached readability trigger (debounced via AiToolbar button only for P0.5)
-  const onReadability = useCallback((r: ReadabilityResult) => {
-    const key = plainText.slice(0, 4000);
-    readabilityCacheRef.current.set(key, r);
-    setReadability(r);
-  }, [plainText]);
+  const onReadability = useCallback(
+    (r: ReadabilityResult) => {
+      const key = plainText.slice(0, 4000);
+      readabilityCacheRef.current.set(key, r);
+      setReadability(r);
+    },
+    [plainText],
+  );
 
   if (isMobile) {
     return (
@@ -465,9 +471,7 @@ export default function BlogEditorPage() {
           <Link href="/admin/blog" className="text-elsai-pin-dark text-xs hover:underline">
             ← Liste des articles
           </Link>
-          <h1 className="text-elsai-pin-dark font-serif text-2xl">
-            {title || "(sans titre)"}
-          </h1>
+          <h1 className="text-elsai-pin-dark font-serif text-2xl">{title || "(sans titre)"}</h1>
           <p className="text-elsai-ink/60 text-xs">
             Statut : <strong>{post.status}</strong> · modifié le{" "}
             {new Date(post.updated_at).toLocaleString("fr-FR")}
@@ -571,7 +575,7 @@ export default function BlogEditorPage() {
         </p>
       )}
       {info && (
-        <p className="mb-3 rounded-organic border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+        <p className="rounded-organic mb-3 border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
           {info}
         </p>
       )}
@@ -579,7 +583,7 @@ export default function BlogEditorPage() {
       <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
         {/* LEFT — content */}
         <section className="space-y-3">
-          <div className="rounded-organic border-elsai-pin/15 bg-white/70 space-y-3 border p-3">
+          <div className="rounded-organic border-elsai-pin/15 space-y-3 border bg-white/70 p-3">
             <label className="block">
               <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">Titre</span>
               <input
@@ -653,7 +657,7 @@ export default function BlogEditorPage() {
             </div>
           )}
           {editorial && (
-            <div className="rounded-organic border-slate-200 bg-white/70 border p-3 text-sm">
+            <div className="rounded-organic border border-slate-200 bg-white/70 p-3 text-sm">
               <h3 className="text-elsai-pin-dark mb-1 font-semibold">
                 Check éditorial — {editorial.ok ? "✅ OK" : "⚠ à revoir"}
               </h3>
@@ -671,7 +675,7 @@ export default function BlogEditorPage() {
             </div>
           )}
           {schemaSuggest && (
-            <div className="rounded-organic border-slate-200 bg-white/70 border p-3 text-sm">
+            <div className="rounded-organic border border-slate-200 bg-white/70 p-3 text-sm">
               <h3 className="text-elsai-pin-dark mb-1 font-semibold">
                 Schema suggéré : {schemaSuggest.schema_type}
               </h3>
@@ -688,7 +692,7 @@ export default function BlogEditorPage() {
         </section>
 
         {/* RIGHT — side panel */}
-        <aside className="rounded-organic border-elsai-pin/15 bg-white/70 border p-3">
+        <aside className="rounded-organic border-elsai-pin/15 border bg-white/70 p-3">
           <div className="mb-3 flex flex-wrap gap-1">
             {TABS.map((t) => (
               <button
@@ -771,7 +775,12 @@ export default function BlogEditorPage() {
                 <input
                   value={tags.join(", ")}
                   onChange={(e) =>
-                    setTags(e.target.value.split(",").map((t) => t.trim()).filter(Boolean))
+                    setTags(
+                      e.target.value
+                        .split(",")
+                        .map((t) => t.trim())
+                        .filter(Boolean),
+                    )
                   }
                   className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full border bg-white px-3 py-2 text-sm focus:outline-none"
                 />
@@ -832,9 +841,7 @@ export default function BlogEditorPage() {
                 />
               </label>
               <label className="block text-sm">
-                <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">
-                  og:image URL
-                </span>
+                <span className="text-elsai-ink/80 mb-1 block text-xs uppercase">og:image URL</span>
                 <input
                   value={ogImage}
                   onChange={(e) => setOgImage(e.target.value)}
@@ -926,13 +933,13 @@ export default function BlogEditorPage() {
               ) : (
                 <>
                   <div className="grid grid-cols-2 gap-2">
-                    <div className="rounded-organic border border-elsai-pin/20 bg-elsai-pin/5 p-2">
+                    <div className="rounded-organic border-elsai-pin/20 bg-elsai-pin/5 border p-2">
                       <p className="text-elsai-ink/60 text-[10px] uppercase">Vues 30j</p>
                       <p className="text-elsai-pin-dark font-serif text-lg">
                         {analytics.post?.views.toLocaleString("fr-FR") ?? 0}
                       </p>
                     </div>
-                    <div className="rounded-organic border border-elsai-rose/20 bg-elsai-rose/5 p-2">
+                    <div className="rounded-organic border-elsai-rose/20 bg-elsai-rose/5 border p-2">
                       <p className="text-elsai-ink/60 text-[10px] uppercase">CTR CTA</p>
                       <p className="text-elsai-pin-dark font-serif text-lg">
                         {((analytics.post?.cta_ctr ?? 0) * 100).toFixed(1)}%
@@ -963,7 +970,7 @@ export default function BlogEditorPage() {
                         {analytics.ctas.map((c) => (
                           <li
                             key={`${c.block_key}:${c.variant}`}
-                            className="flex items-center justify-between rounded-organic border border-slate-100 bg-white px-2 py-1"
+                            className="rounded-organic flex items-center justify-between border border-slate-100 bg-white px-2 py-1"
                           >
                             <span className="font-mono">
                               {c.block_key}:{c.variant}

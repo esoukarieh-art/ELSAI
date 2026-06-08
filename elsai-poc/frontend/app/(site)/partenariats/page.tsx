@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Partenariats — Construisons l'impact ensemble",
@@ -27,32 +22,64 @@ interface FormatItem {
 }
 
 const FALLBACK_ENGAGEMENTS: TitleBodyItem[] = [
-  { title: "Réorientation systématique", body: "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié." },
-  { title: "Transparence des pratiques", body: "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur." },
-  { title: "Désengorgement des accueils", body: "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte." },
-  { title: "Donnée souveraine", body: "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles." },
+  {
+    title: "Réorientation systématique",
+    body: "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié.",
+  },
+  {
+    title: "Transparence des pratiques",
+    body: "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur.",
+  },
+  {
+    title: "Désengorgement des accueils",
+    body: "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte.",
+  },
+  {
+    title: "Donnée souveraine",
+    body: "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles.",
+  },
 ];
 
 const FALLBACK_CIBLES: TitleBodyItem[] = [
-  { title: "CCAS & services sociaux départementaux", body: "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée." },
-  { title: "France Services & maisons de services au public", body: "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié." },
-  { title: "Associations sociales & caritatives", body: "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair." },
-  { title: "Collectivités territoriales", body: "Dans le cadre des dispositifs «\u00A0Territoires zéro non-recours\u00A0», ESLAÏ peut être déployée comme brique numérique complémentaire." },
+  {
+    title: "CCAS & services sociaux départementaux",
+    body: "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée.",
+  },
+  {
+    title: "France Services & maisons de services au public",
+    body: "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié.",
+  },
+  {
+    title: "Associations sociales & caritatives",
+    body: "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair.",
+  },
+  {
+    title: "Collectivités territoriales",
+    body: "Dans le cadre des dispositifs «\u00A0Territoires zéro non-recours\u00A0», ESLAÏ peut être déployée comme brique numérique complémentaire.",
+  },
 ];
 
 const FALLBACK_FORMATS: FormatItem[] = [
-  { title: "Lien simple", body: "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.", cost: "Gratuit" },
-  { title: "Co-branding", body: "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.", cost: "À discuter" },
-  { title: "Intégration métier", body: "Intégration dans votre SI ou votre portail usager, reporting dédié.", cost: "Sur devis" },
+  {
+    title: "Lien simple",
+    body: "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.",
+    cost: "Gratuit",
+  },
+  {
+    title: "Co-branding",
+    body: "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.",
+    cost: "À discuter",
+  },
+  {
+    title: "Intégration métier",
+    body: "Intégration dans votre SI ou votre portail usager, reporting dédié.",
+    cost: "Sur devis",
+  },
 ];
 
 type SP = { preview?: string; token?: string };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: Promise<SP> | SP;
-}) {
+export default async function Page({ searchParams }: { searchParams?: Promise<SP> | SP }) {
   const sp = (searchParams ? await searchParams : undefined) ?? {};
   const previewEnabled = sp.preview === "1" && !!sp.token;
 
@@ -105,11 +132,7 @@ export default async function Page({
   );
   const formatsItems = blockList<FormatItem>(formats, "items", FALLBACK_FORMATS);
 
-  const entEyebrow = blockString(
-    entrepriseCta,
-    "eyebrow",
-    "Vous êtes une entreprise\u00A0?",
-  );
+  const entEyebrow = blockString(entrepriseCta, "eyebrow", "Vous êtes une entreprise\u00A0?");
   const entTitle = blockString(
     entrepriseCta,
     "title",
@@ -154,7 +177,7 @@ export default async function Page({
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}

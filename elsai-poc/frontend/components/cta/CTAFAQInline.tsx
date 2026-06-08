@@ -29,17 +29,15 @@ export function CTAFAQInline({
     <section
       data-cta-component="CTAFAQInline"
       data-faq-items={JSON.stringify(items)}
-      className={`my-8 rounded-organic bg-elsai-cream p-6 ${className ?? ""}`}
+      className={`rounded-organic bg-elsai-cream my-8 p-6 ${className ?? ""}`}
     >
-      <h3 className="font-serif text-lg font-semibold text-elsai-pin">
-        {title}
-      </h3>
+      <h3 className="text-elsai-pin font-serif text-lg font-semibold">{title}</h3>
       <ul className="mt-4 space-y-2">
         {items.map((item, idx) => (
           <li key={idx}>
             <details className="group rounded-organic bg-white/70 p-3">
-              <summary className="cursor-pointer list-none font-medium text-elsai-pin focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin">
-                <span className="mr-2 text-elsai-rose group-open:rotate-90 inline-block transition-transform">
+              <summary className="text-elsai-pin focus-visible:ring-elsai-pin cursor-pointer list-none font-medium focus-visible:ring-2 focus-visible:outline-none">
+                <span className="text-elsai-rose mr-2 inline-block transition-transform group-open:rotate-90">
                   ›
                 </span>
                 {item.q}

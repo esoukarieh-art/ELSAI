@@ -71,7 +71,10 @@ export default function PriceCalculator() {
       </div>
 
       <div className="mt-6">
-        <label htmlFor="salaries" className="text-elsai-ink mb-2 flex items-baseline justify-between text-sm font-semibold">
+        <label
+          htmlFor="salaries"
+          className="text-elsai-ink mb-2 flex items-baseline justify-between text-sm font-semibold"
+        >
           <span>Nombre de salariés</span>
           <span className="text-elsai-pin-dark font-serif text-2xl">{salaries}</span>
         </label>
@@ -126,7 +129,8 @@ export default function PriceCalculator() {
       </div>
 
       <p className="text-elsai-ink/60 mt-5 text-xs">
-        Pour plus de 500 salariés, l'offre Sur mesure propose une tarification négociée. TVA 20% en sus.
+        Pour plus de 500 salariés, l'offre Sur mesure propose une tarification négociée. TVA 20% en
+        sus.
       </p>
     </div>
   );

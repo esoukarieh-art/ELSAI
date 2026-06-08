@@ -18,8 +18,8 @@ export default function ForgetPage() {
     <>
       <h1 className="text-elsai-pin-dark mb-2 font-serif text-3xl">Droit à l'oubli</h1>
       <p className="text-elsai-ink/70 mb-6 text-sm">
-        Historique des demandes de suppression (purge totale des conversations). Aucun lien avec
-        une personne : ce journal atteste uniquement du respect de l'engagement RGPD.
+        Historique des demandes de suppression (purge totale des conversations). Aucun lien avec une
+        personne : ce journal atteste uniquement du respect de l'engagement RGPD.
       </p>
 
       {error && (
@@ -30,7 +30,8 @@ export default function ForgetPage() {
 
       <div className="rounded-organic border-elsai-pin/15 shadow-organic border bg-white/80 p-5 backdrop-blur">
         <p className="text-elsai-pin-dark mb-4 font-serif text-2xl">
-          {events.length} <span className="text-elsai-ink/60 text-sm font-sans">suppressions exécutées</span>
+          {events.length}{" "}
+          <span className="text-elsai-ink/60 font-sans text-sm">suppressions exécutées</span>
         </p>
 
         <ul className="max-h-96 space-y-1 overflow-y-auto text-sm">

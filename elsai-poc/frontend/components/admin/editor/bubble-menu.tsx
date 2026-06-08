@@ -1,20 +1,10 @@
 "use client";
 
-import {
-  EditorBubble,
-  EditorBubbleItem,
-  useEditor,
-} from "novel";
-import { useCallback, useEffect, useState } from "react";
+import { EditorBubble, EditorBubbleItem, useEditor } from "novel";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { aiRewrite, aiShorten, aiExpand } from "@/lib/admin/contentApi";
-import {
-  aiToBulletList,
-  aiToCallout,
-  aiToFAQ,
-  aiToHowTo,
-  aiToSections,
-} from "./ai-structure";
+import { aiToBulletList, aiToCallout, aiToFAQ, aiToHowTo, aiToSections } from "./ai-structure";
 
 type FormatBtnProps = {
   active: boolean;
@@ -31,9 +21,7 @@ function FormatBtn({ active, onClick, children, title }: FormatBtnProps) {
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       className={`rounded-organic px-2 py-1 text-xs transition-colors ${
-        active
-          ? "bg-elsai-pin text-elsai-creme"
-          : "text-elsai-ink hover:bg-elsai-pin/10"
+        active ? "bg-elsai-pin text-elsai-creme" : "text-elsai-ink hover:bg-elsai-pin/10"
       }`}
     >
       {children}
@@ -99,6 +87,7 @@ function LinkButton() {
   const { editor } = useEditor();
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -107,6 +96,7 @@ function LinkButton() {
     } else {
       setUrl("");
     }
+    inputRef.current?.focus();
   }, [open, editor]);
 
   const apply = useCallback(() => {
@@ -125,17 +115,13 @@ function LinkButton() {
 
   return (
     <div className="relative">
-      <FormatBtn
-        title="Lien"
-        active={active}
-        onClick={() => setOpen((v) => !v)}
-      >
+      <FormatBtn title="Lien" active={active} onClick={() => setOpen((v) => !v)}>
         🔗
       </FormatBtn>
       {open && (
-        <div className="rounded-organic border-elsai-pin/20 absolute left-0 top-full z-50 mt-1 flex items-center gap-1 border bg-white p-1 shadow-lg">
+        <div className="rounded-organic border-elsai-pin/20 absolute top-full left-0 z-50 mt-1 flex items-center gap-1 border bg-white p-1 shadow-lg">
           <input
-            autoFocus
+            ref={inputRef}
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => {
@@ -222,12 +208,7 @@ function AiDropdown() {
       setError(null);
       try {
         const result = await runAi(action, text);
-        editor
-          .chain()
-          .focus()
-          .deleteRange({ from, to })
-          .insertContent(result)
-          .run();
+        editor.chain().focus().deleteRange({ from, to }).insertContent(result).run();
         setOpen(false);
       } catch (e) {
         setError((e as Error).message);
@@ -242,15 +223,11 @@ function AiDropdown() {
 
   return (
     <div className="relative">
-      <FormatBtn
-        title="Assistant IA"
-        active={open}
-        onClick={() => setOpen((v) => !v)}
-      >
+      <FormatBtn title="Assistant IA" active={open} onClick={() => setOpen((v) => !v)}>
         ✨ IA
       </FormatBtn>
       {open && (
-        <div className="rounded-organic border-elsai-pin/20 absolute right-0 top-full z-50 mt-1 w-56 border bg-white p-1 shadow-lg">
+        <div className="rounded-organic border-elsai-pin/20 absolute top-full right-0 z-50 mt-1 w-56 border bg-white p-1 shadow-lg">
           {AI_ACTIONS.map((a) => (
             <button
               key={a.key}
@@ -258,7 +235,7 @@ function AiDropdown() {
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => run(a.key)}
               disabled={busy !== null}
-              className="hover:bg-elsai-pin/10 flex w-full items-start gap-2 rounded-organic px-2 py-1.5 text-left text-xs disabled:opacity-50"
+              className="hover:bg-elsai-pin/10 rounded-organic flex w-full items-start gap-2 px-2 py-1.5 text-left text-xs disabled:opacity-50"
             >
               <span className="text-elsai-pin-dark font-medium">
                 {busy === a.key ? "…" : a.label}
@@ -266,21 +243,14 @@ function AiDropdown() {
               <span className="text-elsai-ink/60 text-[10px]">{a.hint}</span>
             </button>
           ))}
-          {error && (
-            <p className="text-elsai-urgence mt-1 px-2 text-[10px]">{error}</p>
-          )}
+          {error && <p className="text-elsai-urgence mt-1 px-2 text-[10px]">{error}</p>}
         </div>
       )}
     </div>
   );
 }
 
-type StructureAction =
-  | "sections"
-  | "bullets"
-  | "howto"
-  | "faq"
-  | "callout";
+type StructureAction = "sections" | "bullets" | "howto" | "faq" | "callout";
 
 const STRUCTURE_ACTIONS: Array<{
   key: StructureAction;
@@ -373,7 +343,7 @@ function StructureDropdown() {
         🪄
       </FormatBtn>
       {open && (
-        <div className="rounded-organic border-elsai-pin/20 absolute right-0 top-full z-50 mt-1 w-60 border bg-white p-1 shadow-lg">
+        <div className="rounded-organic border-elsai-pin/20 absolute top-full right-0 z-50 mt-1 w-60 border bg-white p-1 shadow-lg">
           {STRUCTURE_ACTIONS.map((a) => (
             <button
               key={a.key}
@@ -381,7 +351,7 @@ function StructureDropdown() {
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => run(a.key)}
               disabled={busy !== null}
-              className="hover:bg-elsai-pin/10 flex w-full flex-col items-start gap-0 rounded-organic px-2 py-1.5 text-left text-xs disabled:opacity-50"
+              className="hover:bg-elsai-pin/10 rounded-organic flex w-full flex-col items-start gap-0 px-2 py-1.5 text-left text-xs disabled:opacity-50"
             >
               <span className="text-elsai-pin-dark font-medium">
                 {busy === a.key ? "…" : a.label}
@@ -389,9 +359,7 @@ function StructureDropdown() {
               <span className="text-elsai-ink/60 text-[10px]">{a.hint}</span>
             </button>
           ))}
-          {error && (
-            <p className="text-elsai-urgence mt-1 px-2 text-[10px]">{error}</p>
-          )}
+          {error && <p className="text-elsai-urgence mt-1 px-2 text-[10px]">{error}</p>}
         </div>
       )}
     </div>
@@ -405,9 +373,9 @@ export function ContentBubbleMenu() {
       className="rounded-organic border-elsai-pin/20 flex items-center gap-0.5 border bg-white p-1 shadow-lg"
     >
       <FormatGroup />
-      <span className="mx-1 h-4 w-px bg-elsai-pin/20" />
+      <span className="bg-elsai-pin/20 mx-1 h-4 w-px" />
       <LinkButton />
-      <span className="mx-1 h-4 w-px bg-elsai-pin/20" />
+      <span className="bg-elsai-pin/20 mx-1 h-4 w-px" />
       <AiDropdown />
       <StructureDropdown />
     </EditorBubble>

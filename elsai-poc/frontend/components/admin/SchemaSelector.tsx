@@ -63,10 +63,11 @@ export default function SchemaSelector({ value, extraJson, onChange }: Props) {
   return (
     <div className="space-y-3">
       <div>
-        <label className="text-elsai-ink/80 mb-1 block text-xs uppercase">
+        <label className="text-elsai-ink/80 mb-1 block text-xs uppercase" htmlFor="schema-type">
           Type Schema.org
         </label>
         <select
+          id="schema-type"
           value={value}
           onChange={(e) => switchType(e.target.value as SchemaType)}
           className="rounded-organic border-elsai-pin/20 focus:border-elsai-pin w-full border bg-white px-3 py-2 text-sm focus:outline-none"
@@ -97,7 +98,7 @@ export default function SchemaSelector({ value, extraJson, onChange }: Props) {
             </button>
           </div>
           {steps.map((s, i) => (
-            <div key={i} className="space-y-1 rounded-organic border border-slate-200 p-2">
+            <div key={i} className="rounded-organic space-y-1 border border-slate-200 p-2">
               <input
                 value={s.name}
                 placeholder="Nom de l'étape"
@@ -137,16 +138,14 @@ export default function SchemaSelector({ value, extraJson, onChange }: Props) {
             <span className="text-elsai-ink/70 text-xs uppercase">Questions</span>
             <button
               type="button"
-              onClick={() =>
-                commit({ ...extra, faqs: [...faqs, { question: "", answer: "" }] })
-              }
+              onClick={() => commit({ ...extra, faqs: [...faqs, { question: "", answer: "" }] })}
               className="text-elsai-pin-dark text-xs underline"
             >
               + question
             </button>
           </div>
           {faqs.map((f, i) => (
-            <div key={i} className="space-y-1 rounded-organic border border-slate-200 p-2">
+            <div key={i} className="rounded-organic space-y-1 border border-slate-200 p-2">
               <input
                 value={f.question}
                 placeholder="Question"

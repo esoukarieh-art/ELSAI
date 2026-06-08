@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import Section from "@/components/site/Section";
-import {
-  blockList,
-  blockString,
-  findBlock,
-  getPageContent,
-} from "@/lib/pageContent";
+import { blockList, blockString, findBlock, getPageContent } from "@/lib/pageContent";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -20,7 +15,10 @@ const SUJETS: { value: string; label: string }[] = [
   { value: "offre-essentiel", label: "Offre Essentiel (3 €/salarié/mois)" },
   { value: "offre-premium", label: "Offre Premium (5 €/salarié/mois)" },
   { value: "offre-sur-mesure", label: "Offre Sur mesure" },
-  { value: "partenariat-institutionnel", label: "Partenariat institutionnel (CCAS, asso, collectivité)" },
+  {
+    value: "partenariat-institutionnel",
+    label: "Partenariat institutionnel (CCAS, asso, collectivité)",
+  },
   { value: "partenariat", label: "Autre partenariat" },
   { value: "presse", label: "Presse" },
   { value: "signalement", label: "Signalement d'une erreur" },
@@ -93,11 +91,7 @@ export default async function Page({ searchParams }: Props) {
   const heroTitle = blockString(hero, "title", "Nous écrire.");
   const heroSubtitle = blockString(hero, "subtitle", "");
 
-  const entrepriseTitle = blockString(
-    formNotes,
-    "entreprise_title",
-    "Demande pré-remplie",
-  );
+  const entrepriseTitle = blockString(formNotes, "entreprise_title", "Demande pré-remplie");
   const entrepriseBody = blockString(
     formNotes,
     "entreprise_body",
@@ -109,24 +103,12 @@ export default async function Page({ searchParams }: Props) {
     "En nous écrivant, vous acceptez que nous conservions votre email le temps nécessaire pour répondre.",
   );
 
-  const offerTitle = blockString(
-    asideOffer,
-    "title",
-    "À propos de l'offre entreprises",
-  );
+  const offerTitle = blockString(asideOffer, "title", "À propos de l'offre entreprises");
   const offerItems = blockList<LabelItem>(asideOffer, "items", FALLBACK_OFFER_ITEMS);
-  const offerLinkLabel = blockString(
-    asideOffer,
-    "link_label",
-    "Revoir le détail de l'offre →",
-  );
+  const offerLinkLabel = blockString(asideOffer, "link_label", "Revoir le détail de l'offre →");
   const offerLinkHref = blockString(asideOffer, "link_href", "/offre");
 
-  const difficultyTitle = blockString(
-    asideDifficulty,
-    "title",
-    "Vous êtes en difficulté\u00A0?",
-  );
+  const difficultyTitle = blockString(asideDifficulty, "title", "Vous êtes en difficulté\u00A0?");
   const difficultyBody = blockString(
     asideDifficulty,
     "body",
@@ -134,16 +116,12 @@ export default async function Page({ searchParams }: Props) {
   );
 
   const urgenceTitle = blockString(asideUrgence, "title", "Urgence vitale");
-  const urgenceItems = blockList<LabelItem>(
-    asideUrgence,
-    "items",
-    FALLBACK_URGENCE_ITEMS,
-  );
+  const urgenceItems = blockList<LabelItem>(asideUrgence, "items", FALLBACK_URGENCE_ITEMS);
 
   return (
     <>
       {previewEnabled && (
-        <div className="bg-amber-500 text-center text-xs font-semibold uppercase tracking-wider text-white">
+        <div className="bg-amber-500 text-center text-xs font-semibold tracking-wider text-white uppercase">
           Mode prévisualisation — brouillon non publié
         </div>
       )}
@@ -188,21 +166,22 @@ export default async function Page({ searchParams }: Props) {
             {isEntreprise && (
               <>
                 <div>
-                  <label htmlFor="entreprise" className="text-elsai-ink mb-1 block text-sm font-semibold">
+                  <label
+                    htmlFor="entreprise"
+                    className="text-elsai-ink mb-1 block text-sm font-semibold"
+                  >
                     Entreprise
                   </label>
                   <input id="entreprise" name="entreprise" required className={INPUT_CLASS} />
                 </div>
                 <div>
-                  <label htmlFor="effectif" className="text-elsai-ink mb-1 block text-sm font-semibold">
+                  <label
+                    htmlFor="effectif"
+                    className="text-elsai-ink mb-1 block text-sm font-semibold"
+                  >
                     Effectif approximatif
                   </label>
-                  <select
-                    id="effectif"
-                    name="effectif"
-                    className={INPUT_CLASS}
-                    defaultValue=""
-                  >
+                  <select id="effectif" name="effectif" className={INPUT_CLASS} defaultValue="">
                     <option value="" disabled>
                       Choisir…
                     </option>
@@ -227,12 +206,7 @@ export default async function Page({ searchParams }: Props) {
               <label htmlFor="sujet" className="text-elsai-ink mb-1 block text-sm font-semibold">
                 Sujet
               </label>
-              <select
-                id="sujet"
-                name="sujet"
-                defaultValue={sujetMatched}
-                className={INPUT_CLASS}
-              >
+              <select id="sujet" name="sujet" defaultValue={sujetMatched} className={INPUT_CLASS}>
                 {SUJETS.map((s) => (
                   <option key={s.value} value={s.value}>
                     {s.label}

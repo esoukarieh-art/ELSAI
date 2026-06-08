@@ -18,7 +18,7 @@ export async function mockEslaïApi(page: Page, scenarios: MockChatScenario[] = 
         session_id: "test-session-id",
         profile: "adult",
       }),
-    })
+    }),
   );
 
   await page.route("**/api/chat", (route) => {
@@ -45,7 +45,7 @@ export async function mockEslaïApi(page: Page, scenarios: MockChatScenario[] = 
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({ deleted_conversations: 1, deleted_messages: 4 }),
-    })
+    }),
   );
 }
 

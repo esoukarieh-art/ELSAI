@@ -34,11 +34,13 @@ Le **backoffice ESLAÏ** est l'interface d'administration qui permet de piloter 
 **URL d'accès** : `https://elsai.fr/admin` (production) — `http://localhost:3000/admin` (dev).
 
 **Prérequis** :
+
 - Un compte admin actif créé par un `super_admin`.
 - Un navigateur moderne (Chrome, Firefox, Edge, Safari).
 - Connexion HTTPS obligatoire en production.
 
 **Principes clés** :
+
 - **Anonymat absolu** : aucune donnée personnelle des utilisateurs ne doit transiter dans les exports ou les logs.
 - **Traçabilité** : chaque action sensible est enregistrée dans le journal d'audit (immuable).
 - **Rôles cloisonnés** : vous ne voyez que les pages autorisées par votre rôle.
@@ -55,7 +57,7 @@ Le **backoffice ESLAÏ** est l'interface d'administration qui permet de piloter 
 
 Un jeton JWT est stocké dans le navigateur pour une durée de **8 heures**. Au-delà, vous êtes automatiquement déconnecté et devez vous reconnecter.
 
-> **Mot de passe oublié** : contacter un `super_admin`. Il peut réinitialiser votre mot de passe via la page *Utilisateurs*.
+> **Mot de passe oublié** : contacter un `super_admin`. Il peut réinitialiser votre mot de passe via la page _Utilisateurs_.
 
 ### 2.2 Jeton legacy (super-admins techniques)
 
@@ -63,14 +65,14 @@ Pour les interventions techniques, un jeton `X-Admin-Token` (défini dans la var
 
 ### 2.3 Les 6 rôles
 
-| Rôle | Peut faire | Typiquement |
-|---|---|---|
-| `super_admin` | Tout, y compris gérer les comptes admin et supprimer des ressources | Lead tech / direction |
-| `moderator_119` | Consulter et traiter les alertes mineurs, exporter les alertes | Modérateurs partenaires 119 |
-| `content_editor` | Créer/éditer/publier blog, CTA, lead magnets, emails, prompts, features | Équipe contenu |
-| `content_reviewer` | Relire et faire passer les articles en `review` → `scheduled` | Relecteurs |
-| `content_author` | Rédiger des brouillons (sans publier) | Rédacteurs |
-| `b2b_sales` | Exporter les métriques B2B | Équipe vente |
+| Rôle               | Peut faire                                                              | Typiquement                 |
+| ------------------ | ----------------------------------------------------------------------- | --------------------------- |
+| `super_admin`      | Tout, y compris gérer les comptes admin et supprimer des ressources     | Lead tech / direction       |
+| `moderator_119`    | Consulter et traiter les alertes mineurs, exporter les alertes          | Modérateurs partenaires 119 |
+| `content_editor`   | Créer/éditer/publier blog, CTA, lead magnets, emails, prompts, features | Équipe contenu              |
+| `content_reviewer` | Relire et faire passer les articles en `review` → `scheduled`           | Relecteurs                  |
+| `content_author`   | Rédiger des brouillons (sans publier)                                   | Rédacteurs                  |
+| `b2b_sales`        | Exporter les métriques B2B                                              | Équipe vente                |
 
 > Si un bouton ou une page est masqué, c'est que votre rôle ne le permet pas. Demandez à un `super_admin` une montée de droits si nécessaire.
 
@@ -83,13 +85,15 @@ Pour les interventions techniques, un jeton `X-Admin-Token` (défini dans la var
 **À quoi ça sert** : visualiser en un coup d'œil la santé de la plateforme (trafic, usage de l'IA, signaux d'alerte). C'est le premier écran après connexion.
 
 Le tableau de bord affiche en temps réel :
+
 - **Sessions totales** (cumul depuis le lancement) et **sessions actives** (dernière heure).
 - Nombre de **chats**, **requêtes OCR**, **détections de danger** (mineurs).
 - **Demandes de droit à l'oubli** en attente.
 - Répartition **adulte / mineur** des profils connectés.
 
 **Exemple d'usage**
-> Lundi matin, vous voyez *152 sessions actives* et *3 détections de danger*. Vous allez directement dans *Alertes mineurs* (§4) traiter les 3 cas avant votre café. Vous notez aussi que le ratio mineurs a bondi de 15 % → 30 % sur le week-end : vous le signalez à l'équipe produit.
+
+> Lundi matin, vous voyez _152 sessions actives_ et _3 détections de danger_. Vous allez directement dans _Alertes mineurs_ (§4) traiter les 3 cas avant votre café. Vous notez aussi que le ratio mineurs a bondi de 15 % → 30 % sur le week-end : vous le signalez à l'équipe produit.
 
 > Les chiffres sont anonymes et agrégés. Aucune identité n'est exposée.
 
@@ -110,7 +114,8 @@ Le tableau de bord affiche en temps réel :
 5. Valider.
 
 **Exemple d'usage**
-> Une alerte `pending` apparaît avec l'extrait *« je veux disparaître depuis que papa est parti »*. Le modérateur 119 vérifie que la session utilisateur a bien reçu le message d'orientation 119 automatique, passe le statut à `reviewed`, note *« orientation 119 confirmée — pas de suivi possible car session anonyme »*, puis valide. L'action est inscrite dans l'audit.
+
+> Une alerte `pending` apparaît avec l'extrait _« je veux disparaître depuis que papa est parti »_. Le modérateur 119 vérifie que la session utilisateur a bien reçu le message d'orientation 119 automatique, passe le statut à `reviewed`, note _« orientation 119 confirmée — pas de suivi possible car session anonyme »_, puis valide. L'action est inscrite dans l'audit.
 
 > **Rappel éthique** : en cas de danger immédiat, orienter vers le **119** (enfance en danger). Ne jamais tenter d'identifier le mineur ; la session reste anonyme par conception.
 
@@ -127,7 +132,7 @@ Le tableau de bord affiche en temps réel :
 1. Sélectionner un prompt dans la liste (nom + version active).
 2. Modifier le contenu.
 3. Cliquer **Enregistrer**.
-→ Une nouvelle version est créée, l'ancienne devient inactive mais reste consultable dans **Historique**.
+   → Une nouvelle version est créée, l'ancienne devient inactive mais reste consultable dans **Historique**.
 
 ### 5.2 Revenir au prompt par défaut
 
@@ -145,6 +150,7 @@ Dans l'éditeur, bouton **Réinitialiser** : recharge le prompt fourni par le fi
 Pour chaque variante : nombre de messages servis, taux de flags de danger déclenchés. Utile pour éliminer rapidement une variante contre-productive.
 
 **Exemple d'usage**
+
 > Vous voulez tester une reformulation plus chaleureuse du prompt `system_minor`. Vous créez la variante `warmer_v1` avec un poids de 200 (vs `control` à 800) — soit 20 % du trafic. Après 7 jours, les stats montrent que `warmer_v1` génère 3× plus de flags de danger (faux positifs). Vous repassez son poids à 0 et archivez la variante.
 
 ---
@@ -164,6 +170,7 @@ Pour chaque variante : nombre de messages servis, taux de flags de danger décle
 > Les flags permettent d'activer/désactiver des parcours utilisateurs sans redéploiement.
 
 **Exemple d'usage**
+
 > L'API OpenAI Whisper (STT) tombe en panne un vendredi soir. Vous désactivez la flag `voice_input_enabled` en un clic : les utilisateurs voient désormais uniquement la saisie texte, sans erreur. Lundi matin, Whisper est de retour, vous réactivez la flag.
 
 ---
@@ -181,6 +188,7 @@ draft → review → scheduled → published → archived
 ```
 
 Transitions autorisées :
+
 - `content_author` : `draft` uniquement.
 - `content_reviewer` / `content_editor` : passage en `review`, `scheduled`, `published`, `archived`.
 
@@ -205,7 +213,8 @@ Section **CTA** de l'éditeur : ajouter un ou plusieurs blocs existants (voir §
 Page **Revisions** : chaque sauvegarde crée un instantané. Bouton **Restaurer** sur la révision cible.
 
 **Exemple d'usage**
-> Un rédacteur prépare un article *« Comment demander le RSA quand on est jeune majeur »*. Il remplit titre, slug `rsa-jeune-majeur`, audience `adult`, tags `[RSA, jeunesse]`, écrit 800 mots en MDX et sauvegarde en `draft`. Un `content_reviewer` relit, corrige deux formulations, passe en `scheduled` pour le lundi 9h. Avant publication, il attache un CTA *« Discuter avec ESLAÏ »*. Lundi à 9h01, l'article est en ligne. Trois semaines plus tard, une info change : on revient à la version `scheduled` via *Revisions* pour repartir d'une base propre.
+
+> Un rédacteur prépare un article _« Comment demander le RSA quand on est jeune majeur »_. Il remplit titre, slug `rsa-jeune-majeur`, audience `adult`, tags `[RSA, jeunesse]`, écrit 800 mots en MDX et sauvegarde en `draft`. Un `content_reviewer` relit, corrige deux formulations, passe en `scheduled` pour le lundi 9h. Avant publication, il attache un CTA _« Discuter avec ESLAÏ »_. Lundi à 9h01, l'article est en ligne. Trois semaines plus tard, une info change : on revient à la version `scheduled` via _Revisions_ pour repartir d'une base propre.
 
 ---
 
@@ -218,6 +227,7 @@ Page **Revisions** : chaque sauvegarde crée un instantané. Bouton **Restaurer*
 ### Créer un bloc CTA
 
 Champs :
+
 - **Clé** (identifiant unique).
 - **Libellé** (nom interne).
 - **Composant** (référence au composant React à afficher).
@@ -229,7 +239,8 @@ Champs :
 > **Suppression** : réservée au `super_admin` et logique (passage en `active=false`). Un CTA supprimé n'apparaît plus mais reste en base pour traçabilité analytique.
 
 **Exemple d'usage**
-> Vous voulez savoir si *« Parler à ESLAÏ maintenant »* convertit mieux que *« J'ai besoin d'aide »* sur l'audience `minor`. Vous créez deux CTA avec même clé `chat-start`, variantes `control` (poids 500) et `treatment_a` (poids 500), audience `minor`. Après 10 jours, l'onglet *Analytics > CTA* montre 3,2 % CTR sur `control` vs 5,8 % sur `treatment_a`. Vous passez `control` à poids 0 et laissez `treatment_a` en production.
+
+> Vous voulez savoir si _« Parler à ESLAÏ maintenant »_ convertit mieux que _« J'ai besoin d'aide »_ sur l'audience `minor`. Vous créez deux CTA avec même clé `chat-start`, variantes `control` (poids 500) et `treatment_a` (poids 500), audience `minor`. Après 10 jours, l'onglet _Analytics > CTA_ montre 3,2 % CTR sur `control` vs 5,8 % sur `treatment_a`. Vous passez `control` à poids 0 et laissez `treatment_a` en production.
 
 ---
 
@@ -248,7 +259,8 @@ Champs :
 > Un lead magnet inactif n'est plus proposé aux utilisateurs mais les téléchargements historiques restent tracés.
 
 **Exemple d'usage**
-> Vous publiez un PDF *« 10 aides sociales méconnues en 2026 »*. Vous créez le lead magnet : clé `aides-2026`, audience `adult`, URL du fichier, séquence déclencheur `b2c_letter`. Quand un utilisateur télécharge le PDF, il reçoit automatiquement l'email 1 de la séquence B2C letter dans la foulée, puis les emails 2–4 selon les délais configurés.
+
+> Vous publiez un PDF _« 10 aides sociales méconnues en 2026 »_. Vous créez le lead magnet : clé `aides-2026`, audience `adult`, URL du fichier, séquence déclencheur `b2c_letter`. Quand un utilisateur télécharge le PDF, il reçoit automatiquement l'email 1 de la séquence B2C letter dans la foulée, puis les emails 2–4 selon les délais configurés.
 
 ---
 
@@ -280,7 +292,8 @@ Onglet **Historique** : 200 derniers envois paginés — clé du template, desti
 Bouton **Mettre en pause** sur la séquence : plus aucun envoi automatique. **Reprendre** pour réactiver.
 
 **Exemple d'usage**
-> Un bug dans le template `b2b_dunning_step_2` envoie un email avec un lien cassé. Vous ouvrez la séquence *B2B dunning*, cliquez sur **Pause** pour stopper les envois. Vous corrigez l'URL dans le HTML, envoyez un **test** à votre email, validez que le rendu est correct, puis cliquez **Reprendre**. Dans l'onglet *Historique*, vous vérifiez que les envois reprennent sans erreur Brevo.
+
+> Un bug dans le template `b2b_dunning_step_2` envoie un email avec un lien cassé. Vous ouvrez la séquence _B2B dunning_, cliquez sur **Pause** pour stopper les envois. Vous corrigez l'URL dans le HTML, envoyez un **test** à votre email, validez que le rendu est correct, puis cliquez **Reprendre**. Dans l'onglet _Historique_, vous vérifiez que les envois reprennent sans erreur Brevo.
 
 > Spécification technique détaillée : voir [docs/email-sequences.md](email-sequences.md).
 
@@ -301,7 +314,8 @@ Trois onglets :
 > Toutes les données sont anonymes, agrégées, et conformes RGPD.
 
 **Exemple d'usage**
-> Dans *Funnel PWA* sur 30 jours, vous voyez : *1 200 signups → 600 remplissages → 90 soumissions*. Le décrochage est entre *remplissage* et *soumission* (15 %). Vous décidez de simplifier le formulaire puis, 30 jours plus tard, vous relevez la soumission à 35 %.
+
+> Dans _Funnel PWA_ sur 30 jours, vous voyez : _1 200 signups → 600 remplissages → 90 soumissions_. Le décrochage est entre _remplissage_ et _soumission_ (15 %). Vous décidez de simplifier le formulaire puis, 30 jours plus tard, vous relevez la soumission à 35 %.
 
 ---
 
@@ -314,7 +328,8 @@ Trois onglets :
 Actions : créer, modifier, désactiver un modèle.
 
 **Exemple d'usage**
-> La procédure de *recours APL* change au 1er juin. Vous éditez le modèle `apl-recours`, ajoutez la nouvelle pièce justificative obligatoire, enregistrez. Dès ce moment, tout utilisateur qui demande à ESLAÏ *« aide-moi à faire un recours APL »* reçoit un courrier conforme à la nouvelle procédure.
+
+> La procédure de _recours APL_ change au 1er juin. Vous éditez le modèle `apl-recours`, ajoutez la nouvelle pièce justificative obligatoire, enregistrez. Dès ce moment, tout utilisateur qui demande à ESLAÏ _« aide-moi à faire un recours APL »_ reçoit un courrier conforme à la nouvelle procédure.
 
 ---
 
@@ -325,6 +340,7 @@ Actions : créer, modifier, désactiver un modèle.
 **À quoi ça sert** : garantir la traçabilité et la redevabilité. Chaque action sensible (connexion, modification de prompt, publication, export) est horodatée et associée à son auteur. Utile pour les audits RGPD/sécurité et les enquêtes internes.
 
 Journal **immuable** de toutes les actions admin :
+
 - **Acteur** (email ou `legacy-token`).
 - **Action** (ex. `prompt.update`, `alert.status_change`, `blog.publish`, `feature.toggle`).
 - **Cible** (type + ID).
@@ -336,7 +352,8 @@ Filtre par action. Affichage par défaut : 200 entrées (jusqu'à 1000).
 > Aucun enregistrement ne peut être modifié ou supprimé — y compris par un `super_admin`.
 
 **Exemple d'usage**
-> Un prompt a été modifié dimanche soir et l'IA répond bizarrement lundi. Vous filtrez l'audit sur `action=prompt.update`, trouvez l'entrée `dimanche 22:14 — alice@elsai.fr — prompt.update — target=system_adult`. Vous ouvrez les détails JSON, voyez le diff avant/après, et revenez à la version précédente via *Prompts > Historique*.
+
+> Un prompt a été modifié dimanche soir et l'IA répond bizarrement lundi. Vous filtrez l'audit sur `action=prompt.update`, trouvez l'entrée `dimanche 22:14 — alice@elsai.fr — prompt.update — target=system_adult`. Vous ouvrez les détails JSON, voyez le diff avant/après, et revenez à la version précédente via _Prompts > Historique_.
 
 ---
 
@@ -353,7 +370,8 @@ Liste des demandes d'effacement reçues depuis l'application.
 > Rappel : les sessions ESLAÏ sont anonymes ; l'effacement concerne les éventuels emails (newsletters, lead magnets) et les profils B2B.
 
 **Exemple d'usage**
-> Un utilisateur a écrit *« supprimez toutes mes données »*. Sa demande apparaît dans `/admin/forget` datée du *15/04*. 24h plus tard, le statut passe à `completed`. Si la CNIL interroge, vous pouvez présenter cette entrée comme preuve du traitement.
+
+> Un utilisateur a écrit _« supprimez toutes mes données »_. Sa demande apparaît dans `/admin/forget` datée du _15/04_. 24h plus tard, le statut passe à `completed`. Si la CNIL interroge, vous pouvez présenter cette entrée comme preuve du traitement.
 
 ---
 
@@ -371,7 +389,8 @@ Deux exports disponibles :
 > Les exports sont tracés dans l'audit (actions `export.metrics`, `export.alerts`).
 
 **Exemple d'usage**
-> Avant un RDV avec la métropole de Bordeaux, l'équipe B2B exporte `metrics.csv` sur les 90 derniers jours. Elle charge le fichier dans Google Sheets, produit un graphique *sessions / semaine* et un ratio *adulte vs mineur*, puis l'intègre au pitch sans jamais exposer d'identifiant utilisateur.
+
+> Avant un RDV avec la métropole de Bordeaux, l'équipe B2B exporte `metrics.csv` sur les 90 derniers jours. Elle charge le fichier dans Google Sheets, produit un graphique _sessions / semaine_ et un ratio _adulte vs mineur_, puis l'intègre au pitch sans jamais exposer d'identifiant utilisateur.
 
 ---
 
@@ -403,6 +422,7 @@ Au tout premier démarrage, si aucun admin n'existe, le backend crée automatiqu
 Ce compte est un `super_admin`. Changer le mot de passe dès la première connexion.
 
 **Exemple d'usage**
+
 > Une nouvelle rédactrice, Camille, rejoint l'équipe contenu. Vous créez `camille@elsai.fr` avec le rôle `content_author`, générez un mot de passe aléatoire, et le lui transmettez via 1Password. Elle peut rédiger des brouillons mais ne peut pas publier — c'est le relecteur qui validera. Trois mois plus tard, elle quitte : vous la désactivez en un clic, son historique de contributions reste visible dans l'audit.
 
 ---
@@ -417,7 +437,7 @@ Ce compte est un `super_admin`. Changer le mot de passe dès la première connex
 - **Feature flag** : interrupteur permettant d'activer/désactiver un module sans redéploiement.
 - **Lead magnet** : ressource téléchargeable (PDF, guide) proposée contre un email.
 - **MDX** : Markdown enrichi autorisant l'usage de composants React.
-- **PII** : *Personally Identifiable Information* — toute donnée permettant d'identifier une personne. Interdite dans les exports.
+- **PII** : _Personally Identifiable Information_ — toute donnée permettant d'identifier une personne. Interdite dans les exports.
 - **Kill-switch** : bouton de désactivation d'urgence (séquences emails).
 
 ### 17.2 FAQ

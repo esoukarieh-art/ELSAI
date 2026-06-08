@@ -79,11 +79,7 @@ export function findBlock<T extends PageBlock = PageBlock>(
   return (blocks.find((b) => b.type === type) as T | undefined) ?? null;
 }
 
-export function blockString(
-  block: PageBlock | null,
-  key: string,
-  fallback = "",
-): string {
+export function blockString(block: PageBlock | null, key: string, fallback = ""): string {
   if (!block) return fallback;
   const v = block[key];
   return typeof v === "string" && v.length > 0 ? v : fallback;

@@ -93,7 +93,7 @@ export default function PageEditorPage() {
   }, [detail, pageKey]);
 
   if (error && !detail) {
-    return <p className="text-sm text-elsai-rose">{error}</p>;
+    return <p className="text-elsai-rose text-sm">{error}</p>;
   }
   if (!detail || !schema) {
     return <p className="text-sm text-slate-400">Chargement…</p>;
@@ -232,20 +232,20 @@ export default function PageEditorPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="font-serif text-3xl text-elsai-pin">
+        <h1 className="text-elsai-pin font-serif text-3xl">
           Page — {schema.label}{" "}
           <span className="text-sm font-normal text-slate-500">({pageKey})</span>
         </h1>
-        <Link href="/admin/pages" className="text-sm text-elsai-pin hover:underline">
+        <Link href="/admin/pages" className="text-elsai-pin text-sm hover:underline">
           ← Retour
         </Link>
       </div>
 
-      {error && <p className="mb-3 text-sm text-elsai-rose">{error}</p>}
-      {message && <p className="mb-3 text-sm text-elsai-pin">{message}</p>}
+      {error && <p className="text-elsai-rose mb-3 text-sm">{error}</p>}
+      {message && <p className="text-elsai-pin mb-3 text-sm">{message}</p>}
 
       {detail.has_draft && (
-        <div className="mb-5 rounded-organic border border-amber-300 bg-amber-50 p-4">
+        <div className="rounded-organic mb-5 border border-amber-300 bg-amber-50 p-4">
           <p className="text-sm text-amber-900">
             <strong>Brouillon non publié</strong> — dernière modif par{" "}
             <code>{detail.updated_by ?? "?"}</code> le{" "}
@@ -273,14 +273,14 @@ export default function PageEditorPage() {
       )}
 
       {/* Titre + SEO */}
-      <section className="mb-6 rounded-organic border border-elsai-pin/15 bg-white/70 p-5">
+      <section className="rounded-organic border-elsai-pin/15 mb-6 border bg-white/70 p-5">
         <label className="block text-sm">
           <span className="text-slate-700">Titre de la page (interne)</span>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+            className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
           />
         </label>
 
@@ -289,7 +289,7 @@ export default function PageEditorPage() {
             <button
               type="button"
               onClick={() => setSeoOpen((v) => !v)}
-              className="text-sm font-semibold text-elsai-pin hover:underline"
+              className="text-elsai-pin text-sm font-semibold hover:underline"
             >
               {seoOpen ? "▾" : "▸"} SEO / Open Graph
             </button>
@@ -301,7 +301,7 @@ export default function PageEditorPage() {
                     type="text"
                     value={seoTitle}
                     onChange={(e) => setSeoTitle(e.target.value)}
-                    className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+                    className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
                   />
                 </label>
                 <label className="block text-sm">
@@ -310,7 +310,7 @@ export default function PageEditorPage() {
                     value={seoDescription}
                     onChange={(e) => setSeoDescription(e.target.value)}
                     rows={3}
-                    className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+                    className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
                   />
                 </label>
                 <label className="block text-sm">
@@ -319,7 +319,7 @@ export default function PageEditorPage() {
                     type="url"
                     value={ogImage}
                     onChange={(e) => setOgImage(e.target.value)}
-                    className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+                    className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
                   />
                 </label>
               </div>
@@ -334,9 +334,9 @@ export default function PageEditorPage() {
         return (
           <section
             key={def.key}
-            className="mb-5 rounded-organic border border-elsai-pin/15 bg-white/70 p-5"
+            className="rounded-organic border-elsai-pin/15 mb-5 border bg-white/70 p-5"
           >
-            <h2 className="mb-3 font-serif text-xl text-elsai-pin-dark">{def.label}</h2>
+            <h2 className="text-elsai-pin-dark mb-3 font-serif text-xl">{def.label}</h2>
             <div className="space-y-3">
               {def.fields.map((f) => (
                 <FieldRow
@@ -346,15 +346,11 @@ export default function PageEditorPage() {
                   apiBase={apiBase}
                   onChange={(v) => updateField(blockIdx, f.key, v)}
                   onUpload={(file) => handleUpload(blockIdx, f.key, file)}
-                  onListAdd={() =>
-                    addListItem(blockIdx, f.key, f.item_fields ?? [])
-                  }
+                  onListAdd={() => addListItem(blockIdx, f.key, f.item_fields ?? [])}
                   onListItemChange={(itemIdx, itemKey, v) =>
                     updateListItem(blockIdx, f.key, itemIdx, itemKey, v)
                   }
-                  onListItemRemove={(itemIdx) =>
-                    removeListItem(blockIdx, f.key, itemIdx)
-                  }
+                  onListItemRemove={(itemIdx) => removeListItem(blockIdx, f.key, itemIdx)}
                 />
               ))}
             </div>
@@ -363,12 +359,12 @@ export default function PageEditorPage() {
       })}
 
       {/* Actions */}
-      <div className="sticky bottom-0 -mx-4 mt-6 flex flex-wrap gap-2 border-t border-elsai-pin/15 bg-white/90 px-4 py-3 backdrop-blur">
+      <div className="border-elsai-pin/15 sticky bottom-0 -mx-4 mt-6 flex flex-wrap gap-2 border-t bg-white/90 px-4 py-3 backdrop-blur">
         <button
           type="button"
           onClick={handleSaveDraft}
           disabled={saving}
-          className="rounded-organic border border-elsai-pin px-4 py-2 text-sm text-elsai-pin hover:bg-elsai-pin/10 disabled:opacity-60"
+          className="rounded-organic border-elsai-pin text-elsai-pin hover:bg-elsai-pin/10 border px-4 py-2 text-sm disabled:opacity-60"
         >
           {saving ? "Enregistrement…" : "Enregistrer le brouillon"}
         </button>
@@ -376,7 +372,7 @@ export default function PageEditorPage() {
           type="button"
           onClick={handlePublish}
           disabled={saving}
-          className="rounded-organic bg-elsai-pin px-4 py-2 text-sm text-elsai-cream hover:bg-elsai-pin/90 disabled:opacity-60"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-2 text-sm disabled:opacity-60"
         >
           Publier
         </button>
@@ -384,7 +380,7 @@ export default function PageEditorPage() {
           href={previewUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto rounded-organic border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+          className="rounded-organic ml-auto border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
         >
           Prévisualiser ↗
         </a>
@@ -423,28 +419,23 @@ function FieldRow({
           <button
             type="button"
             onClick={onListAdd}
-            className="rounded-organic border border-elsai-pin px-2 py-0.5 text-xs text-elsai-pin hover:bg-elsai-pin/10"
+            className="rounded-organic border-elsai-pin text-elsai-pin hover:bg-elsai-pin/10 border px-2 py-0.5 text-xs"
           >
             + Ajouter
           </button>
         </div>
         <div className="space-y-3">
-          {items.length === 0 && (
-            <p className="text-xs text-slate-400">Aucun item.</p>
-          )}
+          {items.length === 0 && <p className="text-xs text-slate-400">Aucun item.</p>}
           {items.map((item, idx) => (
-            <div
-              key={idx}
-              className="rounded-organic border border-slate-200 bg-slate-50/60 p-3"
-            >
+            <div key={idx} className="rounded-organic border border-slate-200 bg-slate-50/60 p-3">
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase text-slate-500">
+                <span className="text-xs font-semibold text-slate-500 uppercase">
                   Item #{idx + 1}
                 </span>
                 <button
                   type="button"
                   onClick={() => onListItemRemove(idx)}
-                  className="text-xs text-elsai-rose hover:underline"
+                  className="text-elsai-rose text-xs hover:underline"
                 >
                   Supprimer
                 </button>
@@ -506,7 +497,7 @@ function SimpleField({
           value={str}
           onChange={(e) => onChange(e.target.value)}
           rows={3}
-          className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+          className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
         />
       </label>
     );
@@ -528,7 +519,7 @@ function SimpleField({
             <img
               src={displayUrl}
               alt=""
-              className="h-20 w-20 rounded border border-slate-200 object-contain bg-white"
+              className="h-20 w-20 rounded border border-slate-200 bg-white object-contain"
             />
           )}
           <div className="flex-1 space-y-2">
@@ -537,7 +528,7 @@ function SimpleField({
               value={str}
               onChange={(e) => onChange(e.target.value)}
               placeholder="/logo-elsai.svg ou URL complète"
-              className="w-full rounded-organic border border-slate-300 px-3 py-2"
+              className="rounded-organic w-full border border-slate-300 px-3 py-2"
             />
             <input
               type="file"
@@ -565,7 +556,7 @@ function SimpleField({
         type={type}
         value={str}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-organic border border-slate-300 px-3 py-2"
+        className="rounded-organic mt-1 w-full border border-slate-300 px-3 py-2"
       />
     </label>
   );

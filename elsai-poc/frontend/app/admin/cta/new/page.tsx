@@ -28,7 +28,9 @@ export default function CTANewPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    listCTAs().then(setExisting).catch(() => setExisting([]));
+    listCTAs()
+      .then(setExisting)
+      .catch(() => setExisting([]));
   }, []);
 
   useEffect(() => {
@@ -82,36 +84,36 @@ export default function CTANewPage() {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <Link href="/admin/cta" className="text-sm text-elsai-pin hover:underline">
+          <Link href="/admin/cta" className="text-elsai-pin text-sm hover:underline">
             ← Liste
           </Link>
-          <h1 className="font-serif text-2xl text-elsai-pin">Nouvelle variante CTA</h1>
+          <h1 className="text-elsai-pin font-serif text-2xl">Nouvelle variante CTA</h1>
         </div>
         <button
           type="button"
           onClick={handleCreate}
           disabled={saving || !!jsonError || !key || !label || !component}
-          className="rounded-organic bg-elsai-pin px-4 py-1.5 text-sm text-elsai-cream hover:bg-elsai-pin/90 disabled:opacity-50"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-1.5 text-sm disabled:opacity-50"
         >
           {saving ? "Création…" : "Créer"}
         </button>
       </div>
 
       {error && (
-        <p className="mb-3 rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-elsai-rose">
+        <p className="rounded-organic text-elsai-rose mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
       )}
 
-      <div className="mb-4 rounded-organic border border-elsai-pin/15 bg-white/70 p-3">
+      <div className="rounded-organic border-elsai-pin/15 mb-4 border bg-white/70 p-3">
         <label className="block text-sm">
-          <span className="mb-1 block text-xs uppercase text-slate-500">
+          <span className="mb-1 block text-xs text-slate-500 uppercase">
             Cloner depuis un CTA existant
           </span>
           <select
             value={cloneFromId}
             onChange={(e) => handleClone(e.target.value)}
-            className="w-full rounded-organic border border-slate-300 px-3 py-1.5"
+            className="rounded-organic w-full border border-slate-300 px-3 py-1.5"
           >
             <option value="">— aucun —</option>
             {existing.map((c) => (
@@ -123,40 +125,40 @@ export default function CTANewPage() {
         </label>
       </div>
 
-      <div className="space-y-3 rounded-organic border border-elsai-pin/15 bg-white/70 p-4">
+      <div className="rounded-organic border-elsai-pin/15 space-y-3 border bg-white/70 p-4">
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm">
-            <span className="mb-1 block text-xs uppercase text-slate-500">Clé</span>
+            <span className="mb-1 block text-xs text-slate-500 uppercase">Clé</span>
             <input
               value={key}
               onChange={(e) => setKey(e.target.value)}
               placeholder="chat_anonyme"
-              className="w-full rounded-organic border border-slate-300 px-3 py-1.5 font-mono"
+              className="rounded-organic w-full border border-slate-300 px-3 py-1.5 font-mono"
             />
           </label>
           <label className="block text-sm">
-            <span className="mb-1 block text-xs uppercase text-slate-500">Variant</span>
+            <span className="mb-1 block text-xs text-slate-500 uppercase">Variant</span>
             <input
               value={variant}
               onChange={(e) => setVariant(e.target.value)}
-              className="w-full rounded-organic border border-slate-300 px-3 py-1.5 font-mono"
+              className="rounded-organic w-full border border-slate-300 px-3 py-1.5 font-mono"
             />
           </label>
         </div>
         <label className="block text-sm">
-          <span className="mb-1 block text-xs uppercase text-slate-500">Label</span>
+          <span className="mb-1 block text-xs text-slate-500 uppercase">Label</span>
           <input
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            className="w-full rounded-organic border border-slate-300 px-3 py-1.5"
+            className="rounded-organic w-full border border-slate-300 px-3 py-1.5"
           />
         </label>
         <label className="block text-sm">
-          <span className="mb-1 block text-xs uppercase text-slate-500">Composant</span>
+          <span className="mb-1 block text-xs text-slate-500 uppercase">Composant</span>
           <select
             value={component}
             onChange={(e) => setComponent(e.target.value)}
-            className="w-full rounded-organic border border-slate-300 px-3 py-1.5"
+            className="rounded-organic w-full border border-slate-300 px-3 py-1.5"
           >
             {COMPONENT_NAMES.map((n) => (
               <option key={n} value={n}>
@@ -167,11 +169,11 @@ export default function CTANewPage() {
         </label>
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm">
-            <span className="mb-1 block text-xs uppercase text-slate-500">Audience</span>
+            <span className="mb-1 block text-xs text-slate-500 uppercase">Audience</span>
             <select
               value={audience}
               onChange={(e) => setAudience(e.target.value)}
-              className="w-full rounded-organic border border-slate-300 px-3 py-1.5"
+              className="rounded-organic w-full border border-slate-300 px-3 py-1.5"
             >
               {AUDIENCES.map((a) => (
                 <option key={a} value={a}>
@@ -181,30 +183,28 @@ export default function CTANewPage() {
             </select>
           </label>
           <label className="block text-sm">
-            <span className="mb-1 block text-xs uppercase text-slate-500">Weight</span>
+            <span className="mb-1 block text-xs text-slate-500 uppercase">Weight</span>
             <input
               type="number"
               min={0}
               max={1000}
               value={weight}
               onChange={(e) => setWeight(parseInt(e.target.value || "0", 10))}
-              className="w-full rounded-organic border border-slate-300 px-3 py-1.5"
+              className="rounded-organic w-full border border-slate-300 px-3 py-1.5"
             />
           </label>
         </div>
         <label className="block text-sm">
-          <span className="mb-1 block text-xs uppercase text-slate-500">Props (JSON)</span>
+          <span className="mb-1 block text-xs text-slate-500 uppercase">Props (JSON)</span>
           <textarea
             value={propsJson}
             onChange={(e) => setPropsJson(e.target.value)}
             rows={12}
-            className={`w-full rounded-organic border px-3 py-2 font-mono text-xs ${
+            className={`rounded-organic w-full border px-3 py-2 font-mono text-xs ${
               jsonError ? "border-elsai-rose" : "border-slate-300"
             }`}
           />
-          {jsonError && (
-            <span className="mt-1 block text-xs text-elsai-rose">{jsonError}</span>
-          )}
+          {jsonError && <span className="text-elsai-rose mt-1 block text-xs">{jsonError}</span>}
         </label>
       </div>
     </div>

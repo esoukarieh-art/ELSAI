@@ -166,12 +166,14 @@ export default function ExperimentsPage() {
             >
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-elsai-pin-dark font-serif text-lg">
-                  {v.label}{" "}
-                  <span className="text-elsai-ink/50 text-xs">#{v.id}</span>
+                  {v.label} <span className="text-elsai-ink/50 text-xs">#{v.id}</span>
                 </h3>
                 <div className="flex items-center gap-2 text-xs">
-                  <label className="text-elsai-ink/70">Poids</label>
+                  <label className="text-elsai-ink/70" htmlFor={`weight-${v.id}`}>
+                    Poids
+                  </label>
                   <input
+                    id={`weight-${v.id}`}
                     type="number"
                     value={weights[v.id] ?? 0}
                     onChange={(e) =>
@@ -223,7 +225,9 @@ export default function ExperimentsPage() {
 
 function Metric({ label, value, warn }: { label: string; value: string | number; warn?: boolean }) {
   return (
-    <div className={`rounded-organic border p-2 ${warn ? "border-elsai-urgence/40 bg-elsai-urgence/5" : "border-elsai-pin/10 bg-white"}`}>
+    <div
+      className={`rounded-organic border p-2 ${warn ? "border-elsai-urgence/40 bg-elsai-urgence/5" : "border-elsai-pin/10 bg-white"}`}
+    >
       <div className={`font-mono font-bold ${warn ? "text-elsai-urgence" : "text-elsai-pin-dark"}`}>
         {value}
       </div>

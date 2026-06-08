@@ -84,14 +84,16 @@ function revalidateOpts(tags: string[] = []) {
   return { next: { revalidate: 60, tags } };
 }
 
-export async function fetchPosts(params: {
-  track?: Track;
-  audience?: string;
-  limit?: number;
-  offset?: number;
-  tag?: string;
-  clusterSlug?: string;
-} = {}): Promise<PublicPostSummary[]> {
+export async function fetchPosts(
+  params: {
+    track?: Track;
+    audience?: string;
+    limit?: number;
+    offset?: number;
+    tag?: string;
+    clusterSlug?: string;
+  } = {},
+): Promise<PublicPostSummary[]> {
   const search = new URLSearchParams();
   const audience = params.audience ?? (params.track ? TRACK_TO_AUDIENCE[params.track] : undefined);
   if (audience) search.set("audience", audience);
@@ -122,7 +124,10 @@ export async function fetchPost(slug: string): Promise<PublicPostDetail | null> 
 
 export async function fetchCluster(slug: string): Promise<PublicCluster | null> {
   try {
-    const res = await fetch(`${API}/api/public/clusters/${slug}`, revalidateOpts([`cluster:${slug}`]));
+    const res = await fetch(
+      `${API}/api/public/clusters/${slug}`,
+      revalidateOpts([`cluster:${slug}`]),
+    );
     if (!res.ok) return null;
     return (await res.json()) as PublicCluster;
   } catch {
@@ -149,10 +154,7 @@ export async function fetchHelpPages(
 
 export async function fetchHelpPage(slug: string): Promise<PublicPostDetail | null> {
   try {
-    const res = await fetch(
-      `${API}/api/public/help/${slug}`,
-      revalidateOpts([`help:${slug}`]),
-    );
+    const res = await fetch(`${API}/api/public/help/${slug}`, revalidateOpts([`help:${slug}`]));
     if (!res.ok) return null;
     return (await res.json()) as PublicPostDetail;
   } catch {

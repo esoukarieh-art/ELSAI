@@ -75,7 +75,10 @@ export function CTALeadMagnet({
           magnet_key: magnetKey,
         }),
       }).catch(() => null);
-      if (typeof window !== "undefined" && (window as unknown as { plausible?: (e: string) => void }).plausible) {
+      if (
+        typeof window !== "undefined" &&
+        (window as unknown as { plausible?: (e: string) => void }).plausible
+      ) {
         (window as unknown as { plausible: (e: string) => void }).plausible("lead_magnet_download");
       }
       setStatus("success");
@@ -99,7 +102,12 @@ export function CTALeadMagnet({
         <p className="text-elsai-pin font-medium">
           Merci ! Le téléchargement démarre.{" "}
           {downloadUrl && (
-            <a href={downloadUrl} className="underline decoration-elsai-rose" target="_blank" rel="noopener noreferrer">
+            <a
+              href={downloadUrl}
+              className="decoration-elsai-rose underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Cliquez ici si rien ne se passe.
             </a>
           )}
@@ -112,11 +120,10 @@ export function CTALeadMagnet({
     <aside
       data-cta-component="CTALeadMagnet"
       data-magnet-key={magnetKey}
-      role="complementary"
       aria-label={title ?? defaultTitle}
       className={`rounded-organic bg-elsai-cream my-6 p-6 ${className ?? ""}`}
     >
-      <h3 className="text-elsai-pin font-semibold text-lg">{title ?? defaultTitle}</h3>
+      <h3 className="text-elsai-pin text-lg font-semibold">{title ?? defaultTitle}</h3>
       <p className="mt-1 text-sm text-slate-700">{description ?? defaultDescription}</p>
       <form onSubmit={handleSubmit} className="mt-4 space-y-3">
         <div>
@@ -131,7 +138,7 @@ export function CTALeadMagnet({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="votre.email@exemple.fr"
             disabled={status === "loading"}
-            className="w-full rounded-organic border border-slate-300 px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin"
+            className="rounded-organic focus-visible:ring-elsai-pin w-full border border-slate-300 px-3 py-2 focus-visible:ring-2 focus-visible:outline-none"
           />
         </div>
         <label className="flex items-start gap-2 text-sm text-slate-700">
@@ -140,19 +147,19 @@ export function CTALeadMagnet({
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
             required
-            className="mt-1 focus-visible:ring-2 focus-visible:ring-elsai-pin"
+            className="focus-visible:ring-elsai-pin mt-1 focus-visible:ring-2"
           />
           <span>J&apos;accepte de recevoir le guide et des emails d&apos;ESLAÏ.</span>
         </label>
         {errorMsg && (
-          <p role="alert" className="text-sm text-elsai-rose">
+          <p role="alert" className="text-elsai-rose text-sm">
             {errorMsg}
           </p>
         )}
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center rounded-organic bg-elsai-pin px-4 py-2 text-elsai-cream font-medium hover:bg-elsai-pin/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elsai-pin focus-visible:ring-offset-2 disabled:opacity-60"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 focus-visible:ring-elsai-pin inline-flex items-center px-4 py-2 font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60"
         >
           {status === "loading" ? "Envoi…" : "Recevoir le guide"}
         </button>

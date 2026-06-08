@@ -47,8 +47,8 @@ export default function AdminContent() {
     return (
       <>
         <PageHero eyebrow="Espace admin" title="Lien invalide">
-          Le lien d'accès à votre espace admin doit contenir un token. Retrouvez-le dans
-          l'email d'activation reçu après votre souscription.
+          Le lien d'accès à votre espace admin doit contenir un token. Retrouvez-le dans l'email
+          d'activation reçu après votre souscription.
         </PageHero>
       </>
     );
@@ -112,10 +112,7 @@ export default function AdminContent() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Espace admin entreprise"
-        title={org ? org.company_name : "Chargement…"}
-      >
+      <PageHero eyebrow="Espace admin entreprise" title={org ? org.company_name : "Chargement…"}>
         Gérez les codes d'accès distribués à vos salariés et votre abonnement.
       </PageHero>
 

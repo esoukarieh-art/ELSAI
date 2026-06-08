@@ -91,11 +91,17 @@ function qs(params: Record<string, string | number | undefined>): string {
   return out ? `?${out}` : "";
 }
 
-export function getPostsAnalytics(period: Period = "30d", audience?: string): Promise<PostsResponse> {
+export function getPostsAnalytics(
+  period: Period = "30d",
+  audience?: string,
+): Promise<PostsResponse> {
   return adminJson<PostsResponse>(`/api/admin/analytics/posts${qs({ period, audience })}`);
 }
 
-export function getPostAnalytics(slug: string, period: Period = "30d"): Promise<PostDetailResponse> {
+export function getPostAnalytics(
+  slug: string,
+  period: Period = "30d",
+): Promise<PostDetailResponse> {
   return adminJson<PostDetailResponse>(
     `/api/admin/analytics/posts/${encodeURIComponent(slug)}${qs({ period })}`,
   );

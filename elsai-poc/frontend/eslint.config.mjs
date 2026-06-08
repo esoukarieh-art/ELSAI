@@ -7,11 +7,17 @@ const config = [
     ignores: [".next/**", "node_modules/**", "public/sw.js"],
   },
   ...nextCoreWebVitals,
-  jsxA11y.flatConfigs.recommended,
   prettier,
   {
     rules: {
+      // eslint-config-next enregistre déjà le plugin jsx-a11y ; on ne le
+      // redéclare pas (sinon "Cannot redefine plugin"), on applique seulement
+      // les règles recommandées puis nos durcissements.
+      ...jsxA11y.flatConfigs.recommended.rules,
       "react/no-unescaped-entities": "off",
+      // Faux positif sur les effets de data-fetching idiomatiques
+      // (fetch -> setState). Conservé en avertissement plutôt qu'erreur.
+      "react-hooks/set-state-in-effect": "warn",
       // Durcissement RGAA : blocage build si régression a11y
       "jsx-a11y/alt-text": "error",
       "jsx-a11y/anchor-has-content": "error",

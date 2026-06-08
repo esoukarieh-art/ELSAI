@@ -32,7 +32,7 @@ export default function FunnelBars({ steps }: FunnelBarsProps) {
             </div>
             <div className="bg-elsai-creme/60 rounded-organic h-6 overflow-hidden border border-slate-200">
               <div
-                className="h-full rounded-organic transition-all"
+                className="rounded-organic h-full transition-all"
                 style={{
                   width: `${pct}%`,
                   backgroundColor: COLORS[i % COLORS.length],

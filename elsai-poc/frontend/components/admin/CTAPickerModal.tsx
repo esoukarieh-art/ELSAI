@@ -118,47 +118,51 @@ export default function CTAPickerModal({ open, onClose, onPick, excludeKeys = []
                 const isExcluded = excludeKeys.includes(key);
                 const isSelected = selected === key;
                 return (
-                  <li
-                    key={key}
-                    className={`rounded-organic border px-3 py-2 text-sm transition ${
-                      isSelected
-                        ? "border-elsai-pin bg-elsai-pin/5"
-                        : isExcluded
-                          ? "cursor-not-allowed border-slate-200 bg-slate-50 opacity-60"
-                          : "hover:border-elsai-pin/40 cursor-pointer border-slate-200"
-                    }`}
-                    onClick={() => {
-                      if (isExcluded) return;
-                      setSelected(key);
-                    }}
-                    onDoubleClick={() => {
-                      if (isExcluded) return;
-                      onPick(key);
-                      onClose();
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <code className="text-elsai-pin-dark text-xs">{key}</code>
-                          {isExcluded && (
-                            <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] uppercase text-slate-600">
-                              déjà attaché
-                            </span>
-                          )}
-                          {!primary.active && (
-                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] uppercase text-amber-800">
-                              inactif
-                            </span>
-                          )}
+                  <li key={key}>
+                    <button
+                      type="button"
+                      disabled={isExcluded}
+                      aria-pressed={isSelected}
+                      className={`rounded-organic w-full border px-3 py-2 text-left text-sm transition ${
+                        isSelected
+                          ? "border-elsai-pin bg-elsai-pin/5"
+                          : isExcluded
+                            ? "cursor-not-allowed border-slate-200 bg-slate-50 opacity-60"
+                            : "hover:border-elsai-pin/40 cursor-pointer border-slate-200"
+                      }`}
+                      onClick={() => {
+                        if (isExcluded) return;
+                        setSelected(key);
+                      }}
+                      onDoubleClick={() => {
+                        if (isExcluded) return;
+                        onPick(key);
+                        onClose();
+                      }}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <code className="text-elsai-pin-dark text-xs">{key}</code>
+                            {isExcluded && (
+                              <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] text-slate-600 uppercase">
+                                déjà attaché
+                              </span>
+                            )}
+                            {!primary.active && (
+                              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] text-amber-800 uppercase">
+                                inactif
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-elsai-ink mt-0.5 truncate">{primary.label}</p>
+                          <p className="text-elsai-ink/60 mt-0.5 text-xs">
+                            {primary.component} · audience {primary.audience}
+                            {variants.length > 1 && ` · ${variants.length} variantes`}
+                          </p>
                         </div>
-                        <p className="text-elsai-ink mt-0.5 truncate">{primary.label}</p>
-                        <p className="text-elsai-ink/60 mt-0.5 text-xs">
-                          {primary.component} · audience {primary.audience}
-                          {variants.length > 1 && ` · ${variants.length} variantes`}
-                        </p>
                       </div>
-                    </div>
+                    </button>
                   </li>
                 );
               })}

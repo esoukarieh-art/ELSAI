@@ -33,28 +33,26 @@ export default function LeadMagnetsListPage() {
     <div>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-serif text-3xl text-elsai-pin">Lead magnets</h1>
-          <p className="text-sm text-slate-600">
-            Guides PDF déclencheurs de séquence Brevo.
-          </p>
+          <h1 className="text-elsai-pin font-serif text-3xl">Lead magnets</h1>
+          <p className="text-sm text-slate-600">Guides PDF déclencheurs de séquence Brevo.</p>
         </div>
         <Link
           href="/admin/leadmagnets/new"
-          className="rounded-organic bg-elsai-pin px-4 py-2 text-sm text-elsai-cream hover:bg-elsai-pin/90"
+          className="rounded-organic bg-elsai-pin text-elsai-cream hover:bg-elsai-pin/90 px-4 py-2 text-sm"
         >
           + Nouveau magnet
         </Link>
       </div>
 
       {error && (
-        <p className="mb-3 rounded-organic border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-elsai-rose">
+        <p className="rounded-organic text-elsai-rose mb-3 border border-rose-200 bg-rose-50 px-3 py-2 text-sm">
           {error}
         </p>
       )}
 
-      <div className="overflow-x-auto rounded-organic border border-elsai-pin/15 bg-white/70">
+      <div className="rounded-organic border-elsai-pin/15 overflow-x-auto border bg-white/70">
         <table className="w-full text-sm">
-          <thead className="text-xs uppercase text-slate-500">
+          <thead className="text-xs text-slate-500 uppercase">
             <tr>
               <th className="px-3 py-2 text-left">Clé</th>
               <th className="px-3 py-2 text-left">Titre</th>
@@ -76,7 +74,7 @@ export default function LeadMagnetsListPage() {
             {rows.map((r) => (
               <tr
                 key={r.id}
-                className={`border-t border-slate-100 hover:bg-elsai-pin/5 ${
+                className={`hover:bg-elsai-pin/5 border-t border-slate-100 ${
                   !r.active ? "opacity-60" : ""
                 }`}
               >
@@ -89,7 +87,12 @@ export default function LeadMagnetsListPage() {
                 </td>
                 <td className="px-3 py-2 text-xs">
                   {r.file_url ? (
-                    <a href={r.file_url} target="_blank" rel="noopener noreferrer" className="text-elsai-pin hover:underline">
+                    <a
+                      href={r.file_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-elsai-pin hover:underline"
+                    >
                       voir
                     </a>
                   ) : (
@@ -101,7 +104,10 @@ export default function LeadMagnetsListPage() {
                 </td>
                 <td className="px-3 py-2">{r.active ? "✓" : "✗"}</td>
                 <td className="px-3 py-2">
-                  <Link href={`/admin/leadmagnets/${r.id}`} className="text-elsai-pin hover:underline">
+                  <Link
+                    href={`/admin/leadmagnets/${r.id}`}
+                    className="text-elsai-pin hover:underline"
+                  >
                     Modifier
                   </Link>
                 </td>
