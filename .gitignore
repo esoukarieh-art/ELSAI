@@ -15,6 +15,12 @@ venv/
 dist/
 build/
 next-env.d.ts
+*.tsbuildinfo
+
+# Outillage / exports
+_bmad/
+export/
+export.zip
 
 # Env
 .env
