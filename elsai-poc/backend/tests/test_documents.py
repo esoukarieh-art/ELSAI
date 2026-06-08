@@ -18,12 +18,14 @@ def stub_pipeline(monkeypatch):
         monkeypatch.setattr(
             llm_module,
             "explain_document",
-            lambda _t: explanation
-            or {
-                "document_type": "Courrier CAF",
-                "explanation": "Ce document est une notification.",
-                "suggested_actions": ["Répondre sous 15 jours"],
-            },
+            lambda _t: (
+                explanation
+                or {
+                    "document_type": "Courrier CAF",
+                    "explanation": "Ce document est une notification.",
+                    "suggested_actions": ["Répondre sous 15 jours"],
+                }
+            ),
         )
 
     return _apply

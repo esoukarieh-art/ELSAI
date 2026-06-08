@@ -78,11 +78,15 @@ class Organization(Base):
     admin_email: Mapped[str] = mapped_column(String(200))
 
     plan: Mapped[str] = mapped_column(String(32))  # "essentiel" | "premium" | "sur_mesure"
-    billing_cycle: Mapped[str] = mapped_column(String(16), default="monthly")  # "monthly" | "yearly"
+    billing_cycle: Mapped[str] = mapped_column(
+        String(16), default="monthly"
+    )  # "monthly" | "yearly"
     seats: Mapped[int] = mapped_column(Integer, default=0)
 
     stripe_customer_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
-    stripe_subscription_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    stripe_subscription_id: Mapped[str | None] = mapped_column(
+        String(64), nullable=True, index=True
+    )
     status: Mapped[str] = mapped_column(String(32), default="pending")
     # "pending" | "active" | "past_due" | "canceled"
 
@@ -191,7 +195,9 @@ class FeatureFlag(Base):
     name: Mapped[str] = mapped_column(String(64), primary_key=True)
     enabled: Mapped[bool] = mapped_column(Boolean, default=True)
     description: Mapped[str | None] = mapped_column(String(400), nullable=True)
-    category: Mapped[str] = mapped_column(String(32), default="module")  # "module" | "parcours" | "theme"
+    category: Mapped[str] = mapped_column(
+        String(32), default="module"
+    )  # "module" | "parcours" | "theme"
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=_now, onupdate=_now)
 
 

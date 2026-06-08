@@ -25,12 +25,42 @@ PROMPT_NAMES = (
 )
 
 ARTICLE_TEMPLATES: tuple[dict, ...] = (
-    {"key": "guide", "prompt": "ai_article_guide", "label": "Guide pratique", "description": "Pas-à-pas numérotés pour accomplir une démarche."},
-    {"key": "explainer", "prompt": "ai_article_explainer", "label": "Explicatif", "description": "Définit un concept/dispositif et ses critères."},
-    {"key": "listicle", "prompt": "ai_article_listicle", "label": "Liste / Top", "description": "Article structuré en 5-10 points actionnables."},
-    {"key": "testimonial", "prompt": "ai_article_testimonial", "label": "Récit d'expérience", "description": "Cas fictif réaliste + enseignements."},
-    {"key": "faq", "prompt": "ai_article_faq", "label": "FAQ", "description": "Questions/réponses optimisé rich results."},
-    {"key": "news", "prompt": "ai_article_news", "label": "Actualité", "description": "Billet court sur un changement réglementaire ou un dispositif."},
+    {
+        "key": "guide",
+        "prompt": "ai_article_guide",
+        "label": "Guide pratique",
+        "description": "Pas-à-pas numérotés pour accomplir une démarche.",
+    },
+    {
+        "key": "explainer",
+        "prompt": "ai_article_explainer",
+        "label": "Explicatif",
+        "description": "Définit un concept/dispositif et ses critères.",
+    },
+    {
+        "key": "listicle",
+        "prompt": "ai_article_listicle",
+        "label": "Liste / Top",
+        "description": "Article structuré en 5-10 points actionnables.",
+    },
+    {
+        "key": "testimonial",
+        "prompt": "ai_article_testimonial",
+        "label": "Récit d'expérience",
+        "description": "Cas fictif réaliste + enseignements.",
+    },
+    {
+        "key": "faq",
+        "prompt": "ai_article_faq",
+        "label": "FAQ",
+        "description": "Questions/réponses optimisé rich results.",
+    },
+    {
+        "key": "news",
+        "prompt": "ai_article_news",
+        "label": "Actualité",
+        "description": "Billet court sur un changement réglementaire ou un dispositif.",
+    },
 )
 
 

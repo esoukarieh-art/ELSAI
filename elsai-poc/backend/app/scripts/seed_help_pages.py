@@ -17,7 +17,6 @@ from sqlalchemy.orm import Session
 from ..database import SessionLocal, init_db
 from ..models import BlogPost
 
-
 HELP_PAGES: list[dict] = [
     {
         "slug": "demarrer",
@@ -70,10 +69,22 @@ HELP_PAGES: list[dict] = [
         "schema_extra_json": json.dumps(
             {
                 "steps": [
-                    {"name": "Ouvrir le chat", "text": "Rendez-vous sur /chat après avoir choisi votre profil."},
-                    {"name": "Écrire votre question", "text": "Tapez votre question ou votre situation dans la zone de texte."},
-                    {"name": "Envoyer", "text": "Appuyez sur Entrée ou sur le bouton Envoyer. ESLAÏ répond en quelques secondes."},
-                    {"name": "Rebondir", "text": "Enchaînez les messages : ESLAÏ se souvient du contexte tant que vous ne fermez pas le navigateur."},
+                    {
+                        "name": "Ouvrir le chat",
+                        "text": "Rendez-vous sur /chat après avoir choisi votre profil.",
+                    },
+                    {
+                        "name": "Écrire votre question",
+                        "text": "Tapez votre question ou votre situation dans la zone de texte.",
+                    },
+                    {
+                        "name": "Envoyer",
+                        "text": "Appuyez sur Entrée ou sur le bouton Envoyer. ESLAÏ répond en quelques secondes.",
+                    },
+                    {
+                        "name": "Rebondir",
+                        "text": "Enchaînez les messages : ESLAÏ se souvient du contexte tant que vous ne fermez pas le navigateur.",
+                    },
                 ]
             },
             ensure_ascii=False,
@@ -113,11 +124,26 @@ HELP_PAGES: list[dict] = [
         "schema_extra_json": json.dumps(
             {
                 "steps": [
-                    {"name": "Cliquer sur le micro", "text": "Dans le chat, cliquez sur l'icône micro en bas de la zone de saisie."},
-                    {"name": "Autoriser le micro", "text": "Autorisez votre navigateur à utiliser le micro (une seule fois)."},
-                    {"name": "Parler", "text": "Parlez naturellement. L'icône change pour indiquer l'enregistrement."},
-                    {"name": "Arrêter", "text": "Cliquez à nouveau pour arrêter. Le message est retranscrit puis envoyé."},
-                    {"name": "Activer l'écoute", "text": "Activez le bouton 🔊 Lecture audio dans l'en-tête pour entendre les réponses."},
+                    {
+                        "name": "Cliquer sur le micro",
+                        "text": "Dans le chat, cliquez sur l'icône micro en bas de la zone de saisie.",
+                    },
+                    {
+                        "name": "Autoriser le micro",
+                        "text": "Autorisez votre navigateur à utiliser le micro (une seule fois).",
+                    },
+                    {
+                        "name": "Parler",
+                        "text": "Parlez naturellement. L'icône change pour indiquer l'enregistrement.",
+                    },
+                    {
+                        "name": "Arrêter",
+                        "text": "Cliquez à nouveau pour arrêter. Le message est retranscrit puis envoyé.",
+                    },
+                    {
+                        "name": "Activer l'écoute",
+                        "text": "Activez le bouton 🔊 Lecture audio dans l'en-tête pour entendre les réponses.",
+                    },
                 ]
             },
             ensure_ascii=False,
@@ -159,10 +185,22 @@ HELP_PAGES: list[dict] = [
         "schema_extra_json": json.dumps(
             {
                 "steps": [
-                    {"name": "Aller sur /scan", "text": "Ouvrez la page /scan depuis le chat ou directement."},
-                    {"name": "Choisir un fichier", "text": "Prenez une photo ou uploadez un fichier PNG/JPEG/WebP."},
-                    {"name": "Attendre l'analyse", "text": "ESLAÏ lit le document (OCR) et l'analyse en quelques secondes."},
-                    {"name": "Lire l'explication", "text": "Vous obtenez le texte détecté, une explication claire et des actions suggérées."},
+                    {
+                        "name": "Aller sur /scan",
+                        "text": "Ouvrez la page /scan depuis le chat ou directement.",
+                    },
+                    {
+                        "name": "Choisir un fichier",
+                        "text": "Prenez une photo ou uploadez un fichier PNG/JPEG/WebP.",
+                    },
+                    {
+                        "name": "Attendre l'analyse",
+                        "text": "ESLAÏ lit le document (OCR) et l'analyse en quelques secondes.",
+                    },
+                    {
+                        "name": "Lire l'explication",
+                        "text": "Vous obtenez le texte détecté, une explication claire et des actions suggérées.",
+                    },
                 ]
             },
             ensure_ascii=False,
@@ -205,9 +243,18 @@ HELP_PAGES: list[dict] = [
         "schema_extra_json": json.dumps(
             {
                 "steps": [
-                    {"name": "Sur Android", "text": "Dans Chrome, ouvrez elsai.fr → menu ⋮ → Installer l'application."},
-                    {"name": "Sur iPhone", "text": "Dans Safari, ouvrez elsai.fr → bouton Partager → Sur l'écran d'accueil."},
-                    {"name": "Lancer", "text": "L'icône ESLAÏ apparaît sur votre écran d'accueil, comme une app classique."},
+                    {
+                        "name": "Sur Android",
+                        "text": "Dans Chrome, ouvrez elsai.fr → menu ⋮ → Installer l'application.",
+                    },
+                    {
+                        "name": "Sur iPhone",
+                        "text": "Dans Safari, ouvrez elsai.fr → bouton Partager → Sur l'écran d'accueil.",
+                    },
+                    {
+                        "name": "Lancer",
+                        "text": "L'icône ESLAÏ apparaît sur votre écran d'accueil, comme une app classique.",
+                    },
                 ]
             },
             ensure_ascii=False,
@@ -444,25 +491,25 @@ def seed(db: Session) -> tuple[int, int]:
         slug = page["slug"]
         existing = db.query(BlogPost).filter(BlogPost.slug == slug).first()
 
-        values = dict(
-            slug=slug,
-            title=page["title"],
-            description=page["description"],
-            hero_eyebrow=page.get("hero_eyebrow"),
-            content_mdx=page["content_mdx"],
-            tags_json=json.dumps(["aide", "guide"], ensure_ascii=False),
-            reading_minutes=page.get("reading_minutes", 2),
-            audience="all",
-            kind="help",
-            target_keyword=page.get("target_keyword"),
-            search_intent=page.get("search_intent", "informational"),
-            status="published",
-            published_at=now,
-            seo_title=page.get("seo_title"),
-            seo_description=page.get("seo_description"),
-            schema_type=page.get("schema_type", "Article"),
-            schema_extra_json=page.get("schema_extra_json", "{}"),
-        )
+        values = {
+            "slug": slug,
+            "title": page["title"],
+            "description": page["description"],
+            "hero_eyebrow": page.get("hero_eyebrow"),
+            "content_mdx": page["content_mdx"],
+            "tags_json": json.dumps(["aide", "guide"], ensure_ascii=False),
+            "reading_minutes": page.get("reading_minutes", 2),
+            "audience": "all",
+            "kind": "help",
+            "target_keyword": page.get("target_keyword"),
+            "search_intent": page.get("search_intent", "informational"),
+            "status": "published",
+            "published_at": now,
+            "seo_title": page.get("seo_title"),
+            "seo_description": page.get("seo_description"),
+            "schema_type": page.get("schema_type", "Article"),
+            "schema_extra_json": page.get("schema_extra_json", "{}"),
+        }
 
         if existing:
             for k, v in values.items():

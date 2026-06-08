@@ -20,9 +20,7 @@ def submit_feedback(
     db: DBSession = Depends(get_db),
 ) -> FeedbackResponse:
     conv = (
-        db.query(Conversation)
-        .filter_by(id=payload.conversation_id, session_id=session.id)
-        .first()
+        db.query(Conversation).filter_by(id=payload.conversation_id, session_id=session.id).first()
     )
     if conv is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Conversation introuvable")

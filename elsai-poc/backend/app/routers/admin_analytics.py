@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import logging
 from datetime import UTC, datetime, timedelta
-from typing import Any
 
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
@@ -119,7 +118,7 @@ class PostDetailResponse(BaseModel):
     period: str
     plausible_configured: bool
     post: PostAnalyticsRow | None
-    ctas: list["CTAVariantRow"]
+    ctas: list[CTAVariantRow]
 
 
 class CTAVariantRow(BaseModel):
@@ -155,9 +154,7 @@ PostDetailResponse.model_rebuild()
 # --- ContentEvent aggregations ------------------------------------------------
 
 
-def _content_event_counts_by_slug(
-    db: DBSession, period: str
-) -> dict[str, dict[str, int]]:
+def _content_event_counts_by_slug(db: DBSession, period: str) -> dict[str, dict[str, int]]:
     since = _since(period)
     rows = (
         db.query(

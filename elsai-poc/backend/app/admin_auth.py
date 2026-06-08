@@ -41,7 +41,9 @@ _SCRYPT_DK = 64
 
 def hash_password(pw: str) -> str:
     salt = secrets.token_bytes(16)
-    dk = hashlib.scrypt(pw.encode(), salt=salt, n=_SCRYPT_N, r=_SCRYPT_R, p=_SCRYPT_P, dklen=_SCRYPT_DK)
+    dk = hashlib.scrypt(
+        pw.encode(), salt=salt, n=_SCRYPT_N, r=_SCRYPT_R, p=_SCRYPT_P, dklen=_SCRYPT_DK
+    )
     return f"scrypt${salt.hex()}${dk.hex()}"
 
 

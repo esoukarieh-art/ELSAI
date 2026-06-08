@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
@@ -76,9 +75,7 @@ def _audit(
             action=action,
             target_type="lead_magnet",
             target_id=target_id,
-            details=json.dumps(
-                {**(details or {}), "admin_email": (admin.email or admin.user_id)}
-            ),
+            details=json.dumps({**(details or {}), "admin_email": (admin.email or admin.user_id)}),
         )
     )
 

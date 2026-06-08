@@ -16,12 +16,8 @@ from app.routers import billing as billing_mod
 def stripe_configured(monkeypatch):
     monkeypatch.setattr(settings, "stripe_secret_key", "sk_test_fake", raising=False)
     monkeypatch.setattr(settings, "stripe_webhook_secret", "whsec_fake", raising=False)
-    monkeypatch.setattr(
-        settings, "stripe_price_essentiel_monthly", "price_essm", raising=False
-    )
-    monkeypatch.setattr(
-        settings, "stripe_price_premium_monthly", "price_prem", raising=False
-    )
+    monkeypatch.setattr(settings, "stripe_price_essentiel_monthly", "price_essm", raising=False)
+    monkeypatch.setattr(settings, "stripe_price_premium_monthly", "price_prem", raising=False)
 
 
 def test_checkout_requires_stripe_config(client):
@@ -42,11 +38,14 @@ def test_checkout_creates_org_and_returns_url(client, db_session, stripe_configu
     fake_customer = SimpleNamespace(id="cus_123")
     fake_session = SimpleNamespace(url="https://checkout.stripe.com/x", id="cs_123")
 
-    with patch.object(
-        billing_mod.stripe.Customer, "create", return_value=fake_customer
-    ) as cust_create, patch.object(
-        billing_mod.stripe.checkout.Session, "create", return_value=fake_session
-    ) as sess_create:
+    with (
+        patch.object(
+            billing_mod.stripe.Customer, "create", return_value=fake_customer
+        ) as cust_create,
+        patch.object(
+            billing_mod.stripe.checkout.Session, "create", return_value=fake_session
+        ) as sess_create,
+    ):
         r = client.post(
             "/api/billing/checkout",
             json={
@@ -105,9 +104,7 @@ def test_webhook_checkout_completed_activates_org_and_generates_codes(
         },
     }
 
-    with patch.object(
-        billing_mod.stripe.Webhook, "construct_event", return_value=fake_event
-    ):
+    with patch.object(billing_mod.stripe.Webhook, "construct_event", return_value=fake_event):
         r = client.post(
             "/api/billing/webhook",
             content=b"{}",
@@ -139,10 +136,12 @@ def test_webhook_subscription_deleted_revokes_codes(client, db_session, stripe_c
         )
         s.add(org)
         s.commit()
-        s.add_all([
-            AccessCode(organization_id=org.id, code="AAAA1111BBBB"),
-            AccessCode(organization_id=org.id, code="CCCC2222DDDD"),
-        ])
+        s.add_all(
+            [
+                AccessCode(organization_id=org.id, code="AAAA1111BBBB"),
+                AccessCode(organization_id=org.id, code="CCCC2222DDDD"),
+            ]
+        )
         s.commit()
         org_id = org.id
 
@@ -151,9 +150,7 @@ def test_webhook_subscription_deleted_revokes_codes(client, db_session, stripe_c
         "data": {"object": {"id": "sub_xyz", "status": "canceled"}},
     }
 
-    with patch.object(
-        billing_mod.stripe.Webhook, "construct_event", return_value=fake_event
-    ):
+    with patch.object(billing_mod.stripe.Webhook, "construct_event", return_value=fake_event):
         r = client.post(
             "/api/billing/webhook",
             content=b"{}",
@@ -189,12 +186,10 @@ def test_webhook_completed_triggers_email_send(client, db_session, stripe_config
         "data": {"object": {"metadata": {"organization_id": org_id}, "subscription": "sub_x"}},
     }
 
-    with patch.object(
-        billing_mod.stripe.Webhook, "construct_event", return_value=fake_event
-    ), patch.object(
-        billing_mod.email_service, "send_email", return_value="msg_1"
-    ) as send_mock, patch.object(
-        billing_mod, "_build_portal_url", return_value=None
+    with (
+        patch.object(billing_mod.stripe.Webhook, "construct_event", return_value=fake_event),
+        patch.object(billing_mod.email_service, "send_email", return_value="msg_1") as send_mock,
+        patch.object(billing_mod, "_build_portal_url", return_value=None),
     ):
         r = client.post(
             "/api/billing/webhook",
@@ -251,9 +246,7 @@ def test_revoke_code(client, db_session, stripe_configured):
     body = client.get(f"/api/billing/organization?token={token}").json()
     code_id = body["codes"][0]["id"]
 
-    r = client.post(
-        f"/api/billing/organization/codes/{code_id}/revoke?token={token}"
-    )
+    r = client.post(f"/api/billing/organization/codes/{code_id}/revoke?token={token}")
     assert r.status_code == 200
 
     with db_session() as s:
@@ -268,9 +261,7 @@ def test_regenerate_code(client, db_session, stripe_configured):
     body = client.get(f"/api/billing/organization?token={token}").json()
     code_id = body["codes"][0]["id"]
 
-    r = client.post(
-        f"/api/billing/organization/codes/regenerate?code_id={code_id}&token={token}"
-    )
+    r = client.post(f"/api/billing/organization/codes/regenerate?code_id={code_id}&token={token}")
     assert r.status_code == 200
     new = r.json()
     assert new["new_code"] and new["new_code_id"] != code_id
@@ -291,9 +282,7 @@ def test_resend_email_not_configured(client, db_session, stripe_configured):
         "send_email",
         side_effect=billing_mod.email_service.EmailNotConfiguredError("no key"),
     ):
-        r = client.post(
-            f"/api/billing/organization/resend-email?token={token}"
-        )
+        r = client.post(f"/api/billing/organization/resend-email?token={token}")
     assert r.status_code == 200
     assert r.json() == {"sent": False}
 
@@ -302,12 +291,11 @@ def test_resend_email_ok(client, db_session, stripe_configured):
     org_id = _make_org_with_codes(db_session)
     token = billing_mod.create_org_token(org_id)
 
-    with patch.object(
-        billing_mod.email_service, "send_email", return_value="msg_id"
-    ) as send_mock, patch.object(billing_mod, "_build_portal_url", return_value=None):
-        r = client.post(
-            f"/api/billing/organization/resend-email?token={token}"
-        )
+    with (
+        patch.object(billing_mod.email_service, "send_email", return_value="msg_id") as send_mock,
+        patch.object(billing_mod, "_build_portal_url", return_value=None),
+    ):
+        r = client.post(f"/api/billing/organization/resend-email?token={token}")
     assert r.status_code == 200
     assert r.json() == {"sent": True}
     send_mock.assert_called_once()

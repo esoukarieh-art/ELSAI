@@ -8,7 +8,13 @@ DEPARTMENTS = [
     ("01", "Ain", "ain", "Bourg-en-Bresse", "Auvergne-Rhône-Alpes"),
     ("02", "Aisne", "aisne", "Laon", "Hauts-de-France"),
     ("03", "Allier", "allier", "Moulins", "Auvergne-Rhône-Alpes"),
-    ("04", "Alpes-de-Haute-Provence", "alpes-de-haute-provence", "Digne-les-Bains", "Provence-Alpes-Côte d'Azur"),
+    (
+        "04",
+        "Alpes-de-Haute-Provence",
+        "alpes-de-haute-provence",
+        "Digne-les-Bains",
+        "Provence-Alpes-Côte d'Azur",
+    ),
     ("05", "Hautes-Alpes", "hautes-alpes", "Gap", "Provence-Alpes-Côte d'Azur"),
     ("06", "Alpes-Maritimes", "alpes-maritimes", "Nice", "Provence-Alpes-Côte d'Azur"),
     ("07", "Ardèche", "ardeche", "Privas", "Auvergne-Rhône-Alpes"),
@@ -109,27 +115,107 @@ DEPARTMENTS = [
 ]
 
 RIGHTS_SEED = [
-    ("rsa", "Revenu de Solidarité Active", "Allocation pour majeurs sans ou avec peu de ressources, versée par la CAF/MSA. Calcul selon foyer et ressources."),
-    ("aah", "Allocation aux Adultes Handicapés", "Allocation pour personnes en situation de handicap, après reconnaissance MDPH. Cumul possible avec un revenu d'activité."),
-    ("apl", "Aide Personnalisée au Logement", "Aide au logement versée par la CAF, conditionnée aux ressources, au loyer et à la composition du foyer."),
-    ("prime-activite", "Prime d'activité", "Complément de revenu pour travailleurs modestes, versé par la CAF."),
-    ("are", "Allocation d'aide au Retour à l'Emploi", "Indemnisation chômage de France Travail, sous conditions d'activité antérieure."),
-    ("cej", "Contrat d'Engagement Jeune", "Accompagnement intensif 16-25 ans, allocation jusqu'à ~520€/mois selon ressources, via Mission Locale ou France Travail."),
-    ("c2s", "Complémentaire Santé Solidaire", "Mutuelle gratuite ou à 1€/jour, à demander à la CPAM."),
-    ("dalo", "Droit Au Logement Opposable", "Recours pour personnes prioritaires en attente d'un logement social."),
-    ("contrat-jeune-majeur", "Contrat Jeune Majeur (ASE)", "Prolongation de l'accompagnement ASE après 18 ans, à demander avant la majorité, selon départements."),
-    ("rqth", "Reconnaissance Travailleur Handicapé", "Statut MDPH ouvrant droit à OETH, Cap Emploi, aménagements de poste."),
+    (
+        "rsa",
+        "Revenu de Solidarité Active",
+        "Allocation pour majeurs sans ou avec peu de ressources, versée par la CAF/MSA. Calcul selon foyer et ressources.",
+    ),
+    (
+        "aah",
+        "Allocation aux Adultes Handicapés",
+        "Allocation pour personnes en situation de handicap, après reconnaissance MDPH. Cumul possible avec un revenu d'activité.",
+    ),
+    (
+        "apl",
+        "Aide Personnalisée au Logement",
+        "Aide au logement versée par la CAF, conditionnée aux ressources, au loyer et à la composition du foyer.",
+    ),
+    (
+        "prime-activite",
+        "Prime d'activité",
+        "Complément de revenu pour travailleurs modestes, versé par la CAF.",
+    ),
+    (
+        "are",
+        "Allocation d'aide au Retour à l'Emploi",
+        "Indemnisation chômage de France Travail, sous conditions d'activité antérieure.",
+    ),
+    (
+        "cej",
+        "Contrat d'Engagement Jeune",
+        "Accompagnement intensif 16-25 ans, allocation jusqu'à ~520€/mois selon ressources, via Mission Locale ou France Travail.",
+    ),
+    (
+        "c2s",
+        "Complémentaire Santé Solidaire",
+        "Mutuelle gratuite ou à 1€/jour, à demander à la CPAM.",
+    ),
+    (
+        "dalo",
+        "Droit Au Logement Opposable",
+        "Recours pour personnes prioritaires en attente d'un logement social.",
+    ),
+    (
+        "contrat-jeune-majeur",
+        "Contrat Jeune Majeur (ASE)",
+        "Prolongation de l'accompagnement ASE après 18 ans, à demander avant la majorité, selon départements.",
+    ),
+    (
+        "rqth",
+        "Reconnaissance Travailleur Handicapé",
+        "Statut MDPH ouvrant droit à OETH, Cap Emploi, aménagements de poste.",
+    ),
 ]
 
 SITUATIONS_SEED = [
-    ("jeune-majeur-isole", "Jeune majeur isolé", "adult", "Vous venez d'avoir 18 ans, vous êtes seul·e, sans ressources, parfois sortant de l'ASE."),
-    ("sortie-ase", "Sortie de l'ASE", "adult", "Vous êtes accompagné·e par l'Aide Sociale à l'Enfance et la fin de la mesure approche, ou vient d'avoir lieu."),
-    ("parent-isole", "Parent isolé", "adult", "Vous êtes seul·e à charge d'un ou plusieurs enfants."),
-    ("recours-refus-caf", "Recours après un refus CAF", "adult", "La CAF vous a refusé un droit (RSA, APL...) et vous voulez contester."),
-    ("perte-emploi", "Perte d'emploi récente", "adult", "Vous venez de perdre votre travail (licenciement, fin de CDD, démission)."),
-    ("logement-urgence", "Sans logement / hébergement d'urgence", "adult", "Vous n'avez pas où dormir ce soir ou pour les jours à venir."),
-    ("handicap-recente", "Reconnaissance handicap en cours", "adult", "Vous avez déposé un dossier MDPH ou envisagez de le faire."),
-    ("etudiant-precaire", "Étudiant·e en précarité", "adult", "Vous étudiez et n'arrivez plus à boucler vos fins de mois."),
+    (
+        "jeune-majeur-isole",
+        "Jeune majeur isolé",
+        "adult",
+        "Vous venez d'avoir 18 ans, vous êtes seul·e, sans ressources, parfois sortant de l'ASE.",
+    ),
+    (
+        "sortie-ase",
+        "Sortie de l'ASE",
+        "adult",
+        "Vous êtes accompagné·e par l'Aide Sociale à l'Enfance et la fin de la mesure approche, ou vient d'avoir lieu.",
+    ),
+    (
+        "parent-isole",
+        "Parent isolé",
+        "adult",
+        "Vous êtes seul·e à charge d'un ou plusieurs enfants.",
+    ),
+    (
+        "recours-refus-caf",
+        "Recours après un refus CAF",
+        "adult",
+        "La CAF vous a refusé un droit (RSA, APL...) et vous voulez contester.",
+    ),
+    (
+        "perte-emploi",
+        "Perte d'emploi récente",
+        "adult",
+        "Vous venez de perdre votre travail (licenciement, fin de CDD, démission).",
+    ),
+    (
+        "logement-urgence",
+        "Sans logement / hébergement d'urgence",
+        "adult",
+        "Vous n'avez pas où dormir ce soir ou pour les jours à venir.",
+    ),
+    (
+        "handicap-recente",
+        "Reconnaissance handicap en cours",
+        "adult",
+        "Vous avez déposé un dossier MDPH ou envisagez de le faire.",
+    ),
+    (
+        "etudiant-precaire",
+        "Étudiant·e en précarité",
+        "adult",
+        "Vous étudiez et n'arrivez plus à boucler vos fins de mois.",
+    ),
 ]
 
 

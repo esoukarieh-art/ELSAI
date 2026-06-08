@@ -1,5 +1,6 @@
 """Endpoints vocaux : STT (Whisper) + TTS."""
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import Response
 from sqlalchemy.orm import Session as DBSession
 
@@ -12,8 +13,14 @@ from ..services import voice
 router = APIRouter(prefix="/api/voice", tags=["voice"])
 
 _AUDIO_TYPES = {
-    "audio/webm", "audio/ogg", "audio/mpeg", "audio/mp3",
-    "audio/mp4", "audio/m4a", "audio/wav", "audio/x-wav",
+    "audio/webm",
+    "audio/ogg",
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/mp4",
+    "audio/m4a",
+    "audio/wav",
+    "audio/x-wav",
 }
 _MAX_AUDIO_BYTES = 15 * 1024 * 1024  # 15 MB (~5 min)
 _MAX_TTS_CHARS = 2000
@@ -32,7 +39,9 @@ async def speech_to_text(
         )
     data = await file.read()
     if len(data) > _MAX_AUDIO_BYTES:
-        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Audio trop volumineux (max 15 MB)")
+        raise HTTPException(
+            status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Audio trop volumineux (max 15 MB)"
+        )
     if not data:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Fichier audio vide")
 
@@ -58,7 +67,10 @@ def text_to_speech(
     if not text:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Texte vide")
     if len(text) > _MAX_TTS_CHARS:
-        raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, f"Texte trop long (max {_MAX_TTS_CHARS} caractères)")
+        raise HTTPException(
+            status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            f"Texte trop long (max {_MAX_TTS_CHARS} caractères)",
+        )
 
     try:
         audio = voice.synthesize(text)

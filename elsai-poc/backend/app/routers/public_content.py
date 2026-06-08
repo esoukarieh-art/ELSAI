@@ -147,11 +147,7 @@ def list_posts(
 
 @router.get("/posts/{slug}")
 def get_post(slug: str, response: Response, db: DBSession = Depends(get_db)):
-    post = (
-        db.query(BlogPost)
-        .filter(BlogPost.slug == slug, BlogPost.status == "published")
-        .first()
-    )
+    post = db.query(BlogPost).filter(BlogPost.slug == slug, BlogPost.status == "published").first()
     if not post:
         redirect = (
             db.query(SlugRedirect)
@@ -160,26 +156,18 @@ def get_post(slug: str, response: Response, db: DBSession = Depends(get_db)):
             .first()
         )
         if redirect:
-            return RedirectResponse(
-                url=f"/api/public/posts/{redirect.new_slug}", status_code=301
-            )
+            return RedirectResponse(url=f"/api/public/posts/{redirect.new_slug}", status_code=301)
         raise HTTPException(404, "Article introuvable")
 
     _set_cache(response)
-    ctas = (
-        db.query(PostCTA)
-        .filter(PostCTA.post_id == post.id)
-        .order_by(PostCTA.sort_order)
-        .all()
-    )
+    ctas = db.query(PostCTA).filter(PostCTA.post_id == post.id).order_by(PostCTA.sort_order).all()
     return PublicPostDetail(
         **_to_summary(post).model_dump(),
         content_mdx=post.content_mdx,
         schema_type=post.schema_type,
         schema_extra_json=post.schema_extra_json,
         ctas=[
-            PublicCTA(cta_key=c.cta_key, position=c.position, sort_order=c.sort_order)
-            for c in ctas
+            PublicCTA(cta_key=c.cta_key, position=c.position, sort_order=c.sort_order) for c in ctas
         ],
     )
 
@@ -224,26 +212,18 @@ def get_help_page(slug: str, response: Response, db: DBSession = Depends(get_db)
             .first()
         )
         if redirect:
-            return RedirectResponse(
-                url=f"/api/public/help/{redirect.new_slug}", status_code=301
-            )
+            return RedirectResponse(url=f"/api/public/help/{redirect.new_slug}", status_code=301)
         raise HTTPException(404, "Page d'aide introuvable")
 
     _set_cache(response)
-    ctas = (
-        db.query(PostCTA)
-        .filter(PostCTA.post_id == post.id)
-        .order_by(PostCTA.sort_order)
-        .all()
-    )
+    ctas = db.query(PostCTA).filter(PostCTA.post_id == post.id).order_by(PostCTA.sort_order).all()
     return PublicPostDetail(
         **_to_summary(post).model_dump(),
         content_mdx=post.content_mdx,
         schema_type=post.schema_type,
         schema_extra_json=post.schema_extra_json,
         ctas=[
-            PublicCTA(cta_key=c.cta_key, position=c.position, sort_order=c.sort_order)
-            for c in ctas
+            PublicCTA(cta_key=c.cta_key, position=c.position, sort_order=c.sort_order) for c in ctas
         ],
     )
 
@@ -261,10 +241,7 @@ def get_page(
         raise HTTPException(404, "Page introuvable")
 
     preview_ok = bool(
-        preview
-        and token
-        and settings.admin_preview_token
-        and token == settings.admin_preview_token
+        preview and token and settings.admin_preview_token and token == settings.admin_preview_token
     )
 
     if preview_ok:
@@ -295,7 +272,9 @@ def get_page(
 
 
 @router.get("/clusters/{slug}", response_model=PublicClusterDetail)
-def get_cluster(slug: str, response: Response, db: DBSession = Depends(get_db)) -> PublicClusterDetail:
+def get_cluster(
+    slug: str, response: Response, db: DBSession = Depends(get_db)
+) -> PublicClusterDetail:
     cluster = db.query(ContentCluster).filter(ContentCluster.slug == slug).first()
     if not cluster:
         raise HTTPException(404, "Cluster introuvable")

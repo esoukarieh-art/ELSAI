@@ -280,10 +280,7 @@ def list_variants(name: str, db: DBSession = Depends(get_db)) -> list[PromptVers
     if name not in PROMPT_NAMES:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Prompt inconnu")
     return (
-        db.query(PromptVersion)
-        .filter_by(name=name)
-        .order_by(desc(PromptVersion.created_at))
-        .all()
+        db.query(PromptVersion).filter_by(name=name).order_by(desc(PromptVersion.created_at)).all()
     )
 
 

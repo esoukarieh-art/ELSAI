@@ -51,7 +51,7 @@ def _button(label: str, href_placeholder: str) -> str:
     return (
         f'<p style="margin:20px 0;"><a href="{href_placeholder}" '
         f'style="display:inline-block;background:#5A7E6B;color:#F5F5ED;'
-        f'padding:10px 20px;border-radius:10px;text-decoration:none;'
+        f"padding:10px 20px;border-radius:10px;text-decoration:none;"
         f'font-weight:600;">{label}</a></p>'
     )
 
@@ -101,7 +101,8 @@ SEED_TEMPLATES: list[dict] = [
             "Votre abonnement {{plan_label}} pour {{company_name}} ({{seats}} salariés) est actif.\n"
             "Codes d'accès ({{seats}}) :\n{{codes_text}}\n\n"
             "Espace admin : {{admin_url}}\n{{portal_block_text}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
         "notes": "Remplace render_activation_email() existant dans email.py.",
     },
@@ -130,7 +131,9 @@ SEED_TEMPLATES: list[dict] = [
             "</ol>"
             "<p>Si un salarié perd son code, régénérez-le depuis votre espace admin "
             "(l'ancien est révoqué automatiquement).</p>"
-            + _button("Voir le modèle d'email à envoyer aux salariés", "{{admin_url}}#communication")
+            + _button(
+                "Voir le modèle d'email à envoyer aux salariés", "{{admin_url}}#communication"
+            )
         ),
         "text_content": (
             "Bonjour,\n\n"
@@ -139,7 +142,8 @@ SEED_TEMPLATES: list[dict] = [
             "2. Expliquez le cadre en une phrase : « ESLAÏ est un assistant social anonyme. »\n"
             "3. Rappelez que l'usage n'est pas tracé individuellement.\n\n"
             "Espace admin : {{admin_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -169,14 +173,14 @@ SEED_TEMPLATES: list[dict] = [
             "<li>Mentionner ESLAÏ dans une newsletter interne RH</li>"
             "<li>L'intégrer à votre programme QVT</li>"
             "<li>En parler en réunion d'équipe sans en faire un outil obligatoire</li>"
-            "</ul>"
-            + _button("Voir le tableau de bord complet", "{{admin_url}}")
+            "</ul>" + _button("Voir le tableau de bord complet", "{{admin_url}}")
         ),
         "text_content": (
             "Point d'étape à J+7 : {{codes_used}}/{{seats}} codes activés, {{total_sessions}} sessions.\n"
             "Thèmes : {{top_themes_or_dash}}.\n\n"
             "Tableau de bord : {{admin_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -202,7 +206,8 @@ SEED_TEMPLATES: list[dict] = [
             "Bonjour,\n\nDeux semaines avec ESLAÏ chez {{company_name}}.\n"
             "Si vous hésitez sur la communication interne ou les cas d'usage, on peut échanger 15 min.\n\n"
             "Réserver : {{booking_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -218,15 +223,15 @@ SEED_TEMPLATES: list[dict] = [
         "html_content": _wrap(
             "<p>Bonjour,</p>"
             "<p>Premier mois d'ESLAÏ chez <strong>{{company_name}}</strong>. Voici le récap anonymisé.</p>"
-            "<h3 style=\"color:#5A7E6B;\">Engagement</h3>"
+            '<h3 style="color:#5A7E6B;">Engagement</h3>'
             '<ul style="line-height:1.7;">'
             "<li>Codes actifs : {{active_codes}}/{{seats}}</li>"
             "<li>Sessions engagées : {{sessions_count}}</li>"
             "<li>Durée moyenne d'échange : {{avg_duration}} minutes</li>"
             "</ul>"
-            "<h3 style=\"color:#5A7E6B;\">Thèmes principaux (agrégés)</h3>"
+            '<h3 style="color:#5A7E6B;">Thèmes principaux (agrégés)</h3>'
             "<p>{{top_themes_bulleted}}</p>"
-            "<h3 style=\"color:#5A7E6B;\">Démarches concrètes abouties</h3>"
+            '<h3 style="color:#5A7E6B;">Démarches concrètes abouties</h3>'
             '<ul style="line-height:1.7;">'
             "<li>Courriers générés : {{letters_generated}}</li>"
             "<li>Formulaires complétés : {{forms_completed}}</li>"
@@ -243,10 +248,10 @@ SEED_TEMPLATES: list[dict] = [
             "Thèmes : {{top_themes_bulleted}}\n\n"
             "Courriers : {{letters_generated}} · Formulaires : {{forms_completed}} · Orientations : {{referrals_count}}\n\n"
             "Détails : {{admin_url}}/metrics"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
-
     # --- B2B-2 Pré-expiration -----------------------------------------------
     {
         "key": "b2b_pre_expiry_j_minus_14",
@@ -274,7 +279,8 @@ SEED_TEMPLATES: list[dict] = [
         "text_content": (
             "Renouvellement ESLAÏ {{plan_label}} le {{renewal_date}} pour {{amount}}€ TTC.\n"
             "Rien à faire si votre carte est valide. Sinon : {{portal_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -293,16 +299,15 @@ SEED_TEMPLATES: list[dict] = [
             "<strong>{{plan_label}}</strong>, prévu le <strong>{{renewal_date}}</strong> pour "
             "<strong>{{amount}}€ TTC</strong>.</p>"
             "<p>Si vous souhaitez ajuster le nombre de sièges ou changer de plan, "
-            "c'est le moment de le faire.</p>"
-            + _button("Portail facturation", "{{portal_url}}")
+            "c'est le moment de le faire.</p>" + _button("Portail facturation", "{{portal_url}}")
         ),
         "text_content": (
             "Renouvellement dans 3 jours : {{renewal_date}}, {{amount}}€ TTC.\n"
             "Ajuster : {{portal_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
-
     # --- B2B-3 Dunning ------------------------------------------------------
     {
         "key": "b2b_dunning_j1_fail",
@@ -327,7 +332,8 @@ SEED_TEMPLATES: list[dict] = [
         "text_content": (
             "Prélèvement de {{amount}}€ refusé ({{decline_reason_or_generic}}).\n"
             "Service actif 7 jours. Mettre à jour la carte : {{portal_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -354,7 +360,8 @@ SEED_TEMPLATES: list[dict] = [
             "Rappel : second essai de prélèvement sous 48h.\n"
             "Suspension des codes le {{suspension_date}} si pas régularisé.\n"
             "Portail : {{portal_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
     {
@@ -382,10 +389,10 @@ SEED_TEMPLATES: list[dict] = [
             "Service ESLAÏ suspendu depuis le {{suspension_date}}.\n"
             "Réactivation immédiate : {{portal_url}}\n"
             "Données conservées 30 jours puis supprimées."
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
-
     # --- B2B-4 Rapport mensuel ----------------------------------------------
     {
         "key": "b2b_monthly_report",
@@ -401,16 +408,16 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Bonjour,</p>"
             "<p>Voici le rapport d'usage ESLAÏ pour <strong>{{company_name}}</strong> — "
             "<strong>{{month_label}}</strong>.</p>"
-            "<h3 style=\"color:#5A7E6B;\">Engagement</h3>"
+            '<h3 style="color:#5A7E6B;">Engagement</h3>'
             '<ul style="line-height:1.7;">'
             "<li>Codes actifs : {{active_codes}}/{{seats}}</li>"
             "<li>Sessions engagées : {{sessions_count}}</li>"
             "<li>Durée moyenne : {{avg_duration}} minutes</li>"
             "<li>Nouveaux utilisateurs ce mois : {{new_codes_activated}}</li>"
             "</ul>"
-            "<h3 style=\"color:#5A7E6B;\">Thèmes principaux</h3>"
+            '<h3 style="color:#5A7E6B;">Thèmes principaux</h3>'
             "<p>{{top_themes_bulleted}}</p>"
-            "<h3 style=\"color:#5A7E6B;\">Démarches abouties</h3>"
+            '<h3 style="color:#5A7E6B;">Démarches abouties</h3>'
             '<ul style="line-height:1.7;">'
             "<li>Courriers générés : {{letters_generated}}</li>"
             "<li>Formulaires complétés : {{forms_completed}}</li>"
@@ -420,7 +427,7 @@ SEED_TEMPLATES: list[dict] = [
             + _button("Voir le rapport détaillé", "{{admin_url}}/metrics")
             + '<p style="font-size:12px;color:#888;">'
             '<a href="{{admin_url}}/settings#notifications" style="color:#888;">'
-            'Se désabonner de ces rapports</a></p>'
+            "Se désabonner de ces rapports</a></p>"
         ),
         "text_content": (
             "Rapport ESLAÏ {{month_label}} — {{company_name}}\n\n"
@@ -429,10 +436,10 @@ SEED_TEMPLATES: list[dict] = [
             "Thèmes : {{top_themes_bulleted}}\n"
             "Courriers : {{letters_generated}} · Formulaires : {{forms_completed}} · Orientations : {{referrals_count}}\n\n"
             "Détails : {{admin_url}}/metrics"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": True,
     },
-
     # --- B2C-1 Génération de courrier (inactif, en attente compte B2C) ------
     {
         "key": "b2c_letter_j0_ready",
@@ -462,7 +469,8 @@ SEED_TEMPLATES: list[dict] = [
             "Votre courrier pour {{recipient_org}} ({{subject_line}}) est prêt.\n"
             "Téléchargement : {{letter_url}}\n"
             "Conseil : recommandé avec AR. Indiquez la date d'envoi dans votre espace."
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente de l'implémentation du compte B2C et de l'event LetterGenerated.",
     },
@@ -491,7 +499,8 @@ SEED_TEMPLATES: list[dict] = [
         "text_content": (
             "Avez-vous envoyé le courrier pour {{recipient_org}} ?\n"
             "Indiquez la date : {{account_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -523,7 +532,8 @@ SEED_TEMPLATES: list[dict] = [
             "Délai légal de {{legal_delay_days}} jours atteint pour {{recipient_org}}.\n"
             "Options : relance, recours gracieux, hiérarchique.\n"
             "Relance en 1 clic : {{account_url}}/letter/{{letter_id}}/followup"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C. delay_hours calculé dynamiquement.",
     },
@@ -545,18 +555,17 @@ SEED_TEMPLATES: list[dict] = [
             "<li><strong>Résolu</strong> — vous avez eu la réponse attendue. Clôturez le dossier.</li>"
             "<li><strong>En attente</strong> — prolongez le suivi pour 30 jours de plus.</li>"
             "<li><strong>Bloqué</strong> — nous pouvons vous aider à engager un recours.</li>"
-            "</ul>"
-            + _button("Mettre à jour le statut", "{{account_url}}/letter/{{letter_id}}")
+            "</ul>" + _button("Mettre à jour le statut", "{{account_url}}/letter/{{letter_id}}")
         ),
         "text_content": (
             "Un mois depuis votre courrier à {{recipient_org}}.\n"
             "Statut : résolu / en attente / bloqué ?\n"
             "Mettre à jour : {{account_url}}/letter/{{letter_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
-
     # --- B2C-2 Remplissage de formulaire (inactif) --------------------------
     {
         "key": "b2c_form_j0_ready",
@@ -585,7 +594,8 @@ SEED_TEMPLATES: list[dict] = [
         "text_content": (
             "Formulaire {{form_type}} pour {{target_organism}} prêt : {{form_url}}\n"
             "Relire, signer, joindre pièces (page {{doc_page}}), transmettre."
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -610,7 +620,8 @@ SEED_TEMPLATES: list[dict] = [
         "text_content": (
             "Avez-vous transmis le dossier {{form_type}} à {{target_organism}} ?\n"
             "Conservez l'AR. Indiquez la date : {{account_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -638,11 +649,11 @@ SEED_TEMPLATES: list[dict] = [
             "Instruction {{form_type}} : délai moyen {{avg_instruction_days}} jours.\n"
             "Vigilance : demandes de pièces suspendent le délai.\n"
             "Espace : {{account_url}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
-
     # --- B2C-3 Suivi de recours (inactif) -----------------------------------
     {
         "key": "b2c_appeal_j0_started",
@@ -668,7 +679,8 @@ SEED_TEMPLATES: list[dict] = [
             "Recours {{appeal_type}} auprès de {{recipient_org}} engagé.\n"
             "Délai : {{applicable_deadline_days}} jours.\n"
             "Dossier : {{account_url}}/appeal/{{appeal_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -695,7 +707,8 @@ SEED_TEMPLATES: list[dict] = [
             "Recours {{recipient_org}} — {{days_remaining}} jours restants.\n"
             "Absence de réponse = rejet implicite. Voie contentieuse ouverte.\n"
             "Dossier : {{account_url}}/appeal/{{appeal_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -718,18 +731,17 @@ SEED_TEMPLATES: list[dict] = [
             "<li>Accepter la décision et clôturer le dossier.</li>"
             "<li>Saisir le tribunal administratif (possible sans avocat pour de nombreux contentieux sociaux).</li>"
             "<li>Consulter gratuitement un avocat (permanence du barreau) ou le Défenseur des droits.</li>"
-            "</ul>"
-            + _button("En discuter avec ESLAÏ", "{{account_url}}/appeal/{{appeal_id}}")
+            "</ul>" + _button("En discuter avec ESLAÏ", "{{account_url}}/appeal/{{appeal_id}}")
         ),
         "text_content": (
             "Échéance contentieuse : {{deadline_date}}.\n"
             "Options : accepter, TA, avocat/Défenseur des droits.\n"
             "Discuter : {{account_url}}/appeal/{{appeal_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C. delay_hours calculé dynamiquement.",
     },
-
     # --- B2C-4 Rappel d'échéance (inactif) ---------------------------------
     {
         "key": "b2c_reminder_j_minus_30",
@@ -746,12 +758,15 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Un rappel : <strong>{{event_type}}</strong> est prévu le <strong>{{event_date}}</strong>.</p>"
             "<p>Un mois à l'avance pour vous permettre de rassembler tranquillement les pièces "
             "qui seront utiles le jour J.</p>"
-            + _button("Préparer {{event_type}} avec ESLAÏ", "{{account_url}}/reminder/{{reminder_id}}")
+            + _button(
+                "Préparer {{event_type}} avec ESLAÏ", "{{account_url}}/reminder/{{reminder_id}}"
+            )
         ),
         "text_content": (
             "{{event_type}} le {{event_date}} — dans 30 jours.\n"
             "Préparer : {{account_url}}/reminder/{{reminder_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -784,7 +799,8 @@ SEED_TEMPLATES: list[dict] = [
             "{{event_type}} dans 7 jours — {{event_date}} {{event_time}} à {{event_location}}.\n"
             "Documents : {{required_docs_or_dash}}\n"
             "Préparer : {{account_url}}/reminder/{{reminder_id}}"
-        ) + _FOOTER_TEXT,
+        )
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },
@@ -805,9 +821,8 @@ SEED_TEMPLATES: list[dict] = [
             "<p>Courage.</p>"
             + _button("Voir les détails et pièces", "{{account_url}}/reminder/{{reminder_id}}")
         ),
-        "text_content": (
-            "Demain : {{event_type}} à {{event_time}}, {{event_location}}. Courage."
-        ) + _FOOTER_TEXT,
+        "text_content": ("Demain : {{event_type}} à {{event_time}}, {{event_location}}. Courage.")
+        + _FOOTER_TEXT,
         "active": False,
         "notes": "En attente compte B2C.",
     },

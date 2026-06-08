@@ -39,20 +39,14 @@ def _migrate_page_content() -> None:
     with engine.connect() as conn:
         if is_sqlite:
             exists = conn.execute(
-                text(
-                    "SELECT name FROM sqlite_master "
-                    "WHERE type='table' AND name='page_contents'"
-                )
+                text("SELECT name FROM sqlite_master WHERE type='table' AND name='page_contents'")
             ).first()
             if not exists:
                 return
             cols = {row[1] for row in conn.execute(text("PRAGMA table_info(page_contents)"))}
         else:
             exists = conn.execute(
-                text(
-                    "SELECT 1 FROM information_schema.tables "
-                    "WHERE table_name = 'page_contents'"
-                )
+                text("SELECT 1 FROM information_schema.tables WHERE table_name = 'page_contents'")
             ).first()
             if not exists:
                 return
@@ -73,13 +67,9 @@ def _migrate_page_content() -> None:
                 "NOT NULL DEFAULT 'published'"
             )
         if "draft_blocks_json" not in cols:
-            statements.append(
-                "ALTER TABLE page_contents ADD COLUMN draft_blocks_json TEXT"
-            )
+            statements.append("ALTER TABLE page_contents ADD COLUMN draft_blocks_json TEXT")
         if "published_at" not in cols:
-            statements.append(
-                f"ALTER TABLE page_contents ADD COLUMN published_at {timestamp_type}"
-            )
+            statements.append(f"ALTER TABLE page_contents ADD COLUMN published_at {timestamp_type}")
         for stmt in statements:
             conn.execute(text(stmt))
         if statements:
@@ -100,20 +90,14 @@ def _migrate_blog_posts() -> None:
     with engine.connect() as conn:
         if is_sqlite:
             exists = conn.execute(
-                text(
-                    "SELECT name FROM sqlite_master "
-                    "WHERE type='table' AND name='blog_posts'"
-                )
+                text("SELECT name FROM sqlite_master WHERE type='table' AND name='blog_posts'")
             ).first()
             if not exists:
                 return
             cols = {row[1] for row in conn.execute(text("PRAGMA table_info(blog_posts)"))}
         else:
             exists = conn.execute(
-                text(
-                    "SELECT 1 FROM information_schema.tables "
-                    "WHERE table_name = 'blog_posts'"
-                )
+                text("SELECT 1 FROM information_schema.tables WHERE table_name = 'blog_posts'")
             ).first()
             if not exists:
                 return
@@ -130,8 +114,7 @@ def _migrate_blog_posts() -> None:
         if "kind" not in cols:
             conn.execute(
                 text(
-                    "ALTER TABLE blog_posts ADD COLUMN kind VARCHAR(16) "
-                    "NOT NULL DEFAULT 'article'"
+                    "ALTER TABLE blog_posts ADD COLUMN kind VARCHAR(16) NOT NULL DEFAULT 'article'"
                 )
             )
             # Index non-unique sur kind pour accélérer les filtres listing
@@ -159,20 +142,14 @@ def _migrate_conversations() -> None:
     with engine.connect() as conn:
         if is_sqlite:
             exists = conn.execute(
-                text(
-                    "SELECT name FROM sqlite_master "
-                    "WHERE type='table' AND name='conversations'"
-                )
+                text("SELECT name FROM sqlite_master WHERE type='table' AND name='conversations'")
             ).first()
             if not exists:
                 return
             cols = {row[1] for row in conn.execute(text("PRAGMA table_info(conversations)"))}
         else:
             exists = conn.execute(
-                text(
-                    "SELECT 1 FROM information_schema.tables "
-                    "WHERE table_name = 'conversations'"
-                )
+                text("SELECT 1 FROM information_schema.tables WHERE table_name = 'conversations'")
             ).first()
             if not exists:
                 return
@@ -192,9 +169,7 @@ def _migrate_conversations() -> None:
                 "ALTER TABLE conversations ADD COLUMN optional_account_id VARCHAR(36)"
             )
         if "department_code" not in cols:
-            statements.append(
-                "ALTER TABLE conversations ADD COLUMN department_code VARCHAR(3)"
-            )
+            statements.append("ALTER TABLE conversations ADD COLUMN department_code VARCHAR(3)")
         for stmt in statements:
             conn.execute(text(stmt))
 
@@ -210,7 +185,7 @@ def _migrate_conversations() -> None:
             except Exception:
                 pass
             # FK vers optional_accounts si la table existe (best-effort, n'échoue
-                # pas le boot si la table n'est pas encore là).
+            # pas le boot si la table n'est pas encore là).
             try:
                 has_oa = conn.execute(
                     text(

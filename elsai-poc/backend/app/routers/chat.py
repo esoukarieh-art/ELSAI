@@ -28,9 +28,7 @@ def set_department(
 ) -> dict:
     """Opt-in géoloc : l'utilisateur fournit son département pour des contacts locaux."""
     conv = (
-        db.query(Conversation)
-        .filter_by(id=payload.conversation_id, session_id=session.id)
-        .first()
+        db.query(Conversation).filter_by(id=payload.conversation_id, session_id=session.id).first()
     )
     if conv is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Conversation introuvable")

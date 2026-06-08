@@ -55,9 +55,7 @@ def list_pages(
 @router.get("/by-slug/{composite_slug}", response_model=LongTailView)
 def get_by_slug(composite_slug: str, db: DBSession = Depends(get_db)) -> LongTailPage:
     page = (
-        db.query(LongTailPage)
-        .filter_by(composite_slug=composite_slug, status="published")
-        .first()
+        db.query(LongTailPage).filter_by(composite_slug=composite_slug, status="published").first()
     )
     if page is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Page introuvable")
@@ -97,16 +95,19 @@ class TaxonomyResponse(BaseModel):
 
 @router.get("/taxonomy", response_model=TaxonomyResponse)
 def taxonomy(db: DBSession = Depends(get_db)) -> TaxonomyResponse:
-    rights = [
-        {"slug": r.slug, "name": r.name}
-        for r in db.query(Right).order_by(Right.name).all()
-    ]
+    rights = [{"slug": r.slug, "name": r.name} for r in db.query(Right).order_by(Right.name).all()]
     situations = [
         {"slug": s.slug, "name": s.name, "profile": s.profile}
         for s in db.query(LifeSituation).order_by(LifeSituation.name).all()
     ]
     departments = [
-        {"code": d.code, "name": d.name, "slug": d.slug, "prefecture": d.prefecture, "region": d.region}
+        {
+            "code": d.code,
+            "name": d.name,
+            "slug": d.slug,
+            "prefecture": d.prefecture,
+            "region": d.region,
+        }
         for d in db.query(Department).order_by(Department.code).all()
     ]
     return TaxonomyResponse(rights=rights, situations=situations, departments=departments)

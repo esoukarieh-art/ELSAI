@@ -3,25 +3,19 @@
 from __future__ import annotations
 
 import json
-import logging
 from datetime import datetime, timedelta
-
-import pytest
 
 from app.models import Conversation, Message
 from app.models import Session as UserSession
 from app.services import llm as llm_module
 from app.services.privacy import purge_expired_sessions, session_footprint
 
-
 # ---------------------------------------------------------------------------
 # Droit à l'oubli : purge réelle, au niveau SQL brut
 # ---------------------------------------------------------------------------
 
 
-def test_forget_purges_message_content_at_sql_level(
-    client, auth_headers, monkeypatch, db_session
-):
+def test_forget_purges_message_content_at_sql_level(client, auth_headers, monkeypatch, db_session):
     """Après /api/auth/forget, aucun contenu user ne doit subsister en base.
     Vérification par SELECT brut (pas via l'ORM session, pour garantir que
     rien n'est retenu en cache)."""
@@ -74,9 +68,7 @@ def test_forget_logs_anonymous_audit_trail(client, auth_headers, monkeypatch, ca
 # ---------------------------------------------------------------------------
 
 
-def test_privacy_endpoint_returns_counters_not_content(
-    client, auth_headers, monkeypatch
-):
+def test_privacy_endpoint_returns_counters_not_content(client, auth_headers, monkeypatch):
     monkeypatch.setattr(llm_module, "chat_completion", lambda p, h: ("réponse test", None))
     headers = auth_headers("adult")
     secret = "SECRET-CONTENT-XYZ"
@@ -164,9 +156,7 @@ def test_session_footprint_never_exposes_content(db_session):
         conv = Conversation(session_id=sess.id)
         db.add(conv)
         db.flush()
-        db.add(
-            Message(conversation_id=conv.id, role="user", content="TRES-SENSIBLE-XYZ")
-        )
+        db.add(Message(conversation_id=conv.id, role="user", content="TRES-SENSIBLE-XYZ"))
         db.commit()
         sid = sess.id
 

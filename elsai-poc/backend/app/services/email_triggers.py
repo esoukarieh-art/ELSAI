@@ -29,8 +29,18 @@ _PLAN_LABELS = {
 }
 
 _MONTHS_FR = [
-    "janvier", "février", "mars", "avril", "mai", "juin",
-    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre",
 ]
 
 
@@ -74,7 +84,7 @@ def _org_base_context(org: Organization) -> dict:
 
     portal_url = _portal_url(org)
     portal_block_html = (
-        f'<p>Gérez votre abonnement et vos factures via le '
+        f"<p>Gérez votre abonnement et vos factures via le "
         f'<a href="{portal_url}" style="color:#5A7E6B;">portail client Stripe</a>.</p>'
         if portal_url
         else ""
@@ -131,10 +141,9 @@ def on_checkout_completed(db: Session, org: Organization) -> None:
 def on_invoice_payment_failed(db: Session, org: Organization, invoice_obj: dict) -> None:
     """Planifie la séquence de dunning (3 emails sur 7 jours)."""
     amount_cents = invoice_obj.get("amount_due") or 0
-    decline = (
-        (invoice_obj.get("last_finalization_error") or {}).get("message")
-        or "paiement refusé par la banque"
-    )
+    decline = (invoice_obj.get("last_finalization_error") or {}).get(
+        "message"
+    ) or "paiement refusé par la banque"
     suspension_date = (datetime.now(UTC) + timedelta(days=7)).strftime("%d/%m/%Y")
     ctx = {
         **_org_base_context(org),

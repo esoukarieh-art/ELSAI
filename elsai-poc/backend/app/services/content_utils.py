@@ -55,14 +55,10 @@ def snapshot_post(post: BlogPost, db: DBSession | None = None) -> dict:
     }
     if db is not None:
         ctas = (
-            db.query(PostCTA)
-            .filter(PostCTA.post_id == post.id)
-            .order_by(PostCTA.sort_order)
-            .all()
+            db.query(PostCTA).filter(PostCTA.post_id == post.id).order_by(PostCTA.sort_order).all()
         )
         data["ctas"] = [
-            {"cta_key": c.cta_key, "position": c.position, "sort_order": c.sort_order}
-            for c in ctas
+            {"cta_key": c.cta_key, "position": c.position, "sort_order": c.sort_order} for c in ctas
         ]
     return data
 

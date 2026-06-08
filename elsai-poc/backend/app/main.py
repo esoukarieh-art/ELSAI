@@ -110,6 +110,7 @@ def api_version() -> dict:
     """Version courante du backend, pour healthcheck et diagnostic."""
     return {"version": __version__}
 
+
 setup_observability(app)
 
 app.add_middleware(
@@ -136,6 +137,7 @@ async def _unhandled_exception_handler(request: Request, exc: Exception) -> JSON
         status_code=500,
         content={"detail": "Erreur interne du serveur."},
     )
+
 
 app.include_router(auth.router)
 app.include_router(chat.router)

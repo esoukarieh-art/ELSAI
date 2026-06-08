@@ -85,7 +85,9 @@ class LongTailUpdateRequest(BaseModel):
 )
 def stats(db: DBSession = Depends(get_db)) -> StatsResponse:
     rows = (
-        db.query(LongTailPage.status, func.count(LongTailPage.id), func.avg(LongTailPage.word_count))
+        db.query(
+            LongTailPage.status, func.count(LongTailPage.id), func.avg(LongTailPage.word_count)
+        )
         .group_by(LongTailPage.status)
         .all()
     )

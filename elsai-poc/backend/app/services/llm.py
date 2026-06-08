@@ -152,13 +152,19 @@ def assist_rewrite(text: str, instruction: str) -> str:
 
 
 def assist_shorten(text: str, target_chars: int | None = None) -> str:
-    cible = f"environ {target_chars} caractères" if target_chars else "le plus court possible sans perdre l'essentiel"
+    cible = (
+        f"environ {target_chars} caractères"
+        if target_chars
+        else "le plus court possible sans perdre l'essentiel"
+    )
     system = _ai_prompt("ai_shorten")
     return _llm_text(system, f"Cible : {cible}.\n\nTexte :\n{text}", max_tokens=1200)
 
 
 def assist_expand(text: str, target_chars: int | None = None) -> str:
-    cible = f"environ {target_chars} caractères" if target_chars else "environ 2x la longueur initiale"
+    cible = (
+        f"environ {target_chars} caractères" if target_chars else "environ 2x la longueur initiale"
+    )
     system = _ai_prompt("ai_expand")
     return _llm_text(system, f"Cible : {cible}.\n\nTexte :\n{text}", max_tokens=2000)
 
@@ -178,7 +184,12 @@ def editorial_check(text: str, audience: str) -> dict:
         return _llm_json(system, text, max_tokens=2000)
     except ValueError as exc:
         logger.warning("editorial_check parse failed: %s", exc)
-        return {"ok": False, "flags": [{"type": "ton_hors_charte", "excerpt": "", "suggestion": "Analyse indisponible"}]}
+        return {
+            "ok": False,
+            "flags": [
+                {"type": "ton_hors_charte", "excerpt": "", "suggestion": "Analyse indisponible"}
+            ],
+        }
 
 
 def brief_from_keyword(keyword: str, audience: str) -> dict:
@@ -219,8 +230,7 @@ def generate_article_draft(
         kind=kind,
     )
     system_full = (
-        system
-        + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
+        system + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
         "sans aucun autre texte ni fence markdown :\n\n"
         "---SEO_TITLE---\n<titre SEO 60 car max>\n"
         "---SEO_DESCRIPTION---\n<meta description 155 car max>\n"
@@ -311,8 +321,7 @@ def stream_article_draft(
         kind=kind,
     )
     system_json = (
-        system
-        + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
+        system + "\n\nIMPORTANT : réponds EXCLUSIVEMENT dans ce format à délimiteurs, "
         "sans aucun autre texte ni fence markdown. Les 4 sections sont "
         "obligatoires et dans cet ordre :\n\n"
         "---SEO_TITLE---\n"

@@ -96,9 +96,7 @@ def _audit(
             action=action,
             target_type="page_content",
             target_id=target_id,
-            details=json.dumps(
-                {**(details or {}), "admin_email": (admin.email or admin.user_id)}
-            ),
+            details=json.dumps({**(details or {}), "admin_email": (admin.email or admin.user_id)}),
         )
     )
 

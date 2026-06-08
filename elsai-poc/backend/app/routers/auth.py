@@ -112,9 +112,7 @@ def create_account(
     if db.query(OptionalAccount).filter_by(pseudo=pseudo).first():
         raise HTTPException(status.HTTP_409_CONFLICT, "Pseudo déjà pris")
     if len(payload.phrase) < 12:
-        raise HTTPException(
-            status.HTTP_400_BAD_REQUEST, "Phrase secrète trop courte (12 min)"
-        )
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "Phrase secrète trop courte (12 min)")
 
     account = OptionalAccount(pseudo=pseudo, phrase_hash=hash_phrase(payload.phrase))
     db.add(account)
@@ -155,9 +153,7 @@ def login_account(
     et la rattache aux conversations sauvegardées de ce compte."""
     account = db.query(OptionalAccount).filter_by(pseudo=payload.pseudo.strip()).first()
     if account is None or not verify_phrase(payload.phrase, account.phrase_hash):
-        raise HTTPException(
-            status.HTTP_401_UNAUTHORIZED, "Pseudo ou phrase secrète incorrect"
-        )
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Pseudo ou phrase secrète incorrect")
 
     new_session = UserSession(profile="adult")
     db.add(new_session)

@@ -42,7 +42,9 @@ def login(payload: AdminLoginRequest, db: DBSession = Depends(get_db)) -> AdminL
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Identifiants invalides")
 
     user.last_login = datetime.now(UTC)
-    db.add(AuditLog(actor="admin", action="auth.login", target_type="admin_user", target_id=user.id))
+    db.add(
+        AuditLog(actor="admin", action="auth.login", target_type="admin_user", target_id=user.id)
+    )
     db.commit()
 
     return AdminLoginResponse(
@@ -111,7 +113,7 @@ def create_user(payload: AdminUserCreate, db: DBSession = Depends(get_db)) -> Ad
             action="admin_user.create",
             target_type="admin_user",
             target_id=user.id,
-            details=f"{{\"role\": \"{payload.role}\"}}",
+            details=f'{{"role": "{payload.role}"}}',
         )
     )
     db.commit()

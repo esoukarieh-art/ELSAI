@@ -298,15 +298,23 @@ def update_template(
         raise HTTPException(404, "Template inconnu")
 
     changes: dict[str, object] = {}
-    for field in ("subject", "preview", "html_content", "text_content", "delay_hours",
-                  "step_label", "active", "notes"):
+    for field in (
+        "subject",
+        "preview",
+        "html_content",
+        "text_content",
+        "delay_hours",
+        "step_label",
+        "active",
+        "notes",
+    ):
         value = getattr(payload, field)
         if value is not None and getattr(t, field) != value:
             setattr(t, field, value)
             changes[field] = value
 
     if changes:
-        t.updated_by = (admin.email or admin.user_id)
+        t.updated_by = admin.email or admin.user_id
         _audit(db, admin, "email_template.update", key, {"changes": list(changes.keys())})
         db.commit()
         db.refresh(t)
@@ -325,8 +333,11 @@ def update_template(
 )
 def test_send(
     key: str,
-    to: str = Query(..., description="Adresse email du destinataire de test",
-                     pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$"),
+    to: str = Query(
+        ...,
+        description="Adresse email du destinataire de test",
+        pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+    ),
     admin: AdminIdentity = Depends(get_admin),
     db: DBSession = Depends(get_db),
 ) -> TestSendResponse:
@@ -357,7 +368,7 @@ def test_send(
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Brevo non configuré : BREVO_API_KEY manquant.",
-        )
+        ) from None
     except Exception as e:  # noqa: BLE001
         logger.exception("test_send erreur pour %s", key)
         raise HTTPException(502, f"Erreur d'envoi Brevo : {e}") from e
@@ -420,15 +431,13 @@ def _to_summary(t: EmailTemplate) -> TemplateSummary:
 def _set_sequence_active(
     db: DBSession, admin: AdminIdentity, sequence_key: str, *, active: bool
 ) -> SequenceSummary:
-    items = (
-        db.query(EmailTemplate).filter(EmailTemplate.sequence_key == sequence_key).all()
-    )
+    items = db.query(EmailTemplate).filter(EmailTemplate.sequence_key == sequence_key).all()
     if not items:
         raise HTTPException(404, "Séquence inconnue")
     for t in items:
         if t.active != active:
             t.active = active
-            t.updated_by = (admin.email or admin.user_id)
+            t.updated_by = admin.email or admin.user_id
     _audit(
         db,
         admin,

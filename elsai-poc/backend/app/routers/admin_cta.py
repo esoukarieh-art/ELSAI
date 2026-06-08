@@ -89,9 +89,7 @@ def _audit(
             action=action,
             target_type="cta_block",
             target_id=target_id,
-            details=json.dumps(
-                {**(details or {}), "admin_email": (admin.email or admin.user_id)}
-            ),
+            details=json.dumps({**(details or {}), "admin_email": (admin.email or admin.user_id)}),
         )
     )
 
@@ -172,7 +170,10 @@ def create_cta(
     db.add(block)
     db.flush()
     _audit(
-        db, admin, "cta.create", block.id,
+        db,
+        admin,
+        "cta.create",
+        block.id,
         {"key": block.key, "variant": block.variant, "component": block.component},
     )
     db.commit()

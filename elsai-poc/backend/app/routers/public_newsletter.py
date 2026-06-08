@@ -82,9 +82,7 @@ class UnsubscribeRequest(BaseModel):
 
 
 @router.post("/subscribe", response_model=SubscribeResponse)
-def subscribe(
-    payload: SubscribeRequest, db: DBSession = Depends(get_db)
-) -> SubscribeResponse:
+def subscribe(payload: SubscribeRequest, db: DBSession = Depends(get_db)) -> SubscribeResponse:
     if not payload.consent:
         raise HTTPException(400, "Consentement RGPD requis.")
     if payload.audience not in _ALLOWED_AUDIENCES:
@@ -96,11 +94,7 @@ def subscribe(
     # Lead magnet (optionnel) : doit exister et être actif
     magnet: LeadMagnet | None = None
     if payload.lead_magnet_key:
-        magnet = (
-            db.query(LeadMagnet)
-            .filter(LeadMagnet.key == payload.lead_magnet_key)
-            .first()
-        )
+        magnet = db.query(LeadMagnet).filter(LeadMagnet.key == payload.lead_magnet_key).first()
         if magnet is None or not magnet.active:
             # On n'échoue pas : on log et on ignore le magnet
             logger.info(
@@ -111,9 +105,7 @@ def subscribe(
 
     # Idempotence : subscriber actif déjà présent → 200 silent
     existing = (
-        db.query(NewsletterSubscriber)
-        .filter(NewsletterSubscriber.email_hash == email_hash)
-        .first()
+        db.query(NewsletterSubscriber).filter(NewsletterSubscriber.email_hash == email_hash).first()
     )
     if existing is not None and existing.unsubscribed_at is None:
         return SubscribeResponse(
@@ -178,18 +170,14 @@ def subscribe(
 
 
 @router.post("/unsubscribe")
-def unsubscribe(
-    payload: UnsubscribeRequest, db: DBSession = Depends(get_db)
-) -> dict:
+def unsubscribe(payload: UnsubscribeRequest, db: DBSession = Depends(get_db)) -> dict:
     email_clear = str(payload.email).strip().lower()
     if payload.token and not _verify_unsubscribe_token(email_clear, payload.token):
         raise HTTPException(400, "Token invalide.")
 
     email_hash = _hash_email(email_clear)
     sub = (
-        db.query(NewsletterSubscriber)
-        .filter(NewsletterSubscriber.email_hash == email_hash)
-        .first()
+        db.query(NewsletterSubscriber).filter(NewsletterSubscriber.email_hash == email_hash).first()
     )
     if sub is None:
         return {"ok": True}  # silent : pas de fuite d'info

@@ -17,7 +17,6 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
-
 HOME_SCHEMA: dict[str, Any] = {
     "label": "Page d'accueil",
     "seo": True,
@@ -35,7 +34,11 @@ HOME_SCHEMA: dict[str, Any] = {
                 {"key": "cta_primary_href", "label": "CTA principal - lien", "type": "url"},
                 {"key": "cta_secondary_label", "label": "CTA secondaire - texte", "type": "text"},
                 {"key": "cta_secondary_href", "label": "CTA secondaire - lien", "type": "url"},
-                {"key": "trust_line", "label": "Ligne de confiance (puces séparées par ·)", "type": "text"},
+                {
+                    "key": "trust_line",
+                    "label": "Ligne de confiance (puces séparées par ·)",
+                    "type": "text",
+                },
                 {"key": "image_url", "label": "Image (SVG/PNG)", "type": "image"},
                 {"key": "image_alt", "label": "Texte alternatif image", "type": "text"},
             ],
@@ -195,8 +198,7 @@ _HOME_DEFAULT_BLOCKS: list[dict[str, Any]] = [
                 "tag": "RSA refusé",
                 "title": "On m'a refusé le RSA, est-ce normal ?",
                 "body": (
-                    "On relit ensemble la lettre, on vérifie vos droits, on prépare "
-                    "un recours."
+                    "On relit ensemble la lettre, on vérifie vos droits, on prépare un recours."
                 ),
             },
             {
@@ -208,8 +210,7 @@ _HOME_DEFAULT_BLOCKS: list[dict[str, Any]] = [
                 "tag": "Logement d'urgence",
                 "title": "Je n'ai pas où dormir ce soir",
                 "body": (
-                    "Les numéros utiles, les démarches immédiates, les lieux près de "
-                    "chez vous."
+                    "Les numéros utiles, les démarches immédiates, les lieux près de chez vous."
                 ),
             },
         ],
@@ -557,7 +558,9 @@ _COMMENT_CA_MARCHE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {"label": "Expliquer un courrier administratif (CAF, CPAM, impôts, banque…)"},
             {"label": "Vous indiquer quels droits vous pouvez ouvrir"},
             {"label": "Rédiger un modèle de courrier ou de recours"},
-            {"label": "Trouver le service social ou la Maison France Services la plus proche de chez vous"},
+            {
+                "label": "Trouver le service social ou la Maison France Services la plus proche de chez vous"
+            },
             {"label": "Vous orienter vers des numéros ou des lieux d'urgence"},
         ],
         "cant_title": "✗ ESLAÏ ne peut pas",
@@ -767,7 +770,11 @@ FAQ_SCHEMA: dict[str, Any] = {
             "fields": [
                 {"key": "eyebrow", "label": "Sur-titre", "type": "text"},
                 {"key": "title", "label": "Titre", "type": "text", "required": True},
-                {"key": "subtitle", "label": "Sous-titre (accepte HTML simple)", "type": "textarea"},
+                {
+                    "key": "subtitle",
+                    "label": "Sous-titre (accepte HTML simple)",
+                    "type": "textarea",
+                },
             ],
         },
         {
@@ -904,7 +911,11 @@ CONTACT_SCHEMA: dict[str, Any] = {
             "max": 1,
             "fields": [
                 {"key": "entreprise_title", "label": "Bandeau entreprise - titre", "type": "text"},
-                {"key": "entreprise_body", "label": "Bandeau entreprise - texte", "type": "textarea"},
+                {
+                    "key": "entreprise_body",
+                    "label": "Bandeau entreprise - texte",
+                    "type": "textarea",
+                },
                 {"key": "privacy_note", "label": "Mention RGPD sous bouton", "type": "textarea"},
             ],
         },
@@ -969,8 +980,7 @@ _CONTACT_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "type": "form_notes",
         "entreprise_title": "Demande pré-remplie",
         "entreprise_body": (
-            "Nous vous répondrons sous 48h ouvrées avec une proposition adaptée à votre "
-            "effectif."
+            "Nous vous répondrons sous 48h ouvrées avec une proposition adaptée à votre effectif."
         ),
         "privacy_note": (
             "En nous écrivant, vous acceptez que nous conservions votre email le temps "
@@ -1288,7 +1298,10 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             {"chiffre": "10 Md€", "label": "d'aides sociales non réclamées chaque année en France"},
             {"chiffre": "37 %", "label": "des non-recours sont dus au manque d'information"},
             {"chiffre": "34 %", "label": "des ayants droit au RSA ne le demandent pas"},
-            {"chiffre": "44 %", "label": "des ayants droit à la Complémentaire Santé Solidaire non plus"},
+            {
+                "chiffre": "44 %",
+                "label": "des ayants droit à la Complémentaire Santé Solidaire non plus",
+            },
         ],
     },
     {
@@ -1296,10 +1309,22 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Pour vos salariés",
         "title": "Un accueil social qu'ils n'auront trouvé nulle part ailleurs.",
         "items": [
-            {"title": "Accessible 24h/24h, 7j/7", "body": "Une question administrative à 22h un dimanche\u00a0? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous."},
-            {"title": "Anonymat total", "body": "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question."},
-            {"title": "IA supervisée par des assistantes sociales", "body": "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État."},
-            {"title": "Orientation vers les services publics", "body": "ESLAÏ ne remplace pas le service social\u00a0: elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…)."},
+            {
+                "title": "Accessible 24h/24h, 7j/7",
+                "body": "Une question administrative à 22h un dimanche\u00a0? Vos salariés obtiennent une réponse tout de suite, sans attendre un rendez-vous.",
+            },
+            {
+                "title": "Anonymat total",
+                "body": "Vos salariés utilisent un code d'accès personnel. Ni vous ni nous ne savons qui pose quelle question.",
+            },
+            {
+                "title": "IA supervisée par des assistantes sociales",
+                "body": "Ce n'est pas un chatbot générique. Les réponses sont construites et vérifiées par des professionnelles diplômées d'État.",
+            },
+            {
+                "title": "Orientation vers les services publics",
+                "body": "ESLAÏ ne remplace pas le service social\u00a0: elle clarifie la situation et oriente vers le bon interlocuteur (CAF, CPAM, CCAS, MDPH…).",
+            },
         ],
     },
     {
@@ -1307,10 +1332,22 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Pour votre entreprise",
         "title": "Un bénéfice concret, mesurable, différenciant.",
         "items": [
-            {"title": "Moins d'absentéisme", "body": "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite."},
-            {"title": "Un avantage social différenciant", "body": "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT."},
-            {"title": "Confidentialité totale", "body": "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais."},
-            {"title": "Coût maîtrisé", "body": "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne."},
+            {
+                "title": "Moins d'absentéisme",
+                "body": "Les soucis de logement, de dette ou de famille sont une cause majeure d'arrêts et de baisse de productivité. ESLAÏ aide à les résoudre plus vite.",
+            },
+            {
+                "title": "Un avantage social différenciant",
+                "body": "Rare dans les PME. Un signal fort pour la marque employeur, au même titre qu'une mutuelle renforcée ou un programme QVT.",
+            },
+            {
+                "title": "Confidentialité totale",
+                "body": "Vous recevez uniquement des statistiques agrégées anonymisées. Aucun salarié n'est identifiable, jamais.",
+            },
+            {
+                "title": "Coût maîtrisé",
+                "body": "À partir de 3 € par salarié et par mois, sans surprise. Bien en deçà du coût d'un service social interne.",
+            },
         ],
     },
     {
@@ -1381,9 +1418,21 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Déploiement",
         "title": "Opérationnel en moins de deux semaines.",
         "items": [
-            {"num": "01", "titre": "Contrat & codes d'accès", "texte": "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes."},
-            {"num": "02", "titre": "Communication interne", "texte": "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service."},
-            {"num": "03", "titre": "Vos salariés utilisent ESLAÏ", "texte": "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé."},
+            {
+                "num": "01",
+                "titre": "Contrat & codes d'accès",
+                "texte": "Nous signons le contrat, vous recevez un lot de codes d'accès personnels à distribuer à vos équipes.",
+            },
+            {
+                "num": "02",
+                "titre": "Communication interne",
+                "texte": "Nous vous fournissons un kit prêt à l'emploi (affiche, email type, message Slack/Teams) pour annoncer le service.",
+            },
+            {
+                "num": "03",
+                "titre": "Vos salariés utilisent ESLAÏ",
+                "texte": "Depuis leur téléphone ou leur ordinateur, à tout moment, en toute confidentialité. Vous recevez un reporting anonymisé.",
+            },
         ],
     },
     {
@@ -1391,12 +1440,30 @@ _OFFRE_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Questions fréquentes",
         "title": "Ce que les DRH nous demandent souvent.",
         "items": [
-            {"question": "Comment est garantie la confidentialité vis-à-vis de l'employeur\u00a0?", "answer": "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global)."},
-            {"question": "Où sont hébergées les données\u00a0?", "answer": "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique."},
-            {"question": "Quelle est la différence avec un EAP (Employee Assistance Program) classique\u00a0?", "answer": "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives\u00a0: logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire."},
-            {"question": "Que se passe-t-il si un salarié a besoin d'un suivi long\u00a0?", "answer": "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée)."},
-            {"question": "Comment se passe la facturation\u00a0?", "answer": "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable."},
-            {"question": "Peut-on tester avant de s'engager\u00a0?", "answer": "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large."},
+            {
+                "question": "Comment est garantie la confidentialité vis-à-vis de l'employeur\u00a0?",
+                "answer": "Chaque salarié dispose d'un code d'accès personnel. Aucune donnée nominative n'est transmise à l'employeur. Le reporting que vous recevez ne contient que des statistiques agrégées (thématiques les plus consultées, taux d'utilisation global).",
+            },
+            {
+                "question": "Où sont hébergées les données\u00a0?",
+                "answer": "En France, chez un hébergeur souverain. Aucune donnée n'est transférée hors de l'Union européenne. Nos pratiques sont conformes au RGPD et détaillées sur notre page éthique.",
+            },
+            {
+                "question": "Quelle est la différence avec un EAP (Employee Assistance Program) classique\u00a0?",
+                "answer": "Les EAP sont centrés sur le soutien psychologique. ESLAÏ est spécialisée sur les droits sociaux et les démarches administratives\u00a0: logement, CAF, surendettement, santé, handicap, parentalité. C'est complémentaire.",
+            },
+            {
+                "question": "Que se passe-t-il si un salarié a besoin d'un suivi long\u00a0?",
+                "answer": "ESLAÏ est un service de premier accueil. Pour les situations qui nécessitent un accompagnement dans la durée, nous orientons systématiquement vers le service compétent (CCAS, service social départemental, association spécialisée).",
+            },
+            {
+                "question": "Comment se passe la facturation\u00a0?",
+                "answer": "Facturation mensuelle ou annuelle, par virement SEPA ou prélèvement. Vous recevez une facture conforme chaque mois, exploitable directement par votre service comptable.",
+            },
+            {
+                "question": "Peut-on tester avant de s'engager\u00a0?",
+                "answer": "Oui. Nous proposons une phase pilote de 3 mois sur un périmètre réduit (un service, un site) pour évaluer l'adoption et l'impact avant déploiement plus large.",
+            },
         ],
     },
     {
@@ -1538,10 +1605,22 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
             "nécessaire."
         ),
         "items": [
-            {"title": "Réorientation systématique", "body": "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié."},
-            {"title": "Transparence des pratiques", "body": "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur."},
-            {"title": "Désengorgement des accueils", "body": "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte."},
-            {"title": "Donnée souveraine", "body": "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles."},
+            {
+                "title": "Réorientation systématique",
+                "body": "Nous ne gardons pas l'usager chez nous. ESLAÏ oriente vers le bon service (CAF, CPAM, CCAS, France Services) avec un dossier déjà clarifié.",
+            },
+            {
+                "title": "Transparence des pratiques",
+                "body": "Nos règles éthiques, notre gouvernance et nos sources de financement sont publiques. ESLAÏ est portée par un binôme assistante sociale diplômée + ingénieur.",
+            },
+            {
+                "title": "Désengorgement des accueils",
+                "body": "En répondant aux questions simples de premier niveau, nous permettons à vos équipes de se concentrer sur l'accompagnement humain qui compte.",
+            },
+            {
+                "title": "Donnée souveraine",
+                "body": "Hébergement en France, conformité RGPD, aucun transfert hors UE. Nous pouvons co-signer les engagements vis-à-vis de vos tutelles.",
+            },
         ],
     },
     {
@@ -1549,10 +1628,22 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "À qui nous nous adressons",
         "title": "Les structures avec qui nous souhaitons travailler.",
         "items": [
-            {"title": "CCAS & services sociaux départementaux", "body": "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée."},
-            {"title": "France Services & maisons de services au public", "body": "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié."},
-            {"title": "Associations sociales & caritatives", "body": "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair."},
-            {"title": "Collectivités territoriales", "body": "Dans le cadre des dispositifs «\u00a0Territoires zéro non-recours\u00a0», ESLAÏ peut être déployée comme brique numérique complémentaire."},
+            {
+                "title": "CCAS & services sociaux départementaux",
+                "body": "Un relais 24h/24h pour répondre aux questions de premier niveau et libérer du temps aux travailleurs sociaux sur les accompagnements à forte valeur ajoutée.",
+            },
+            {
+                "title": "France Services & maisons de services au public",
+                "body": "Un outil complémentaire pour prolonger l'accompagnement au-delà des heures d'ouverture et préparer les rendez-vous avec un dossier déjà clarifié.",
+            },
+            {
+                "title": "Associations sociales & caritatives",
+                "body": "Pour les structures qui orientent déjà des publics vulnérables, ESLAÏ apporte une réponse immédiate sur les droits, en français clair.",
+            },
+            {
+                "title": "Collectivités territoriales",
+                "body": "Dans le cadre des dispositifs «\u00a0Territoires zéro non-recours\u00a0», ESLAÏ peut être déployée comme brique numérique complémentaire.",
+            },
         ],
     },
     {
@@ -1560,9 +1651,21 @@ _PARTENARIATS_DEFAULT_BLOCKS: list[dict[str, Any]] = [
         "eyebrow": "Formats de partenariat",
         "title": "Plusieurs niveaux d'intégration, selon vos besoins.",
         "items": [
-            {"title": "Lien simple", "body": "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.", "cost": "Gratuit"},
-            {"title": "Co-branding", "body": "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.", "cost": "À discuter"},
-            {"title": "Intégration métier", "body": "Intégration dans votre SI ou votre portail usager, reporting dédié.", "cost": "Sur devis"},
+            {
+                "title": "Lien simple",
+                "body": "Renvoi depuis votre site vers ESLAÏ, sans intégration technique.",
+                "cost": "Gratuit",
+            },
+            {
+                "title": "Co-branding",
+                "body": "Page d'accueil aux couleurs partenaire, parcours dédié pour vos usagers.",
+                "cost": "À discuter",
+            },
+            {
+                "title": "Intégration métier",
+                "body": "Intégration dans votre SI ou votre portail usager, reporting dédié.",
+                "cost": "Sur devis",
+            },
         ],
     },
     {

@@ -10,12 +10,11 @@ import json
 import logging
 from datetime import UTC, datetime
 
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 from sqlalchemy import desc
 from sqlalchemy.orm import Session as DBSession
-
-import httpx
 
 from ..admin_auth import (
     CONTENT_ROLES,
@@ -221,12 +220,7 @@ def _to_summary(post: BlogPost) -> BlogPostSummary:
 
 
 def _to_detail(db: DBSession, post: BlogPost) -> BlogPostDetail:
-    ctas = (
-        db.query(PostCTA)
-        .filter(PostCTA.post_id == post.id)
-        .order_by(PostCTA.sort_order)
-        .all()
-    )
+    ctas = db.query(PostCTA).filter(PostCTA.post_id == post.id).order_by(PostCTA.sort_order).all()
     return BlogPostDetail(
         **_to_summary(post).model_dump(),
         hero_eyebrow=post.hero_eyebrow,
@@ -543,7 +537,9 @@ def schedule_post(
     _snapshot_revision(db, post, admin)
     post.status = "scheduled"
     post.scheduled_for = payload.scheduled_for
-    _audit(db, admin, "blog.schedule", post.id, {"scheduled_for": payload.scheduled_for.isoformat()})
+    _audit(
+        db, admin, "blog.schedule", post.id, {"scheduled_for": payload.scheduled_for.isoformat()}
+    )
     db.commit()
     db.refresh(post)
     return _to_detail(db, post)
@@ -577,10 +573,27 @@ def revert_post(
         raise HTTPException(500, "Snapshot illisible") from exc
 
     for field in (
-        "slug", "title", "description", "hero_eyebrow", "content_mdx", "tags_json",
-        "reading_minutes", "audience", "kind", "target_keyword", "search_intent", "cluster_id",
-        "readability_score", "readability_level", "author_display", "status",
-        "seo_title", "seo_description", "og_image_url", "schema_type", "schema_extra_json",
+        "slug",
+        "title",
+        "description",
+        "hero_eyebrow",
+        "content_mdx",
+        "tags_json",
+        "reading_minutes",
+        "audience",
+        "kind",
+        "target_keyword",
+        "search_intent",
+        "cluster_id",
+        "readability_score",
+        "readability_level",
+        "author_display",
+        "status",
+        "seo_title",
+        "seo_description",
+        "og_image_url",
+        "schema_type",
+        "schema_extra_json",
     ):
         if field in snap and snap[field] is not None:
             setattr(post, field, snap[field])
@@ -607,9 +620,7 @@ def attach_cta(
     if not _can_edit(admin, post):
         raise HTTPException(403, "Permission insuffisante")
 
-    cta_exists = (
-        db.query(CTABlock).filter(CTABlock.key == payload.cta_key).first()
-    )
+    cta_exists = db.query(CTABlock).filter(CTABlock.key == payload.cta_key).first()
     if not cta_exists:
         raise HTTPException(404, "CTA inconnu")
 
@@ -636,7 +647,10 @@ def attach_cta(
                 )
             )
     _audit(
-        db, admin, "blog.attach_cta", post.id,
+        db,
+        admin,
+        "blog.attach_cta",
+        post.id,
         {"cta_key": payload.cta_key, "detach": payload.detach},
     )
     db.commit()

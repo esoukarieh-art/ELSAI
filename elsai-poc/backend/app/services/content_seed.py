@@ -125,9 +125,7 @@ def seed_content(db: Session) -> None:
     # 2. CTA blocks ----------------------------------------------------------
     for key, component, label, audience in _CTA_BLOCKS:
         exists = (
-            db.query(CTABlock)
-            .filter(CTABlock.key == key, CTABlock.variant == "control")
-            .first()
+            db.query(CTABlock).filter(CTABlock.key == key, CTABlock.variant == "control").first()
         )
         if exists is None:
             db.add(

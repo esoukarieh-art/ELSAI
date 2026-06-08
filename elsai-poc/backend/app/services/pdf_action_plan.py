@@ -13,7 +13,7 @@ from anthropic import Anthropic
 from sqlalchemy.orm import Session as DBSession
 
 from ..config import settings
-from ..models import Conversation, Message
+from ..models import Message
 
 EXTRACT_SYSTEM = """Tu es un assistant qui extrait un plan d'action à partir d'une
 conversation entre un utilisateur et ESLAÏ (assistant social numérique).
@@ -86,15 +86,17 @@ def render_pdf(plan: ActionPlan) -> bytes:
     try:
         from weasyprint import HTML
     except ImportError as exc:  # pragma: no cover
-        raise RuntimeError("weasyprint non installé — lancer pip install -r requirements.txt") from exc
+        raise RuntimeError(
+            "weasyprint non installé — lancer pip install -r requirements.txt"
+        ) from exc
 
     steps_html = "".join(
         f"""
         <li>
-          <h3>{i + 1}. {esc(s.get('title', ''))}</h3>
-          <p class="why"><strong>Pourquoi :</strong> {esc(s.get('why', ''))}</p>
-          {('<p class="contact"><strong>Interlocuteur :</strong> ' + esc(s.get('contact', '')) + '</p>') if s.get('contact') else ''}
-          {render_docs(s.get('documents', []))}
+          <h3>{i + 1}. {esc(s.get("title", ""))}</h3>
+          <p class="why"><strong>Pourquoi :</strong> {esc(s.get("why", ""))}</p>
+          {('<p class="contact"><strong>Interlocuteur :</strong> ' + esc(s.get("contact", "")) + "</p>") if s.get("contact") else ""}
+          {render_docs(s.get("documents", []))}
         </li>
         """
         for i, s in enumerate(plan.steps)

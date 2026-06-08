@@ -95,6 +95,7 @@ def _resolve_price_id(plan: str, cycle: str) -> str:
 
 # --------- Schemas ---------
 
+
 class CheckoutRequest(BaseModel):
     plan: str = Field(..., pattern="^(essentiel|premium)$")
     billing_cycle: str = Field("monthly", pattern="^(monthly|yearly)$")
@@ -136,6 +137,7 @@ class OrganizationView(BaseModel):
 
 
 # --------- Endpoints ---------
+
 
 @router.post("/checkout", response_model=CheckoutResponse)
 def create_checkout(
@@ -216,7 +218,7 @@ async def stripe_webhook(
             secret=settings.stripe_webhook_secret,
         )
     except (ValueError, stripe.error.SignatureVerificationError) as e:
-        raise HTTPException(400, f"Signature invalide : {e}")
+        raise HTTPException(400, f"Signature invalide : {e}") from e
 
     handler = _EVENT_HANDLERS.get(event["type"])
     if handler:
@@ -225,6 +227,7 @@ async def stripe_webhook(
 
 
 # --------- Admin organisation (auth par token signé dans query) ---------
+
 
 @router.get("/organization", response_model=OrganizationView)
 def get_organization(
@@ -298,6 +301,7 @@ def resend_activation_email(
 
 
 # --------- Event handlers ---------
+
 
 def _generate_code() -> str:
     # 12 chars alphanum, lisible (sans 0/O/1/l)

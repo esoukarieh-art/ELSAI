@@ -48,11 +48,7 @@ def generate_one(
         raise ValueError("Right, situation ou département introuvable")
 
     cslug = composite_slug(right.slug, situation.slug, dept.slug)
-    page = (
-        db.query(LongTailPage)
-        .filter_by(composite_slug=cslug)
-        .first()
-    )
+    page = db.query(LongTailPage).filter_by(composite_slug=cslug).first()
 
     user_prompt = (
         f"Rédige la page d'information sur le droit '{right.name}' pour la situation "
@@ -68,9 +64,7 @@ def generate_one(
         system=LONGTAIL_SYSTEM,
         messages=[{"role": "user", "content": user_prompt}],
     )
-    content_md = "".join(
-        block.text for block in response.content if hasattr(block, "text")
-    ).strip()
+    content_md = "".join(block.text for block in response.content if hasattr(block, "text")).strip()
     word_count = len(content_md.split())
 
     title = composite_title(right, situation, dept)
